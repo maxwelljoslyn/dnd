@@ -1,0 +1,11 @@
+# permanent
+*.pdf
+finished
+images
+__pycache__
+before-2021
+alexis-smolensk-all-blogs.txt
+code/created-characters
+code/old
+# temporary
+dming
