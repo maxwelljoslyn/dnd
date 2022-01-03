@@ -1,0 +1,10 @@
+Protection
+Range: touch
+Casting Time: 1 round
+Duration: 1 minute + 1 round/level
+Area of Effect: 1 creature
+Reversible: no
+Save: none
+Type: Enchantment
+
+This spell protects its target. Armor class is improved by 2, and all saving throws gain a +2 bonus.

@@ -1,0 +1,19 @@
+Unseen Servant
+Range: 0
+Casting Time: 1 round
+Duration: 1 hour + 10 minutes/level
+Area of Effect: 30 foot radius centered on the caster
+Save: none
+Type: Conjuration
+
+This spell summons a minor air spirit to perform tasks. The unseen servant is invisible, although Detect Magic will reveal its presence since it is magically bound. The servant must remain within the spell's area of effect, which moves with the caster. The caster must speak to command the servant. The servant will not obey anyone other than the caster.
+
+The unseen servant has 1 HD and 5 HP. It cannot attack or defend itself in any way; on the other hand, it cannot be attacked, but can be damaged by area or environmental effects.
+
+It is not powerful enough to fly or even to levitate, so for movement purposes it is treated as a normal ambulatory creature, with the exception that it can cross water, mud, and other soft surfaces without slowdown.
+
+The unseen servant can fetch objects, fold and hang laundry, and polish things like boots and armor. It can open doors and containers, and turn keys in locks. It can hold or carry up to 20 pounds of material, and need not set items down to perform other tasks. It can exert force as if it had a Strength of 5.
+
+For further adjudication of what the unseen servant can do, consider the task of making a meal. Anything analogous to the physical actions of cooking is probably acceptable: stirring, lifting, pouring, scrubbing and wiping, scooping, pressing, and so on -- all are acceptable.
+
+The unseen servant can take a chain of commands at once, but cannot act conditional on events or on the results of its actions.

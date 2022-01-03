@@ -1,0 +1,17 @@
+Erase
+Range: 5 feet
+Casting Time: 1 round
+Duration: permanent
+Area of Effect: 1 page of writing + 1 page/2 levels (2 pages at 2nd, 3 pages at 4th, etc)
+Saving Throw: special
+Type: Transmutation
+
+This spell removes mundane or magical writing from paper, parchment, or cloth. It does not affect writing which has been made or engraved on metal, stone, or wood. Afterwards, the material is as if it had never been written on.
+
+One page is a specific unit of length which will be defined in the pricing tables. For now, consider it be 12 inches of paper or 250 words, whichever is shorter for a given target. There are no partial pages for the purposes of this spell: even a single word on a piece of paper would count as a one-page target.
+
+This spell cannot affect Explosive Runes or a Symbol spell.
+
+The pages targeted may belong to multiple documents.
+
+The pages targeted by this spell may save, one at at time, against the spell's effect. The base chance of a page being affected is 50%, plus 4% per level for mundane pages, and 2% per level for magical ones. Rolling equal or below this chance for a given page means that page is affected.

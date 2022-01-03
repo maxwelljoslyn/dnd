@@ -1,0 +1,15 @@
+Floating Disk
+Range: 20 feet
+Casting Time: 1 round
+Duration: 30 minutes + 10 minutes/level
+Area of Effect: special
+Save: n/a
+Type: Evocation
+
+This spell creates a translucent, floating force disk. It is slightly concave, three feet in diameter, and can hold 100 pounds of weight per caster level. The disk floats about three feet above the ground, measuring down from the center of the disk, and remains level at all times.
+
+If not otherwise directed, the disk will follow behind its user with a 5 foot gap between them (i.e. two hexes away from the caster.) By concentrating, the caster can cause the disk to move around within the listed range; if necessary, the disk is considered to have 8 AP for the purposes of movement, although of course it cannot run or otherwise benefit from increased speed in any way.
+
+The disk cannot withstand crushing, and the spell will end if it is subjected to such pressures. The spell will also end if the disk has taken more than 10 total damage of any kind. However, it can withstand some measure of pushing and shoving: it will not budge substantially unless a Strength check made at a -4 penalty is successful (time cost: 3 AP). Success will temporarily upset the disk's energies, scattering its cargo and rendering it unusable for 5 minutes until it stabilizes.
+
+The spell will also end early if the caster moves out of the listed range.

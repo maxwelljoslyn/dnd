@@ -1,0 +1,29 @@
+Cure Light Wounds
+Range: touch
+Casting Time: 1 round
+Duration: permanent
+Area of Effect: 1 creature
+Reversible: yes
+Save: none
+Type: Necromancy
+
+Cure Light Wounds heals d4+4 HP. This spell cannot affect creatures
+without corporeal bodies, nor can it restore HP to undead, constructs,
+or other non-living creatures.
+
+The creature that is touched heals as many HP as it is able; there is
+no chance for the cleric to purposely limit the flow of healing to
+save it for another target. However, should a recipient reaches full
+HP before all of the spell's healing is expended, then the spell is
+not fully discharged, and will remain usable into the next round. The remainder of the
+healing may be given to another target, as long as this is done in the
+next round; otherwise the spell dissipates and the rest of the healing
+is wasted.
+
+The above rules for expending healing on multiple recipients can go
+beyond a second target to as many as possible, as long as a new target
+is still touched each round. If the targets are not clumped togther
+this may prove impossible, since the cleric can still only move 5 feet
+per round while maintaining concentration on the spell.
+
+The reversed spell will deal the same amount of damage if a touch attack succeeds. If this attack fails, the spell is not discharged.

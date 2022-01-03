@@ -1,0 +1,16 @@
+Create Water
+Range: 10 feet
+Casting Time: 1 round
+Duration: permanent
+Area of Effect: up to 27 cubic feet
+Reversible: yes
+Save: none
+Type: Evocation
+
+Create Water generates 4 gallons of water per level of the caster. The water is clean and drinkable. It is not special in any respect, and can evaporate, freeze, etc. just like normal water. When reversed, the spell destroys the same quantity of water it would normally create, with no vapor, mist, fog, steam, or other trace given off.
+
+Water can be created or destroyed in an area as small as will contain all the liquid, or as large as 27 cubic feet in one contiguous area. Note that one cubic foot can hold approximately 7.48 gallons of liquid. A cleric who wants to cast the spell in a particuarly small area, but who would ordinarily create too much water due to high level, can voluntarily create less water than the normal amount.
+
+A solution containing water does not count as water for the purposes of destroying it, but a mixture does. For example, beer and wine may not be destroyed with the reversed spell, but a bucket of seawater can be, leaving the minerals and sediment behind.
+
+Water cannot be created or destroyed inside any creature, but water in a container can be destroyed.

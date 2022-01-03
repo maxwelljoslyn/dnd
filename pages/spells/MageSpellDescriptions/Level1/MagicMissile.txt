@@ -1,0 +1,11 @@
+Magic Missile
+Range: 60 feet + 10 feet/level
+Casting Time: 1 round
+Duration: instanteous
+Area of Effect: one or more creatures, all of which must be within a square 20 feet on a side
+Save: none
+Type: Evocation
+
+This spell creates and launches a magical energy bolt at the target. Magic missiles hit automatically, with no attack roll needed, and each one does d4+1 damage (2-5).
+
+At 3rd level, and every two levels thereafter, the spell produces an additional missile, up to a maximum of 5 missiles at 9th level. The mage can direct these missiles at multiple creatures, if desired.

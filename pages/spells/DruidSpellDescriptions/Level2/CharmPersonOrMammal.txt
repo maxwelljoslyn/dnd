@@ -1,0 +1,6 @@
+Charm Person Or Mammal
+Area of Effect: one person or mammalian creature
+
+Except for the above, this spell is the same as the 1st level mage spell.
+
+The caster should note well that this spell does not in itself allow communication with an animal; other spells, such as Speak With Animals, must be employed for that.

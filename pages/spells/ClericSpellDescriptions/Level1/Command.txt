@@ -1,0 +1,20 @@
+Command
+Range: 60 feet
+Casting Time: 1 AP
+Duration: 1 round
+Area of Effect: 1 creature
+Reversible: no
+Save: see below
+Type: Charm
+
+The cleric casts Command by uttering a single verb (and the normal additional 1 AP to discharge a spell is not required: the spell takes effect immediately). The enemy, on their next turn, does what the cleric commands them to do. Normally there is no save for Command, but the target can save versus Magic if they fulfill one or both of these conditions: Intelligence 13 or greater, 6 or more HD.
+
+The following is a list of words which are commonly chosen as the command, and their effects. Of course, this list is non-exhaustive.
+
+Flee/leave/run/retreat: the enemy will move as far away from the caster as possible.
+
+Sleep/rest/die: the enemy will fall asleep for 1 round, waking up just before its next turn.
+
+Fall/trip: the enemy will fall prone.
+
+Surrender/submit: the enemy will take no hostile action for 1 round.

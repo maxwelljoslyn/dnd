@@ -1,0 +1,4 @@
+Create Water
+Reversible: no
+
+Except for the changes above, this spell is as the 1st level cleric spell.

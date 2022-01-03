@@ -1,0 +1,13 @@
+Shocking Grasp
+Range: touch
+Casting Time: 1 round
+Duration: 3 rounds or until discharged; damage itself is instantaneous
+Area of Effect: 1 creature
+Save: none
+Type: Evocation
+
+Casting this spell charges the mage with electricity. Once cast, within the next 3 rounds, the mage can lay his hand on a creature and discharge the spell to deal damage: 1d8, +1 point per level. Touching a creature requires an attack against AC 10.
+
+The spell is not prematurely discharged if an enemy touches or attacks the mage.
+
+The spell can also be discharged through a conductor if the desired target is touching one. This confers no advantage if the item is equipped or wielded by the opponent, since they are still assumed to be activ defensively; however, if it is just something the opponent's body is in contact with, such as a wire or a pool of impure water, then discharging the spell through a conductor doesn't require an attack roll.

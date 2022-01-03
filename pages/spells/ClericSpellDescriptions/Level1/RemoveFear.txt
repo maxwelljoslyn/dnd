@@ -1,0 +1,14 @@
+Remove Fear
+Range: 15 feet
+Casting Time: 1 round
+Duration: 1 minute; special
+Area of Effect: 1 creature
+Reversible: yes
+Save: Magic if reversed
+Type: Enchantment
+
+Remove Fear raises the target creature's saving throw against fear (including magical effects) by +4 for one minute.
+
+If the target has already been affected by fear, then the spell grants them another saving throw against the effect, with a +1 bonus for each level of the caster.
+
+The reversed spell causes the victim to flee at maximum movement away from the caster for 1 round per caster level.

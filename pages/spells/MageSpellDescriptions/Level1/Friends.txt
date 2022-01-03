@@ -1,0 +1,22 @@
+Friends
+Range: self
+Casting Time: 1 round
+Duration: 30 seconds/level
+Area of Effect: sphere of radius 10 feet + 10 feet/level
+Save: Magic (determines effect)
+Type: Charm, Enchantment
+
+This spell causes the caster's Charisma to be temporarily altered. Roll 2d4 to determine the "bonus" and 1d4 to determine the "malus."
+
+Creatures which fail their save treat the caster as if the caster's Charisma was "bonus" points higher. In addition, such creatures will be unusually impressed by the caster, fawning over him, and eager to offer help or assistance. Positively-affected creatures will not, however, fight on the caster's behalf, nor will they obey orders and commands (they must still be negotiated with.) Finally, they will not behave differently than normal toward the rest of the caster's party.
+
+Creatures which make their save will treat the caster's Charisma as "malus" points lower. In addition, such creatures will be uneasy or irritated by the caster's presence and behavior.
+
+Both the "bonus" and "malus" dice are rolled only once, not re-rolled for each new creature. The spell cannot increase Charisma past 20 or lower it past 1; any potential change past those limits is not counted.
+
+The area of effect moves with the caster.
+
+The spell has no effect on creatures of 3 or lower Intelligence.
+
+Applications:
+The most obvious use of the Friends spell is to try and get aid from one or more creatures. Given the two-sided nature of the spell effects, and the likelihood of getting both successful and unsuccessful saves in a group of creatures, Friends is also useful as a way to sow confusion among a group of foes.

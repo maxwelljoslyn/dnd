@@ -1,0 +1,18 @@
+---
+title: Control Fire
+---
+
+- Range: 10 feet/level
+- Casting Time: 1 round
+- Duration: 10 minutes/level
+- Area of Effect: 1 fire at a time; target can be changed during duration
+- Save: none
+- Type: Alteration
+
+This spell allows the caster to manipulate the size and light-casting properties of a fire of a certain size, which can be as small as that of a torch, or as large as that of a regular campfire approximately 3' in diameter. Once the spell has been discharged on a target fire, that fire can be made to reduce in size and/or dim in light intensity to that of a match. If not reduced in size, it can instead be made to grow much brighter (although not any larger), thus shedding light as a Light spell. The fire will retain its new size and/or light level until the spell ends, even if the spell is switched to a different target (see below).
+
+Predefined sizes are: match, candle, torch/lantern, campfire. Predefined light intensities are: match, candle, torch/lantern, campfire, Light spell. For more information related to light sources, their properties, and ability to see, see Visibility.
+
+The caster can repeatedly change the fire's properties within these parameters, each time speaking modifications to the spell (1 AP). The caster can switch the spell to a different fire for 1 AP, although this does not immediately manipulate the new fire.
+
+This spell cannot create a fire where there is none, nor can it completely extinguish a fire (although a fire could run out of fuel). Fuel consumption is reduced or increased by 25%, measuring from the fire's original size, for each "step" of size or illumination by which the fire is weakened or strengthened.

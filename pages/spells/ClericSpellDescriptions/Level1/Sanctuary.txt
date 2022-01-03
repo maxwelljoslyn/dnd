@@ -1,0 +1,14 @@
+Sanctuary
+Range: self
+Casting Time: 1 round
+Duration: 2 rounds, +2 rounds/level
+Area of Effect: self
+Reversible: no
+Save: none
+Type: Enchantment
+
+Sanctuary causes other creatures to ignore the cleric, as though he or she were not worth bothering about. During this time, creatures will not attack, nor will they be aware of the cleric’s presence.
+
+The cleric is physically restrained by the spell from taking any aggressive action or from discharging spells that have any effect upon other creatures, even beneficial ones. The cleric must spend one round of effort to end the spell early, if they want to return to normal action.
+
+While Sanctuary is in effect, the cleric is unable to move more than 2 hexes per round. The cleric also gains a +4 bonus to save against area-effect spells or attacks, whether magical or non-magical.

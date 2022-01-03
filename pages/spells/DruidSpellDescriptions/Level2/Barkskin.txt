@@ -1,0 +1,10 @@
+Barkskin
+Range: touch
+Casting Time: 1 round
+Duration: 1 minute/level
+Area of Effect: 1 creature
+Reversible: no
+Save: n/a
+Type: Transmutation, Enchantment
+
+Barkskin causes the target's skin to become as tough as bark. This increases the target's armor class by 2 points, and also grants a +2 bonus on saving throws. The AC bonus stacks with everything but natural armor; it supercedes a lesser natural armor bonus, and is ignored if the creature's natural armor already improves AC by 2 or more points.

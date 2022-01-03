@@ -1,0 +1,12 @@
+Bless
+Range: 60 feet
+Casting Time: 1 round
+Duration: 1 hour
+Area of Effect: 30 foot radius circle
+Reversible: yes
+Save: none
+Type: Enchantment
+
+Bless raises morale by +1 and also raises attack rolls by +1. The recipients do not need to be believers, as it is the cleric's will that they be bolstered.
+
+The reverse form causes the opposite of both effects.

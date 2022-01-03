@@ -1,0 +1,4 @@
+Detect Magic
+Reversible: no
+
+This spell is as the 1st level mage spell.

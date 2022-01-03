@@ -1,0 +1,17 @@
+Shield
+Range: self
+Casting Time: 1 round
+Duration: 1 minute/level
+Area of Effect: special
+Save: none
+Type: Evocation
+
+Shield creates an invisible magical barrier in front of the mage. This barrier confers the following benefits, which are effective *only* against attacks which are made from the front:
+
+1) Magic Missile attacks are totally negated.
+
+2) The mage gets AC 2 vs. hand-propelled missiles, such as axes, daggers, and spears.
+
+3) The mage gets AC 3 vs. mechanically-assisted missiles, such as arrows, bolts, and bullets. This score also applies against a giant's thrown boulders or against natural attacks which are missiles, such as acid spit or manticore spikes.
+
+4) The mage gets AC 4 against all other attacks.

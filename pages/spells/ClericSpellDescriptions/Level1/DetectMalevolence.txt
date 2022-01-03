@@ -1,0 +1,16 @@
+Detect Malevolence
+Range: self
+Casting Time: 1 round
+Duration: 1 minute + 1 minute/level
+Area of Effect: 60 degree arc, out to 120 feet
+Reversible: no
+Save: none
+Type: Divination
+
+This spell reveals enemies of the cleric: those who threaten or wish to harm the cleric or his companions.
+
+The detection reveals four degrees of threat: faint, moderate, strong, or overwhelming. If no malevolence is revealed, then that creature is at worst neutral, and may be helpful. Unintelligent creatures and nonliving things (such as traps or dangerous ground) will not be detected.
+
+If a creature detected by the spell is otherwise not visible to the cleric (such as if it is in darkness or invisible) then the cleric will not gain any information about its position, only the knowledge that malevolence is present in the spell's area.
+
+The spell is blocked by that which blocks Detect Magic: 1 foot of stone, 1/2 inch of metal, or 3 feet of wood.

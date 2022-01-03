@@ -1,0 +1,27 @@
+The baseline size is Medium. This is the size of humans and most humanoid creatures. A Medium creature takes up one hex and cannot share it with other creatures without drawbacks.
+
+The next size down is Small. Two Small creatures can share a hex voluntarily (i.e. with no problems.)
+
+The next size below Small is Tiny. Up to 3 Tiny creatures can share a hex voluntarily.
+
+A size up from Medium is Large. A Large creature occupies 2 to 4 hexes.
+
+A further size up is Huge. A creature of this size occupies 5 to 9 hexes.
+
+The next size is Gargantuan, referring to any creature occupying 10 to 18 hexes.
+
+Finally, a Colossal creature occupies 19 or more hexes.
+
+## Size Modifiers to AC
+
+Tiny creatures have a +2 bonus to their AC; Small creatures, a +1 bonus; Large creatures, a -1 penalty; Huge creatures, a -2 penalty; Gargantuan creatures, a -3 penalty.
+
+For those sizes smaller than Medium, this is because such creatures are harder to connect with. The higher AC is typically balanced out by the very small amount of HP which a creature in these size categories gains from mass. The opposite reasoning holds for those creatures bigger than Medium.
+
+## Sharing a Hex
+
+At this time there are no benefits for sharing a hex, although certain creatures or effects may provide exceptions.
+
+For Medium and smaller creatures, one more than the per-hex maximum listed above may be crammed into a hex. For example, two Medium creatures can share a hex if necessary. In such cases, however, attack rolls against either creature will have a +1 bonus. Furthermore, attacks made by the two creatures will have a -1 penalty.
+
+Although it might seem appropriate to also impose a penalty to Breath and Explosion saves on creatures crammed into a hex, this is not done. The reason is that the difficulty of avoiding such attacks is considered to be balanced by a corresponding likelihood of the extra creature's helping to shield against said attack. Thus there is no need to clutter the situation with an extra fiddly bit in this case.

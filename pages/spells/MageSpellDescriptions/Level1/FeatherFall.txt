@@ -1,0 +1,13 @@
+Feather Fall
+Range: 10 feet/level
+Casting Time: 2 AP; see below
+Duration: 1 round + 1 round/5 levels
+Area of Effect: 1 creature or object not exceeding a weight limit of 100 lbs/level
+Saving Throw: none
+Type: Enchantment
+
+Feather Fall causes a falling creature or object to not be subject to the usual laws of gravity and acceleration for a brief period. It removes all of the target's current and momentum. Furthermore the rate of falling is changed to be 20 feet per second, with no acceleration whatsoever, and the target will suffer no damage upon reaching the ground if the spell is still in effect. Thus, over the course of 1 round of the spell's duration, the target may fall 240 feet without any consequences at all. Once the duration is over, however, the creature will begin falling anew, just as if they had begun falling from that point where the spell effect ended.
+
+Because it is usually only useful when cast in response to a creature falling, Feather Fall may be cast out of the normal turn order by the caster's using up of 2 AP from their next turn (Feather Fall, like Command, does not require an additional AP to discharge the spell). If the caster would not have those AP available (such as from being heavily encumbered), then they cannot cast Feather Fall at all.
+
+The caster may choose him or herself as the target for the spell. Feather Fall may also be cast against projectiles when they are launched; doing so causes them to float down right in front of where they were launched.

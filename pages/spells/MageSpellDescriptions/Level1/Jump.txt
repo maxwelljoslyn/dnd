@@ -1,0 +1,13 @@
+Jump
+Range: touch
+Casting Time: 1 round
+Duration: 10 minutes or until all leaps are exhausted
+Area of Effect: 1 creature
+Save: none
+Type: Alteration
+
+The target of this spell is empowered with the ability to make great leaps. From a standing start, the target can jump up to 30 feet in a forward direction; from a running start they can jump up to 50 feet forward. They can also choose to jump 10 feet backward or straight upward. Horizontal leaps have only a slight arc, rising 2 feet for every 10 feet traveled.
+
+In combat, a leap powered by the Jump spell costs 2 AP to perform. Jump does not protect the target in any way from the effects of jumping, such as falling damage or landing on dangerous terrain.
+
+The spell enables the target to make 2 leaps. The spell bestows an additional usage of the power at 3rd, 5th, and higher levels, up to a maximum of 6 leaps at 9th level. All jumps bestowed by the spell must be used within the duration, or they are lost.

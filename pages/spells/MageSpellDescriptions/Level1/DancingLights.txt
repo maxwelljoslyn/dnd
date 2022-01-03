@@ -1,0 +1,17 @@
+Dancing Lights
+Range: 40 feet + 10 feet/level
+Casting Time: 1 round
+Duration: 2 minutes/level
+Area of Effect: special
+Save: n/a
+Type: Evocation
+
+When Dancing Lights is cast, the mage selects one of the options for its effect. In all cases, the lights can move as the caster desires, including up and down, without requiring concentration. The lights can move up to 20 feet per round (4 hexes in combat), which equals 120 feet per minute. The lights must stay within the listed range; if the caster moves too far away or a light is directed to move beyond said range, it will disappear.
+
+The options are as follows. In all cases, the caster may choose how many lights to create.
+
+1) 1 to 4 lights which glow as brightly as torches. They cannot be dimmed or brightened.
+
+2) 1 to 2 lights which may be dimmed or brightened (but not both in the same round). These lights can shed light ranging from the same as a match to the same as a campfire.
+
+3) One man-like shape, similar in appearance to a fire elemental, which glows as brightly as a torch.

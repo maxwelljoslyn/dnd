@@ -1,0 +1,14 @@
+Light
+Range: 90 feet
+Casting Time: 1 round
+Duration: 1 hour + 20 minutes/level
+Area of Effect: globe out to 20 foot radius
+Reversible: no
+Save: none; see below
+Type: Evocation
+
+Light causes an area to be lit up as brightly as a torch. The light comes from all directions and cannot be blocked by any means. If cast on the air, the area of effect is static; if cast on an object, the area moves with the object.
+
+Light can be cast directly at a creature to blind it, in which case a save vs. Magic negates. If the save is successful, the area around the creature is affected instead. If the creature is blinded, the area around it is also illuminated as normal, but this area moves with the affected creature.
+
+The effect of the Light spell does not behave exactly like ordinary natural light. While the area within a Light spell is perfectly illuminated, the illumination ends abruptly at the edge of the area of the effect, with the area beyond the boundary gaining no increase in visibility whatsoever. The light shed by the spell will not even reflect in a mirror outside the effect. Note that creatures outside the light can clearly see creatures inside it, but since the effect has an abrupt border, the opposite may not be true.

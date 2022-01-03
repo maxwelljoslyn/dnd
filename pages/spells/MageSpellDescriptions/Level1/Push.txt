@@ -1,0 +1,13 @@
+Push
+Range: 5 feet + 5 feet/level
+Casting Time: 1 round
+Duration: instantaneous
+Area of Effect: 1 creature or object
+Save: Magic negates
+Type: Evocation
+
+This spell projects a weak telekinetic force against the target, moving it a short distance or pushing it slightly off-balance.
+
+Push can be used to move an object up to 10 feet, with the maximum weight of the object being 1 pound per caster level. Push can move the target object in any direction which points away from the caster.
+
+If Push is used against a creature and that creature fails its save, it is thrown off balance for one round. This manifests as a penalty to AC and attacks equal to half the caster's level (min 1). However, Push is not effective against creatures which are larger than 50 pounds + 25 pounds/level.

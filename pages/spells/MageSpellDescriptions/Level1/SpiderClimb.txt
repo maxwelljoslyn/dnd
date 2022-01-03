@@ -1,0 +1,11 @@
+Spider Climb
+Range: touch
+Casting Time: 1 round
+Duration: 1 minute + 1 round/level
+Area of Effect: 1 creature
+Save: n/a
+Type: Enchantment
+
+This spell enables the target to climb on walls and across ceilings. The target's speed is not affected by this unusual method of locomotion, nor is there any chance of falling no matter the distance traveled no matter the target's skill at climbing. However, there is one caveat: the target must have both hands and both feet bare and empty in order to climb with the aid of this spell.
+
+Creatures which do not walk or crawl, e.g. snakes, cannot be targeted.

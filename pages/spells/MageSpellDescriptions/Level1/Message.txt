@@ -1,0 +1,13 @@
+Message
+Range: 60 feet + 10 feet/level
+Casting Time: 1 round
+Duration: instantaneous
+Area of Effect: one creature
+Save: none
+Type: Evocation
+
+When this spell is discharged, the caster speaks a message they want to send to the target. The message then travels in a straight line to the target, who can hear the message as if the speaker were speaking plainly right next to them. The target may be able to reply: see below.
+
+This spell's discharge cost is special. The normal 1 AP to discharge a spell is waived; instead, this spell costs a certain amount of AP to discharge based on the number of words the caster sends. This rate is the same as the normal rate for speaking. The caster cannot extend the discharge of the spell over multiple rounds to send an extra-long message: the spell is still limited by the normal rule that spells must be discharged within one round of casting.
+
+Should the caster use less than their maximum AP in speaking the message, the target will be allowed to reply to the message, and have that reply return to the caster. In this scenario, the target can speak as many words in reply as could be spoken with the caster's remaining AP. This does not use up the caster or the target's AP in any way; it is merely a measure of how much time the target has to react. Note that if the target wishes to reply, they must do so immediately, before the caster continues their turn; they cannot wait until the caster has spent more AP before replying, nor add to their reply after the caster begins acting again.

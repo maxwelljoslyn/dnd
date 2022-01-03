@@ -1,0 +1,26 @@
+Combine
+Range: touch
+Casting Time: 1 round
+Duration: 10 minutes
+Area of Effect: special
+Reversible: no
+Save: none
+Type: Enchantment
+ 
+By casting Combine, a cleric can bolster his power with that of other clerics who share the same faith. Once the spell has been cast, at any point during the duration, the cleric who cast Combine may touch another cleric to combine their powers into his. For each cleric so touched, the cleric who cast Combine raises his effective casting level by 1, and adds a +1 bonus to rolls to turn undead. 
+
+No additional spells are gained in this process.
+
+Up to one additional cleric may be combined per original level of the casting cleric.
+
+If the original cleric casts a spell which requires concentration, all the of the combined clerics must concentrate on the spell to an equal degree.
+
+Combined clerics which become unconscious or incapacitated cease contributing to the combination, and their connection is automatically severed.
+
+The caster level of a spell which does not require concentration is fixed when it is cast. This means that even if combined clerics break away from the original, a long-term effect will retain its increased potency. However, if the spell requires concentration, and a combined cleric breaks away, the caster level will be lowered, potentially altering the effects of the spell.
+
+Combined clerics may cast other spells while they are combined.
+
+Once a combined cleric is touched, they must remain within 8 hexes of the caster; should a combined cleric move out of this range, the spell will break for that cleric. However, if the cleric approaches the caster again within the duration, and is touched again, he will be recombined.
+
+The casting cleric may break the combination with any or all clerics at any time (no AP cost) while keeping the spell active. However, combined clerics may only break the spell by moving away, as detailed above.

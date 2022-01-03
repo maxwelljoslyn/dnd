@@ -1,0 +1,10 @@
+Purify Food and Water
+Range: 30 feet
+Casting Time: 1 round
+Duration: permanent
+Area of Effect: up to 2 lbs per level; up to 2 gallons per level
+Reversible: yes
+Save: none
+Type: Transmutation
+
+Purify Food and Water makes spoiled, rotten, poisonous, or otherwise contaminated food and/or water pure and safe to eat/drink. For each caster level, the spell affects either 2 lbs of food, 2 gallons of water, or 1 lb and 1 gallon of each. When reversed, the spell will spoil the same quantities. Even holy water will be spoiled by the reversed spell.
