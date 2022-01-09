@@ -1251,7 +1251,7 @@ def profession_effect(c, prof):
     elif prof == "bounty hunter" and p.Class == "ranger":
         return "gain bonus weapon proficiency: any missile or throwing weapon"
     elif prof in all_artisans:
-        result = "create, identify, and repair " + prof + " products " + fixed_results.get(prof,"")
+        result = "create, identify, and repair " + prof + " products; " + fixed_results.get(prof,"")
         if prof in ["bookbinder", "papermaker"]:
             c.literate = True
             extended_result = result + "; literacy"
