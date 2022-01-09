@@ -69,36 +69,56 @@ races = {
         "permitted classes": set(classes.keys()),
         "base height": {"male": Decimal(70), "female": Decimal(66)}, # inches
         "base weight": {"male": Decimal(175), "female": Decimal(140)}, # pounds
+        "special characteristics": None,
     },
     "elf": {
         "ability modifiers": dict(intelligence=1, constitution=-1),
         "permitted classes": {"fighter", "thief", "assassin", "mage", "illusionist", "cleric", "druid", "ranger"},
         "base height": {"male": Decimal(60), "female": Decimal(54)}, # inches
         "base weight": {"male": Decimal(120), "female": Decimal(85)}, # pounds
+        "special characteristics": [
+            "+1 on attacks with bows and with one-handed swords (i.e. shortsword and longsword)",
+            "+1 on saves vs. Charm-school magic at 4/7/11/14/18 points of Intelligence"
+        ]
     },
     "halforc": {
         "ability modifiers": dict(strength=1, charisma=-1),
         "permitted classes": {"thief", "assassin", "fighter", "cleric", "ranger"},
         "base height": {"male": Decimal(65), "female": Decimal(60)}, # inches
         "base weight": {"male": Decimal(150), "female": Decimal(120)}, # pounds
+        "special characteristics": None,
     },
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
         "permitted classes": {"fighter", "thief", "assassin", "druid"},
         "base height": {"male": Decimal(36), "female": Decimal(32)}, # inches
         "base weight": {"male": Decimal(75), "female": Decimal(55)}, # pounds
+        "special characteristics": [
+            "+3 on attacks with slings",
+        ],
     },
     "gnome": {
         "ability modifiers": dict(wisdom=1, constitution=-1),
         "permitted classes": {"fighter", "thief", "assassin", "illusionist", "druid", "ranger"},
         "base height": {"male": Decimal(42), "female": Decimal(38)}, # inches
         "base weight": {"male": Decimal(95), "female": Decimal(75)}, # pounds
+        "special characteristics": [
+            "+1 on saves vs. Illusion-school magic at 4/7/11/14/18 points of Wisdom",
+        ],
     },
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
         "permitted classes": {"fighter", "thief", "assassin", "monk"},
         "base height": {"male": Decimal(48), "female": Decimal(42)}, # inches
         "base weight": {"male": Decimal(140), "female": Decimal(120)}, # pounds
+        "special characteristics": [
+            "+1 on attacks against orcish or goblinoid defenders",
+            "+3 AC against attacks from giants, ogres, and lizardmen",
+            # todo how to associate this with dwarf_save_bonus function?
+            # for background generator, simple way is to make a list `dwarf bonuses` and have bg print "your bonus: +N" ... but that's static, at-character-creation-time evaluation of the bonus, which would not suffice for LIVE/dynamic evaluation of bonus in situations such as "character's CON has been increased/reduced"
+            # in other words, more sophistication needed for a RUNNING GAME ENVIRONMENT
+            "+1 on saves vs. magic and poison at 4/7/11/14/18 points of Constitution",
+        ],
     },
 }
 
