@@ -70,6 +70,16 @@ def input_charclass():
         pClass = get_charclass()
     return pClass
 
+def input_race():
+    def get_race():
+        return input("Enter race:\n").lower()
+    race = get_race()
+    while race not in races:
+        print("Invalid race.")
+        race = get_race()
+    return race
+
+
 base_age = {
         "fighter": 15,
         "paladin": 19,
