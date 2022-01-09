@@ -148,9 +148,9 @@ def encumbrance_penalty_cutoffs(max_enc):
     return nopenalty, minus1penalty, minus2penalty, minus3penalty
 
 def inches_to_feet_and_inches(arg):
-   feet = floor(arg/12)
-   inches = arg % 12
-   return (feet, inches)
+    feet =  arg // 12
+    inches = arg % 12
+    return (feet, inches)
 
 
 # 2021-08-15
