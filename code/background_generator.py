@@ -208,6 +208,7 @@ class PC():
 
         self.seed = randint(0,1000000000)
         self.pClass = ""
+        self.race = ""
         self.Strength = 0
         self.Dexterity = 0
         self.Constitution = 0
@@ -253,13 +254,13 @@ def main():
         c.name = "Foobar" + datetime.now().isoformat()
     else:
         c.pClass = input_charclass()
-        # todo ask for race
-        c.Strength = input_ability_score("Strength")
-        c.Dexterity = input_ability_score("Dexterity")
-        c.Constitution = input_ability_score("Constitution")
-        c.Intelligence = input_ability_score("Intelligence")
-        c.Wisdom = input_ability_score("Wisdom")
-        c.Charisma = input_ability_score("Charisma")
+        c.race = input_race()
+        c.Strength = input_ability_score("Strength", c.race)
+        c.Dexterity = input_ability_score("Dexterity", c.race)
+        c.Constitution = input_ability_score("Constitution", c.race)
+        c.Intelligence = input_ability_score("Intelligence", c.race)
+        c.Wisdom = input_ability_score("Wisdom", c.race)
+        c.Charisma = input_ability_score("Charisma", c.race)
         c.sex = input_sex()
         c.name = input("Enter character name:\n")
     
