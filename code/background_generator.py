@@ -411,6 +411,12 @@ def main():
         f.write(str(enc_minus3) + " lbs < carried weight <= " + str(c.max_encumbrance) + " lbs: -4 AP.")
         f.write("\n")
         f.write("Above that, no movement is possible, regardless of remaining AP.")
+        
+        sas = races[c.race]["special characteristics"]
+        if sas:
+            f.write("\n\nRacial bonuses:\n")
+            for sa in sas:
+                f.write(sa + "\n")
 
         if c.pClass == "mage":
             f.write("\n\n")
