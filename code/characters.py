@@ -1,6 +1,7 @@
 import math
 import dice
 from class_tables import classes
+from decimal import Decimal
 
 # desired api:
 # classes['thief'][minimum_xp][2] = min XP to become level 2 thief
@@ -60,36 +61,44 @@ martial_classes = {
         "assassin", "fighter", "paladin", "ranger"
 }
 
-# todo racial base weights for males (women are perhaps 80%)
-# no: instead of base weights, weight should be based on height, and the relation between the two must vary with race
-# see the base weights given in backround generator
-# relatively trim fighting weight
 races = {
     # there are half-elves, but they are played as humans (halfelf) or elves (halfhuman); ditto halfdwarves
     "human": {
         # todo modifiers to structure like { "type" "racial" "source" "dwarf" "effects" {"target" "constitution" "modifier" 1}}
         "ability modifiers": None,
         "permitted classes": set(classes.keys()),
+        "base height": {"male": Decimal(70), "female": Decimal(66)}, # inches
+        "base weight": {"male": Decimal(175), "female": Decimal(140)}, # pounds
     },
     "elf": {
         "ability modifiers": dict(intelligence=1, constitution=-1),
         "permitted classes": {"fighter", "thief", "assassin", "mage", "illusionist", "cleric", "druid", "ranger"},
+        "base height": {"male": Decimal(60), "female": Decimal(54)}, # inches
+        "base weight": {"male": Decimal(120), "female": Decimal(85)}, # pounds
     },
     "halforc": {
         "ability modifiers": dict(strength=1, charisma=-1),
         "permitted classes": {"thief", "assassin", "fighter", "cleric", "ranger"},
+        "base height": {"male": Decimal(65), "female": Decimal(60)}, # inches
+        "base weight": {"male": Decimal(150), "female": Decimal(120)}, # pounds
     },
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
         "permitted classes": {"fighter", "thief", "assassin", "druid"},
+        "base height": {"male": Decimal(36), "female": Decimal(32)}, # inches
+        "base weight": {"male": Decimal(75), "female": Decimal(55)}, # pounds
     },
     "gnome": {
         "ability modifiers": dict(wisdom=1, constitution=-1),
         "permitted classes": {"fighter", "thief", "assassin", "illusionist", "druid", "ranger"},
+        "base height": {"male": Decimal(42), "female": Decimal(38)}, # inches
+        "base weight": {"male": Decimal(95), "female": Decimal(75)}, # pounds
     },
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
         "permitted classes": {"fighter", "thief", "assassin", "monk"},
+        "base height": {"male": Decimal(48), "female": Decimal(42)}, # inches
+        "base weight": {"male": Decimal(140), "female": Decimal(120)}, # pounds
     },
 }
 
