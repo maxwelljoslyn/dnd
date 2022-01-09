@@ -7,6 +7,7 @@ import mage_spells
 from datetime import datetime
 import dnd_globals
 from characters import classes
+from characters import classes, races
 
 # 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
 # and draw up a rudimentary family tree!!!!
@@ -93,31 +94,19 @@ def starting_age(pClass):
         base += randint(1,3)
     return base
 
-# todo update this for races, then move to characters/rules/globals
-base_male_weight = Decimal(175) # pounds
-base_male_height = Decimal(70) # inches
-base_female_weight = Decimal(140)
-base_female_height = Decimal(66)
-
-def calc_height_weight(player):
+def calc_height_weight(race, sex):
     source = randint(1,6) + randint(1,6) + randint(1,6) + randint(1,6)
-    # bell curve for this 4d6 roll has peak at value 14:  ((6 * 4) + (1 * 4)) / 2 = 14
+    # bell curve for 4d6 has peak at 14:  ((6 * 4) + (1 * 4)) / 2 = 14
     avg = 14
-    difference = source - avg
+    deviation = source - avg
     # low source, e.g. 4, means 4 - 14 = -10
     # high source, e.g. 18, means 18 - 14 = 4
-    height_mod = 1 + (difference * 0.01)
-    weight_mod = 1 + (difference * 0.025)
+    height_mod = 1 + (deviation * Decimal(0.01))
+    weight_mod = 1 + (deviation * Decimal(0.025))
     
-    if player.sex == "male":
-        height = Decimal(base_male_height) * Decimal(height_mod)
-        weight = Decimal(base_male_weight) * Decimal(weight_mod)
-    else:
-        height = Decimal(base_female_height) * Decimal(height_mod)
-        weight = Decimal(base_female_weight) * Decimal(weight_mod)
-    height = round(height)
-    weight = round(weight)
-    return (height, weight)
+    height = height_mod * races[race]["base height"][sex]
+    weight = weight_mod * races[race]["base weight"][sex]
+    return (round(height), weight)
 
 
 # 18h area where 18 is hardcoded as max ability score
