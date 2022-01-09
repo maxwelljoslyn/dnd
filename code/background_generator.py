@@ -119,20 +119,14 @@ def calc_height_weight(race, sex):
     return (round(height), weight)
 
 
-# 18h area where 18 is hardcoded as max ability score
-ideal_encumbrance_table = {strength:(65 + 5 * strength) for strength in range(3,19)}
-# todo:
-# def ideal_encumbrance(strength) = 65 * (5 * strength)
+def ideal_encumbrance(race, sex, strength):
+    base = races[race]["base weight"][sex] / Decimal(3)
+    return base + (5 * strength)
 
-def calc_max_encumbrance(player):
-    proportion = 0
-    if player.sex == "male":
-        proportion = player.weight / base_male_weight
-    else:
-        proportion = player.weight / base_female_weight
-    ideal_max_encumbrance = ideal_encumbrance_table[player.Strength]
-    unmodified_max_encumbrance = proportion * ideal_max_encumbrance
-    actual_max = unmodified_max_encumbrance * player.enc_mult
+def calc_max_encumbrance(race, sex, strength, weight, enc_mult):
+    proportion = weight / races[race]["base weight"][sex]
+    ideal_max_encumbrance = ideal_encumbrance(race, sex, strength) * proportion
+    actual_max = ideal_max_encumbrance * enc_mult
     return actual_max
 
 # 2021-08-15
@@ -270,10 +264,6 @@ def main():
     # so that e.g. fatness does not increase player's max encumbrance
     c.height, c.weight = calc_height_weight(c.race, c.sex)
 
-    # base encumbrance
-    # it may be changed by details.
-    c.max_encumbrance = Decimal(calc_max_encumbrance(c))
-    
     # Calculation of background details
     # some of these internally modify other aspects of the Player record
     characters_dir = dnd_globals.dnd_dir / Path("code/created-characters")
@@ -387,29 +377,27 @@ def main():
         f.write("Credit: " + str(c.credit) + " gold pieces")
         f.write("\n")
 
-
-        # actual encumbrance
-        # this must be done after detail calculation,
-        # in case one of those alters the max encumbrance from the base value (as certain strength results can do)
-        enc_nopenalty, enc_minus1, enc_minus2, enc_minus3 = encumbrance_penalty_cutoffs(c.max_encumbrance)
-
-        # however, final weight must be calculated AFTER encumbrance,
-        # since if the character's weight is modified to be fat,
-        # encumbrance SHOULD NOT take that into account.
         feet, inches = inches_to_feet_and_inches(c.height)
         f.write("Height: " + str(feet) + " ft. " + str(inches) + " in.")
         f.write("\n")
-        # todo more robust check: there could in the future be a result where weight_mult is BELOW 1 (result of starvation, prison, etc.)
+
+        # max encumbrance, incorporating changes to enc_mult made by detail calculation
+        c.max_encumbrance = Decimal(calc_max_encumbrance(c.race, c.sex, c.Strength, c.weight, c.enc_mult))
+        enc_nopenalty, enc_minus1, enc_minus2, enc_minus3 = encumbrance_penalty_cutoffs(c.max_encumbrance)
+        # final weight MUST be calculated AFTER max encumbrance,
+        # since if the character's weight is modified to be fat, max encumbrance SHOULD NOT increase
         if c.weight_mult == Decimal(1):
             # weight is normal; character has not grown fat
             f.write("Weight: " + str(c.weight) + " lbs")
             f.write("\n\n")
         else:
+            # todo more robust check: this calc assumes adjusted weight is always > old_weight, but I could add a detail where weight_mult is BELOW 1 (result of starvation, prison, etc.)
             old_weight = c.weight
             adjusted_weight = c.weight * c.weight_mult
             diff = adjusted_weight - old_weight
-            f.write("Weight: " + str(adjusted_weight) + " lbs; " + str(diff) + " lbs of this is fat, and counts against encumbrance!")
+            f.write("Weight: " + str(adjusted_weight) + " lbs; " + str(diff) + " lbs of this is fat. Counts against encumbrance! Can be worked off.")
             f.write("\n\n")
+
         f.write("Encumbrance Information:")
         f.write("\n")
         f.write("Carried weight <= " + str(enc_nopenalty) + " lbs: no AP penalty.")
