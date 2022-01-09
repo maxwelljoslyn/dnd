@@ -268,7 +268,7 @@ def main():
     # these must be calculated BEFORE any weight modifiers, i.e. fatness,
     # are accounted for in final printed weight,
     # so that e.g. fatness does not increase player's max encumbrance
-    c.height, c.weight = calc_height_weight(c)
+    c.height, c.weight = calc_height_weight(c.race, c.sex)
 
     # base encumbrance
     # it may be changed by details.
