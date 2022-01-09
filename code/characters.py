@@ -480,3 +480,70 @@ intelligence_based = [
 charisma_based = [
         cha_max_henchmen,
         ]
+
+def bodymass_hitdice(pounds):
+    """Given POUNDS, return die or dice sizes of the bodymass hit die for a creature of that weight."""
+    if pounds <= 10:
+        return [(1, 2)]
+    elif pounds <= 31:
+        return [(1, 3)]
+    elif pounds <= 71:
+        return [(1, 4)]
+    elif pounds <= 150:
+        return [(1, 6)]
+    elif pounds <= 290:
+        return [(1, 8)]
+    elif pounds <= 510:
+        return [(1, 4), (1, 4)]
+    elif pounds <= 830:
+        return [(1, 10)]
+    elif pounds <= 1275:
+        return [(1, 4), (1, 6)]
+    elif pounds <= 1800:
+        return [(1, 12)]
+    elif pounds <= 2500:
+        return [(1, 6), (1, 6)]
+    elif pounds <= 3500:
+        return [(1, 4), (1, 4), (1, 4)]
+    elif pounds <= 4800:
+        return [(1, 6), (1, 8)]
+    elif pounds <= 6500:
+        return [(1, 4), (1, 4), (1, 6)]
+    elif pounds <= 8700:
+        return [(1, 8), (1, 8)]
+    elif pounds <= 11500:
+        return [(1, 4), (1, 6), (1, 6)]
+    elif pounds <= 15000:
+        return [(1, 8), (1, 10)]
+    elif pounds <= 19000:
+        return [(1, 10), (1, 10)]
+    elif pounds <= 24000:
+        return [(1, 10), (1, 12)]
+    elif pounds <= 31000:
+        return [(1, 12), (1, 12)]
+    elif pounds <= 40000:
+        return [(1, 8), (1, 8), (1, 10)]
+    elif pounds <= 51000:
+        return [(1, 8), (1, 10), (1, 10)]
+    elif pounds <= 65000:
+        return [(1, 10), (1, 10), (1, 10)]
+    elif pounds <= 82000:
+        return [(1, 8), (1, 8), (1, 8), (1, 8)]
+    elif pounds <= 100000:
+        return [(1, 12), (1, 12), (1, 12)]
+    elif pounds <= 120000:
+        return [(1, 8), (1, 10), (1, 10), (1, 10)]
+    elif pounds <= 150000:
+        return [(1, 10), (1, 10), (1, 10), (1, 12)]
+    elif pounds <= 190000:
+        return [(1, 10), (1, 12), (1, 12), (1, 12)]
+    elif pounds <= 240000:
+        return [(1, 10), (1, 10), (1, 10), (1, 10), (1, 10)]
+    elif pounds <= 300000:
+        return [(1, 8), (1, 8), (1, 8), (1, 10), (1, 10), (1, 10)]
+    elif pounds <= 380000:
+        return [(1, 10), (1, 10), (1, 10), (1, 10), (1, 10), (1, 10)]
+    elif pounds <= 480000:
+        return [(1, 10), (1, 10), (1, 10), (1, 12), (1, 12), (1, 12)]
+    else:
+        return [(1, 10), (1, 10), (1, 10), (1, 10), (1, 10), (1, 10), (1, 12)]
