@@ -1254,10 +1254,8 @@ def profession_effect(c, prof):
         result = "create, identify, and repair " + prof + " products; " + fixed_results.get(prof,"")
         if prof in ["bookbinder", "papermaker"]:
             c.literate = True
-            extended_result = result + "; literacy"
-            return extended_result
-        else:
-            return result
+            result = result + "; literacy"
+        return result
     elif prof == "laborer":
         c.enc_mult += Decimal(0.05)
         return "increase max encumbrance by 5%"
