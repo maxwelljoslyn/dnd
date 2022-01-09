@@ -15,6 +15,7 @@ from characters import classes, races
 # 18h = area where 18 (or 3) are hardcoded as limits of PC ability score spectrum (no longer true once races are added)
 
 getcontext().prec = 3
+getcontext().rounding = ROUND_HALF_DOWN
 
 def advantage_magnitude(abi_score):
     """Subtract a d20 roll from the score.
