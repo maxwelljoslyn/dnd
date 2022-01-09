@@ -6,7 +6,6 @@ from pathlib import Path
 import mage_spells
 from datetime import datetime
 import dnd_globals
-from characters import classes
 from characters import classes, races
 
 # 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
