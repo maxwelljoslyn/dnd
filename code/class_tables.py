@@ -4,6 +4,10 @@ classes = {
                 'strength': 12,
                 'dexterity': 12,
                 'intelligence': 9},
+            'bonus xp minimums': {
+                'strength': 15,
+                'dexterity': 15,
+                'intelligence': 15},
             'levels': {
                 '1': {'min_xp': 0,
                     'num_proficiencies': 3},
@@ -46,6 +50,8 @@ classes = {
         'cleric': {'hit_die' : 'd8' ,
             'ability minimums': {
                 'wisdom': 9},
+            'bonus xp minimums': {
+                'wisdom': 16},
             'levels': {'1': {'min_xp': 0,
                 'num_proficiencies': 2},
                 '10': {'min_xp': 450000},
@@ -84,6 +90,9 @@ classes = {
             'ability minimums': {
                 'wisdom': 12,
                 'charisma': 12},
+            'bonus xp minimums': {
+                'wisdom': 15,
+                'charisma': 15},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 2},
                     '10': {'min_xp': 150000},
@@ -121,6 +130,8 @@ classes = {
             'ability minimums': {
                 'strength': 12,
                 'constitution': 9},
+            'bonus xp minimums': {
+                'strength': 15}, # note that despite other ability scores with minimums, only str needs to be higher than minimum to gain bonus xp
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 4},
@@ -169,6 +180,8 @@ classes = {
             'ability minimums': {
                 'dexterity': 9,
                 'intelligence': 12},
+            'bonus xp minimums': {
+                'intelligence': 15},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 220000},
@@ -201,6 +214,8 @@ classes = {
         'mage': {'hit_die' : 'd4',
             'ability minimums': {
                 'intelligence': 9},
+            'bonus xp minimums': {
+                'intelligence': 16},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 250000},
@@ -236,6 +251,11 @@ classes = {
                 'constitution': 12,
                 'dexterity': 12,
                 'wisdom': 12},
+            'bonus xp minimums': {
+                'strength': 15,
+                'constitution': 15,
+                'dexterity': 15,
+                'wisdom': 15},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 500000},
@@ -281,6 +301,10 @@ classes = {
                 'constitution': 9,
                 'wisdom': 9,
                 'charisma': 12},
+            'bonus xp minimums': {
+                'strength': 15,
+                'wisdom': 15,
+                'charisma': 15},
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 3},
@@ -331,6 +355,9 @@ classes = {
                 'constitution': 9,
                 'wisdom': 9,
                 'intelligence': 9},
+            'bonus xp minimums': {
+                'strength': 15,
+                'wisdom': 15},
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 3},
@@ -378,6 +405,8 @@ classes = {
         'thief': {'hit_die' : 'd6',
             'ability minimums': {
                 'dexterity': 9},
+            'bonus xp minimums': {
+                'dexterity': 16},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 2},
                     '10': {'min_xp': 160000},
