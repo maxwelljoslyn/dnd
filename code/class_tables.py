@@ -1,5 +1,9 @@
 classes = {
         'assassin': {'hit_die' : 'd8',
+            'ability minimums': {
+                'strength': 12,
+                'dexterity': 12,
+                'intelligence': 9},
             'levels': {
                 '1': {'min_xp': 0,
                     'num_proficiencies': 3},
@@ -40,6 +44,8 @@ classes = {
                     'num_proficiencies': 5},
                 'non_proficiency': '-2'}},
         'cleric': {'hit_die' : 'd8' ,
+            'ability minimums': {
+                'wisdom': 9},
             'levels': {'1': {'min_xp': 0,
                 'num_proficiencies': 2},
                 '10': {'min_xp': 450000},
@@ -75,6 +81,9 @@ classes = {
                     'num_proficiencies': 4}},
                 'non_proficiency': '-3'},
         'druid': {'hit_die' : 'd8' ,
+            'ability minimums': {
+                'wisdom': 12,
+                'charisma': 12},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 2},
                     '10': {'min_xp': 150000},
@@ -109,6 +118,9 @@ classes = {
                         'min_xp': 108000}},
                     'non_proficiency': '-4'},
         'fighter': {'hit_die' : 'd10',
+            'ability minimums': {
+                'strength': 12,
+                'constitution': 9},
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 4},
@@ -154,6 +166,9 @@ classes = {
                         'min_xp': 250000}},
                     'non_proficiency': '-2'},
         'illusionist': {'hit_die' : 'd4',
+            'ability minimums': {
+                'dexterity': 9,
+                'intelligence': 12},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 220000},
@@ -184,6 +199,8 @@ classes = {
                         'min_xp': 145000}},
                     'non_proficiency': '-5'},
         'mage': {'hit_die' : 'd4',
+            'ability minimums': {
+                'intelligence': 9},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 250000},
@@ -214,6 +231,11 @@ classes = {
                         'min_xp': 135000}},
                     'non_proficiency': '-5'},
         'monk': {'hit_die' : 'd6',
+            'ability minimums': {
+                'strength': 12,
+                'constitution': 12,
+                'dexterity': 12,
+                'wisdom': 12},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 1},
                     '10': {'min_xp': 500000},
@@ -254,6 +276,11 @@ classes = {
                         'num_proficiencies': 5}},
                     'non_proficiency': '-3'},
         'paladin': {'hit_die' : 'd10',
+            'ability minimums': {
+                'strength': 9,
+                'constitution': 9,
+                'wisdom': 9,
+                'charisma': 12},
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 3},
@@ -299,6 +326,11 @@ classes = {
                         'min_xp': 350000}},
                     'non_proficiency': '-2'},
         'ranger': {'hit_die': 'd10',
+            'ability minimums': {
+                'strength': 12,
+                'constitution': 9,
+                'wisdom': 9,
+                'intelligence': 9},
                 'levels': {'1': {'base_attack_bonus': 1,
                     'min_xp': 0,
                     'num_proficiencies': 3},
@@ -344,6 +376,8 @@ classes = {
                         'min_xp': 225000}},
                     'non_proficiency': '-2'},
         'thief': {'hit_die' : 'd6',
+            'ability minimums': {
+                'dexterity': 9},
                 'levels': {'1': {'min_xp': 0,
                     'num_proficiencies': 2},
                     '10': {'min_xp': 160000},
