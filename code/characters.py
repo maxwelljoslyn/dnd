@@ -231,9 +231,8 @@ def str_damage_mod(s):
         return 5
 
 
-def con_max_hp_increase_adjustment(c):
+def con_max_hp_increase_adjustment(con, char_class):
     """Amount of HP to add to each Hit Die rolled upon level up."""
-    con = c.con
     if con < 0:
         raise ValueError(f"con {con} less than 0 but ability scores can't go below 0")
     if con <= 4:
@@ -246,7 +245,7 @@ def con_max_hp_increase_adjustment(c):
         return 1
     elif con == 16:
         return 2
-    elif con > 16 and c.char_class not in martial_classes:
+    elif con > 16 and char_class not in martial_classes:
         return 2
     else:
         if con in ir(17, 18):
