@@ -8,7 +8,7 @@ Mage level information:
 
 Minimum ability scores to be a mage: Intelligence 9. (Note that mages with 9-16 Intelligence have some limits on the maximum spell level they can cast.)
 
-A mage with 15 or greater Intelligence gains 10% bonus experience points.
+A mage with 16 or greater Intelligence gains 10% bonus experience points.
 
 Mages cannot use any armor or any shields, but they may wear helmets. They can choose proficiencies from the following weapons: club, dagger, quarterstaff, sling.
 

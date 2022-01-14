@@ -3,7 +3,7 @@ name: Fighter
 ---
 
 Minimum ability scores: Strength 9, Constitution 9
-Bonus XP: 16 or greater Strength
+Bonus XP: 15 or greater Strength
 Armor: any
 Weapons: any
 
