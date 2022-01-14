@@ -405,9 +405,9 @@ def main(testing):
         else:
             # todo more robust check: this calc assumes adjusted weight is always > old_weight, but I could add a detail where weight_mult is BELOW 1 (result of starvation, prison, etc.)
             old_weight = c.weight
-            adjusted_weight = c.weight * c.weight_mult
-            diff = adjusted_weight - old_weight
-            f.write("Weight: " + str(adjusted_weight) + " lbs; " + str(diff) + " lbs of this is fat. Counts against encumbrance! Can be worked off.")
+            c.weight = c.weight * c.weight_mult
+            diff = c.weight - old_weight
+            f.write("Weight: " + str(c.weight) + " lbs. (including " + str(diff) + " lbs of fat: COUNTS AGAINST ENCUMBRANCE, but can be worked off.)")
             f.write("\n\n")
 
         f.write("Encumbrance Information:")
