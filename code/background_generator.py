@@ -177,19 +177,19 @@ def function1(a_PC):
                  ("Intelligence", a_PC.Intelligence),
                  ("Wisdom", a_PC.Wisdom),
                  ("Charisma", a_PC.Charisma)]
-    filtered = [(a[0], a[1] - 10) for a in abilities if (a[1] - 10) >= 1]
-    return dict(filtered)
+    above_tens = [(ability, points - 10) for (ability, points) in abilities if (points - 10) >= 1]
+    return dict(above_tens)
 
 def function2(above_tens):
     choices = []
-    for name, points in above_tens.items():
-        choices.extend([name] * points)
+    for ability, points in above_tens.items():
+        choices.extend([ability] * points)
     chosen = choice(choices)
     return (chosen, above_tens[chosen])
 
 def parent_profession(a_PC):
     above_average_scores = function1(a_PC)
-    if above_average_scores == []:
+    if not above_average_scores:
     # no character scores above 10
     # (cannot happen for main PCs, given the "above 15" rule, but can happen for henchmen)
         return None
