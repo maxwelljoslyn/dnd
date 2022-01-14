@@ -21,7 +21,7 @@ def detail_feats(magnitude, player):
     small_percent = choice([10,20])
     result = ""
     subj, obj, poss = get_gender_words(player.sex)
-    if magnitude == -17:
+    if magnitude <= -17:
         result = "Weak lungs make it impossible to run."
     elif magnitude <= -14:
         result = "When stunned, must make save against crushing to end the stun and rejoin combat."
@@ -92,7 +92,7 @@ def man_at_arms_pay():
 def detail_interpersonal(magnitude, player):
     subj, obj, poss = get_gender_words(player.sex)
     result = ""
-    if magnitude == -17:
+    if magnitude <= -17:
        result = "The character inadvertently revealed information to the enemy of the land where they are from, enabling that enemy to invade and seize wealth and property. A death sentence has been laid upon the character."
     elif magnitude == -16:
         result = "Ill-considered opinions and bad intentions caused the character to be excommunicated from " + poss + " original religion. " + subj.capitalize() + " is marked as an apostate and all sites of organized worship will shun " + obj + "."
@@ -213,8 +213,8 @@ def detail_interpersonal(magnitude, player):
 def detail_tendency(magnitude, player):
     subj, obj, poss = get_gender_words(player.sex)
     result = ""
-    if magnitude == -17:
         num = randint(6,8) * -1
+    if magnitude <= -17:
         result = "Character is deeply ignorant and superstitious. Saves against fear and mind-affecting spells suffer a " + str(num) + " penalty."
     elif magnitude == -16:
         num = randint(3,5) * -1
@@ -674,7 +674,7 @@ def detail_health(magnitude, player):
         result = "Character heals 2 extra HP from a day's rest."
     elif magnitude <= 16:
         result = "+1 to all saves."
-    elif magnitude == 17:
+    else:
         result = "+2 to all saves."
     return result
 
@@ -683,8 +683,8 @@ def detail_agility(magnitude, player):
     subj, obj, poss = get_gender_words(player.sex)
     which_side = choice(["right","left"])
     result = ""
-    if magnitude == -17:
-        result = "Fused bones in the character's " + which_side + " leg causes a severe, dragging limp. Normal movement is reduced by 2."
+    if magnitude <= -17:
+        result = "Fused bones in the character's " + which_side + " leg causes a severe, dragging limp. Normal AP is reduced by 2."
     elif magnitude == -16:
         result = "Character must save vs crushing before drawing a weapon; failure indicates " + subj + " cannot do it this round. No save is needed for subsequent attempts for the same weapon in the same combat." 
     elif magnitude == -15:
