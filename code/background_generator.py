@@ -108,13 +108,13 @@ def starting_age(pClass):
     # todo automatically incorporate aging effects - calculated and applied AFTER details have been determined AND char has been generated (because eg "+X years in prison" need to be added)
     base = base_age[pClass]
     if pClass in ["fighter", "paladin", "ranger"]:
-        base += randint(1,4)
+        base += randint(1, 4)
     elif pClass in ["cleric", "druid"]:
-        base += randint(2,4)
+        base += randint(2, 4)
     elif pClass in ["mage", "illusionist"]:
-        base += randint(1,6) + randint(1,6)
+        base += randint(1, 6) + randint(1, 6)
     else:
-        base += randint(1,3)
+        base += randint(1, 3)
     return base
 
 def calc_height_weight(race, sex):
