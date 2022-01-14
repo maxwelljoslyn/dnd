@@ -316,10 +316,14 @@ def main(testing):
         # todo when rewriting to something like "your father is/was", use a more detailed family_detail result (a dictionary or something) to inform writing "father is" or "father was"
         f.write("Your father's profession: ")
         c.father_prof = parent_profession(c)
-        f.write(str(c.father_prof))
-        f.write("\n")
-        f.write("Gained from your father: ")
-        f.write(profession_effect(c,c.father_prof))
+        if c.father_prof:
+            f.write(str(c.father_prof))
+            f.write("\n")
+            f.write("Gained from your father: ")
+            f.write(profession_effect(c,c.father_prof))
+        else:
+            f.write("peasant")
+            f.write("\n")
         f.write("\n\n")
         
 
