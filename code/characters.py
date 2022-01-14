@@ -34,36 +34,34 @@ abilities = {
 
 # TODO I KNOW THAT, LIKE RACES AND CLASSES, THIS WILL BECOME A DEEPLY NESTED DATA STRUCTURE
 
-# todo should information about each weapon live on the weapon list in data, and be referenced by the recipe system, or vicev?
+# todo should information about each weapon live on the weapon list in data, and be referenced by the recipe system, or vicev? DECISION: canonicalweapon data lives in this list (wherever it ends up); INCLUDING length, which economy system can employ in calculations etc...
 # todo incomplete: cestus/brassknuckles? sai, trident? shuriken, chakram, quoit/dart? Torimono sandogu, mancatcher? sword cane?
-# todo mark out those which have not yet been recipe'd.
-# manual list of druid weapons (will need them for all classes anyway)
 all_weapons = {
-    "handaxe",
-    "mace",
-    "dagger",
-    "shortsword",
-    "warhammer",
-    "goedendag",
-    "longsword",
-    "quarterstaff",
-    "bow",
-    "bastard sword",
-    "claymore",
-    "scimitar",
-    "spear",
-    "pike",
-    "halberd",
-    "javelin",
-    "glaive",
-    "club",
-    "sling staff",
-    "sling",
-    "flail",
-    "lance",
-    "battleaxe",
-    "bolas",
-    "broadsword",
+    "handaxe": {"recipe": True},
+    "mace": {"recipe": True},
+    "dagger": {"recipe": True},
+    "shortsword": {"recipe": True},
+    "warhammer": {"recipe": False},
+    "goedendag": {"recipe": False},
+    "longsword": {"recipe": True},
+    "quarterstaff": {"recipe": True},
+    "bow": {"recipe": True},
+    "bastard sword": {"recipe": False},
+    "claymore": {"recipe": True},  # greatsword
+    "scimitar": {"recipe": False},
+    "spear": {"recipe": True},
+    "pike": {"recipe": False},
+    "halberd": {"recipe": False},
+    "javelin": {"recipe": True},
+    "glaive": {"recipe": False},
+    "club": {"recipe": True},
+    "sling staff": {"recipe": False},
+    "sling": {"recipe": True},
+    "flail": {"recipe": False},
+    "lance": {"recipe": False},
+    "battleaxe": {"recipe": False},
+    "bolas": {"recipe": False},
+    "broadsword": {"recipe": False},
 }
 # ? separate out hte corseque/ranseur?
 # ? greatclub as a lighter, cheaper, weaker, wood-only alternative to the goedendag
