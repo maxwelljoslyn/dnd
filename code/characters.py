@@ -65,7 +65,6 @@ martial_classes = {
 races = {
     # there are half-elves, but they are played as humans (halfelf) or elves (halfhuman); ditto halfdwarves
     "human": {
-        # todo modifiers to structure like { "type" "racial" "source" "dwarf" "effects" {"target" "constitution" "modifier" 1}}
         "ability modifiers": None,
         "permitted classes": set(classes.keys()),
         "base height": {"male": Decimal(70), "female": Decimal(66)}, # inches
