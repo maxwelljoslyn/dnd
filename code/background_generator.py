@@ -1,3 +1,4 @@
+import click
 from random import *
 from decimal import *
 from decimal import Decimal
@@ -237,11 +238,12 @@ class PC():
 
 
 
+@click.command()
+@click.option('--testing', default=False, help='If true, program uses testing data instead of interactive input.')
+def main(testing):
 # todo consider how this would need to be altered if data was provided through a web interface
-def main():
     c = PC()
     seed(c.seed)
-    testing = False
     if testing:
         c.pClass = "mage"
         c.Strength, c.Dexterity, c.Wisdom, c.Constitution, c.Intelligence, c.Charisma = 12,18,12,12,12,12
