@@ -412,7 +412,7 @@ def main(testing):
 
         # todo do henchmen get max hp at first? decide thereupon - if not, need a henchman flag in PC()
         # must be calculated before final weight, so bodymass doesn't incorporate "grown fat" or "starved" modifications
-        class_hp = classes[c.pClass]["hit_die"][1:]
+        class_hp = classes[c.pClass]["hit die"][1:]
         con_hp = con_max_hp_increase_adjustment(c.Constitution, c.pClass)
         bodymass_HD = dice_to_text(bodymass_hitdice(c.weight))
         f.write(f"HP: {bodymass_HD} + {class_hp} [from class] + {con_hp} [from Con]")
