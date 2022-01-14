@@ -204,7 +204,7 @@ def detail_interpersonal(magnitude, player):
         for d in descriptions:
             result = result + " " + d + "."
     elif magnitude <= 16:
-        result = "Character has been made a member of the Illuminati."
+        result = "Character has been made a member of the Illuminati. Tell nobody."
     else:
         result = "Events surrounding the character have caused people to believe that the character had a major part in a religious miracle. The character has received the goodwill of the highest religious figure in the land, and may seek one favor."
     return result
@@ -213,11 +213,11 @@ def detail_interpersonal(magnitude, player):
 def detail_tendency(magnitude, player):
     subj, obj, poss = get_gender_words(player.sex)
     result = ""
-        num = randint(6,8) * -1
     if magnitude <= -17:
+        num = randint(3,5) * -1
         result = "Character is deeply ignorant and superstitious. Saves against fear and mind-affecting spells suffer a " + str(num) + " penalty."
     elif magnitude == -16:
-        num = randint(3,5) * -1
+        num = randint(2,3) * -1
         result = "Character is foolish, ignorant, and superstitious. Saves against fear and mind-affecting spells suffer a " + str(num) + " penalty."
     elif magnitude <= -14:
         result = "Character is cowardly and lacks confidence. If stunned, a save must be made vs. crushing, or else the character will avoid all combat, including spellcasting, for 1d4 rounds."
@@ -261,14 +261,14 @@ def detail_tendency(magnitude, player):
                          "the location of an area which is naturally magic"])
         result = "Character possesses secret knowledge: " + secret + "."
     elif magnitude <= 12:
-        result = "One time per week, if the character failed to purchase some item at the last-visited marketplace which would be useful now, the character is considered to have done so."
+        result = "One time per week, if an item worth less than 20 GP which could have been purchased at the last marketplace the character visited would now be useful, the character can retroactively purchase it."
     elif magnitude <= 15:
-        result = "Character is able to overcome being stunned in combat, once per day."
+        result = "Once per day, the character may ignore the effects of being stunned."
     elif magnitude == 16:
-        bonus = randint(2,4)
+        bonus = randint(1,3)
         result = "Character is very pious. All saves against fear and mind-affecting spells are made with a +" + str(bonus) + " bonus."
     else:
-        bonus = randint(5,7)
+        bonus = randint(2,4)
         result = "Character is very pious. All saves against fear and mind-affecting spells are made with a +" + str(bonus) + " bonus."
     return result
 
@@ -550,7 +550,7 @@ def detail_beauty(face_mag, body_mag, player):
             choices = [scar,"is bow-legged","is knock-kneed","moves with an awkward, loping gait","has a sunken chest"]
             return choice(choices)
         elif body_mag <= -1:
-            choices = ["has a weak " + which_side + " leg and walks with a pronounced limp","has a swayback","has a overlong torso with stumpy legs","has a stumpy torso with overlong legs"]
+            choices = ["has a weak " + which_side + " leg and walks with a pronounced limp","has a swayback","has a overlong torso with stumpy legs"]
             return choice(choices)
         elif body_mag == 0:
             foot_kind = choice(["very small feet (-5% footwear cost)", "small feet","large feet","very large feet (+5% footwear cost)"])
@@ -562,9 +562,9 @@ def detail_beauty(face_mag, body_mag, player):
             return choice(choices)
         elif body_mag <= 13:
             if player.sex == "male":
-                choices = ["has wide shoulders","has a broad back","has muscular arms","has muscular legs", "has a six-pack"]
+                choices = ["has large, muscular shoulders","has a broad, muscular back","has large, muscular arms","has large, muscular legs", "has a six-pack"]
             else:
-                choices = ["has a flat, toned belly","has strong thighs","has a narrow waist","has wide, curvy hips"]
+                choices = ["has a six-pack","has large, powerful thighs","has a narrow waist","has wide, curvy hips"]
             return choice(choices)
         else:
             choices = ["has radiant skin","has luxurious hair","always has perfect posture"]
@@ -597,11 +597,11 @@ def get_health_condition(roll, sex):
         sentence_tail = ", ".join(colors)
         return "Color confusion: character cannot distinguish between " + sentence_tail + "."
     elif roll == 13:
-        return "Color blindness: character cannot distinguish between any colors of the spectrum. Everything appears to be in shades of gray."
+        return "Total color blindness: character cannot distinguish between any colors of the spectrum. Everything appears to be in shades of gray. Ranged attack distance penalties are doubled."
     elif roll <= 15:
         return "Tone deafness: character cannot distinguish chords of sound, and thus receives neither positive nor negative effects of music."
     elif roll == 16:
-        return "Chronic migraines: each day, the character has a 1 in 20 chance of being -5 to hit and -3 to saves and ability checks."
+        return "Chronic migraines: each day, the character has a 1 in 20 chance of being -4 to hit and -3 to saves and ability checks."
     elif roll <= 18:
         return "Mild hemorrhaging: if character receives a bleeding wound, " + subj + " will bleed 1 extra HP per round. If bandages are used, character's wounds must be bound twice in order to stop the bleeding."
     elif roll == 19:
