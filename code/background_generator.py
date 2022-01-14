@@ -1,5 +1,6 @@
 from random import *
 from decimal import *
+from decimal import Decimal
 from details import *
 from math import floor
 from pathlib import Path
