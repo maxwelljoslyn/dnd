@@ -28,7 +28,7 @@ def camel_case_to_spaced(name):
     return re.sub(r'([a-z0-9])([A-Z])',r'\1 \2',x)
 
 # switch to spell directory
-first_level_spell_directory = dnd_dir / Path("pages/spells/MageSpellDescriptions/Level1/")
+first_level_spell_directory = dnd_dir / Path("rules/spells/MageSpellDescriptions/Level1/")
 
 # retrieve and format spell names
 first_level_spells = [f for f in os.listdir(first_level_spell_directory) if ".txt" in f and "un~" not in f]
