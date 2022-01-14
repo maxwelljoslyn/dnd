@@ -1239,6 +1239,8 @@ fixed_results = {
 
 
 def profession_effect(c, prof):
+    if not prof:
+        return None
     ownership_roll = randint(1,4)
     ownership = "these lands belong to you personally" if ownership_roll == 4 else "these lands can only belong to you if both your parents, and any siblings older than you, have died"
     if prof == "usurer":
