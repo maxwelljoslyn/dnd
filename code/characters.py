@@ -1,7 +1,8 @@
 import math
-import dice
+import random
 from class_tables import classes
 from decimal import Decimal
+from collections import Counter
 
 # desired api:
 # classes['thief'][minimum_xp][2] = min XP to become level 2 thief
@@ -546,3 +547,24 @@ def bodymass_hitdice(pounds):
         return [(1, 10), (1, 10), (1, 10), (1, 12), (1, 12), (1, 12)]
     else:
         return [(1, 10), (1, 10), (1, 10), (1, 10), (1, 10), (1, 10), (1, 12)]
+
+
+def roll_die(sides, add=None, subtract=None, divide=None, multiply=None):
+    return random.randint(1, sides)
+
+
+def roll_bodymass_hitdice(dice):
+    return sum([roll_die(high) for (low, high) in dice])
+
+
+def die_to_text(num, sides):
+    return f"{num}d{sides}"
+
+
+def dice_to_text(dice):
+    pool = Counter(dice)
+    result = []
+    for (_, sides), num in pool.items():
+        result.append(die_to_text(num, sides))
+    return "+".join(result)
+
