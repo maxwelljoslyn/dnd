@@ -12,7 +12,7 @@ from collections import Counter
 def inclusive_range(a, b):
     """A range that includes the argument b, unlike the builtin range(). In mathematical terms, inclusive_range is closed on both ends, while range() is open on one end.
 
-This library contains many calculations on numberic ranges which always closed on both ends. Calling a specific function to represent this helps avoid a common source of off-by-1 errors."""
+    This library contains many calculations on numberic ranges which always closed on both ends. Calling a specific function to represent this helps avoid a common source of off-by-1 errors."""
     return range(a, b + 1)
 
 
@@ -24,12 +24,12 @@ def ir(a, b):
 
 
 abilities = {
-        "strength",
-        "wisdom",
-        "constitution",
-        "dexterity",
-        "intelligence",
-        "charisma"
+    "strength",
+    "wisdom",
+    "constitution",
+    "dexterity",
+    "intelligence",
+    "charisma",
 }
 
 # TODO I KNOW THAT, LIKE RACES AND CLASSES, THIS WILL BECOME A DEEPLY NESTED DATA STRUCTURE
@@ -38,8 +38,34 @@ abilities = {
 # todo incomplete: cestus/brassknuckles? sai, trident? shuriken, chakram, quoit/dart? Torimono sandogu, mancatcher? sword cane?
 # todo mark out those which have not yet been recipe'd.
 # manual list of druid weapons (will need them for all classes anyway)
-all_weapons = {'handaxe', 'mace', 'dagger', 'shortsword', 'warhammer', 'goedendag', 'longsword', 'quarterstaff', 'bow', 'bastard sword', 'claymore', 'scimitar', 'spear', 'pike', 'halberd', 'javelin', 'glaive', 'club', 'sling staff', 'sling', 'flail', 'lance', 'battleaxe', 'bolas', 'broadsword'}
-#? separate out hte corseque/ranseur?
+all_weapons = {
+    "handaxe",
+    "mace",
+    "dagger",
+    "shortsword",
+    "warhammer",
+    "goedendag",
+    "longsword",
+    "quarterstaff",
+    "bow",
+    "bastard sword",
+    "claymore",
+    "scimitar",
+    "spear",
+    "pike",
+    "halberd",
+    "javelin",
+    "glaive",
+    "club",
+    "sling staff",
+    "sling",
+    "flail",
+    "lance",
+    "battleaxe",
+    "bolas",
+    "broadsword",
+}
+# ? separate out hte corseque/ranseur?
 # ? greatclub as a lighter, cheaper, weaker, wood-only alternative to the goedendag
 # dagger covers the dirk
 # mace covers the morning star
@@ -56,52 +82,64 @@ all_weapons = {'handaxe', 'mace', 'dagger', 'shortsword', 'warhammer', 'goedenda
 # battleaxe covers the pickaxe (military pick)
 
 
-
-
-martial_classes = {
-        "assassin", "fighter", "paladin", "ranger"
-}
+martial_classes = {"assassin", "fighter", "paladin", "ranger"}
 
 races = {
     # there are half-elves, but they are played as humans (halfelf) or elves (halfhuman); ditto halfdwarves
     "human": {
         "ability modifiers": None,
         "permitted classes": set(classes.keys()),
-        "base height": {"male": Decimal(70), "female": Decimal(66)}, # inches
-        "base weight": {"male": Decimal(175), "female": Decimal(140)}, # pounds
+        "base height": {"male": Decimal(70), "female": Decimal(66)},  # inches
+        "base weight": {"male": Decimal(175), "female": Decimal(140)},  # pounds
         "special characteristics": None,
     },
     "elf": {
         "ability modifiers": dict(intelligence=1, constitution=-1),
-        "permitted classes": {"fighter", "thief", "assassin", "mage", "illusionist", "cleric", "druid", "ranger"},
-        "base height": {"male": Decimal(60), "female": Decimal(54)}, # inches
-        "base weight": {"male": Decimal(120), "female": Decimal(85)}, # pounds
+        "permitted classes": {
+            "fighter",
+            "thief",
+            "assassin",
+            "mage",
+            "illusionist",
+            "cleric",
+            "druid",
+            "ranger",
+        },
+        "base height": {"male": Decimal(60), "female": Decimal(54)},  # inches
+        "base weight": {"male": Decimal(120), "female": Decimal(85)},  # pounds
         "special characteristics": [
             "+1 on attacks with bows and with one-handed swords (i.e. shortsword and longsword)",
-            "+1 on saves vs. Charm-school magic at 4/7/11/14/18 points of Intelligence"
-        ]
+            "+1 on saves vs. Charm-school magic at 4/7/11/14/18 points of Intelligence",
+        ],
     },
     "halforc": {
         "ability modifiers": dict(strength=1, charisma=-1),
         "permitted classes": {"thief", "assassin", "fighter", "cleric", "ranger"},
-        "base height": {"male": Decimal(65), "female": Decimal(60)}, # inches
-        "base weight": {"male": Decimal(150), "female": Decimal(120)}, # pounds
+        "base height": {"male": Decimal(65), "female": Decimal(60)},  # inches
+        "base weight": {"male": Decimal(150), "female": Decimal(120)},  # pounds
         "special characteristics": None,
     },
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
         "permitted classes": {"fighter", "thief", "assassin", "druid"},
-        "base height": {"male": Decimal(36), "female": Decimal(32)}, # inches
-        "base weight": {"male": Decimal(75), "female": Decimal(55)}, # pounds
+        "base height": {"male": Decimal(36), "female": Decimal(32)},  # inches
+        "base weight": {"male": Decimal(75), "female": Decimal(55)},  # pounds
         "special characteristics": [
             "+3 on attacks with slings",
         ],
     },
     "gnome": {
         "ability modifiers": dict(wisdom=1, constitution=-1),
-        "permitted classes": {"fighter", "thief", "assassin", "illusionist", "druid", "ranger"},
-        "base height": {"male": Decimal(42), "female": Decimal(38)}, # inches
-        "base weight": {"male": Decimal(95), "female": Decimal(75)}, # pounds
+        "permitted classes": {
+            "fighter",
+            "thief",
+            "assassin",
+            "illusionist",
+            "druid",
+            "ranger",
+        },
+        "base height": {"male": Decimal(42), "female": Decimal(38)},  # inches
+        "base weight": {"male": Decimal(95), "female": Decimal(75)},  # pounds
         "special characteristics": [
             "+1 on saves vs. Illusion-school magic at 4/7/11/14/18 points of Wisdom",
         ],
@@ -109,8 +147,8 @@ races = {
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
         "permitted classes": {"fighter", "thief", "assassin", "monk"},
-        "base height": {"male": Decimal(48), "female": Decimal(42)}, # inches
-        "base weight": {"male": Decimal(140), "female": Decimal(120)}, # pounds
+        "base height": {"male": Decimal(48), "female": Decimal(42)},  # inches
+        "base weight": {"male": Decimal(140), "female": Decimal(120)},  # pounds
         "special characteristics": [
             "+1 on attacks against orcish or goblinoid defenders",
             "+3 AC against attacks from giants, ogres, and lizardmen",
@@ -124,18 +162,17 @@ races = {
 
 
 class SaveMod:
-
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
 
-# todo convert these to 
+# todo convert these to
 # { "type" racial "source" dwarf "effects" {"target" "constitution" "modifier" 1} }
 # todo these do NOT vary with changes in the current val of an ability score?
 def elf_save_bonus(intelligence):
     # todo change paraemeter to a character, and guard against passing a non-elf?
-    # con: goes against defn of fun as ddeterming bonus gien intelligence 
+    # con: goes against defn of fun as ddeterming bonus gien intelligence
     # pro: fun is badly named and should be "elf ability baased save bonus" etc
     # the fact that I STIL don't have 'type - to insert _ in pytho mode' is such BS. emacs has had so much more attention paid to that kind of thing......
     """0-3 +0, 4-6 +1, 7-10 +2, etc."""
@@ -152,9 +189,7 @@ def gnome_save_bonus(wisdom):
 def dwarf_save_bonus(constitution):
     """0-3 +0, 4-6 +1, 7-10 +2, etc."""
     value = min(5, math.floor(constitution / 3.5))
-    return [SaveMod(effect="magic", value=value),
-            SaveMod(effect="poison", value=value)]
-
+    return [SaveMod(effect="magic", value=value), SaveMod(effect="poison", value=value)]
 
 
 def cha_max_henchmen(cha):
@@ -164,7 +199,7 @@ def cha_max_henchmen(cha):
     if cha < 0:
         raise ValueError(f"cha {cha} less than 0 but ability scores can't go below 0")
     if cha == 0:
-        return 0 
+        return 0
     if cha <= 4:
         return 1
     elif cha in ir(5, 6):
@@ -183,6 +218,7 @@ def cha_max_henchmen(cha):
         return 8
     else:
         return cha_max_henchmen(18) + 1
+
 
 def str_attack_mod(s):
     """Modifier on attack roll.s"""
@@ -206,6 +242,7 @@ def str_attack_mod(s):
         return 4
     else:
         return 5
+
 
 def str_damage_mod(s):
     """Modifier on damage roll.s"""
@@ -253,8 +290,9 @@ def con_max_hp_increase_adjustment(con, char_class):
         else:
             return 4  # martial class with con 19+
 
+
 # @depends("constitution")
-#def con_resurrection_survival_chance(con):
+# def con_resurrection_survival_chance(con):
 #    3 40%
 #    45%
 #    50%
@@ -273,6 +311,7 @@ def con_max_hp_increase_adjustment(con, char_class):
 #    18+ 99%
 #    pass
 
+
 def con_system_shock_survival_chance(con):
     """Base percentage chance of surviving a system shock roll."""
     # todo does the code get cleaner if we dry up the repeated subexpressions below?
@@ -282,10 +321,10 @@ def con_system_shock_survival_chance(con):
     if con <= 3:
         return base
     elif con <= 14:
-        return base + ((con-3) * 5)
+        return base + ((con - 3) * 5)
     elif con <= 18:
         # at con 18, system shock rate is 98%
-        return base + ((con-3) * 5) + ((con-14) * 2)
+        return base + ((con - 3) * 5) + ((con - 14) * 2)
     else:
         return 99
 
@@ -295,7 +334,6 @@ def abi_mod_factory(f, attribute, pc):
     if score < 0:
         raise ValueError(f"{attribute} {score} cannot be less than 0")
     return f(score)
-
 
 
 def int_max_mage_spell_level(i):
@@ -317,7 +355,6 @@ def int_max_mage_spell_level(i):
         return 8
     else:
         return 9
-
 
 
 def dex_ac_mod(d):
@@ -356,8 +393,6 @@ def dex_initiative_ranged_attacks_mod(d):
         return 3
 
 
-
-
 def int_side_effects(i):
     # copied from https://wiki.alexissmolensk.com/index.php/Intelligence_(ability_stat)#Non-intelligent_.280_pts..29
     # for modification
@@ -372,7 +407,6 @@ Humanoids will be haltingly but moderately communicative and expressive with the
 
 Fighting abilities are instinctive; bashing and stabbing weapons are permissible. Weapons may be hurled. They are able to do tasks made of two-or-three steps, such as sharpening a weapon AND putting it away or eating from a plate, washing that plate and putting it away. Such things are limited to busywork; tasks that require figuring the place for something unfamiliar, sorting, locating something that can't be seen or is in an unfamiliar place, or any more complex problem requires a check. The creature can watch and be trusted to be aware in that specific direction, but being alert for something unexpected requires a check. Sage abilities must still fit into the descriptions above or are not available to the creature."""
 
-
     elif i == 5:
         return """When in simple, day-to-day situations, it is rare that any checks will need to be made. However, the alertness needed to think a player character's way through unusual environments (dungeons, dangerous and chaotic terrains, cities or streets where sensory overload is constant) will require occasional checks if there is no one else to keep the character focused. One such situation is battle.
 
@@ -384,8 +418,8 @@ Primitive intelligence allows the use of most hand-to-hand and hurled weapons, b
     else:
         return None
 
-# todo why can't i use math.inf when it works fine at the interpreter? if cha in ir(-math.inf, 4):
 
+# todo why can't i use math.inf when it works fine at the interpreter? if cha in ir(-math.inf, 4):
 
 
 def wis_charm_illusion_save_mod(w):
@@ -405,6 +439,7 @@ def wis_charm_illusion_save_mod(w):
         # wis 19+
         return 3
 
+
 def wis_bonus_cleric_spells(w):
     if w < 0:
         raise ValueError(f"w {w} less than 0 but ability scores can't go below 0")
@@ -415,12 +450,13 @@ def wis_bonus_cleric_spells(w):
         return result
     else:
         if w in ir(14, 15):
-            result[1] = 1   # one bonus 1st-level spell
+            result[1] = 1  # one bonus 1st-level spell
         if w in ir(14, 15):
             result[2] = 1  # one bonus 2nd-level spell
         if w in ir(14, 15):
             result[3] = 1  # one bonus 3rd-level spell
         return result
+
 
 def wis_max_cleric_spell_level(w):
     if w < 0:
@@ -458,27 +494,28 @@ def wis_cleric_spell_success_percent(w):
 
 strength_based = [str_attack_mod, str_damage_mod]
 constitution_based = [
-        con_max_hp_increase_adjustment,
-        con_system_shock_survival_chance,
-        # con_resurrection_survival_chance,
-        ]
+    con_max_hp_increase_adjustment,
+    con_system_shock_survival_chance,
+    # con_resurrection_survival_chance,
+]
 dexterity_based = [
-        dex_ac_mod,
-        dex_initiative_ranged_attacks_mod,
-        ]
+    dex_ac_mod,
+    dex_initiative_ranged_attacks_mod,
+]
 wisdom_based = [
-        wis_charm_illusion_save_mod,
-        wis_bonus_cleric_spells,
-        wis_max_cleric_spell_level,
-        wis_cleric_spell_success_percent,
-        ]
+    wis_charm_illusion_save_mod,
+    wis_bonus_cleric_spells,
+    wis_max_cleric_spell_level,
+    wis_cleric_spell_success_percent,
+]
 intelligence_based = [
-        int_max_mage_spell_level,
-        #int_side_effects,
-        ]
+    int_max_mage_spell_level,
+    # int_side_effects,
+]
 charisma_based = [
-        cha_max_henchmen,
-        ]
+    cha_max_henchmen,
+]
+
 
 def bodymass_hitdice(pounds):
     """Given POUNDS, return die or dice sizes of the bodymass hit die for a creature of that weight."""
@@ -566,4 +603,3 @@ def dice_to_text(dice):
     for (_, sides), num in pool.items():
         result.append(die_to_text(num, sides))
     return "+".join(result)
-

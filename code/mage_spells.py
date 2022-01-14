@@ -18,20 +18,25 @@ from dnd_globals import dnd_dir
 # todo SOLUTION is to write, not markdown files, but python files, for each spell - containing their text description AND other metadata...
 
 
-
-#todo 
+# todo
 # randomization in this file should be seeded from variable so easier to write unit tests
 # probably sufficien to pass a seed value to get_pickable_spells with default value = random.randint()
 
+
 def camel_case_to_spaced(name):
-    x = re.sub(r'(.)([A-Z][a-z]+)', r'\1 \2',name)
-    return re.sub(r'([a-z0-9])([A-Z])',r'\1 \2',x)
+    x = re.sub(r"(.)([A-Z][a-z]+)", r"\1 \2", name)
+    return re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", x)
+
 
 # switch to spell directory
-first_level_spell_directory = dnd_dir / Path("rules/spells/MageSpellDescriptions/Level1/")
+first_level_spell_directory = dnd_dir / Path(
+    "rules/spells/MageSpellDescriptions/Level1/"
+)
 
 # retrieve and format spell names
-first_level_spells = [f for f in os.listdir(first_level_spell_directory) if ".txt" in f and "un~" not in f]
+first_level_spells = [
+    f for f in os.listdir(first_level_spell_directory) if ".txt" in f and "un~" not in f
+]
 first_level_spells = [camel_case_to_spaced(s[:-4]) for s in first_level_spells]
 
 minimum_first_level_spells = 6
@@ -45,7 +50,7 @@ def get_pickable_spells(intelligence):
     # to fix: for s in randomize(first_level_spells):
     for s in first_level_spells:
         # an Intelligence check
-        x = random.randint(1,20)
+        x = random.randint(1, 20)
         if x <= intelligence:
             pickable_spells.append(s)
             first_level_spells.remove(s)
@@ -54,7 +59,7 @@ def get_pickable_spells(intelligence):
     # keep going if there's too few:
     while len(pickable_spells) < minimum_first_level_spells:
         s = random.choice(first_level_spells)
-        x = random.randint(1,20)
+        x = random.randint(1, 20)
         if x <= intelligence:
             pickable_spells.append(s)
             first_level_spells.remove(s)
