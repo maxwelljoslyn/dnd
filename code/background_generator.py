@@ -90,6 +90,7 @@ def input_race():
     return race
 
 
+# todo put this in class_tables?
 base_age = {
         "fighter": 15,
         "paladin": 19,
@@ -104,6 +105,7 @@ base_age = {
 }
 
 def starting_age(pClass):
+    # todo automatically incorporate aging effects - calculated and applied AFTER details have been determined AND char has been generated (because eg "+X years in prison" need to be added)
     base = base_age[pClass]
     if pClass in ["fighter", "paladin", "ranger"]:
         base += randint(1,4)
@@ -306,6 +308,7 @@ def main(testing):
         f.write(family_detail)
         f.write("\n\n")
 
+        # todo when rewriting to something like "your father is/was", use a more detailed family_detail result (a dictionary or something) to inform writing "father is" or "father was"
         f.write("Your father's profession: ")
         c.father_prof = parent_profession(c)
         f.write(str(c.father_prof))
@@ -357,6 +360,7 @@ def main(testing):
         f.write(agility_detail)
         f.write("\n\n")
 
+        # todo do henchmen get max hp at first? decide thereupon - if not, need a henchman flag in PC()
         age = starting_age(c.pClass) + c.added_age
         f.write("Age: " + str(age))
         f.write("\n")
