@@ -576,9 +576,10 @@ def detail_beauty(face_mag, body_mag, player):
     return result
 
 # helper for health_detail
-def get_health_condition(roll):
+def get_health_condition(roll, sex):
     # the higher the number, the more severe the condition
     # the idea is to use these with a random roll in the specified range
+    subj, obj, poss = get_gender_words(sex)
     if roll <= 2:
         return "Motion sickness: repeated waves of nausea and vomiting will occur with the rhythmic motion of any vehicle."
     elif roll <= 4:
@@ -602,7 +603,7 @@ def get_health_condition(roll):
     elif roll == 16:
         return "Chronic migraines: each day, the character has a 1 in 20 chance of being -5 to hit and -3 to saves and ability checks."
     elif roll <= 18:
-        return "Mild hemorrhaging: if wounded, the character will bleed 1 extra HP per round. If bandages are used, character's wounds must be bound twice in order to stop the bleeding."
+        return "Mild hemorrhaging: if character receives a bleeding wound, " + subj + " will bleed 1 extra HP per round. If bandages are used, character's wounds must be bound twice in order to stop the bleeding."
     elif roll == 19:
         return "Shortened breath: character is unable to run for more than two rounds. If any strenuous activity (such as combat) continues for more than 10 rounds, the character must succeed at a save vs. poison or else be struck with a coughing spasm, incapacitating them for 1 round (counts as stunned) and causing 3d4 damage."
     elif roll == 20:
@@ -610,7 +611,7 @@ def get_health_condition(roll):
     elif roll == 21:
         return "Cataracts: character cannot make out any detail further away than 60 feet, and cannot target attacks or spells beyond that range."
     elif roll == 22:
-        return "Major hemorrhaging: if wounded, the character will bleed 2 extra HP per round. If bandages are used, character's wounds must be bound three times in order to stop the bleeding."
+        return "Mild hemorrhaging: if character receives a bleeding wound, " + subj + " will bleed 2 extra HP per round. If bandages are used, character's wounds must be bound three times in order to stop the bleeding."
     elif roll == 23:
         return "Complete deafness: character cannot hear any sound at all, and will be unable to respond to or be affected by sound. Character can still sense vibration."
     elif roll == 24:
@@ -620,7 +621,7 @@ def get_health_condition(roll):
     elif roll <= 27:
         return "Weak heart: if reduced to -6 or fewer HP, character must make save vs. poison or suffer a heart attack and die."
     elif roll == 28:
-        return "Severe hemorrhaging: if wounded, the character will bleed 3 extra HP per round. If bandages are used, character's wounds must be bound four times in order to stop the bleeding."
+        return "Ghastly hemorrhaging: if character receives a bleeding wound, " + subj + " she will bleed 3 extra HP per round. If bandages are used, character's wounds must be bound four times in order to stop the bleeding."
     elif roll == 29:
         return "Blindness: character cannot see at all, and is altogether unable to sense light. Chief among the consequences is that all attacks are treated as if attacking invisible creatures (-8 normally, -6 if someone spends 1 AP/turn helping to direct your strikes) and that all missile/thrown attacks which miss can cause friendly fire, in any direction."
     else:
@@ -630,10 +631,10 @@ def get_health_condition(roll):
 def detail_health(magnitude, player):
     subj, obj, poss = get_gender_words(player.sex)
     # get 4 health conditions, each with different possibilities of being mild or severe
-    condition4 = get_health_condition(randint(24,30))
-    condition3 = get_health_condition(randint(16,24))
-    condition2 = get_health_condition(randint(8,16))
-    condition1 = get_health_condition(randint(1,8))
+    condition4 = get_health_condition(randint(24,30), player.sex)
+    condition3 = get_health_condition(randint(16,24), player.sex)
+    condition2 = get_health_condition(randint(8,16), player.sex)
+    condition1 = get_health_condition(randint(1,8), player.sex)
     result = ""
     if magnitude <= -16:
         result = condition4
@@ -692,7 +693,7 @@ def detail_agility(magnitude, player):
     elif magnitude == -14:
         result = "Character's " + which_side + " foot is deformed, and " + subj + " has a permanent limp. Normal movement is reduced by 1."
     elif magnitude == -13:
-        result = "Character suffers from severe vertigo, and will fall unconscious if " + subj + " is positioned above a drop of 15 or more feet. Once awakened, " + subj + " will be nauseated for 2d4 rounds."
+        result = "Character suffers from severe vertigo. If " + subj + " gets within 5 feet of a drop that is at least 15 feet, " + subj + " will fall unconscious for five minutes. Once awakened, " + subj + " will be nauseated for 2d4 rounds."
     elif magnitude == -12:
         result = "Each time the character moves among delicate objects, including in a marketplace, " + subj + " must make a save vs. explosion to avoid accidentally breaking something."
     elif magnitude == -11:
@@ -717,7 +718,7 @@ def detail_agility(magnitude, player):
     elif magnitude == -2:
         result = "Character requires 1 more AP than normal to draw any weapon."
     elif magnitude == -1:
-        result = "Character suffers from mild vertigo. If positioned above a drop of 15 or more feet, " + subj + " will become somewhat nauseated and suffer a -1 to hit. Nausea passes 1 round after moving away."
+        result = "Character suffers from mild vertigo. If " + subj + " gets within 5 feet of a drop that is at least 15 feet, " + subj + " will become somewhat nauseated and suffer a -1 to hit. Nausea passes 1 round after moving away."
     elif magnitude == 0:
         num = randint(1,20)
         if num <= 18:
