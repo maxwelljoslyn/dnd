@@ -260,7 +260,8 @@ def main(testing):
     c = PC()
     seed(c.seed)
     if testing:
-        c.pClass = "mage"
+        c.pClass = choice(list(classes.keys()))
+        c.race = choice(list(races.keys()))
         c.Strength, c.Dexterity, c.Wisdom, c.Constitution, c.Intelligence, c.Charisma = 12,18,12,12,12,12
         c.sex = "male"
         c.name = "Foobar" + datetime.now().isoformat()
