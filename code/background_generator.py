@@ -8,7 +8,7 @@ from pathlib import Path
 import mage_spells
 from datetime import datetime
 import dnd_globals
-from characters import classes, races
+from characters import classes, races, con_max_hp_increase_adjustment, bodymass_hitdice, dice_to_text
 
 # 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
 # and draw up a rudimentary family tree!!!!
@@ -132,13 +132,17 @@ def calc_height_weight(race, sex):
     return (round(height), weight)
 
 
-def ideal_encumbrance(race, sex, strength):
-    base = races[race]["base weight"][sex] / Decimal(3)
-    return base + (5 * strength)
-
 def calc_max_encumbrance(race, sex, strength, weight, enc_mult):
-    proportion = weight / races[race]["base weight"][sex]
-    ideal_max_encumbrance = ideal_encumbrance(race, sex, strength) * proportion
+    # character's relative heaviness or lightness compared with average member of species
+    personal_proportion = weight / races[race]["base weight"][sex]
+    # character race's relative heaviness or lightness compared with humans
+    # the heavier your species, the less 1 lb of stuff encumbers you, whether from the weight or the awkwardness of carrying a load
+    racial_proportion = races[race]["base weight"][sex] / races["human"]["base weight"][sex]
+    # the stronger, the more you can carry
+    strength_factor = racial_proportion * (5 * strength)
+    base_encumbrance = races[race]["base weight"][sex] / Decimal(3)
+    ideal_max_encumbrance = (personal_proportion * base_encumbrance) + strength_factor
+    # miscellaneous factors, such as those from background details
     actual_max = ideal_max_encumbrance * enc_mult
     return actual_max
 
@@ -361,6 +365,13 @@ def main(testing):
         f.write("\n\n")
 
         # todo do henchmen get max hp at first? decide thereupon - if not, need a henchman flag in PC()
+        # must be calculated before final weight, so bodymass doesn't incorporate "grown fat" or "starved" modifications
+        class_hp = classes[c.pClass]['hit_die'][1:]
+        con_hp = con_max_hp_increase_adjustment(c.Constitution, c.pClass)
+        bodymass_HD = dice_to_text(bodymass_hitdice(c.weight))
+        f.write(f"HP: {bodymass_HD} + {class_hp} [from class] + {con_hp} [from Con]")
+        f.write("\n")
+
         age = starting_age(c.pClass) + c.added_age
         f.write("Age: " + str(age))
         f.write("\n")
