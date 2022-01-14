@@ -1,5 +1,8 @@
 # permanent
 *.pdf
+*.png
+*.jpg
+*.jpeg
 finished
 images
 __pycache__
@@ -7,5 +10,6 @@ before-2021
 alexis-smolensk-all-blogs.txt
 code/created-characters
 code/old
+*.xcf
 # temporary
 dming
