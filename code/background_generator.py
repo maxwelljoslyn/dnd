@@ -45,9 +45,18 @@ def input_sex():
 
 def input_ability_score(prompt, race="human"):
     def get_score():
-        return int(input("Enter "+prompt.capitalize()+":\n"))
-    score = get_score()
+        """This function requires exception handling beyond that of other BG input functions such as get_charclass() because recovering from failed integer cast requires exception handling."""
+        while True:
+            try:
+                score = input("Enter "+prompt.capitalize()+":\n")
+                score = int(score)
+            except ValueError:
+                print("That doesn't look like a number.")
+                continue
+            else:
+                return score
     # todo extract this to rules or globals or races.py as racial maximums per stat, based on their modifiers
+    score = get_score()
     if race == "human":
         minimum = 3
         maximum = 18
