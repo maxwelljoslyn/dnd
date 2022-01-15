@@ -4,10 +4,6 @@ from class_tables import classes
 from decimal import Decimal
 from collections import Counter
 
-# desired api:
-# classes['thief'][minimum_xp][2] = min XP to become level 2 thief
-# classes['fighter'][weapon_choices] = all_weapons
-
 
 def inclusive_range(a, b):
     """A range that includes the argument b, unlike the builtin range(). In mathematical terms, inclusive_range is closed on both ends, while range() is open on one end.
