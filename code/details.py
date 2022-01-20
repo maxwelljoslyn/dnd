@@ -398,7 +398,7 @@ def detail_tendency(magnitude, player):
             "Character's Wisdom is treated as 2 points lower when resisting seduction."
         )
     elif magnitude <= -5:
-        result = "Character is overly cautious about combat. Must succeed at a Wisdom check before being able to make attacks (including discharging offensive spells) in a given combat. Check can be attempted on character's turn each round."
+        result = "Character is overly cautious about combat. Must succeed at a Wisdom check before being able to make attacks in a given combat (including discharging offensive spells, but not including backstabbing or assassination before combat proper.) Check can be attempted on character's turn each round."
     elif magnitude <= -3:
         ungained = randint(2, 3) * 5
         result = (
