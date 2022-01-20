@@ -166,56 +166,22 @@ def main():
             "Name", "Price", "Weight", "", "Units", "", " (#) Description"
         )
     )
-    for n in names:
-        if n in semiGoods:
-            pass
-        else:
-            info = evalRecipe(town, n)
-            evaluatedRecipes[n] = info
-    with open("RecipePrinter.tex","w") as f:
-        f.write(r"\documentclass{article}" + "\n" + r"\usepackage{booktabs}\usepackage{longtable}\usepackage[a4paper,margin=0.6in,landscape]{geometry}\title{Price Table: " + town + r"}" + "\n" + r"\renewcommand{\tabcolsep}{3pt}\begin{document}\maketitle")
-        f.write('\n')
-        f.write(r"\hskip-2.0cm\begin{longtable}" + r"{lrrlrlll}")
-        f.write('\n')
-        f.write(r"\multicolumn{1}{l}{\em{Item}} & \multicolumn{1}{c}{\em{Price}} & \multicolumn{1}{c}{\em{Weight}} & & \multicolumn{1}{c}{\em{Units}} & & \multicolumn{1}{c}{\em{Avail.}} & \multicolumn{1}{l}{\em{Description}}\endhead")
-        f.write(r"\toprule")
-        f.write('\n')
-        for n in names:
-            if n in semiGoods:
+    allServiceNames.sort()
+    for s in allServiceNames:
+        print("    ", s.upper())
+        relevant_recipes = list(
+            {k: v for k, v in recipeStorage.items() if v.service == s}
+        )
+        relevant_recipes.sort()
+        for r in relevant_recipes:
+            if r in semiGoods:
                 pass
             else:
-                f.write(display(n,latexOutputSkeleton,evaluatedRecipes[n]))
-                f.write(r"\\")
-                f.write("\n")
-                if names.index(n) == len(names) - 1:
-                    pass
-                else:
-                    f.write(r"\midrule")
-                f.write("\n")
-        f.write(r"\bottomrule")
-        f.write(r"\end{longtable}")
-
-
-
-        f.write(r"\end{document}")
-    with open("Prices.html","w") as f:
-        f.write(r"<!DOCTYPE html>")
-        f.write(r"<head><title>Prices</title></head>")
-        f.write(r"<body><h1>Prices at " + town + r"</h1>")
-        f.write(r"<p>Number of recipes: " + str(len(names)) + "</p>")
-        f.write(r"<table border = \"1\">")
-        f.write("</td><td>".join(["<tr><td>Name","Price","Weight","","Num","Units","Num. Avail.","Description</td></tr>"]))
-        for n in names:
-            if n in semiGoods:
-                pass
-            else:
-                f.write(display(n,htmlOutputSkeleton,evaluatedRecipes[n]))
-                f.write("\n")
-        f.write(r"</table>")
-            print(display(n, terminalOutputSkeleton, info))
+                info = evalRecipe(town, r)
+                evaluatedRecipes[r] = info
+                print(display(r, terminalOutputSkeleton, info))
     print("Number of recipes:", len(recipeStorage))
 
 
-        
 if __name__ == "__main__":
     main()
