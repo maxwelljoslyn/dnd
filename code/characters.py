@@ -550,3 +550,25 @@ def dice_to_text(dice):
     for (_, sides), num in pool.items():
         result.append(die_to_text(num, sides))
     return "+".join(result)
+
+
+def ability_scores(pc):
+    # todo remove capitalization once same has been done in background_generator.PC
+    return {abi: vars(pc)[abi.capitalize()] for abi in abilities}
+
+
+def meets_ability_minimums(pc):
+    scores = ability_scores(pc)
+    for ability, minimum in classes[pc.pClass]["ability minimums"].items():
+        # todo: one more reason to make ability scores a string -> value map -- checking pc's score becomes easier
+        if scores[ability] < minimum:
+            return False
+    return True
+
+
+def meets_bonus_xp_minimums(pc):
+    scores = ability_scores(pc)
+    for ability, minimum in classes[pc.pClass]["bonus xp minimums"].items():
+        if scores[ability] < minimum:
+            return False
+    return True
