@@ -1,3 +1,4 @@
+from weapons import weapons
 classes = {
     "assassin": {
         "hit die": "d8",
@@ -26,6 +27,7 @@ classes = {
             "9": {"base attack bonus": 5, "min xp": 200000, "proficiencies": 5},
             # todo add all one-handed weapons by filtering all weapons
             "nonproficiency penalty": -2,
+            "weapon choices": set(weapons),
         },
     },
     "cleric": {
@@ -113,6 +115,7 @@ classes = {
             "9": {"base attack bonus": 9, "min xp": 250000},
         },
         "nonproficiency penalty": -2,
+        "weapon choices": set(weapons),
     },
     "illusionist": {
         "hit die": "d4",
@@ -240,6 +243,7 @@ classes = {
             "9": {"base attack bonus": 9, "min xp": 350000},
         },
         "nonproficiency penalty": -2,
+        "weapon choices": set(weapons),
     },
     "ranger": {
         "hit die": "d10",
@@ -273,6 +277,7 @@ classes = {
             "9": {"base attack bonus": 9, "min xp": 225000},
         },
         "nonproficiency penalty": -2,
+        "weapon choices": set(weapons),
     },
     "thief": {
         "hit die": "d6",
