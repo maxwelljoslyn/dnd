@@ -168,7 +168,7 @@ def cha_max_henchmen(cha):
 
 
 def str_attack_mod(s):
-    """Modifier on attack roll.s"""
+    """Modifier on attack rolls."""
     if s < 0:
         raise ValueError(f"s {s} less than 0 but ability scores can't go below 0")
     if s in ir(0, 2):
