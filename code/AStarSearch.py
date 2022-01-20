@@ -6,6 +6,7 @@ from decimal import *
 # set up the Decimal environment
 getcontext().prec = 6
 
+
 class PriorityQueue:
     def __init__(self):
         self.elements = []
@@ -19,14 +20,15 @@ class PriorityQueue:
     def get(self):
         return heapq.heappop(self.elements)[1]
 
-def elevAwareDistance(a,b,worldModel):
+
+def elevAwareDistance(a, b, worldModel):
     """Returns distance from coord a to coord b (in days of travel) in the worldModel.
     These two must be neighbors, so an error is given if they aren't."""
     if b not in list(worldModel[a].neighbors.values()):
-        raise ValueError("args to elevAwareDistance must be neighbors:",a,b)
+        raise ValueError("args to elevAwareDistance must be neighbors:", a, b)
     aElev = worldModel[a].elevation
     bElev = worldModel[b].elevation
-    distance = 1 # basic distance between two hexes
+    distance = 1  # basic distance between two hexes
     # for each full increment of 0.05 of difference in elevation, add one to distance
     diff = abs(aElev - bElev)
     numIncrements = int(diff / Decimal(0.05))
@@ -34,14 +36,18 @@ def elevAwareDistance(a,b,worldModel):
     distance += numIncrements
     return distance
 
-def elevAwarePath(hexes,worldModel):
+
+def elevAwarePath(hexes, worldModel):
     result = 0
     if len(hexes) == 3:
-        result += elevAwareDistance(hexes[0],hexes[1],worldModel)
-        result += elevAwareDistance(hexes[1],hexes[2],worldModel)
+        result += elevAwareDistance(hexes[0], hexes[1], worldModel)
+        result += elevAwareDistance(hexes[1], hexes[2], worldModel)
     else:
-        result = elevAwareDistance(hexes[0],hexes[1],worldModel) + elevAwarePath(hexes[1:],worldModel)
+        result = elevAwareDistance(hexes[0], hexes[1], worldModel) + elevAwarePath(
+            hexes[1:], worldModel
+        )
     return result
+
 
 def reconstructPath(came_from, start, goal):
     """Processes path result of AStarSearch into useable list of coords."""
@@ -53,11 +59,13 @@ def reconstructPath(came_from, start, goal):
     path.reverse()
     return path
 
+
 # heuristic for A-Star
-def cubeDistance(a,b):
+def cubeDistance(a, b):
     """Distance from a to b on a hexagonal grid,
     where a and b are cube coordinates."""
-    return((abs(a[0] - b[0]) + abs(a[1] - b[1]) + abs(a[2] - b[2])) / 2)
+    return (abs(a[0] - b[0]) + abs(a[1] - b[1]) + abs(a[2] - b[2])) / 2
+
 
 # note:
 # this definition of A-star search is overly-specific;
@@ -85,10 +93,13 @@ def AStarSearch(worldModel, start, goal):
         if current == goal:
             break
 
-        eligibleNeighbors = [h for h in list(worldModel[current].neighbors.values())
-                             if h != None]
+        eligibleNeighbors = [
+            h for h in list(worldModel[current].neighbors.values()) if h != None
+        ]
         for next in eligibleNeighbors:
-            new_cost = cost_so_far[current] + elevAwareDistance(current,next,worldModel)
+            new_cost = cost_so_far[current] + elevAwareDistance(
+                current, next, worldModel
+            )
             # if either of these are met...
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 # ...then the best way to get to to next from current has changed
@@ -97,7 +108,8 @@ def AStarSearch(worldModel, start, goal):
                 frontier.put(next, priority)
                 came_from[next] = current
     # return only the relevant information
-    return cost_so_far[goal], reconstructPath(came_from,start,goal)
+    return cost_so_far[goal], reconstructPath(came_from, start, goal)
+
 
 def AStarSearch_Road(roadModel, start, goal):
     frontier = PriorityQueue()

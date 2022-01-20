@@ -3,12 +3,12 @@ from decimal import *
 from math import pi
 import random
 
-from .HexResources import *
-from .Direction import *
-from .AStarSearch import *
-from .ShortestPaths3 import shortestPath
-from .TownInfo import towns, connections
-from .Triangles import getHexTypeAndConfiguration, getConfiguration
+from HexResources import *
+from Direction import *
+from AStarSearch import *
+from ShortestPaths3 import shortestPath
+from TownInfo import towns, connections
+from Triangles import getHexTypeAndConfiguration, getConfiguration
 
 # desired seed for the RNG
 # ALL PORTIONS OF WORLD GENERATION WHICH USE RANDOMNESS
@@ -39,11 +39,12 @@ planetDiameter = mapSize * 20 * 2 * pi
 possibleCoords = set()
 # algorithm (for the coords fitting into a hexagon-shaped hexmap) sourced from:
 # http://www.redblobgames.com/grids/hexagons/implementation.html
-for q in range(-mapSize, mapSize+1):
+for q in range(-mapSize, mapSize + 1):
     rStart = max(-mapSize, -q - mapSize)
     rEnd = min(mapSize, -q + mapSize)
-    for r in range(rStart, rEnd+1):
-        possibleCoords.add((q,r,0-q-r))
+    for r in range(rStart, rEnd + 1):
+        possibleCoords.add((q, r, 0 - q - r))
+
 
 def addCoord(coord1, coord2):
     """Addition of cubic coordinates."""
@@ -51,6 +52,7 @@ def addCoord(coord1, coord2):
     r = coord1[1] + coord2[1]
     s = coord1[2] + coord2[2]
     return q, r, s
+
 
 def getNeighbor(coord, direction):
     """Return coord's neighboring coordinate in the given direction.
@@ -64,16 +66,17 @@ def getNeighbor(coord, direction):
     else:
         return None
 
+
 def getTriangleNeighbors(dir, hex, worldModel):
     """Return the hexes and directions indicating triangle neighbors of the triangle at direction dir,
     which is in hex. Returns either two or three tuples of (parent hex,triangle dir)."""
     dirs = list(Direction.__members__.keys())
     index = dirs.index(dir)
     # no need for modulo, thanks to Python's negative indexing
-    forwardNeighborDir = dirs[index-1]
+    forwardNeighborDir = dirs[index - 1]
     forwardNeighbor = (hex, forwardNeighborDir)
     # modulo is necessary to avoid overshooting length of dirs
-    backwardNeighborDir = dirs[(index+1)%len(dirs)]
+    backwardNeighborDir = dirs[(index + 1) % len(dirs)]
     backwardNeighbor = (hex, backwardNeighborDir)
     # if the parent hex has a neighbor in the direction of dir,
     # then this triangle also has a neighbor there.
@@ -85,7 +88,7 @@ def getTriangleNeighbors(dir, hex, worldModel):
         result.append(oppositeNeighbor)
     else:
         pass
-    return result 
+    return result
 
 
 # http://www.redblobgames.com/grids/hexagons/#range
@@ -94,35 +97,40 @@ def nearbyCoords(startCoord, distance):
     Since this operates on and returns coords, it doesn't test for existence in
     the possibleCoords set (which really ought to be called possibleHexes.)"""
     results = []
-    for x in range(-distance,distance+1):
-        rangeBot = max(-distance,(-x) - distance)
-        rangeTop = min(distance,(-x)+distance)
-        for y in range(rangeBot,rangeTop+1):
+    for x in range(-distance, distance + 1):
+        rangeBot = max(-distance, (-x) - distance)
+        rangeTop = min(distance, (-x) + distance)
+        for y in range(rangeBot, rangeTop + 1):
             z = -x - y
-            results.append(addCoord(startCoord,(x,y,z)))
+            results.append(addCoord(startCoord, (x, y, z)))
     # the returned hexes include the start hex, so we want to throw that out
     results.remove(startCoord)
     return results
 
-def diffOfLists(a,b):
+
+def diffOfLists(a, b):
     """Return elements in a which are not in b."""
     b = set(b)
     return [item for item in a if item not in b]
+
 
 def nthRingCoords(startCoord, ringNumber):
     """Returns all coords which are in the nth ring away from the starting coord.
     As with nearbyCoords, this function returns coords, not hexes as filtered thru possibleCoords.
     To get only those which are actually hexes in the world map, use nthRingHexes."""
     if ringNumber < 1:
-        raise ValueError("ringNumber argument to nthRingCoords must be an integer 1 or greater")
+        raise ValueError(
+            "ringNumber argument to nthRingCoords must be an integer 1 or greater"
+        )
     coordsAtDistanceN = nearbyCoords(startCoord, ringNumber)
     coordsLessThanDistanceN = nearbyCoords(startCoord, ringNumber - 1)
-    coordsInRingN = diffOfLists(coordsAtDistanceN,coordsLessThanDistanceN)
+    coordsInRingN = diffOfLists(coordsAtDistanceN, coordsLessThanDistanceN)
     return coordsInRingN
+
 
 def nthRingHexes(startCoord, ringNumber):
     """As nthRingCoords, but with coords not in possibleCoords filtered out."""
-    res = nthRingCoords(startCoord,ringNumber)
+    res = nthRingCoords(startCoord, ringNumber)
     res = [r for r in res if r in possibleCoords]
     return res
 
@@ -133,8 +141,10 @@ def nearbyHexes(startHex, distance):
     res = [r for r in res if r in possibleCoords]
     return res
 
+
 class HexData:
     """Stores the metadata information associated with a given hexagon."""
+
     def __init__(self):
         self.elevation = Decimal()
         self.temperature = Decimal()
@@ -143,15 +153,16 @@ class HexData:
         self.moisture = Decimal(0)
         self.climate = ""
         self.resources = {}
-        self.subConfigurationType = 0 # an invalid setting, on purpose
+        self.subConfigurationType = 0  # an invalid setting, on purpose
         self.subs = {}
         self.infrastructure = Decimal(0)
+
 
 def tempAtCoord(coord):
     """Return a heat number for the hex at coord.
     Low 'never hot', high means 'always hot',
     and in between means variation, meaning seasonal heat changes."""
-    distanceFromCenter = cubeDistance((0,0,0),coord)
+    distanceFromCenter = cubeDistance((0, 0, 0), coord)
     # 0 at center hex, 1 on first ring, 2 on next ring, etc
     minTemp = Decimal(-30)
     # temp at (0,0,0), the center of the map and the North Pole
@@ -159,7 +170,8 @@ def tempAtCoord(coord):
     # temp at outer edge of map, the equator
     stepSize = Decimal((abs(minTemp) + maxTemp) / mapSize)
     adjustment = Decimal(distanceFromCenter) * stepSize
-    return(minTemp + adjustment)
+    return minTemp + adjustment
+
 
 # TODO: write my own noise generator (see AmitP noise page)
 def initialize():
@@ -175,7 +187,9 @@ def initialize():
         # assign elevation
         q = coord[0]
         r = coord[1]
-        data.elevation = (Decimal(noise.snoise3(q/frequency, r/frequency, 2, octaves)) + Decimal(1))
+        data.elevation = Decimal(
+            noise.snoise3(q / frequency, r / frequency, 2, octaves)
+        ) + Decimal(1)
         # this will be changed in the next loop, it's just a starting point
         data.temperature = tempAtCoord(coord)
         # fill in neighbors list
@@ -183,7 +197,7 @@ def initialize():
             data.neighbors[name] = getNeighbor(coord, member)
 
     # normalize terrain to be between 0 and 1
-    elevations = [d.elevation for c,d in worldModel.items()]
+    elevations = [d.elevation for c, d in worldModel.items()]
     elevMax = max(elevations)
     elevMin = min(elevations)
     seaLevel = 0.46
@@ -227,10 +241,15 @@ def initialize():
                     break
                 else:
                     if neighbor.elevation < currentHex.elevation:
-                        neighbor.moisture = max(neighbor.moisture, Decimal(0.8) * currentMoisture)
+                        neighbor.moisture = max(
+                            neighbor.moisture, Decimal(0.8) * currentMoisture
+                        )
                     else:
                         deltaElevation = abs(currentHex.elevation - neighbor.elevation)
-                        neighbor.moisture = max(neighbor.moisture, currentMoisture - (Decimal(2.5) * Decimal(deltaElevation)))
+                        neighbor.moisture = max(
+                            neighbor.moisture,
+                            currentMoisture - (Decimal(2.5) * Decimal(deltaElevation)),
+                        )
                 currentHex = neighbor
                 currentMoisture = neighbor.moisture
 
@@ -289,30 +308,30 @@ def initialize():
 
     # build the name-indexed road model (roads from town to town and their distances)
     roadModelByName = {}
-    for t,d in towns.items():
+    for t, d in towns.items():
         if t in roadModelByName:
             pass
         else:
             roadModelByName[t] = {}
         for c in connections[t]:
-            distance, path = AStarSearch(worldModel,d.coord,towns[c].coord)
-            roadModelByName[t][c] = distance,path
+            distance, path = AStarSearch(worldModel, d.coord, towns[c].coord)
+            roadModelByName[t][c] = distance, path
             if c not in roadModelByName:
                 roadModelByName[c] = {}
-            roadModelByName[c][t] = distance,path
+            roadModelByName[c][t] = distance, path
 
     # build the coord-indexed road model (for map rendering) from the name-indexed one
     roadModelByCoord = {}
-    for name,targets in roadModelByName.items():
+    for name, targets in roadModelByName.items():
         coord = towns[name].coord
         roadModelByCoord[coord] = {}
-        for targetName,data in targets.items():
+        for targetName, data in targets.items():
             targetCoord = towns[targetName].coord
             roadModelByCoord[coord][targetCoord] = data
-    
+
     # instantiate subtriangles and assign starting data to them
     for coord, data in worldModel.items():
-        data.subs = {x:{} for x in Direction.__members__.keys()}
+        data.subs = {x: {} for x in Direction.__members__.keys()}
         subsType = None
         subsConfiguration = None
         if data.isLand:
@@ -323,11 +342,11 @@ def initialize():
             # we let degrees of wilderness handle just how wild each bit of water is
             data.subConfigurationType = 1
             subsConfiguration = getConfiguration(1)
-        for sub,info in data.subs.items():
+        for sub, info in data.subs.items():
             info["Elevation"] = normalizedElevation
             info["Quality"] = "Civilized"
             # just setting all of these to "Civilized" until I can establish a rating based on infrastructure numbers
-            info["Neighbors"] = getTriangleNeighbors(sub,coord,worldModel)
+            info["Neighbors"] = getTriangleNeighbors(sub, coord, worldModel)
 
     # the wild/civ divide and the exact nature thereof should be calculated based on infra
     # ie. the loop above where triangles are assigned wild/civ arrangements ought to
@@ -353,6 +372,7 @@ def initialize():
     # and spread those out to other towns,
     # only at the end accumulating the results into each town's post-import totals for each resource.
     accumulatedInfrastructureAdjustments = {}
+
     def findInfraToSpread(startCoord):
         """Add infrastructure points to nearby hexes.
         The points at aCoord are not depleted when this happens."""
@@ -372,9 +392,8 @@ def initialize():
                     # create initial value at that key
                     accumulatedInfrastructureAdjustments[p] = potentialInfrastructure
 
-
     # now let's actually use the above function
-    for coord,data in worldModel.items():
+    for coord, data in worldModel.items():
         if data.infrastructure == 0:
             pass
         else:
@@ -393,7 +412,7 @@ def initialize():
             infraMax = infra
 
     # normalize infrastructure from 0 to 1
-    for coord,data in worldModel.items():
+    for coord, data in worldModel.items():
         if data.infrastructure == Decimal(0):
             pass
         else:
@@ -402,12 +421,16 @@ def initialize():
 
     return worldModel, roadModelByName, roadModelByCoord
 
+
 worldModel, roadModelByName, roadModelByCoord = initialize()
 
 # in order to run this implementation of shortest path (and therefore Dijkstra),
 # we have to strip the road information out of the roadModel,
 # leaving only the raw distance numbers.
-strippedRoadModel = {src:{dest:data[0] for dest,data in goesTo.items()} for src,goesTo in roadModelByName.items()}
+strippedRoadModel = {
+    src: {dest: data[0] for dest, data in goesTo.items()}
+    for src, goesTo in roadModelByName.items()
+}
 # building the all-pairs shortest path matrix from the road model,
 # giving us distances from each town to each other town
 # this is used in resourcePriceCalculator; it's calculated here there are so fewer imports from this file to that one
@@ -418,28 +441,50 @@ for source in strippedRoadModel:
         if source == dest:
             pass
         else:
-#            print("debug: finding path from",source,"to",dest)
+            #            print("debug: finding path from",source,"to",dest)
             finalDists, path = shortestPath(strippedRoadModel, source, dest)
             d = finalDists[dest]
-#            print("Debug: distance is",str(d))
+            #            print("Debug: distance is",str(d))
             shortestPathMatrix[source][dest] = d
+
 
 def main():
     with open("inputWorldParser.txt", "w") as f:
-        for c,d in worldModel.items():
-            subsList = ",".join([str(sub) + " Elevation " + str(info["Elevation"]) + " Quality " + info["Quality"] for sub,info in d.subs.items()])
-            outputString = "Hex Coord " + str(c) + \
-              " Elevation " + str(d.elevation) + \
-              " Temperature " + str(d.temperature) + \
-              " Land " + str(d.isLand) + \
-              " Moisture " + str(d.moisture) + \
-              " Climate " + d.climate + \
-              " Infrastructure " + str(d.infrastructure) + \
-              " Subs [" + subsList + "]" + "\n"
+        for c, d in worldModel.items():
+            subsList = ",".join(
+                [
+                    str(sub)
+                    + " Elevation "
+                    + str(info["Elevation"])
+                    + " Quality "
+                    + info["Quality"]
+                    for sub, info in d.subs.items()
+                ]
+            )
+            outputString = (
+                "Hex Coord "
+                + str(c)
+                + " Elevation "
+                + str(d.elevation)
+                + " Temperature "
+                + str(d.temperature)
+                + " Land "
+                + str(d.isLand)
+                + " Moisture "
+                + str(d.moisture)
+                + " Climate "
+                + d.climate
+                + " Infrastructure "
+                + str(d.infrastructure)
+                + " Subs ["
+                + subsList
+                + "]"
+                + "\n"
+            )
             f.write(outputString)
 
     with open("inputTownParser.txt", "w") as f:
-        for t,d in towns.items():
+        for t, d in towns.items():
             outputString = "Coord " + str(d.coord) + " Name " + t + "\n"
             f.write(outputString)
 
@@ -451,6 +496,7 @@ def main():
                 pathString = ",".join([("Coord " + str(x)) for x in path])
                 outputString = "[" + pathString + "]\n"
                 f.write(outputString)
+
 
 if __name__ == "__main__":
     main()

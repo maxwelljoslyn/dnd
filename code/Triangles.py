@@ -1,12 +1,12 @@
-from .Direction import Direction
+from Direction import Direction
 from random import *
 
 dirs = Direction.__members__.keys()
 
 # these types have only a single inhabitant hex each
 # one is all wild, the other is all civilized
-type1 = {x:"Wild" for x in dirs}
-type7 = {x:"Civilized" for x in dirs}
+type1 = {x: "Wild" for x in dirs}
+type7 = {x: "Civilized" for x in dirs}
 
 # construct the possible triangle arrangements for type 2 hexes
 type2s = []
@@ -80,9 +80,18 @@ for dir1 in dirs:
                     pass
                 else:
                     type4s.append(res)
-                
 
-totalConfigurations = 1+1+len(list(type2s))+len(list(type3s))+len(list(type4s))+len(list(type5s))+len(list(type6s))
+
+totalConfigurations = (
+    1
+    + 1
+    + len(list(type2s))
+    + len(list(type3s))
+    + len(list(type4s))
+    + len(list(type5s))
+    + len(list(type6s))
+)
+
 
 def getConfigurationType(roll):
     if roll == 1 or roll == 2:
@@ -100,15 +109,28 @@ def getConfigurationType(roll):
     elif roll == 12:
         return 7
     else:
-        raise ValueError("The argument to this function is hardcoded to be interpreted within the range of a 1d12; you've given a value higher than 12, or a nonsensical value less than 1.")
+        raise ValueError(
+            "The argument to this function is hardcoded to be interpreted within the range of a 1d12; you've given a value higher than 12, or a nonsensical value less than 1."
+        )
 
-configurationTypeMapping = {1:[type1],2:type2s,3:type3s,4:type4s,5:type5s,6:type6s,7:[type7]}
+
+configurationTypeMapping = {
+    1: [type1],
+    2: type2s,
+    3: type3s,
+    4: type4s,
+    5: type5s,
+    6: type6s,
+    7: [type7],
+}
+
 
 def getConfiguration(type):
     return choice(configurationTypeMapping[type])
 
+
 def getHexTypeAndConfiguration():
-    roll = randint(1,12)
+    roll = randint(1, 12)
     """Return the type of the configuration, and the configuration itself."""
     configType = getConfigurationType(roll)
     configuration = getConfiguration(configType)
