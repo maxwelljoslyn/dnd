@@ -286,13 +286,29 @@ class PC:
     default=False,
     help="If true, program uses testing data instead of interactive input.",
 )
-def main(testing):
+@click.option(
+    "--charclass",
+    default="mage",
+    help="If given, and --testing was also given, program creates a character with the given class.",
+)
+@click.option(
+    "--race",
+    default="human",
+    help="If given, and --testing was also given, program creates a character with the given race.",
+)
+def main(testing, charclass, race):
     # todo consider how this would need to be altered if data was provided through a web interface
     c = PC()
     seed(c.seed)
     if testing:
-        c.pClass = choice(list(classes.keys()))
-        c.race = choice(list(races.keys()))
+        if charclass:
+            c.pClass = charclass
+        else:
+            c.pClass = choice(list(classes.keys()))
+        if race:
+            c.race = race
+        else:
+            c.race = choice(list(races.keys()))
         (
             c.Strength,
             c.Dexterity,
