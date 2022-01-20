@@ -16,8 +16,15 @@ from characters import (
     dice_to_text,
 )
 
-# 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
+# todo 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
 # and draw up a rudimentary family tree!!!!
+
+# todo check level 2 XP for result 'character begins with negative XP equal to n% of way to level 2'
+
+# todo add XP field to PC; add "bonus_xp" field to PC; write XP field in final output; check char's scores against class bonus xp minimums to (1) add "+{PC.bonus_XP}% bonus XP gain" in final output if needed (2) reduce wordiness of "if character doesn't receive min xp due to abilities, they get it anyway; if they already receive bonus xp, they start game with free XP"
+
+# todo display "years spent in training" in final output as component of age
+# todo enhance that, also displaying "years spent prison" (at first, can assume 1 stretch of prison before training ... later, can break it up into multiple sentences, which will require something like PC.years list... or PC.lifetime ... ultimately these will all become "modifier" dicts hanging off the main PC, which will be read and converted into printed output)
 
 # 18h = area where 18 (or 3) are hardcoded as limits of PC ability score spectrum (no longer true once races are added)
 
@@ -322,6 +329,7 @@ def main(testing, charclass, race):
     else:
         c.pClass = input_charclass()
         c.race = input_race()
+        # todo uncapitalize these scores
         c.Strength = input_ability_score("Strength", c.race)
         c.Dexterity = input_ability_score("Dexterity", c.race)
         c.Constitution = input_ability_score("Constitution", c.race)
