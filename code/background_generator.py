@@ -316,8 +316,8 @@ def main(testing, charclass, race):
             c.Constitution,
             c.Intelligence,
             c.Charisma,
-        ) = (12, 18, 12, 12, 12, 12)
-        c.sex = "male"
+        ) = (12, 12, 12, 12, 12, 12)
+        c.sex = choice(["male", "female"])
         c.name = "Foobar" + datetime.now().isoformat()
     else:
         c.pClass = input_charclass()
