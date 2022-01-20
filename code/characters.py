@@ -68,7 +68,7 @@ races = {
     },
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
-        "permitted classes": {"fighter", "thief", "assassin", "druid"},
+        "permitted classes": {"fighter", "thief", "druid"},
         "base height": {"male": Decimal(36), "female": Decimal(32)},  # inches
         "base weight": {"male": Decimal(75), "female": Decimal(55)},  # pounds
         "special characteristics": [
