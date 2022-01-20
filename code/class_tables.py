@@ -25,7 +25,6 @@ classes = {
             "7": {"base attack bonus": 4, "min xp": 50000},
             "8": {"min xp": 100000},
             "9": {"base attack bonus": 5, "min xp": 200000, "proficiencies": 5},
-            # todo add all one-handed weapons by filtering all weapons
             "nonproficiency penalty": -2,
             "weapon choices": set(weapons),
         },
@@ -57,6 +56,17 @@ classes = {
             "9": {"base attack bonus": 4, "min xp": 225000, "proficiencies": 4},
         },
         "nonproficiency penalty": -3,
+        "weapon choices": {
+            "bolas",
+            "club",
+            "quarterstaff",
+            "goedendag",
+            "flail",
+            "sling",
+            "sling staff",
+            "mace",
+            "warhammer",
+        },
     },
     "druid": {
         "hit die": "d8",
@@ -85,6 +95,20 @@ classes = {
             "9": {"base attack bonus": 4, "min xp": 108000},
         },
         "nonproficiency penalty": -4,
+        "weapon choices": {
+            "bolas",
+            "club",
+            "dagger",
+            "quarterstaff",
+            "javelin",
+            "scimitar",
+            "spear",
+            "sling",
+            "sling staff",
+            "mace",
+            "dart",
+            "warhammer",
+        },
     },
     "fighter": {
         "hit die": "d10",
@@ -144,6 +168,13 @@ classes = {
             "9": {"base attack bonus": 2, "min xp": 145000},
         },
         "nonproficiency penalty": -5,
+        "weapon choices": {
+            "dagger",
+            "dart",
+            "club",
+            "quarterstaff",
+            "sling",
+        },
     },
     "mage": {
         "hit die": "d4",
@@ -172,6 +203,13 @@ classes = {
             "9": {"base attack bonus": 2, "min xp": 135000},
         },
         "nonproficiency penalty": -5,
+        "weapon choices": {
+            "dagger",
+            "club",
+            "dart",
+            "quarterstaff",
+            "sling",
+        },
     },
     "monk": {
         "hit die": "d6",
@@ -308,6 +346,7 @@ classes = {
         "nonproficiency penalty": -3,
         "weapon choices": {
             "bolas",
+            "dart",
             "club",
             "dagger",
             "quarterstaff",
