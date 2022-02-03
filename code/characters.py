@@ -439,6 +439,10 @@ def wis_cleric_spell_success_percent(w):
         return 100
 
 
+def default_literate(klass):
+    return klass in {"mage", "illusionist", "cleric", "druid"}
+
+
 strength_based = [str_attack_mod, str_damage_mod]
 constitution_based = [
     con_max_hp_increase_adjustment,
@@ -572,3 +576,8 @@ def meets_bonus_xp_minimums(pc):
         if scores[ability] < minimum:
             return False
     return True
+
+
+def mod_to_text(num):
+    return f"+{num}" if num >= 0 else f"{num}"
+
