@@ -12,6 +12,7 @@ from characters import (
     classes,
     races,
     con_max_hp_increase_adjustment,
+    default_literate,
     bodymass_hitdice,
     dice_to_text,
 )
@@ -457,8 +458,8 @@ def main(testing, charclass, race):
         f.write("Eyes: " + c.eye_color)
         f.write("\n")
 
-        # override any background result which would take literacy away
-        if c.pClass in ["mage", "illusionist", "cleric", "druid"]:
+        # overrides any background result which would take literacy away
+        if default_literate(c.pClass):
             c.literate = True
         if c.literate:
             f.write("Literate: Yes\n")
