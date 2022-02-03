@@ -574,7 +574,7 @@ def main(testing, charclass, race):
 
         if c.pClass == "mage":
             f.write("\n\n")
-            f.write("Pick one of these first-level spells:\n")
+            f.write("Pick three of these first-level spells:\n")
             for p in mage_spells.get_pickable_spells(c.Intelligence):
                 f.write(p)
                 f.write("\n")
