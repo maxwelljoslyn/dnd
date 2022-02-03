@@ -1802,7 +1802,7 @@ fixed_results = {
     "carpenter": "design wooden structures; party's wooden goods have +2 on saves",
     "stonemason": "design stone structures; party's stone goods have +2 on saves",
     "boatman": "can handle rowboats and navigate rivers; +1 on checks/saves to keep balance",
-    "gameaeeper": "+1 attack vs animals; have Hunting skill",
+    "gamekeeper": "+1 attack vs animals; have Hunting skill",
     "tomb robber": "possess a magic item",
     "artillerist": "gain weapon proficiency with one of: cannon, ballista, catapult, trebuchet",
     "veterinarian": "improve recovery of 3 resting animals by +2 HP/day",
