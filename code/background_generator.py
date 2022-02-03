@@ -295,12 +295,10 @@ class PC:
 )
 @click.option(
     "--charclass",
-    default="mage",
     help="If given, and --testing was also given, program creates a character with the given class.",
 )
 @click.option(
     "--race",
-    default="human",
     help="If given, and --testing was also given, program creates a character with the given race.",
 )
 def main(testing, charclass, race):
@@ -316,14 +314,14 @@ def main(testing, charclass, race):
             c.race = race
         else:
             c.race = choice(list(races.keys()))
-        (
-            c.Strength,
-            c.Dexterity,
-            c.Wisdom,
-            c.Constitution,
-            c.Intelligence,
-            c.Charisma,
-        ) = (12, 12, 12, 12, 12, 12)
+            # another spot where having abilities as a map on the character would be useful
+        # todo write a function generate random ability scores which *respect class minimums* (this naive approach does not) and which also applies racial modifiers
+        c.Strength = randint(3, 19)
+        c.Dexterity = randint(3, 19)
+        c.Wisdom = randint(3, 19)
+        c.Constitution = randint(3, 19)
+        c.Intelligence = randint(3, 19)
+        c.Charisma = randint(3, 19)
         c.sex = choice(["male", "female"])
         c.name = "Foobar" + datetime.now().isoformat()
     else:
