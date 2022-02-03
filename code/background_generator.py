@@ -12,9 +12,16 @@ from characters import (
     classes,
     races,
     con_max_hp_increase_adjustment,
+    dex_initiative_ranged_attacks_mod,
+    dex_ac_mod,
+    str_attack_mod,
+    str_damage_mod,
+    wis_charm_illusion_save_mod,
+    cha_max_henchmen,
     default_literate,
     bodymass_hitdice,
     dice_to_text,
+    mod_to_text,
 )
 
 # todo 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
@@ -366,6 +373,27 @@ def main(testing, charclass, race):
         for name, stat in abis:
             dots = "." * (16 - len(name))
             f.write("{0}{1}{2}".format(name, dots, stat))
+            if name == "Dexterity":
+                deets = [
+                    "initiative/ranged attack "
+                    + mod_to_text(dex_initiative_ranged_attacks_mod(stat)),
+                    "AC " + mod_to_text(dex_ac_mod(stat)),
+                ]
+                f.write(" (" + "; ".join(deets) + ")")
+            if name == "Strength":
+                deets = [
+                    "melee attack " + mod_to_text(str_attack_mod(stat)),
+                    "melee damage " + mod_to_text(str_damage_mod(stat)),
+                ]
+                f.write(" (" + "; ".join(deets) + ")")
+            if name == "Wisdom":
+                deets = [
+                    mod_to_text(wis_charm_illusion_save_mod(stat))
+                    + " save vs. Charm/Illusion"
+                ]
+                f.write(" (" + "; ".join(deets) + ")")
+            if name == "Charisma":
+                f.write(" (max henchmen " + str(cha_max_henchmen(stat)) + ")")
             f.write("\n")
         f.write("Background for " + c.name + f" the {c.sex} {c.race} {c.pClass}:")
         f.write("\n\n")
