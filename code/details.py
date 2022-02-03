@@ -1,7 +1,7 @@
 from random import *
 from decimal import *
 from collections import namedtuple
-from characters import martial_classes
+from characters import martial_classes, classes
 
 getcontext().prec = 3
 
@@ -400,13 +400,12 @@ def detail_tendency(magnitude, player):
     elif magnitude <= -5:
         result = "Character is overly cautious about combat. Must succeed at a Wisdom check before being able to make attacks in a given combat (including discharging offensive spells, but not including backstabbing or assassination before combat proper.) Check can be attempted on character's turn each round."
     elif magnitude <= -3:
-        ungained = randint(2, 3) * 5
+        percent = choice([10, 15])
+        negative_xp = classes[player.pClass]["levels"][2]["min xp"] * percent * 0.01
         result = (
             "Character has not quite completed "
             + poss
-            + " training, and starts the game with negative experience equal to "
-            + str(ungained)
-            + "% of the number needed to attain 2nd level."
+            + f" training, and starts the game with -{negative_xp} XP ({percent}% of the number needed to attain 2nd level)."
         )
     elif magnitude <= -1:
         result = "Should the character sample an addictive substance, the Wisdom check to determine addiction is made with a -3 penalty."
