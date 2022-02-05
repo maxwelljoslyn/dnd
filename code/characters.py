@@ -6,6 +6,40 @@ from collections import Counter
 from weapons import weapons
 
 
+# todo convert these to
+# { "type" racial "source" dwarf "effects" {"target" "constitution" "modifier" 1} }
+# todo should these vary with changes in the current val of an ability score? as with certain other ability effects like bonus attack/damage from str, bonus attack/init/ac from dex?
+def elf_save_bonus(intelligence, numeric=True):
+    # todo change paraemeter to a character, and guard against passing a non-elf?
+    # con: goes against defn of fun as ddeterming bonus gien intelligence
+    # pro: fun is badly named and should be "elf ability baased save bonus" etc
+    # the fact that I STIL don't have 'type - to insert _ in pytho mode' is such BS. emacs has had so much more attention paid to that kind of thing......
+    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
+    value = min(5, math.floor(intelligence / 3.5))
+    if numeric:
+        return value
+    else:
+        return {"save vs. charm": mod_to_text(value)}
+
+
+def gnome_save_bonus(wisdom, numeric=True):
+    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
+    value = min(5, math.floor(wisdom / 3.5))
+    if numeric:
+        return value
+    else:
+        return {"save vs. illusion": mod_to_text(value)}
+
+
+def dwarf_save_bonus(constitution, numeric=True):
+    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
+    value = min(5, math.floor(constitution / 3.5))
+    if numeric:
+        return value
+    else:
+        return {"save vs. magic and save vs. poison": mod_to_text(value)}
+
+
 def inclusive_range(a, b):
     """A range that includes the argument b, unlike the builtin range(). In mathematical terms, inclusive_range is closed on both ends, while range() is open on one end.
 
@@ -108,35 +142,10 @@ races = {
 }
 
 
-class SaveMod:
-    def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-
-
-# todo convert these to
-# { "type" racial "source" dwarf "effects" {"target" "constitution" "modifier" 1} }
-# todo these do NOT vary with changes in the current val of an ability score?
-def elf_save_bonus(intelligence):
-    # todo change paraemeter to a character, and guard against passing a non-elf?
-    # con: goes against defn of fun as ddeterming bonus gien intelligence
-    # pro: fun is badly named and should be "elf ability baased save bonus" etc
-    # the fact that I STIL don't have 'type - to insert _ in pytho mode' is such BS. emacs has had so much more attention paid to that kind of thing......
-    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
-    value = min(5, math.floor(intelligence / 3.5))
-    return SaveMod(effect="charm", value=value)
-
-
-def gnome_save_bonus(wisdom):
-    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
-    value = min(5, math.floor(wisdom / 3.5))
-    return SaveMod(effect="illusion", value=value)
-
-
-def dwarf_save_bonus(constitution):
-    """0-3 +0, 4-6 +1, 7-10 +2, etc."""
-    value = min(5, math.floor(constitution / 3.5))
-    return [SaveMod(effect="magic", value=value), SaveMod(effect="poison", value=value)]
+# class SaveMod:
+#    def __init__(self, **kwargs):
+#        for k, v in kwargs.items():
+#            setattr(self, k, v)
 
 
 def cha_max_henchmen(cha):
