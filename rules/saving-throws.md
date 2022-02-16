@@ -6,7 +6,4 @@ A saving throw is a die roll representing a character's chance to resist an effe
 
 <a href="https://docs.google.com/spreadsheets/d/12LhUafnHUk8G73WB8l609W9q8aefNpgDSh51ToCvjSA/edit?usp=sharing">Here is the saving throw table.</a>
 
-
-
-A non-magical monsters saves as a 1st-level fighter regardless of how many HD it has. A magical monster (one which can cast spells, or has natural magical abilities) with X HD saves as a mage of level X.
-
+A non-magical monster with X HD saves as a level X fighter. A magical monster (one which can cast spells, or has natural magical abilities) with X HD saves as a level X mage.
