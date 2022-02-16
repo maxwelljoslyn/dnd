@@ -517,7 +517,6 @@ def detail_family(magnitude, c):
     elif magnitude <= -1:
         uncle = randint(0, 1)
         aunt = randint(0, 1)
-        combined = uncle + aunt
         result_start = "Few living relations: "
         if uncle == 1 and aunt == 1:
             result = result_start + "character has an aunt and uncle."
