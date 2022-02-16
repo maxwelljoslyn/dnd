@@ -1,13 +1,31 @@
 Jump
 Range: touch
 Casting Time: 1 round
-Duration: 10 minutes or until all leaps are exhausted
+Duration: 1 jump + 1 jump/level, or 10 minutes
 Area of Effect: 1 creature
 Save: none
 Type: Alteration
 
-The target of this spell is empowered with the ability to make great leaps. From a standing start, the target can jump up to 30 feet in a forward direction; from a running start they can jump up to 50 feet forward. They can also choose to jump 10 feet backward or straight upward. Horizontal leaps have only a slight arc, rising 2 feet for every 10 feet traveled.
 
-In combat, a leap powered by the Jump spell costs 2 AP to perform. Jump does not protect the target in any way from the effects of jumping, such as falling damage or landing on dangerous terrain.
+Jump enables a recipient the ability to leap into the air as a means to bypass obstacles, cross crevasses and jump from vertically in order to reach a high place. In addition, the power can be used to leap about the battlefield, engaging scattered enemies by crossing great distances in a bound.
 
-The spell enables the target to make 2 leaps. The spell bestows an additional usage of the power at 3rd, 5th, and higher levels, up to a maximum of 6 leaps at 9th level. All jumps bestowed by the spell must be used within the duration, or they are lost.
+Execution
+
+Jumps may be between 10 and 30 ft., or 2-6 hexes. A running start will not increase the length which can be jumped.
+
+Each 10 ft. distance or part thereof requires 1 action point (AP). Thus, if the character Winstead were to make a jump of 25 ft., that would cost Winstead 3 AP. The target hex must be empty of combatants and obstructions if a safe landing is to be presumed. Jumping into other persons; onto an unstable surface; or to a place where the recipient must grab something, requires a Dexterity check.
+
+  Possessing the Sure-Footedness sage study grants a +2 bonus to this Dexterity check.
+
+    For example: if Winstead were to leap 20 ft. upwards to catch a tree limb, that would require a check; likewise if he were to try and jump to across a room to land on a stool, which wouldn't be a stable surface. With regards to the tree limb, if he failed the check, he'd fall 20 ft.; if he failed the check while landing on a stool, he'd merely crash to the floor, taking 1-6 damage, rather than suffering a fall.
+
+    If he were jumping into a hex with another person, and failed to make a Dexterity check, both he and the other person would take 1-6 damage. If that other person were an enemy combatant, the check is presumed to have failed. Winstead might succeed in stunning the other, knocking that enemy out of the hex — and leaving Winstead in possession of the hex, stunned or not — but otherwise, the enemy chooses which adjacent hex Winstead ends in, with other nearby enemies making room so that Winstead is left in a hex of his own.
+
+
+Jumping in Combat
+
+Recipients may swing in combat ordinarily and then use the rest of their movement to jump away. If the jump is made before attacking, the last spent AP for the jump may also be applied to the recipient's combat expenditure.
+
+    For example: Winstead makes a jump of 20 ft. at an enemy, using 2 AP to cover the distance. He needs 2 AP to swing his mace and hit the enemy upon landing. Using the 1st AP to jump, Winstead uses his 2nd AP to finish his jump AND start his swing; as he lands, he completes his swing, using 3 AP altogether.
+
+The recipient can also use the time of the jump to draw a weapon, following the same rules as drawing a weapon while running.

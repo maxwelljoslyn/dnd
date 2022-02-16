@@ -1,10 +1,16 @@
-Protection
+Protection from  Malevolence
 Range: touch
 Casting Time: 1 round
-Duration: 1 minute + 1 round/level
+Duration: 1 minute/level
 Area of Effect: 1 creature
 Reversible: no
 Save: none
 Type: Enchantment
 
-This spell protects its target. Armor class is improved by 2, and all saving throws gain a +2 bonus.
+Protection from malevolence defends the target against those who would do it ill. The spell provides the following protection: AC is improved by +2, and saving throws are improved by +2.
+
+For the purpose of the spell, "malevolent" is defined as intending to cause grievous harm against, or a desire to kill, a combatant; malevolent beings are ill-disposed, spiteful and unnaturally violent.
+
+Therefore, the spell cannot be used to defend against animals or creatures lacking sense, who cannot distinguish one form of food from another; nor is it an effective spell against someone who is defending themselves, their home or their family, from player characters who are themselves the malevolent party. That said, some creatures, such as the undead or manifestations from the underworld, are almost always treated as "malevolent."
+
+(Some text owed to Alexis Smolensk.)

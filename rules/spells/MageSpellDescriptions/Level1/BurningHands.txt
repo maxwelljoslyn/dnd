@@ -2,10 +2,12 @@ Burning Hands
 Range: 0
 Casting Time: 1 round
 Duration: instanteous
-Area of Effect: 120-degree arc, out to 10 feet
+Area of Effect: 120-degree arc, out to 15 feet
 Save: none
 Type: Evocation
 
-Burning Hands shoots a sheet of flames out of the caster's hand. The spell works in a 120-degree arc out from the caster, affecting all the hexes in that arc out to a distance of ten feet (a total of six hexes, two adjacent to the magic user and four beyond those.)
+Burning Hands shoots a searing sheet of flames out of the caster's hand. The spell works in a 120-degree arc out from the caster, affecting all the hexes in that arc out to to indicated distance: two hexes adjacent to the caster, four hexes at 10 feet away, and six hexes at 15 feet away. The spell does 1d4 damage +1 point/level.
 
-The spell does 1 point of damage per level of the caster. Flammable materials caught in the effect must save against catching fire.
+The spell will affect all creatures indiscriminately, though the caster's allies may duck to avoid the flames with a successful Wisdom check. The highest point from which the spell can be launched is 1 foot higher than the caster's height; the spell's effect can thus easily be launched over the heads of shorter creatures. The sheet of flame can also be angled up to 45 degrees upward or downward.
+
+Flammable materials, such as paper, loose fibres and open oil, must make a saving throw against magical fire or be ignited. The heat of the flames and the endurance are insufficient to harm woven clothing, wood, leather, metal, glass, foods and other like materials, though some foods could be significantly browned by the spell.

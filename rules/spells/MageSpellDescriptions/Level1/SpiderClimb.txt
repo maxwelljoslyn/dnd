@@ -6,6 +6,10 @@ Area of Effect: 1 creature
 Save: n/a
 Type: Enchantment
 
-This spell enables the target to climb on walls and across ceilings. The target's speed is not affected by this unusual method of locomotion, nor is there any chance of falling no matter the distance traveled no matter the target's skill at climbing. However, there is one caveat: the target must have both hands and both feet bare and empty in order to climb with the aid of this spell.
+This spell enables the target to climb on walls and across ceilings. The target's speed is not affected by this unusual method of locomotion, nor is there any chance of falling, no matter the distance traveled no matter the target's skill at climbing. However, there is one caveat: the target must have both hands and both feet bare and empty in order to climb with the aid of this spell.
+
+Slippery or wet surfaces, even icy ones, can be moved over as easily as dry stone, metal, wood or whatever. Trees can be climbed, and the character can even hang upside down from the bottom of horizontal surfaces like a ceiling or overhang.
 
 Creatures which do not walk or crawl, e.g. snakes, cannot be targeted.
+
+(Some text owed to Alexis Smolensk.)

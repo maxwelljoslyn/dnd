@@ -6,12 +6,12 @@ Area of Effect: special
 Save: none
 Type: Evocation
 
-Shield creates an invisible magical barrier in front of the mage. This barrier confers the following benefits, which are effective *only* against attacks which are made from the front:
+Shield creates an invisible magical barrier around the caster. This barrier confers the following benefits, effective against all attacks (not just those made from the front):
 
-1) Magic Missile attacks are totally negated.
+1) Magic Missiles are totally negated.
 
-2) The mage gets AC 2 vs. hand-propelled missiles, such as axes, daggers, and spears.
+2) The caster gets AC 18 vs. hand-propelled missiles, such as axes, daggers, and spears.
 
-3) The mage gets AC 3 vs. mechanically-assisted missiles, such as arrows, bolts, and bullets. This score also applies against a giant's thrown boulders or against natural attacks which are missiles, such as acid spit or manticore spikes.
+3) The caster gets AC 17 vs. mechanically-assisted missiles, such as arrows, bolts, and bullets. This score also applies against a giant's thrown boulders or against natural attacks which are missiles, such as acid spit or manticore spikes.
 
-4) The mage gets AC 4 against all other attacks.
+4) The caster gets AC 16 against all other attacks.

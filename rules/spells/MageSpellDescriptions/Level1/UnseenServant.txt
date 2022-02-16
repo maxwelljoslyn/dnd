@@ -1,19 +1,23 @@
 Unseen Servant
 Range: 0
 Casting Time: 1 round
-Duration: 1 hour + 10 minutes/level
-Area of Effect: 30 foot radius centered on the caster
+Duration: 2 hours + 1 hour/level
+Area of Effect: 50 foot radius centered on the caster
 Save: none
 Type: Conjuration
 
-This spell summons a minor air spirit to perform tasks. The unseen servant is invisible, although Detect Magic will reveal its presence since it is magically bound. The servant must remain within the spell's area of effect, which moves with the caster. The caster must speak to command the servant. The servant will not obey anyone other than the caster.
+This spell summons a minor air spirit to perform tasks. The unseen servant is invisible, although Detect Magic will reveal its presence since it is magically bound.
 
-The unseen servant has 1 HD and 5 HP. It cannot attack or defend itself in any way; on the other hand, it cannot be attacked, but can be damaged by area or environmental effects.
+The caster need only think to command the servant. The servant will not obey anyone other than the caster. The unseen servant must take orders turn by turn, for it is commanded "just in time" by the player. It cannot act conditionally on the results of other events, or its own actions.
 
-It is not powerful enough to fly or even to levitate, so for movement purposes it is treated as a normal ambulatory creature, with the exception that it can cross water, mud, and other soft surfaces without slowdown.
+The servant's presence is unerringly ignored by most creatures, except those the caster designates. Only creatures from another plane of existence will recognize the servant for what it is; most earthly creatures, however, won't give the servant a second thought, even if it is holding a light source that enables those creatures to see.
 
-The unseen servant can fetch objects, fold and hang laundry, and polish things like boots and armor. It can open doors and containers, and turn keys in locks. It can hold or carry up to 20 pounds of material, and need not set items down to perform other tasks. It can exert force as if it had a Strength of 5.
+The unseen servant has 1 HP, and it disappears if it loses this HP. It cannot attack or defend itself in any way, and opponents are +4 to attack it. It is damaged as normal by area attacks or environmental effects.
 
-For further adjudication of what the unseen servant can do, consider the task of making a meal. Anything analogous to the physical actions of cooking is probably acceptable: stirring, lifting, pouring, scrubbing and wiping, scooping, pressing, and so on -- all are acceptable.
+The unseen servant can perform all kinds of menial tasks, including cleaning, carrying equipment, holding a torch or lantern, fetching items from any location or from the ground, opening doors, cleaning, cooking, gathering wood or water, burying a fire, locking and unlocking doors, binding wounds, setting up camp, taking a camp down, walking an animal and so on. All of these things are done proficiently, though without any skill. When searching a backpack or a saddle bag, the unseen servant always knows instantly where the desired object is, so the search always takes the minimum amount of time.
 
-The unseen servant can take a chain of commands at once, but cannot act conditional on events or on the results of its actions.
+The servant can hold or carry up to 20 pounds of material, and need not set items down to perform other tasks. It can exert enough force to drag an object or creature of up to 80 lbs weight (minus the weight of any other items the servant is carrying) at a speed of 1 hex/round.
+
+The servant has 5 AP, but none of its action points are needed for movement: the servant can move anywhere within the spell's range instantaneously. Points are only needed to limit what it actually does. For example, if a dagger were lying 35 ft. from the caster, the unseen servant could "pop" out to it and draw the weapon from the ground (1 AP), return to the caster and pass it over (1 AP) and still have time to "pop" someplace else to search a backpack (3 AP).
+
+(Some text owed to Alexis Smolensk.)

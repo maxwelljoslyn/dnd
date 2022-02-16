@@ -1,13 +1,18 @@
 Push
-Range: 5 feet + 5 feet/level
+Range: 25 feet + 5 feet/level
 Casting Time: 1 round
 Duration: instantaneous
-Area of Effect: 1 creature or object
-Save: Magic negates
+Area of Effect: creatures or objects totalling up to 200 lbs./level, in a 180-degree arc in front of the caster
+Save: none; special
 Type: Evocation
 
-This spell projects a weak telekinetic force against the target, moving it a short distance or pushing it slightly off-balance.
 
-Push can be used to move an object up to 10 feet, with the maximum weight of the object being 1 pound per caster level. Push can move the target object in any direction which points away from the caster.
+Push causes a weak telekinetic force to lift and hurl back whatever objects or creatures the caster desires, within the area of effect. The push is not particularly strong, but is sufficient to push enemies back 10 feet. The center point of the arc may be anywhere in the spell's range, but the direction of the push is always away from the caster.
 
-If Push is used against a creature and that creature fails its save, it is thrown off balance for one round. This manifests as a penalty to AC and attacks equal to half the caster's level (min 1). However, Push is not effective against creatures which are larger than 50 pounds + 25 pounds/level.
+The caster may decide which creatures in the area are affected. Smaller, lighter creatures aren't affected more or less than large creatures; for example, a 50 lb. kobold could not be hurled back a distance of 40 ft.
+
+The caster may decide whether each affected creature is pushed gently or forcefully. In either case, the creature might be thrown off a ledge or into some other form of hazard; in such cases, the creature is entitled to a saving throw against magic, which will negate the effect entirely.
+
+If the target is affected gently (such as an ally pushed away from a damaging aura), no damage is afflicted. If the target is affected forcefully, it will suffer 1d6 damage; if this is enough to stun, the target will be knocked prone, and take an additional 1d3 damage.
+
+(Some text owed to Alexis Smolensk.)

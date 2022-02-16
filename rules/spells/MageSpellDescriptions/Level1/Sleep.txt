@@ -2,12 +2,18 @@ Sleep
 Range: 30 feet + 5 feet/level
 Casting Time: 1 round
 Duration: 1 minute/level
-Area of Effect: up to 4d4 HD of creatures within a 30 foot diameter circle
-Save: none
+Area of Effect: up to 2d6 HD +1/level HD of creatures within a 30 foot diameter circle
+Save: negates
 Type: Enchantment
 
-This spell causes its targets to fall into a deep slumber. Targets can be roused as normal sleeping creatures, save for the fact that noise, no matter how loud, will not be able to wake them up.
+This spell causes its targets to fall into a light slumber. The effect occurs immediately, causing its targets to fall prone regardless of circumstance. The consequences can be deadly; targets on moving horses, or near a precipice, may tumble or fall, and be injured (while still sleeping!)
 
 Affected creatures are counted against the spell's HD limit from weakest to strongest. Creatures with no Hit Dice (both non-threatening and less than 5 pounds, e.g. kittens, frogs) do not count against the spell's target limit. A creature which is immune or resistant to the spell still counts against the limit, just as a creature which is resistant to fire damage can still be the target of fire spells.
 
-Creatures above 4 HD are not affected.
+The caster intuitively knows the targets' hit dice, so that recipients may be selected to make best use of the spell. In determining effect, each experience level counts as +1 HD above the level of natural hit dice the creature possesses. For example, a 4th level elf would count as 5 HD.
+
+Targets can be roused as normal sleeping creatures, save for the fact that noise, no matter how loud, will not be able to wake them up. However, the recipients aren't fully helpless. As the spell is 1st level, the magic isn't very strong ... therefore, if someone makes a move to threaten a sleeper from within 5 feet, this rouses the sleeper automatically. The sleeper doesn't need to be touched to be revived — intention alone is enough.
+
+If the sleepers are left alone, however, the spell's effect continues until the time runs out, awakening as from an ordinary sleep.
+
+(Some text owed to Alexis Smolensk.)

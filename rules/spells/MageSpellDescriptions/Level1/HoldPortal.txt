@@ -11,5 +11,3 @@ This spell magically fastens a door, gate, hatch, or window. The target portal w
 A Knock spell will dispel the Hold Portal effect. In addition, any extradimensional creature can dispel the effect by making a physical attack against the portal. Finally, the target portal can still be battered or broken down as normal.
 
 The target must be non-magical in nature, although an item shaped by magic but which is itself non-magical is a valid target. If the target portal is not closed at the time of casting, the spell will cause it to shut fully as the effect takes place. If an open portal is obstructed when the spell tries to shut it, the spell will fail.
-
-

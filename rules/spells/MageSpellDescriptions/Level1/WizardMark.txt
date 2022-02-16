@@ -1,0 +1,18 @@
+Wizard Mark
+Range 	touch
+Duration 	permanent; see text
+Area of Effect 	1 sigil per level
+Casting Time 	1 round
+Saving Throw 	none
+
+Wizard Mark incribes a personal magical sigil into objects of the caster's choosing, thereafter to be used as proof of the caster's ownership. The sigil is invisible, unless observed through Identify, True Seeing, or similar. Detect Magic will reveal the presence of a Wizard Mark, but only more powerful divination spells, such as the aforementioned, will be able to prove its exact shape - as is necessary to, say, compare two sigils.
+
+Objects with a function, such as magic items or mechanisms, are irrevocably altered by the sigil's presence. If these are stolen or picked up by others, they'll function for a single round and then afterwards fail. Wagon axles and crossbows seize, magic ceases to work, lanterns won't light, straps and laces will open of their own accord and so on. Simple goods, like bowls, cups, swords, flasks and so on will continue to serve, though a stopper will inexplicably loosen and fall out.
+
+Once the caster regains possession of these things, they will immediately function properly.
+
+The caster can place one sigil per object, per level. The sigil will be permanent unless the caster wishes to dispel it, so that another sigil can be placed on something else.
+
+An Erase spell can remove a Wizard Mark, once the latter is discovered.
+
+(Some text owed to Alexis Smolensk.)

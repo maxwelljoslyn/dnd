@@ -1,0 +1,19 @@
+Precipitation
+Range: 10 ft/level
+Duration: 4 rounds/level
+Save: none
+Area of Effect: 30 ft circle, 120 ft high
+
+Causes a light rain to fall in the area of effect. One millimeter of rain will fall every 8 rounds.
+
+        After 2 rounds, small candles will be extinguished.
+        After 3 rounds, fat candles will be extinguished.
+        After 4 rounds, thin light material will become damp and thoroughly wet thereafter. Flat non-porous surfaces will become wet.
+        After 8 rounds, twigs and heavy material—such as canvas—will become damp and thoroughly wet thereafter. Semi-porous surfaces, like bare wood, will become damp.
+        After 12 rounds, flat non-porous surfaces will become filmed with water.
+        After 16 rounds, torches will be put out. Water will begin to run off smooth surfaces in rivulets.
+        After 20 rounds, semi-porous surfaces will become thoroughly wet to the touch. Earth will become spongy to the touch.
+        After 28 rounds, small fires will slow and become smoky.
+        After 40 rounds, rivulets will run upon sloped earth. Small fires will be put out.
+        After 60 rounds, large fires will slow and become smoky.
+        After 90 rounds, the flames of large fires will be put out, though the coals themselves will continue to smoulder.

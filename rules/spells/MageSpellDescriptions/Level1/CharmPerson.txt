@@ -1,10 +1,6 @@
-Charm Person
-Range: 50 feet
-Casting Time: 1 round
-Duration: special
-Area of Effect: one person
-Save: Magic negates
-Type: Charm
+https://wiki.alexissmolensk.com/index.php/Charm_Person_(spell)
+
+As above, with these additions:
 
 The target of this spell will regard the caster as a friend and ally. The target will not take actions which would specifically endanger itself, such as "jump off that cliff." If the target is combat-trained, it will defend the caster if ordered to do so. If not combat-trained, it will physically interpose itself between the caster and a specific threat.
 
@@ -12,19 +8,6 @@ The target is still subject to all morale checks just as if it weren't charmed. 
 
 The target can stray as far as desired from the caster, but will take orders exactly and only from the spellcaster (written or verbal.)
 
-The caster is not granted any special communication abilities by this spell. The caster can cast this spell on multiple days to try and gain multiple targets; however, when a new target falls under the caster's control, each currently charmed target immediately gets a save to break control (see below.)
+If the caster harms or attempts to harm the target, the spell is immediately broken.
 
-When the spell breaks for a target, that target can never again be charmed by the same caster. Circumstances which can cause the spell to break are as follows:
-
-If the caster harms or attempts to harm the target, the spell is immediately broken. In addition, the target gets periodic saving throws to shake off the spell, with the duration between throws determined by the target's Intelligence:
-
-3 or less Intelligence: 6 weeks
-4-6: 4 weeks
-7-9: 3 weeks
-10-12: 2 weeks
-13-14: 1 week
-15-16: 3 days
-17: 2 days
-18: 1 day
-
-These saving throws are made at dawn. When the spell breaks, the former target retains all their memories. They know that they were charmed for the duration of the spell. Unless the spellcaster was discreet at the time of casting, the target will also know who it was that charmed them. However, this is not a sixth sense: if, for example, the caster was masked but visible when charming the target, and the target is presented with a lineup of possible casters after the spell breaks, the target will not be able to confirm or deny who the caster is based on any kind of magical intuition.
+Unless the spellcaster was discreet at the time of casting, the target will know who it was that charmed them. However, this is not a sixth sense: if, for example, the caster was masked while casting the spell, and the target is presented with a lineup of possible casters after the spell breaks, the target will not possess any special intuition or knowledge about which person was the caster.
