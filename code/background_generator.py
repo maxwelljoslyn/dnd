@@ -283,7 +283,7 @@ class PC:
         # fat weight into encumbrance -- it's a question of function-call ordering.)
         self.weight_mult = Decimal(1)
         # add this to normal starting age to get actual starting age
-        self.added_age = 0
+        self.added_age = {}
         self.credit = 0
         # set this to false if getting the orphan result
         self.has_family = True
@@ -469,7 +469,7 @@ def main(testing, charclass, race):
         f.write(f"HP: {bodymass_HD} + {class_hp} [from class] + {con_hp} [from Con]")
         f.write("\n")
 
-        age = starting_age(c.pClass) + c.added_age
+        age = starting_age(c.pClass) + sum(c.added_age.values())
         f.write("Age: " + str(age))
         f.write("\n")
         f.write("Birthday: " + birthday(age))

@@ -635,17 +635,17 @@ def detail_choices(magnitude, player):
             + " eye. Ranged weapons have additional attack penalty: -1 at close range, -3 at medium, -5 at long (total: -1/-5/-10)"
         )
     elif magnitude == -12:
-        m = randint(1, 8) + randint(1, 8) + randint(1, 8) + randint(1, 8)
-        result = "Character has spent " + str(m) + " miserable years in prison."
-        player.added_age += m
+        years = randint(1, 8) + randint(1, 8) + randint(1, 8) + randint(1, 8)
+        result = "Character has spent " + str(years) + " miserable years in prison."
+        player.added_age["prison"] = years
     elif magnitude == -11:
-        h = randint(1, 6) + randint(1, 6) + randint(1, 6)
-        result = "Character has spent " + str(h) + " hard years in prison."
-        player.added_age += h
+        years = randint(1, 6) + randint(1, 6) + randint(1, 6)
+        result = "Character has spent " + str(years) + " hard years in prison."
+        player.added_age["prison"] = years
     elif magnitude == -10:
-        p = randint(1, 4) + randint(1, 4)
-        result = "Character has spent " + str(p) + " years in prison."
-        player.added_age += p
+        years = randint(1, 4) + randint(1, 4)
+        result = "Character has spent " + str(years) + " years in prison."
+        player.added_age["prison"] = years
     elif magnitude == -9:
         num = randint(1, 3)
         result = (
@@ -736,7 +736,7 @@ def detail_choices(magnitude, player):
             + str(years)
             + " extra years to finish training."
         )
-        player.added_age += years
+        player.added_age["misspent youth"] = years
     elif magnitude == 0:
         scar = randint(3, 8)
         # todo choose where the scar is, or prompt player (or print a "fill in the blank" line!)
