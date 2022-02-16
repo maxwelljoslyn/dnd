@@ -1,4 +1,4 @@
-Allowed classes: fighter, thief, assassin, druid
+Allowed classes: fighter, thief, druid
 Size: small
 Ability score bonuses: +1 Dexterity, -1 Strength
 Attack bonus: +3 on attacks with slings
