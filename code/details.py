@@ -1844,7 +1844,7 @@ def profession_effect(c, prof):
         return "possess credit"
     elif prof == "cavalier" and c.pClass in martial_classes:
         return "gain bonus weapon proficiency: one of flail, warhammer, or pick"
-    elif prof == "bounty hunter" and p.Class == "ranger":
+    elif prof == "bounty hunter" and c.pClass == "ranger":
         return "gain bonus weapon proficiency: any missile or throwing weapon"
     elif prof in all_artisans:
         result = (
