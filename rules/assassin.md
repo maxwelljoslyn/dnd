@@ -4,8 +4,8 @@ name: Assassin
 
 Minimum ability scores: Strength 12, Dexterity 12, Intelligence 9
 Bonus XP: 15 or greater Strength, Dexterity, and Intelligence
-Armor: leather; shields 
-Weapons: all one-handed weapons; bows; crossbows
+Armor: leather; shields
+Weapons: all
 
 ![](/files/AssassinLevels.png)
 
