@@ -1,0 +1,27 @@
+$ def with()
+$ var title: Elf
+$ info = data.races['elf']
+
+$ if info['flavor-quotes']:
+  $ for q in quotes:
+    <blockquote class=p-flavor-quote>
+      $q.text
+      $if q.source:
+      <cite>$q.source</cite>
+    </blockquote>
+
+$ info.introduction
+
+<h2>$info['printed_name_plural'] as Player Characters</h2>
+
+Allowed classes:
+$# make this a horizontal list
+$ for c in info['allowed_classes']:
+$c
+
+
+# filter
+
+$ ability_modifiers = [x for x in info['modifiers'] if x['target'] in data.ability_scores]
+$ other_modifiers = [x for x in info['modifiers'] if x['target'] not in data.ability_scores]
+
