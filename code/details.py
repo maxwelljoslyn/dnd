@@ -627,7 +627,7 @@ def detail_choices(magnitude, player):
             + " leg, and has a peg leg. One less AP than normal."
         )
     elif magnitude <= -14:
-        result = "Character is missing left hand. Cannot use two-handed weapons. Can choose hook-hand as a weapon proficiency, but does not start with one to use."
+        result = "Character is missing non-dominant hand. Cannot use two-handed weapons. Can choose hook-hand as a weapon proficiency, but does not start with one to use."
     elif magnitude == -13:
         result = (
             "Character is missing "
