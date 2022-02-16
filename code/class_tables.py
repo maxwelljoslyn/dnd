@@ -255,7 +255,7 @@ classes = {
     "paladin": {
         "hit die": "d10",
         "ability minimums": {
-            "strength": 9,
+            "strength": 12,
             "constitution": 9,
             "wisdom": 9,
             "charisma": 12,
