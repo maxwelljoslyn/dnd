@@ -6,7 +6,7 @@ name: Cleric
 - Minimum ability scores: Wisdom 9
 - Bonus XP: 16 or greater Wisdom
 - Armor: all
-- Weapons: sling, club, flail, warhammer, mace, quarterstaff
+- Weapons: sling, club, flail, warhammer, mace, quarterstaff, goedendag,
 
 Clerics have the following special abilities:
 
