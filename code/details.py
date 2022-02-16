@@ -1,4 +1,4 @@
-from random import *
+from random import choice, randint, sample
 from decimal import *
 from collections import namedtuple
 from characters import martial_classes, classes
