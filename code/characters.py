@@ -5,6 +5,11 @@ from decimal import Decimal
 from collections import Counter
 from weapons import weapons
 
+# the 'ABILITY_based' lists in characters.py are a TERRIBLE way to register the named modifiers associated with each ability score
+# todo use a dictionary instead: {'wisdom' : {'which_modifies' : {'name' : 'Cleric Spellcasting Success Chance', 'function' : wis_cleric_spell_success_percent, ... }}}
+# (obviously swapping string  'wisdom' for proper data constructor once tha's possible
+# as usual, the ease of creating nested data is paramount in language design, yet overlooked
+
 
 # todo convert these to
 # { "type" racial "source" dwarf "effects" {"target" "constitution" "modifier" 1} }
@@ -592,3 +597,16 @@ def meets_bonus_xp_minimums(pc):
 def mod_to_text(num):
     return f"+{num}" if num >= 0 else f"{num}"
 
+
+#
+# combat_actions = {
+#    "attack": actions.attack,
+#    "search backpack": actions.search(player.backpack),
+# }
+#
+# attack_rules = [is_attacker_elf_and_defender_troll, ...]
+#
+#### actions.py
+#
+# def attack(attacker, defender):
+#    elf_modifier = is_attacker_elf_and_defender_troll(attacker, defender)
