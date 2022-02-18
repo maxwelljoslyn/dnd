@@ -570,6 +570,7 @@ def ability_scores(pc):
     return {abi: vars(pc)[abi.capitalize()] for abi in abilities}
 
 
+# todo rewrite this in terms of class names and ability dictionary so I can use it without a PC object, e.g. in (web) character creation interface
 def meets_ability_minimums(pc):
     scores = ability_scores(pc)
     for ability, minimum in classes[pc.pClass]["ability minimums"].items():
@@ -579,6 +580,7 @@ def meets_ability_minimums(pc):
     return True
 
 
+# todo rewrite this in terms of class names and ability dictionary so I can use it without a PC object, e.g. in (web) character creation interface
 def meets_bonus_xp_minimums(pc):
     scores = ability_scores(pc)
     for ability, minimum in classes[pc.pClass]["bonus xp minimums"].items():
