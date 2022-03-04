@@ -298,8 +298,8 @@ def abi_mod_factory(f, attribute, pc):
     return f(score)
 
 
-def int_max_mage_spell_level(i):
-    """Return highest level of spells that c can comprehend and cast
+def int_max_mage_illusionist_spell_level(i):
+    """Return highest level of spells that can be memorized or cast (if already cast, can be discharged).
     this is crucial for cases of reduced intelligence; also, remember that if int dips below the minimum for mage/illusionist, they can no longer perform their functions!!!!"""
     # todo unlike some other aspects of character creation, this rule will be used and evaluated during the game
     if i < 0:
@@ -402,7 +402,7 @@ def wis_charm_illusion_save_mod(w):
         return 3
 
 
-def wis_bonus_cleric_spells(w):
+def wis_bonus_cleric_druid_spells(w):
     if w < 0:
         raise ValueError(f"w {w} less than 0 but ability scores can't go below 0")
     result = {}
