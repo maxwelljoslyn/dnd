@@ -9,7 +9,13 @@ from a_star_search import a_star_search
 # set up the Decimal environment
 getcontext().prec = 6
 
-# todo don't forget that the TRADE distance is 1 more than the number of days away (so that places 1 day away do not export 100% of references)
+SQMI_PER_HEX = Decimal(346) * u.sqmi
+
+
+def infrastructure(population):
+    return math.floor(population / SQMI_PER_HEX)
+
+
 towns = {
     # todo add location: Hex(q, r, s)
     # todo add whether a route is by land, sea, or river
@@ -53,9 +59,10 @@ towns = {
 
 
 
-# decimalize all distances
+# decimalize all distances and populations
 for town, info in towns.items():
-    info["days to"] = {k: Decimal(v) for k, v in info["days to"].items()}
+    info["population"] = Decimal(info["population"])
+    info["hexes to"] = {k: Decimal(v) for k, v in info["hexes to"].items()}
 
 
 # fill out towns with all-pairs distances
@@ -63,53 +70,43 @@ for source in towns:
     for target in towns:
         if source == target:
             pass
-        elif target in towns[source]["days to"]:
+        elif target in towns[source]["hexes to"]:
             # distance from s to t is stipulated in original defn of towns, so reuse it
             # this assumes all distances between source and target are two-way traversable
-            towns[target]["days to"][source] = towns[source]["days to"][target]
+            towns[target]["hexes to"][source] = towns[source]["hexes to"][target]
         else:
             distance, path = a_star_search(towns, source, target)
-            towns[source]["days to"][target] = distance
-
-total_assigned_refs = defaultdict(int)
-for d in [info["references"] for t, info in towns.items()]:
-    for k, v in d.items():
-        total_assigned_refs[k] += v
+            towns[source]["hexes to"][target] = distance
 
 
-def far_away():
-    global towns
-    towns["Far Away"] = {"references": {}, "days to": {}}
+def far_away(towns):
+    """Add dummy town representing all the economy activity not yet represented in `towns`, at a far enough distance that exporting will not have a significant effect on existing towns' references."""
+
+    def total_assigned_refs(towns):
+        assigned = defaultdict(int)
+        for d in [info["references"] for t, info in towns.items()]:
+            for k, v in d.items():
+                assigned[k] += v
+        return assigned
+
+    towns["Far Away"] = {"population": 5_000_000, "references": {}, "hexes to": {}}
     # initialize distances
     for t in towns:
         if t != "Far Away":
-            towns[t]["days to"]["Far Away"] = Decimal(100)
-            towns["Far Away"]["days to"][t] = Decimal(100)
-
+            towns[t]["hexes to"]["Far Away"] = Decimal(100)
+            towns["Far Away"]["hexes to"][t] = Decimal(100)
     # given G global total refs to commodity X,
     # and M total refs to X already assigned in `towns`,
-    # assign all G - M remaining refs to Far Away
+    # assign all G - M remaining refs to the "Far Away"
     for k, info in world_references.items():
         refs = info["references"]
-        remaining_global_refs = max(0, refs - total_assigned_refs[k])
+        remaining_global_refs = max(0, refs - total_assigned_refs(towns)[k])
         towns["Far Away"]["references"][k] = remaining_global_refs
 
 
-far_away()
+far_away(towns)
 
 # DETERMINING THE MONETARY VALUE OF A GOLD REFERENCE
-
-# todo move to references.py - all except 'average refs per town' is fair game
-for k, info in world_references.items():
-    # calculations requiring both towns and world_references
-    refs = info["references"]
-    amount, unit = info["production"]
-    # 'zero problem' - see below
-    if refs == 0 or amount == 0:
-        continue
-    else:
-        info["average references per town"] = refs / Decimal(len(towns.keys()))
-        info["production per reference"] = (amount / refs, unit)
 
 coin_exchange = {
     "gold": {
@@ -150,7 +147,7 @@ for source in original_towns:
             # given town T with N *original* references to commodity Q,
             # and another town R at distance D,
             # export N/(D+1) references of Q to R
-            distance = towns[source]["days to"][destination]
+            distance = towns[source]["hexes to"][destination]
             for thing, amount in original_towns[source]["references"].items():
                 q = export_quantity(amount, distance)
                 if thing in towns[destination]["references"]:
@@ -159,40 +156,49 @@ for source in original_towns:
                     towns[destination]["references"][thing] = q
 
 
-# DETERMINING EACH TOWN'S PRICE OF 1 PRODUCTION UNIT OF A COMMODITY
+# DETERMINING EACH TOWN'S PRICE OF 1 PRODUCTION UNIT OF COMMODITIES
+# todo don't give a price for every ref, but only the raw materials:
+# not all refs have production (e.g. markets)
+# some refs are categories which need distribution (e.g. fruit)
+# some refs are not raw materials and shouldn't be priced directly (e.g. woolens ... although 'hiring a woollens-maker' might be keyed off that reference, and priced according to the production thereof, no?)
+
+
+def rarity_multiplier(commodity, local_refs):
+    availability_ratio = world_references[commodity]["references"] / local_refs
+    # 0.01 smoothing factor so prices don't swing wildly
+    return Decimal(1) + (Decimal(0.01) * availability_ratio)
+
 
 for t, tinfo in towns.items():
-    tinfo["cp per unit"] = {}
+    tinfo["price"] = {}
     for commodity, numrefs in tinfo["references"].items():
-        cinfo = world_references[commodity]
-        refs = cinfo["references"]
-        amount, unit = cinfo["production"]
-        # 'zero problem' - see below
-        if refs == 0 or amount == 0:
+        winfo = world_references[commodity]
+        world_refs = winfo["references"]
+        world_prod = winfo["production"]
+        if world_refs == 0 or world_prod.magnitude == 0:
+            # 'zero problem' - see below
             continue
         else:
-            # how does this town's num refs to commodity compare to average?
-            availability_ratio = numrefs / cinfo["average references per town"]
-            # thus, if average town has 1 reference to iron ore, and town T has 3, ratio is 3, and ore will cost 1/5 there
-            price_per_ref = cp_per_gold_ore_ref / availability_ratio
-            # todo do I need to put production unit into tinfo,
-            # or OK to retrieve later from worldrefs[commodity]['production per unit'][1]?
-            tinfo["cp per unit"][commodity] = (
-                price_per_ref / cinfo["production per reference"][0]
+
+            multiplier = rarity_multiplier(commodity, numrefs)
+            price_per_ref = multiplier * cp_per_gold_ore_ref
+            tinfo["price"][commodity] = (
+                price_per_ref / winfo["production per reference"]
             )
 
 
 def main():
-    p = towns["Pearl Island"]["cp per unit"]
-    foo = []
-    for commodity, info in world_references.items():
-        refs = info["references"]
-        amount, unit = info["production"]
-        if commodity in p:
-            foo.append((commodity, p[commodity], unit))
-    foo.sort(key=lambda x: x[1])
-    for commodity, price, unit in foo:
-        print(f"{commodity} costs {price} CP / {unit}")
+    for commodity in ("fish", "dried fish", "olives", "timber"):
+        if (
+            world_references[commodity]["references"] == 0
+            or world_references[commodity]["production"].magnitude == 0
+        ):
+            # 'zero  problem'
+            continue
+        else:
+            for t in towns:
+                template = "At {}, {} costs {:~}"
+                print(template.format(t, commodity, towns[t]["price"][commodity]))
 
 
 if __name__ == "__main__":
