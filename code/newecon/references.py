@@ -12,8 +12,35 @@ Q_ = u.Quantity
 
 getcontext().prec = 6
 
-# done so far: everything in top 99 references (whether or not they have a production total)
-# PLUS all other references which have extant production totals
+# todo - world_references[x]["category"] should be a list, so that "beans" has ['beans', 'food'], "horses, Brittany" has ['horses', 'animals'] etc
+# todo regularize singular/plural naming in things like cantaloupes, almonds, etc.
+
+# the primary use of these categories is to distribute e.g. production of generic "fruits" and "beans" among references to specific types of those things
+# should I do so in the case of e.g. "horses" and "Brittany horses" or "wine" and "Chamblais wine" ? seems there is value in having both generic and specific in those cases.
+categories = {
+    "animals",
+    "nuts",
+    "beans",
+    "wines",
+    "timber",
+    "fruits",
+    "vegetables",
+    "cereals",
+    "oils",
+    "horses",
+    "metals",
+    "smithing",
+}
+
+# todo sanity checks
+# millet vs mullet
+# cloves vs clover
+# coral vs copal
+# coral vs copal
+# chestnut (wood) vs chestnuts (food)
+# euphorbia (plant) vs euphoria (word)
+
+
 world_references = {
     "acid": {"references": 0, "production": 3_957_453 * u.oz},
     "adamantite": {"references": 6, "production": 297_760 * u.oz},
