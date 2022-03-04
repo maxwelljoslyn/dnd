@@ -1,8 +1,9 @@
 import math
 import random
-from class_tables import classes
-from decimal import Decimal
 from collections import Counter
+from decimal import Decimal
+
+from class_tables import classes
 from weapons import weapons
 
 # the 'ABILITY_based' lists in characters.py are a TERRIBLE way to register the named modifiers associated with each ability score
