@@ -466,29 +466,32 @@ def default_literate(klass):
     return klass in {"mage", "illusionist", "cleric", "druid"}
 
 
-strength_based = [str_attack_mod, str_damage_mod]
-constitution_based = [
-    con_max_hp_increase_adjustment,
-    con_system_shock_survival_chance,
-    # con_resurrection_survival_chance,
-]
-dexterity_based = [
-    dex_ac_mod,
-    dex_initiative_ranged_attacks_mod,
-]
-wisdom_based = [
-    wis_charm_illusion_save_mod,
-    wis_bonus_cleric_spells,
-    wis_max_cleric_spell_level,
-    wis_cleric_spell_success_percent,
-]
-intelligence_based = [
-    int_max_mage_spell_level,
-    # int_side_effects,
-]
-charisma_based = [
-    cha_max_henchmen,
-]
+ability_effects = {
+    "strength": {
+        "melee attack modifier": str_attack_mod,
+        "melee damage modifier": str_damage_mod,
+    },
+    "dexterity": {
+        "AC modifier": dex_ac_mod,
+        "ranged attack & initiative modifier": dex_initiative_ranged_attacks_mod,
+    },
+    "constitution": {
+        "bonus HP/level": con_max_hp_increase_adjustment,
+        "system shock survival % chance": con_system_shock_survival_chance,
+        # con_resurrection_survival_chance,
+    },
+    "wisdom": {
+        "Charm/Illusion save modifier": wis_charm_illusion_save_mod,
+        "bonus cleric spells": wis_bonus_cleric_druid_spells,
+        "max cleric spell level": wis_max_cleric_spell_level,
+        "cleric spell success % chance": wis_cleric_spell_success_percent,
+    },
+    "intelligence": {
+        "max mage spell level": int_max_mage_illusionist_spell_level,
+        # int_side_effects,
+    },
+    "charisma": {"max henchmen": cha_max_henchmen},
+}
 
 
 def bodymass_hitdice(pounds):
