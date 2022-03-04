@@ -20,44 +20,108 @@ towns = {
     # todo add location: Hex(q, r, s)
     # todo add whether a route is by land, sea, or river
     # todo add whether a route is one-way-only
+    "Sacra Mara": {
+        "population": 8300,
+        "references": {"timber": 1, "wine": 1, "limestone": 1},
+        "hexes to": {"Allrivers": 1},
+    },
+    "Castle Docemille": {
+        "population": 5200,
+        "references": {"smelting": 2},
+        "hexes to": {"Fiora": 3},
+    },
+    "Fiora": {
+        "population": 4781,
+        "references": {"banking": 1},
+        "hexes to": {"Allrivers": 1, "Castle Docemille": 3},
+    },
     "Pearl Island": {
         "population": 3000,
-        "references": {"olives": 1, "fish": 1, "dried fish": 1},
-        "days to": {"Allrivers": 1.5, "Northshore": 2},
+        "references": {"eels": 2, "olives": 1, "fish": 1, "dried fish": 1},
+        "hexes to": {"Allrivers": 1.5, "Northshore": 2},
     },
     "Allrivers": {
         "population": 15000,
-        "references": {"timber": 3, "markets": 1},
-        "days to": {"Northshore": 2, "Gingol": 1.5, "Orii": 1, "Pearl Island": 1.5},
+        "references": {
+            "fish": 1,
+            "dried fish": 1,
+            "cabinetmaking": 1,
+            "shipbuilding": 2,
+            "timber": 3,
+            "carpentry": 1,
+            "markets": 2,
+            "boatbuilding": 1,
+        },
+        "hexes to": {
+            "Sacra Mara": 1,
+            "Fiora": 1,
+            "Northshore": 2,
+            "Lake Gingol": 1.5,
+            "Orii": 1,
+            "Pearl Island": 1.5,
+            "Sugar Bay": 25,
+        },
     },
     "Northshore": {
         "population": 5000,
-        "references": {"timber": 1, "markets": 1},
-        "days to": {"Allrivers": 2, "Ribossi": 1.5},
+        "references": {"markets": 1},
+        "hexes to": {"Allrivers": 2, "Ribossi": 1.5},
     },
-    "Gingol": {
+    "Lake Gingol": {
         "population": 10000,
-        "references": {"cereals": 1, "markets": 1},
-        "days to": {"Glimmergate": 2.5, "Allrivers": 1.5},
+        "references": {"cereals": 1, "markets": 1, "slaves": 1, "boatbuilding": 1},
+        "hexes to": {"Glimmergate": 2.5, "Allrivers": 1.5},
     },
     "Orii": {
         "population": 7000,
-        "references": {"cereals": 1},
-        "days to": {"Allrivers": 1, "Gingol": 3},
+        "references": {
+            "cereals": 2,
+            "wheat": 2,
+            "millet": 1,
+            "alchemy": 2,
+            "bookbinding": 1,
+        },
+        "hexes to": {"Allrivers": 1, "Lake Gingol": 3},
     },
     "Ribossi": {
         "population": 2000,
-        "references": {"cattle": 1},
-        "days to": {"Northshore": 1.5},
+        "references": {
+            "cattle": 1,
+            "timber": 2,
+        },
+        "hexes to": {"Northshore": 1.5},
+    },
+    "Sugar Bay": {
+        "population": 1202,
+        "references": {
+            "refined sugar": 2,
+            "sugarbeets": 1,
+            "sugarcane": 1,
+            # "rum": 1,
+        },
+        "hexes to": {"Allrivers": 25},
     },
     "Glimmergate": {
         "population": 22000,
-        "references": {"sandstone": 1, "limestone": 1, "markets": 1, "smelting": 1},
-        "days to": {"Gingol": 2.5},
+        "references": {
+            "iron": 2,
+            "ironmongery": 1,
+            "emerald": 1,
+            "sandstone": 1,
+            "limestone": 1,
+            "markets": 1,
+            "silver": 1,
+            "silversmithing": 1,
+            "gold": 1,
+            "goldsmithing": 1,
+            "lead": 1,
+            "leadsmithing": 1,
+            "metalsmithing": 1,
+            "pig iron": 1,
+        },
+        "hexes to": {"Lake Gingol": 2.5},
     },
 }
-
-
 
 # decimalize all distances and populations
 for town, info in towns.items():
