@@ -1,0 +1,17 @@
+# shorthand notation
+@alias square_inch = sqin
+@alias square_foot = sqft
+@alias square_yard = sqyd
+@alias square_mile = sqmi
+@alias cubic_inch = cuin
+@alias cubic_foot = cuft
+@alias cubic_meter = cumt
+
+# money
+copper_piece = [money] = cp
+silver_piece = 25 * copper_piece = sp
+gold_piece = 8 * silver_piece = gp
+
+# custom units
+head = [creatures]
+item = [objects]

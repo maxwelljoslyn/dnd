@@ -3,7 +3,7 @@ from collections import defaultdict
 from decimal import Decimal, getcontext
 
 import references
-from references import world_references
+from references import world_references, u
 from a_star_search import a_star_search
 
 # set up the Decimal environment
@@ -111,31 +111,25 @@ for k, info in world_references.items():
         info["average references per town"] = refs / Decimal(len(towns.keys()))
         info["production per reference"] = (amount / refs, unit)
 
-# todo more elegant way to do this with less chance of error by defining one side of ratio and inferring the other?
 coin_exchange = {
     "gold": {
-        "weight": (Decimal(0.4), "oz"),
-        "silver": Decimal(8),
-        "copper": Decimal(200),
+        "weight": Decimal(0.4) * u.oz,
+        # not to be confused with the GOLD CONTENT of the coin, only 0.1 oz
     },
     "silver": {
-        "weight": (Decimal(0.6), "oz"),
-        "copper": Decimal(25),
-        "gold": Decimal(1) / Decimal(8),
+        "weight": Decimal(0.6) * u.oz,
     },
     "copper": {
-        "weight": (Decimal(0.8), "oz"),
-        "silver": Decimal(1) / Decimal(25),
-        "gold": Decimal(1) / Decimal(200),
+        "weight": Decimal(0.8) * u.oz,
     },
 }
 
-cp_per_gold_ore_ref = (
-    # note assumption that gold production measured in oz!
-    world_references["gold"]["production per reference"][0]
-    * 10  # official gold content of 1 gold piece = 0.1 oz
-    * coin_exchange["gold"]["copper"]
+gp_per_gold_ore_ref = (
+    world_references["gold"]["production per reference"].to("oz").magnitude
+    # gold production measured in oz; official gold content of 1 gold piece = 0.1 oz
+    * Decimal(10)
 )
+cp_per_gold_ore_ref = gp_per_gold_ore_ref * 200 * u.cp
 
 # EXPORTING
 
