@@ -593,3 +593,13 @@ Recipe(
     vendor="potter",
     description="used in tanning and to make mortar",
 )
+
+Recipe(
+    "animal feed",
+    "cereals",
+    1 * u.lb,
+    {"cereals": 1 * u.lb},
+    {},
+    description="coarsely ground from cereals",
+    vendor="stockyard",
+)
