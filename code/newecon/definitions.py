@@ -1295,3 +1295,12 @@ Recipe(
     description="two-year old jack (male) donkey",
 )
 
+pig_sale_weight = D(120) * u.lb
+Recipe(
+    "piglet",
+    "swine",
+    pig_sale_weight / 4,
+    {"swine": 1 * u.head},
+    vendor="stockyard",
+    unit=1 * u.head,
+)
