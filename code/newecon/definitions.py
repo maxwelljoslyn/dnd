@@ -323,3 +323,12 @@ Recipe(
     },
     # description="ingot, 1x1x3.65 in.",
 )
+
+Recipe(
+    "steel",
+    "ironmongery",
+    1 * u.lb,
+    {},
+    {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    # description="ingot, 1x1x3.5 in.",
+)
