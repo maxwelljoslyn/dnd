@@ -270,6 +270,14 @@ def main():
                 print(template.format(t, commodity, towns[t]["price"][commodity]))
 
 
+def infra_pop():
+    mylist = sorted(towns.keys())
+    for town in mylist:
+        info = towns[town]
+        print(town)
+        pop = info["population"]
+        print(f"Pop: {pop}", f"Infra: {infrastructure(pop)}")
+
 if __name__ == "__main__":
     main()
 
