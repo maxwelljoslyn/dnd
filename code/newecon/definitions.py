@@ -220,3 +220,12 @@ Recipe(
     {"smelting fuel": 0.75 * u.lb},
     description="separated from waste rock and impurities",
 )
+
+Recipe(
+    "pig iron",
+    "ironmongery",
+    1 * u.lb,
+    {},
+    {"iron ore": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    description="weak, brittle purified iron",
+)
