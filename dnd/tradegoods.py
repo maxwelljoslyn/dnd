@@ -1760,6 +1760,30 @@ Recipe(
     vendor="stockyard",
     description=f"{pony_sale_age} old, {pony_sale_weight:~}, {D(12) * u.hand:~} tall",
 )
+
+
+ridinghorse_sale_weight = D(1000) * u.lb
+ridinghorse_foal_age = D(1) * u.year
+ridinghorse_foal_weight = ridinghorse_sale_weight / D(3)
+ridinghorse_sale_age = D(2.5) * u.year
+# raised on milk until weaned, then on both forage and feed
+ridinghorse_raising_fodder = fodder_while_growing(
+    ridinghorse_foal_age,
+    ridinghorse_sale_age,
+    ridinghorse_foal_weight,
+    ridinghorse_sale_weight,
+    D(0.015) * u.lb / u.lb,
+)
+Recipe(
+    "riding horse",
+    "horses",
+    ridinghorse_sale_weight,
+    {"horses": 1 * u.head},
+    {"animal feed": ridinghorse_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{ridinghorse_sale_age} old, {ridinghorse_sale_weight:~}, {D(15) * u.hand:~} tall",
+)
 donkey_sale_weight = D(650) * u.lb
 donkey_foal_age = D(1) * u.year
 donkey_foal_weight = donkey_sale_weight / D(2)
