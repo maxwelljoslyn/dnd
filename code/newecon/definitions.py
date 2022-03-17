@@ -332,3 +332,5 @@ Recipe(
     {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
     # description="ingot, 1x1x3.5 in.",
 )
+
+Recipe("iron filings", "ironmongery", 1 * u.lb, {}, {"wrought iron": 1 * u.lb})
