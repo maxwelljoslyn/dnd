@@ -171,25 +171,31 @@ far_away(towns)
 
 # DETERMINING THE MONETARY VALUE OF A GOLD REFERENCE
 
+
 coin_exchange = {
     "gold": {
         "weight": Decimal(0.4) * u.oz,
-        # not to be confused with the GOLD CONTENT of the coin, only 0.1 oz
+        "gold content": Decimal(0.1) * u.oz,
     },
     "silver": {
         "weight": Decimal(0.6) * u.oz,
+        "silver content": Decimal(0.0923815) * u.oz,
     },
     "copper": {
         "weight": Decimal(0.8) * u.oz,
+        "copper content": Decimal(0.603364) * u.oz,
     },
 }
 
-gp_per_gold_ore_ref = (
+for coin, info in coin_exchange.items():
+    info["nickel content"] = info["weight"] - info[f"{coin} content"]
+
+cp_per_gold_ore_ref = (
     world_references["gold"]["production per reference"].to("oz").magnitude
     # gold production measured in oz; official gold content of 1 gold piece = 0.1 oz
     * Decimal(10)
-)
-cp_per_gold_ore_ref = gp_per_gold_ore_ref * 200 * u.cp
+    * u.gp
+).to(u.cp)
 
 # EXPORTING
 
@@ -271,3 +277,18 @@ if __name__ == "__main__":
 # some commodities have references, but 0 production (common, eg alchemy)
 # some commodities have production, but 0 references (uncommon, about half a dozen, eg acid)
 # both should be skipped until I figure out ways to "seed" both of these
+
+
+# sisp 0.0739052 oz, 10 sp/gp
+# cicp 0.301683 oz, 20 cp/sp -> 200 cp/gp
+# sisp 0.0739052 oz, 10 sp/gp
+# cicp 0.603365 oz, 20 cp/sp -> 200 cp/gp
+# sisp 0.14781 oz, 10 sp/gp
+# cicp 0.603365 oz, 20 cp/sp -> 200 cp/gp
+
+# sisp 0.0923815 oz, 8 sp/gp
+# cicp 0.301683 oz, 25 cp/sp -> 200 cp/gp
+# sisp 0.
+# cicp 0.603368 oz, 25 cp/sp -> 200 cp/gp
+# sisp 0.184762 oz, 8 sp/gp
+# cicp 0.603364 oz, 25 cp/sp -> 200 cp/gp
