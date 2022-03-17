@@ -3,9 +3,9 @@ from collections import namedtuple
 from pint import UnitRegistry
 
 # "If you use Pint in multiple modules ... avoid creating multiple instances of the unit registry ... by instantiating the registry in a single place."
-u = UnitRegistry()
+u = UnitRegistry(system="US")
 u.load_definitions("units.txt")
-Q_ = u.Quantity
+Q = u.Quantity
 
 # "[If] pickling and unpickling Quantities, [define] the registry as the application registry"
 # set_application_registry(u)
@@ -183,7 +183,7 @@ world_references = {
     "beans": {
         "references": 68,
     },
-    "skins, bear": {
+    "bearskins": {
         "references": 8,
     },
     "beaujolais": {
@@ -1270,10 +1270,7 @@ world_references = {
     "metalsmithing": {
         "references": 133,
     },
-    "milk": {
-        "references": 17,
-        "production": 27_033_753_600 * u.oz,
-    },  # why not floz
+    "milk": {"references": 17, "production": 26_200_400 * u.gallon},
     "millet": {
         # dont confuse with mullet
         "references": 165,
@@ -1431,11 +1428,15 @@ world_references = {
     "wooden tools": {
         "references": 110,
     },
-    "wool cloth": {"references": 111, "production": 13_791_196 * u.sqyd},
     "wool": {"references": 147, "production": 33_323_136 * u.lb},
-    "woolens": {
+    "woolen cloth": {"references": 111, "production": 13_791_196 * u.sqyd},
+    "woolen goods": {
         "references": 116,
         "production": 7_009_387 * u.sqyd,
+    },
+    "worsted cloth": {"references": 5},
+    "worsted goods": {
+        "references": 4,
     },
     "zinc": {"references": 129, "production": 231_232_512 * u.oz},
     "zincsmelting": {"references": 9, "production": 18_171_375 * u.oz},
@@ -1460,6 +1461,13 @@ for r, info in world_references.items():
         # pull this into a function of commodity name
         info["production per reference"] = (prod.magnitude / refs) * prod.units
 
+
+# def prod_per_ref(commodity):
+#    info = world_references[commodity]
+#    if info["references"] == 0:
+#        return None
+#    else:
+#        return (info["production"].magnitude / refs) * info["production"].units
 
 
 def main():

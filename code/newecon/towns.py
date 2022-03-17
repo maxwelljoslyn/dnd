@@ -37,7 +37,7 @@ towns = {
     },
     "Pearl Island": {
         "population": 3000,
-        "references": {"eels": 2, "olives": 1, "fish": 1, "dried fish": 1},
+        "references": {"eels": 2, "olives": 1, "fish": 2, "timber": 1, "dried fish": 1},
         "hexes to": {"Allrivers": 1.5, "Northshore": 2},
     },
     "Allrivers": {
@@ -97,7 +97,6 @@ towns = {
             "refined sugar": 2,
             "sugarbeets": 1,
             "sugarcane": 1,
-            # "rum": 1,
         },
         "hexes to": {"Allrivers": 25},
     },
