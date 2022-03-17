@@ -1865,6 +1865,16 @@ Recipe(
     vendor="brewer",
     unit=registry["beer, in barrel"].unit,
 )
+
+
+Recipe(
+    "fired clay",
+    "ceramics",
+    clay_slab_weight,
+    {"ceramics": Decimal(1.15) * clay_slab_weight},
+    {},
+    description="accounts for firing wet clay, so it does not have to be done separately for all clay goods",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
