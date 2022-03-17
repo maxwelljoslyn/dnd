@@ -865,3 +865,46 @@ Recipe(
     vendor="chandler",
     description="will wash 1 person 60 times; 2x3x6 in.",
 )
+
+# TODO should these be specified as being per head?
+cowhide_area = Decimal(50) * u.sqft
+cowhide_weight = Decimal(60) * u.lb
+Recipe(
+    "fleshy cowhide",
+    "hides",
+    cowhide_weight,
+    {},
+    {"cow": 1 * u.head},
+    unit=cowhide_area,
+)
+
+rawhide_area = cowhide_area
+rawhide_weight = 15 * u.lb
+Recipe(
+    "rawhide",
+    "hides",
+    rawhide_weight,
+    {},
+    {"fleshy cowhide": rawhide_area},
+    unit=rawhide_area,
+    vendor="tanner",
+    description=f"cleaned and dried cowskin, {rawhide_area:~}",
+)
+
+# http://boar.org.uk/aaiwxw3MusprattL6Preparation.htm
+# this says three to four cubic feet of "freshly burned fat lime" (aka quicklime) used for 100 average hides
+# let's split the difference between 3 and 4 cuft of quicklime
+quicklime_per_hide = (Decimal(3.5) * u.cuft * density["quicklime"]) / (
+    Decimal(100) * rawhide_area
+)
+# tanned_hide_toughness = _weight.to(u.oz) / cowhide_area
+Recipe(
+    "tanned cowhide",
+    "hides",
+    rawhide_weight,
+    {},
+    {"quicklime": quicklime_per_hide * rawhide_area, "rawhide": rawhide_area},
+    unit=rawhide_area,
+    vendor="tanner",
+    description=f"typical leather, {rawhide_area:~}",
+)
