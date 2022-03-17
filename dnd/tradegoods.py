@@ -1279,6 +1279,83 @@ for w, description in wines.items():
         vendor="brewer",
         description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
     )
+
+ale_per_serving = D(1) * u.pint
+Recipe(
+    "ale, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * ale_per_serving).to(u.lb),
+    {},
+    {"ale, in barrel": ale_per_serving},
+    unit=ale_per_serving,
+    vendor="innkeeper",
+)
+
+
+beer_per_serving = D(1) * u.pint
+Recipe(
+    "beer, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * beer_per_serving).to(u.lb),
+    {},
+    {"beer, in barrel": beer_per_serving},
+    unit=beer_per_serving,
+    vendor="innkeeper",
+)
+
+Recipe(
+    "gnomish beer, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * beer_per_serving).to(u.lb),
+    {},
+    {"gnomish beer, in barrel": beer_per_serving},
+    unit=beer_per_serving,
+    vendor="innkeeper",
+)
+
+rum_per_serving = D(2) * u.floz
+Recipe(
+    "rum, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * rum_per_serving).to(u.lb),
+    {},
+    {"rum, in barrel": rum_per_serving},
+    unit=rum_per_serving,
+    vendor="innkeeper",
+)
+
+
+wine_per_serving = D(4) * u.floz
+Recipe(
+    "wine, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * wine_per_serving).to(u.lb),
+    {},
+    {"wine, in barrel": wine_per_serving},
+    unit=wine_per_serving,
+    vendor="innkeeper",
+)
+
+Recipe(
+    "Baccia wine, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * wine_per_serving).to(u.lb),
+    {},
+    {"wine, Baccia, in barrel": wine_per_serving},
+    unit=wine_per_serving,
+    vendor="innkeeper",
+)
+
+
+Recipe(
+    "champagne, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * wine_per_serving).to(u.lb),
+    {},
+    {"champagne, in barrel": wine_per_serving},
+    unit=wine_per_serving,
+    vendor="innkeeper",
+)
 # shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
 # I've chosen both ...
 greasy_wool_weight = Decimal(25) * u.lb
