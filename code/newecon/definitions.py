@@ -615,3 +615,16 @@ Recipe(
     vendor="stockyard",
     description="eight months old, ready for milking or shearing",
 )
+
+muttonsheep_sale_weight = 130 * u.lb
+Recipe(
+    "mutton sheep",
+    "sheep",
+    muttonsheep_sale_weight,
+    {},
+    {"mature ewe": 1 * u.head, "animal feed": 120 * u.lb},
+    # 120 lbs feed because four months of feeding at 1 lb grain/day
+    unit=1 * u.head,
+    vendor="stockyard",
+    description="grain-finished yearling, ready for slaughter",
+)
