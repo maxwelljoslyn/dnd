@@ -1120,3 +1120,37 @@ for c in ["barrel"]:
         vendor="brewer",
         description=f"{str(rum_abv.magnitude)}% alcohol",
     )
+
+
+# shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
+# I've chosen both ...
+greasy_wool_weight = Decimal(25) * u.lb
+Recipe(
+    "greasy wool",
+    "wool",
+    greasy_wool_weight,
+    {"wool": greasy_wool_weight},
+    {"mature ewe": 1 * u.head},
+)
+
+scoured_wool_weight = D(15) * u.lb
+Recipe(
+    "scoured wool",
+    "wool",
+    scoured_wool_weight,
+    {},
+    {
+        "greasy wool": scoured_wool_weight,
+        # "fuller's earth": 1,
+    },
+)
+
+# final step in cleaning wool is pounding by mills
+Recipe(
+    "clean wool",
+    "wool",
+    1 * u.lb,
+    {},
+    {"scoured wool": 1 * u.lb},
+    description="brownish-white color",
+)
