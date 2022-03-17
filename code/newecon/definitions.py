@@ -419,3 +419,30 @@ Recipe(
     },
     #    description="ingot, 1.2x1.35x2 in.",
 )
+
+
+copper_in_lb_sterlingsilver = Decimal(0.075) * u.lb
+tin_in_lb_sterlingsilver = Decimal(0.01) * u.lb
+silver_in_lb_sterlingsilver = Decimal(1) * u.lb - (
+    tin_in_lb_sterlingsilver + copper_in_lb_sterlingsilver
+)
+volume_sterlingsilver_ingot = (
+    (tin_in_lb_sterlingsilver / density["tin"])
+    + (copper_in_lb_sterlingsilver / density["copper"])
+    + (silver_in_lb_sterlingsilver / density["silver"])
+)
+
+density["sterling silver"] = 1 * u.lb / volume_sterlingsilver_ingot
+Recipe(
+    "sterling silver",
+    "smelting",
+    1 * u.lb,
+    {},
+    {
+        "tin ore": tin_in_lb_sterlingsilver,
+        "copper ore": copper_in_lb_sterlingsilver,
+        "silver ore": silver_in_lb_sterlingsilver,
+        "smelting fuel": 0.75 * u.lb,
+    },
+    #    description="ingot, 1.5x1.5x1.185 in.",
+)
