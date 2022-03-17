@@ -1179,3 +1179,33 @@ Recipe(
     vendor="spinner",
     description="useable as string, or in ropemaking and weaving",
 )
+
+# TODO make a Pint unit for 'strands/threads per inch'
+# warp threads per inch
+ordinary_cloth_ends = D(32)
+# weft per inch
+ordinary_cloth_picks = D(32)
+# X picks + Y ends per inch = X + Y inches of yarn per square inch of woven cloth
+# given same yarn, more picks/ends = more yarn length used = more weight and cost per fabric square inch
+# given heavier/lighter yarn, same picks/ends = same yarn length used but heavier/lighter fabric
+yarn_per_ordinary_cloth = (
+    ((ordinary_cloth_ends + ordinary_cloth_picks) * u.inch) / (D(1) * u.sqin)
+).to(u.inch / u.sqft)
+ordinary_cloth_sale_unit = D(1) * u.sqft
+wool_ordinary_cloth_sale_weight = (
+    (ordinary_cloth_sale_unit * yarn_per_ordinary_cloth)
+    / wool_yarn_sale_unit
+    * wool_yarn_sale_weight
+)
+# the WEAVE PATTERN influences neither weight nor ends/picks per inch, but does influence difficulty
+
+Recipe(
+    "woolen cloth",
+    "woolen cloth",
+    wool_ordinary_cloth_sale_weight,
+    {},
+    {"woolen yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
+    unit=ordinary_cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave",
+)
