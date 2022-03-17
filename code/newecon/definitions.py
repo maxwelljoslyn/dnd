@@ -76,6 +76,10 @@ def truncated_cone_volume(big_radius, small_radius, height):
             + (small_radius.to(u.ft) ** 2)
         )
     ).to(u.cuft)
+
+
+# molassesGallonWeight = densityMolasses * cuFtPerGallonLiquid
+
 # TODO: Recipe subclasses for categories of goods, such as Weapon and Armor, which have special details (armor class, damage dice, break chance, etc)
 # TODO saves_as field, which controls how item saves against damage (as wood, paper, leather, metal, glass, et -- even if the item not primarily made of that material)
 # TODO container (as a separate field so that its weight can be ignored when doing ingredient math, but added in when calculating price)
@@ -1326,4 +1330,49 @@ Recipe(
     {},
     {"pig": (Decimal(1) * u.lb / pork_per_pig) * u.head},
     vendor="butcher",
+)
+
+# cane can yield 50% of its mass in juice; approximately 20% of that juice is sugar
+# brown (or "raw") sugar still contains some molasses
+juice_from_sugarcane = Decimal(0.5) * u.lb / u.lb
+sugar_from_juice = Decimal(0.2) * u.lb / u.lb
+sugar_from_sugarcane = juice_from_sugarcane * sugar_from_juice
+sugarcane_per_sugar = D(1) / sugar_from_sugarcane
+
+Recipe(
+    "raw sugar",
+    "sugarcane",
+    1 * u.lb,
+    {"sugarcane": sugarcane_per_sugar * u.lb},
+    {},
+    vendor="grocer",
+    description="brown sugar with high molasses content",
+)
+
+Recipe(
+    "refined sugar",
+    "refined sugar",
+    1 * u.lb,
+    {},
+    {"raw sugar": 1 * u.lb},
+    vendor="grocer",
+    description="pale brown sugar with low molasses content",
+)
+
+molasses_from_juice = D(1) - sugar_from_juice
+molasses_from_sugarcane = juice_from_sugarcane * molasses_from_juice
+sugarcane_per_molasses = D(1) / molasses_from_sugarcane
+# molasses_sale_volume = registry["cask, tierce"].capacity
+molasses_sale_volume = D(1) * u.gallon
+molasses_sale_weight = (
+    density["molasses"].to(u.lb / u.gallon) * molasses_sale_volume
+).to(u.lb)
+Recipe(
+    "molasses",
+    "refined sugar",
+    molasses_sale_weight,
+    {"sugarcane": sugarcane_per_molasses * molasses_sale_weight},
+    {},
+    vendor="grocer",
+    description="black, gooey sugarcane extract",
 )
