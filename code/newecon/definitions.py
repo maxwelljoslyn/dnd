@@ -1315,3 +1315,15 @@ Recipe(
     vendor="stockyard",
     unit=1 * u.head,
 )
+
+pig_carcass_fraction = Decimal(0.75)
+pig_meat_fraction = Decimal(0.75)
+pork_per_pig = pig_sale_weight * pig_carcass_fraction * pig_meat_fraction
+Recipe(
+    "pork",
+    "meat",
+    1 * u.lb,
+    {},
+    {"pig": (Decimal(1) * u.lb / pork_per_pig) * u.head},
+    vendor="butcher",
+)
