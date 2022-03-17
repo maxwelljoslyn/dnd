@@ -470,3 +470,18 @@ Recipe(
     unit=1 * u.item,
     description="metal knob which holds hilt and blade together",
 )
+
+# a 1-foot (unit) blade is 2 inches wide, 1/6 inch thick, 1 foot long
+unit_blade_volume = (
+    Decimal(2) * u.inch * Decimal(1) / Decimal(6) * u.inch * Decimal(1) * u.ft
+).to(u.cuft)
+unit_blade_weight = unit_blade_volume * density["steel"]
+Recipe(
+    "blade",
+    "metalsmithing",
+    unit_blade_weight,
+    {},
+    {"steel": unit_blade_weight},
+    unit=1 * u.item,
+    description="price for a one-foot steel blade",
+)
