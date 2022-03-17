@@ -734,3 +734,37 @@ Recipe(
     {"cow": (Decimal(1) * u.lb / veal_per_calf) * u.head},
     vendor="butcher",
 )
+
+abomasum_weight = Decimal(5) * u.lb  # this is a guess
+Recipe(
+    "abomasum",
+    "meat",
+    abomasum_weight,
+    {},
+    {"calf": (abomasum_weight / calf_sale_weight * cattle_carcass_fraction) * u.head},
+    unit=1 * u.item,
+    description="fourth compartment of calf stomach",
+)
+
+Recipe(
+    "abomasum, cured",
+    "meat",
+    abomasum_weight,
+    {"salt": 0.25 * u.lb},
+    {"abomasum": 1 * u.item},
+    # "vinegar": 1}, # TODO after beer
+    unit=1 * u.item,
+    vendor="butcher",
+)
+
+rennet_per_abomasum = Decimal(2) * u.pint / u.item
+rennet_sale_unit = Decimal(1) * u.pint
+Recipe(
+    "rennet",
+    "dairying",
+    (density["water"] * rennet_sale_unit).to(u.lb),
+    {},
+    {"abomasum, cured": rennet_sale_unit / rennet_per_abomasum},
+    unit=rennet_sale_unit,
+    vendor="dairy",
+)
