@@ -563,3 +563,14 @@ Recipe(
     unit=1 * u.item,
     vendor="weaponsmith",
 )
+
+Recipe(
+    "flour",
+    "flour",
+    # TODO shouldn't this be made from husked cereals, which are derived from base recipe cereals? well no, it should be derived from wheat ... to which i have yet to give a prduction number based on cereals
+    1 * u.lb,
+    {"flour": 1 * u.lb},
+    {},
+    vendor="miller",
+    description="ground from cereals",
+)
