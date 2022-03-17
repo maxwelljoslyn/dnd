@@ -334,6 +334,19 @@ Recipe(
     # description="ingot, 1x1x1.435 in.",
 )
 
+# yes: 80mm x 80mm x 1/10,00 mm is the correct dimension for gold leaf!
+gold_leaf_volume = (D(80) * u.mm * D(80) * u.mm * (D(1) / D(10000) * u.mm)).to(u.cuft)
+gold_leaf_weight = gold_leaf_volume * density["gold"]
+Recipe(
+    "gold leaf",
+    "goldsmithing",
+    gold_leaf_weight,
+    {},
+    {"gold ore": gold_leaf_weight},
+    difficulty=3.5,
+    description="80mm * 80mm * 1/10,000 mm sheet",
+)
+
 tin_in_lb_pewter = Decimal(0.85) * u.lb
 copper_in_lb_pewter = Decimal(0.15) * u.lb
 # this volume calculation works because we're making a 1 lb ingot, so the number of pounds = the proportion
