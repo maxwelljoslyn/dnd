@@ -399,3 +399,23 @@ Recipe(
     },
     #    description="ingot, 1.77x2.05x0.95 in.",
 )
+
+
+copper_in_lb_bellmetal = Decimal(0.78) * u.lb
+tin_in_lb_bellmetal = Decimal(0.22) * u.lb
+volume_bellmetal_ingot = (tin_in_lb_bellmetal / density["tin"]) + (
+    copper_in_lb_bellmetal / density["copper"]
+)
+density["bell metal"] = 1 * u.lb / volume_bellmetal_ingot
+Recipe(
+    "bell metal",
+    "smelting",
+    1 * u.lb,
+    {},
+    {
+        "tin ore": tin_in_lb_bellmetal,
+        "copper ore": copper_in_lb_bellmetal,
+        "smelting fuel": 0.75 * u.lb,
+    },
+    #    description="ingot, 1.2x1.35x2 in.",
+)
