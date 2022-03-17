@@ -361,3 +361,22 @@ Recipe(
     {"smelting fuel": 0.75 * u.lb},
     # description="ingot, 1.5x1.5x1.175 in.",
 )
+
+copper_in_lb_bronze = Decimal(0.88) * u.lb
+tin_in_lb_bronze = Decimal(0.12) * u.lb
+volume_bronze_ingot = (tin_in_lb_bronze / density["tin"]) + (
+    copper_in_lb_bronze / density["copper"]
+)
+density["bronze"] = 1 * u.lb / volume_bronze_ingot
+Recipe(
+    "bronze",
+    "smelting",
+    1 * u.lb,
+    {},
+    {
+        "tin ore": tin_in_lb_bronze,
+        "copper ore": copper_in_lb_bronze,
+        "smelting fuel": 0.75 * u.lb,
+    },
+    # description="ingot, 1.125x1.675x1.675 in.",
+)
