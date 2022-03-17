@@ -1,0 +1,5 @@
+the 'ABILITY_based' lists in characters.py are a TERRIBLE way to register the named modifiers associated with each ability score
+as usual,the ease of creating nested data is paramount in language design, yet overlooked
+these should be registered on a damn dictionary...
+{'wisdom' : {'which_modifies' : {'name' : 'Cleric Spellcasting Success Chance', 'function' : wis_cleric_spell_success_percent, ... }}}
+(obviously swapping string  'wisdom' for proper data constructor once tha's possible
