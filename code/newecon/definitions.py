@@ -1154,3 +1154,28 @@ Recipe(
     {"scoured wool": 1 * u.lb},
     description="brownish-white color",
 )
+
+wool_yarn_linear_density = D(1) * u.lb / (Decimal(3000) * u.ft)
+wool_yarn_sale_weight = Decimal(0.5) * u.lb
+wool_yarn_sale_unit = wool_yarn_sale_weight / wool_yarn_linear_density
+Recipe(
+    "woolen yarn",
+    "woolen goods",
+    wool_yarn_sale_weight,
+    {},
+    {"clean wool": wool_yarn_sale_weight},
+    unit=wool_yarn_sale_unit,
+    vendor="spinner",
+    description="useable as string, or in ropemaking and weaving",
+)
+
+Recipe(
+    "worsted yarn",
+    "worsted goods",
+    wool_yarn_sale_weight,
+    {},
+    {"clean wool": wool_yarn_sale_weight},
+    unit=wool_yarn_sale_unit,
+    vendor="spinner",
+    description="useable as string, or in ropemaking and weaving",
+)
