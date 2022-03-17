@@ -723,3 +723,14 @@ Recipe(
     {"veal calf": (Decimal(1) * u.lb / veal_per_calf) * u.head},
     vendor="butcher",
 )
+
+# TODO turn 1 cow into 2 sides of cow, then subdivide cow into different cuts of beef
+beef_per_cow = cow_sale_weight * cattle_carcass_fraction * cattle_meat_fraction
+Recipe(
+    "beef",
+    "meat",
+    1 * u.lb,
+    {},
+    {"cow": (Decimal(1) * u.lb / veal_per_calf) * u.head},
+    vendor="butcher",
+)
