@@ -1232,5 +1232,13 @@ Recipe(
     difficulty=1.1,
     description="twill weave",
 )
+
 Recipe(
+    "carded cotton",
+    "cotton",
+    1 * u.lb,
+    # roughly 60% of the weight of raw cotton is the boll, which is thrown away
+    {"cotton": D(2.5) * u.lb},
+    {},
+)
 Recipe(
