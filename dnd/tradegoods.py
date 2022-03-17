@@ -1855,6 +1855,16 @@ Recipe(
     difficulty=2.5,
     description=f"{griff_sale_age} old, {griff_sale_weight:~}",
 )
+
+Recipe(
+    "vinegar, in barrel",
+    "brewing",  # TODO vinegar ref
+    registry["beer, in barrel"].weight,
+    {},
+    {"beer, in barrel": registry["beer, in barrel"].unit},
+    vendor="brewer",
+    unit=registry["beer, in barrel"].unit,
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
