@@ -835,3 +835,33 @@ Recipe(
     vendor="chandler",
     description="made by leaching ashes in water",
 )
+
+soap_weight = Decimal(1) * u.lb
+# http://www.millennium-ark.net/News_Files/Soap/Lye_Fat_Table.html
+# (above page copyright A L Durtschi)
+# using the 5% excess fat column given here, the required lye content for soap is 0.133 times the tallow content
+lye_per_soap_tallow = Decimal(0.133) * u.lb / u.lb
+# add salt to get hard soap instead of soft
+# http://www.motherearthnews.com/homesteading-and-livestock/how-to-make-soap-from-ashes-zmaz72jfzfre.aspx
+# this article suggests 2.5 pints (3.22 lb) salt for 5 gallons (36.16 lb) of tallow
+salt_per_soap_tallow = (Decimal(3.22) * u.lb) / (Decimal(36.16) * u.lb)
+tallow_per_soap = (
+    soap_weight / (lye_per_soap_tallow + salt_per_soap_tallow + Decimal(1)) / u.lb
+)
+soap_volume = Decimal(3) * u.inch * Decimal(2) * u.inch * Decimal(6) * u.inch
+# my calculation for how many times it will wash one person:
+# one bar of my soap is ~9 cubic inches and lasts about a month i.e. 30 washes
+# the soap here is 36 cubic inches, thus it should last about 4 months or 120 washes
+# but I'm going to cut that in half because Early Modern people got much dirtier than I ever do
+Recipe(
+    "hard soap",
+    "candles and wax",  # TODO change to soap
+    soap_weight,
+    {"salt": salt_per_soap_tallow * soap_weight},
+    {
+        "lye": lye_per_soap_tallow * soap_weight,
+        "tallow": tallow_per_soap * soap_weight,
+    },
+    vendor="chandler",
+    description="will wash 1 person 60 times; 2x3x6 in.",
+)
