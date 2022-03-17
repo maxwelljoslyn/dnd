@@ -270,3 +270,13 @@ Recipe(
     {"smelting fuel": 0.75 * u.lb},
     description="separated from waste rock and impurities",
 )
+
+Recipe(
+    "copper ore",
+    "copper",
+    1 * u.lb,
+    dict(copper=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+    # description="ingot, 2x1.065x1.45 in.",
+)
