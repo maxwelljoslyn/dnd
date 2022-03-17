@@ -645,3 +645,21 @@ Recipe(
     vendor="dairy",
     description="customer supplies container",
 )
+
+salt_in_cheese = Decimal(0.25) * u.lb / u.lb  # a guess
+milk_in_cheese = Decimal(3) * u.gallon / u.lb
+rennet_in_cheese = Decimal(0.5) * u.teaspoon / u.gallon * milk_in_cheese
+cheese_sale_unit = 1 * u.lb
+Recipe(
+    "ewes' milk cheese",
+    "cheese",  # TODO "cheese, ewes' milk" the more specific reference made shit CRAZY expensive because there are so few .... stupid bloody logic
+    cheese_sale_unit,
+    {"salt": salt_in_cheese * cheese_sale_unit},
+    {
+        "ewes' milk": milk_in_cheese * cheese_sale_unit,
+        "rennet": rennet_in_cheese * cheese_sale_unit,
+    },
+    description="local variety",
+    vendor="dairy",
+    # TODO Feta, rocquefort, manchego, pecorina romano are all sheep cheese
+)
