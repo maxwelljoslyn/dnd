@@ -959,3 +959,38 @@ def cask_measurements(height, radius):
         "stave weight": stave_weight,
         "num staves": staves_per_cask,
     }
+
+
+casks = {
+    "firkin": {"height": 2 * u.ft, "radius": 5 * u.inch},
+    "rundlet": {"height": 3 * u.ft, "radius": 6 * u.inch},
+    "barrel": {"height": 3 * u.ft, "radius": 8 * u.inch},
+    "tierce": {"height": 4 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
+    "hogshead": {"height": 6 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
+    "puncheon": {"height": 8 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
+    "butt": {"height": 12 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
+    "tun": {"height": 15 * u.ft + 6 * u.inch, "radius": 10 * u.inch},
+}
+
+for name, info in casks.items():
+    height = Decimal(info["height"].magnitude) * info["height"].units
+    radius = Decimal(info["radius"].magnitude) * info["radius"].units
+    m = cask_measurements(height, radius)
+    total_head_weight = m["head weight"] * m["num heads"]
+    total_stave_weight = m["stave weight"] * m["num staves"]
+    total_fat_hoop_weight = m["fat hoop weight"] * m["num fat hoops"]
+    total_thin_hoop_weight = m["thin hoop weight"] * m["num thin hoops"]
+    Recipe(
+        f"cask, {name}",
+        "barrels",
+        total_head_weight
+        + total_stave_weight
+        + total_fat_hoop_weight
+        + total_thin_hoop_weight,
+        {"timber": total_head_weight + total_stave_weight},
+        {"wrought iron": total_fat_hoop_weight + total_thin_hoop_weight},
+        unit=1 * u.item,
+        vendor="cooper",
+        capacity=m["volume"].to(u.gal),
+        description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
+    )
