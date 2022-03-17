@@ -813,3 +813,5 @@ Recipe(
     vendor="butcher",
     description="beef fat for cooking, or for manufacture of tallow",
 )
+
+Recipe("tallow", "candles and wax", 1 * u.lb, {}, {"suet": 1 * u.lb})
