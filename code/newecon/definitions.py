@@ -485,3 +485,21 @@ Recipe(
     unit=1 * u.item,
     description="price for a one-foot steel blade",
 )
+
+dagger_length = Decimal(1) * u.ft
+dagger_blade_needed = dagger_length / u.ft
+dagger_weight = hilt_weight + pommel_weight + (dagger_blade_needed * unit_blade_weight)
+Recipe(
+    "dagger",
+    "metalsmithing",
+    dagger_weight,
+    {},
+    {
+        "blade": dagger_blade_needed * u.item,
+        "pommel": 1 * u.item,
+        "sword hilt": 1 * u.item,
+    },
+    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length}-foot blade",
+    unit=1 * u.item,
+    vendor="weaponsmith",
+)
