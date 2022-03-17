@@ -1209,3 +1209,14 @@ Recipe(
     vendor="weaver",
     description="plainweave",
 )
+
+Recipe(
+    "worsted cloth",
+    "worsted cloth",
+    wool_ordinary_cloth_sale_weight,
+    {},
+    {"worsted yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
+    unit=ordinary_cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave",
+)
