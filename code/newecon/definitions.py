@@ -300,3 +300,26 @@ Recipe(
     description="separated from waste rock and impurities",
     # description="ingot, 1x1x1.435 in.",
 )
+
+
+tin_in_lb_pewter = Decimal(0.85) * u.lb
+copper_in_lb_pewter = Decimal(0.15) * u.lb
+# this volume calculation works because we're making a 1 lb ingot, so the number of pounds = the proportion
+volume_pewter_ingot = (tin_in_lb_pewter / density["tin"]) + (
+    copper_in_lb_pewter / density["copper"]
+)
+density["pewter"] = Decimal(1) * u.lb / volume_pewter_ingot
+# resulting density = ~469 lbs. Sanity check: looks good for an alloy with this much copper
+
+Recipe(
+    "pewter",
+    "smelting",
+    1 * u.lb,
+    {},
+    {
+        "smelting fuel": 0.75 * u.lb,
+        "tin ore": tin_in_lb_pewter,
+        "copper ore": copper_in_lb_pewter,
+    },
+    # description="ingot, 1x1x3.65 in.",
+)
