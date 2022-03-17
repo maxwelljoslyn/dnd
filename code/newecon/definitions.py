@@ -825,3 +825,13 @@ Recipe(
     {},
     vendor="chandler",
 )
+
+Recipe(
+    "lye",
+    "candles and wax",  # TODO change to lye once that's added to refs.py
+    1 * u.lb,
+    {},
+    {"ashes": 1 * u.lb},
+    vendor="chandler",
+    description="made by leaching ashes in water",
+)
