@@ -1197,6 +1197,23 @@ Recipe(
     description="{str(beer_abv.magnitude)}% alcohol",
 )
 
+Recipe(
+    "gnomish beer, in barrel",
+    "gnomish beer",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {
+        "cereals": cereal_for_beer * barrel_capacity,
+        "malt": malt_for_beer * barrel_capacity,
+        "hops": hops_for_beer * barrel_capacity,
+    },
+    {},
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description=f"{str(beer_abv.magnitude)}% alcohol; finest Amberite refreshment",
+)
+
+
 sugar_for_rum = D(10) * u.lb / u.gallon
 rum_abv = calculate_abv(
     {"raw sugar": sugar_for_rum * 1 * u.gallon},
