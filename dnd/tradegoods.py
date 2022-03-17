@@ -1356,6 +1356,8 @@ Recipe(
     unit=wine_per_serving,
     vendor="innkeeper",
 )
+
+
 # shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
 # I've chosen both ...
 greasy_wool_weight = Decimal(25) * u.lb
@@ -1477,6 +1479,19 @@ Recipe(
     vendor="weaver",
     description="extra soft plainweave",
 )
+
+broadcloth_shrinking_factor = D(3)
+Recipe(
+    "broadcloth",
+    "woolen cloth",
+    wool_ordinary_cloth_sale_weight,
+    {},
+    {"woolen cloth": cloth_sale_unit * broadcloth_shrinking_factor},
+    unit=cloth_sale_unit * D(2),
+    vendor="weaver",
+    description="stiff and tough plainweave woolen cloth, sold in double-wide bolts",
+)
+
 Recipe(
     "worsted cloth",
     "worsted cloth",
