@@ -157,6 +157,19 @@ towns = {
         },
         "hexes to": {"Glimmergate": 1, "Stoneshire": 2},
     },
+    "Giantsbane": {
+        "population": 4817,
+        "references": {
+            "common opal": 1,
+            "azurite": 1,
+            "quartz, blue": 1,
+            "quartz": 1,
+            "agate": 1,
+            "cat's eye": 1,
+            "amethyst": 1,
+        },
+        "hexes to": {"Langakuur": 2},
+    },
     "Stoneshire": {
         "population": 1985,
         "references": {"bricks": 2, "ceramics": 2},
