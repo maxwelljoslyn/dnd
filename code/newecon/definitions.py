@@ -1304,3 +1304,14 @@ Recipe(
     vendor="stockyard",
     unit=1 * u.head,
 )
+
+
+Recipe(
+    "pig",
+    "swine",
+    pig_sale_weight,
+    {},
+    {"piglet": 1 * u.head},
+    vendor="stockyard",
+    unit=1 * u.head,
+)
