@@ -1284,3 +1284,14 @@ Recipe(
     description="yearling",
 )
 
+Recipe(
+    "donkey",
+    "donkeys",
+    donkey_sale_weight,
+    {},
+    {"donkey foal": 1 * u.head},
+    vendor="stockyard",
+    unit=1 * u.head,
+    description="two-year old jack (male) donkey",
+)
+
