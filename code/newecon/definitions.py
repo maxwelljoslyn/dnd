@@ -38,6 +38,12 @@ density = {
         "water": 8.345404 * u.lb / u.gallon,
     }.items()
 }
+# ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
+clay_slab_volume = Decimal(1) / Decimal(12) * u.cuft
+clay_slab_weight = Decimal(108) * u.oz
+density["clay"] = (clay_slab_weight / clay_slab_volume).to(u.lb / u.cuft)
+
+
 def cylinder_volume(height, radius):
     # explicit to(u.cuft) call required to reduce representation from explicit pi to value thereof;
     # otherwise, printed value misleadingly shows "xxx ft ** 3 * pi" which looks like xxx ^ 3pi
