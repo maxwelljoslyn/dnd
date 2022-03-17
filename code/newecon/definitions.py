@@ -203,3 +203,11 @@ class Recipe:
                     result.append(f"{p[thing]:~}")
         return ", ".join(result) + f" / {self._denominator():~}"
 
+
+Recipe(
+    "smelting fuel",
+    "smelting",
+    0.75 * u.lb,
+    dict(coal=0.5 * u.lb, limestone=0.25 * u.lb),
+    description="generic supplies required to smelt 1 lb metal",
+)
