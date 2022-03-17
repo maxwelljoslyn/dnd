@@ -261,3 +261,12 @@ Recipe(
     {"smelting fuel": 0.75 * u.lb},
     description="separated from waste rock and impurities",
 )
+
+Recipe(
+    "manganese ore",
+    "manganese",
+    1 * u.lb,
+    dict(manganese=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+)
