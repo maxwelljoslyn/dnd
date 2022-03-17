@@ -1697,6 +1697,17 @@ Recipe(
     vendor="grocer",
     description="black, gooey sugarcane extract",
 )
+
+Recipe("raw tobacco", "tobacco", 1 * u.lb, {"tobacco": 1 * u.lb}, {})
+
+Recipe(
+    "cured tobacco",
+    "tobacco",
+    1 * u.lb,
+    {},
+    {"raw tobacco": 5 * u.lb},
+    vendor="tobacconist",
+)
 donkey_sale_weight = D(650) * u.lb
 donkey_foal_age = D(1) * u.year
 donkey_foal_weight = donkey_sale_weight / D(2)
