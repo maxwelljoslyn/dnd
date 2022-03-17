@@ -1588,6 +1588,37 @@ Recipe(
     {"retted flax": 1 * u.lb},
     difficulty=D(2),  # it's hard to work with flax fibers
 )
+
+linen_yarn_linear_density = D(1) * u.lb / (Decimal(5000) * u.ft)
+linen_yarn_sale_weight = Decimal(0.5) * u.lb
+linen_yarn_sale_unit = linen_yarn_sale_weight / linen_yarn_linear_density
+Recipe(
+    "linen yarn",
+    "flax",
+    linen_yarn_sale_weight,
+    {},
+    {"combed flax": linen_yarn_sale_weight},
+    unit=linen_yarn_sale_unit,
+    vendor="spinner",
+    description="useable as string, or in ropemaking and weaving",
+)
+
+linen_plainweave_sale_weight = (
+    (cloth_sale_unit * yarn_per_ordinary_cloth)
+    / linen_yarn_sale_unit
+    * linen_yarn_sale_weight
+)
+Recipe(
+    "linen cloth",
+    "linen cloth",
+    linen_plainweave_sale_weight,
+    {},
+    {"linen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave",
+)
+
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
