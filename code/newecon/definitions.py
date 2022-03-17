@@ -289,3 +289,14 @@ Recipe(
     {"smelting fuel": 0.75 * u.lb},
     description="separated from waste rock and impurities",
 )
+
+
+Recipe(
+    "gold ore",
+    "gold",
+    1 * u.lb,
+    dict(gold=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+    # description="ingot, 1x1x1.435 in.",
+)
