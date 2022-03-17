@@ -698,3 +698,16 @@ Recipe(
     unit=1 * u.head,
     description="grain-finished, 8 months old, suitable for veal",
 )
+
+cow_sale_weight = Decimal(800) * u.lb
+Recipe(
+    "cow",
+    "cattle",
+    cow_sale_weight,
+    {},
+    {"calf": 1 * u.head, "animal feed": 243 * u.lb},
+    # 243 = 8 additional months of feed at 1 lb/day to grain-finish
+    unit=1 * u.head,
+    vendor="stockyard",
+    description="grain-finished, 16 months old; suitable for slaughtering",
+)
