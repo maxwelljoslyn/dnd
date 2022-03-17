@@ -1255,3 +1255,19 @@ Recipe(
     vendor="spinner",
     description="useable as string, or in ropemaking and weaving",
 )
+
+cotton_plainweave_sale_weight = (
+    (ordinary_cloth_sale_unit * yarn_per_ordinary_cloth)
+    / cotton_yarn_sale_unit
+    * cotton_yarn_sale_weight
+)
+Recipe(
+    "cotton cloth",
+    "cotton cloth",
+    cotton_plainweave_sale_weight,
+    {},
+    {"cotton yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
+    unit=ordinary_cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave",
+)
