@@ -280,3 +280,12 @@ Recipe(
     description="separated from waste rock and impurities",
     # description="ingot, 2x1.065x1.45 in.",
 )
+
+Recipe(
+    "tin ore",
+    "tin",
+    1 * u.lb,
+    dict(tin=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+)
