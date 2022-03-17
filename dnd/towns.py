@@ -190,6 +190,11 @@ towns = {
         },
         "hexes to": {"Dwerglow": 2, "Stoneshire": 1},
     },
+    "Langakuur": {
+        "population": 2000,
+        "references": {"griffs": 3, "edible birds' nests": 1},
+        "hexes to": {"Giantsbane": 2, "Ubulan": 1},
+    },
 # decimalize all distances and populations
 for town, info in towns.items():
     info["population"] = Decimal(info["population"])
