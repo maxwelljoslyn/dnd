@@ -917,3 +917,45 @@ Recipe(
     vendor="brewer",
     description="germinated and dried; used for brewing",
 )
+
+gauge16wire_thickness = (Decimal(1) / Decimal(16)) * u.inch
+
+
+def cask_measurements(height, radius):
+    # a few considerations going into the design of the cask:
+    # the heads (top and bottom) of the cask
+    # the thickness of wood used for various parts
+    # the wrought iron hoops reinforcing it (fat ones at the heads, thin ones around the body)
+    volume = cylinder_volume(height, radius)
+    cask_circumference = pi * radius * Decimal(2)
+    head_thickness = Decimal(2) / Decimal(3) * u.inch
+    head_volume = cylinder_volume(head_thickness, radius)
+    head_weight = density["timber"] * head_volume
+
+    hoop_breadth = gauge16wire_thickness
+    fat_hoop_width = Decimal(1.25) * u.inch
+    fat_hoop_volume = cask_circumference * fat_hoop_width * hoop_breadth
+    fat_hoop_weight = density["wrought iron"] * fat_hoop_volume
+
+    thin_hoop_width = Decimal(1) * u.inch
+    thin_hoop_volume = cask_circumference * thin_hoop_width * hoop_breadth
+    thin_hoop_weight = density["wrought iron"] * thin_hoop_volume
+
+    stave_thickness = Decimal(1.125) * u.inch
+    staves_per_cask = Decimal(20)
+    stave_width = cask_circumference / staves_per_cask
+    stave_volume = height * stave_width * stave_thickness
+    stave_weight = density["timber"] * stave_volume
+
+    return {
+        "volume": volume,
+        "circumference": cask_circumference,
+        "head weight": head_weight,
+        "num heads": Decimal(2),
+        "fat hoop weight": fat_hoop_weight,
+        "num fat hoops": Decimal(2),
+        "thin hoop weight": thin_hoop_weight,
+        "num thin hoops": Decimal(4),
+        "stave weight": stave_weight,
+        "num staves": staves_per_cask,
+    }
