@@ -908,3 +908,12 @@ Recipe(
     vendor="tanner",
     description=f"typical leather, {rawhide_area:~}",
 )
+
+Recipe(
+    "roasted malt",
+    "malt",
+    1 * u.lb,
+    {"malt": 1 * u.lb},
+    vendor="brewer",
+    description="germinated and dried; used for brewing",
+)
