@@ -200,6 +200,20 @@ towns = {
         "references": {"griffs": 1, "markets": 1, "horses": 2},
         "hexes to": {"Langakuur": 1, "Lower Ubulan": 4},
     },
+    "Lower Ubulan": {
+        "population": 1000,
+        "references": {
+            "horses": 3,
+            "horses, draft": 1,
+            "ponies": 1,
+            "kumiss": 1,
+            "leathercraft": 2,
+            "cattle": 2,
+        },
+        "hexes to": {"Ubulan": 4},
+    },
+}
+
 # decimalize all distances and populations
 for town, info in towns.items():
     info["population"] = Decimal(info["population"])
