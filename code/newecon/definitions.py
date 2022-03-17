@@ -800,3 +800,16 @@ Recipe(
     description="local variety",
     vendor="dairy",
 )
+
+cow_nonmeat_weight = cow_sale_weight - beef_per_cow
+# suet is not all fats, just certain fats
+suet_specificity = Decimal(2) * u.lb
+Recipe(
+    "suet",
+    "meat",  # what's a better one? chandler? butchery?
+    1 * u.lb,
+    {},
+    {"cow": (suet_specificity / cow_nonmeat_weight) * u.head},
+    vendor="butcher",
+    description="beef fat for cooking, or for manufacture of tallow",
+)
