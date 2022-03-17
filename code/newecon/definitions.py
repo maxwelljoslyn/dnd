@@ -686,3 +686,15 @@ Recipe(
     unit=1 * u.head,
     description="8 months old, suitable for rennet",
 )
+
+Recipe(
+    "veal calf",
+    "cattle",
+    calf_sale_weight,
+    {"cattle": 1 * u.head},
+    {"animal feed": 121 * u.lb},
+    # four months - half of life - being grain-finished at 1 lb/day
+    vendor="stockyard",
+    unit=1 * u.head,
+    description="grain-finished, 8 months old, suitable for veal",
+)
