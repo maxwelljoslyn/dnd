@@ -1784,6 +1784,32 @@ Recipe(
     vendor="stockyard",
     description=f"{ridinghorse_sale_age} old, {ridinghorse_sale_weight:~}, {D(15) * u.hand:~} tall",
 )
+
+drafthorse_sale_weight = D(1800) * u.lb
+drafthorse_foal_age = D(1) * u.year
+drafthorse_foal_weight = drafthorse_sale_weight / D(3)
+drafthorse_sale_age = D(2.5) * u.year
+# raised on milk until weaned, then on both forage and feed
+drafthorse_raising_fodder = fodder_while_growing(
+    drafthorse_foal_age,
+    drafthorse_sale_age,
+    drafthorse_foal_weight,
+    drafthorse_sale_weight,
+    D(0.015) * u.lb / u.lb,
+)
+Recipe(
+    "draft horse",
+    "horses, draft",  # TODO only one reference T_T
+    drafthorse_sale_weight,
+    {"horses": 1 * u.head},
+    {"animal feed": drafthorse_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{drafthorse_sale_age} old, {drafthorse_sale_weight:~}, {D(18) * u.hand:~} tall",
+)
+
+# TODO war horses avg weight 1400
+
 donkey_sale_weight = D(650) * u.lb
 donkey_foal_age = D(1) * u.year
 donkey_foal_weight = donkey_sale_weight / D(2)
