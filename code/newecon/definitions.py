@@ -243,3 +243,12 @@ Recipe(
     },
     # description="volume of metal equalling 1x1x3.8 in.",
 )
+
+Recipe(
+    "wrought iron",
+    "ironmongery",
+    1 * u.lb,
+    {},
+    {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    # description="ingot, 1x1x3.57 in.",
+)
