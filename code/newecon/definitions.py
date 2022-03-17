@@ -603,3 +603,15 @@ Recipe(
     description="coarsely ground from cereals",
     vendor="stockyard",
 )
+
+ewe_sale_weight = 90 * u.lb
+Recipe(
+    "mature ewe",
+    "sheep",
+    ewe_sale_weight,
+    {"sheep": 1 * u.head},
+    {},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description="eight months old, ready for milking or shearing",
+)
