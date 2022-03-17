@@ -768,3 +768,22 @@ Recipe(
     unit=rennet_sale_unit,
     vendor="dairy",
 )
+
+# http://www.personal.utulsa.edu/~marc-carlson/history/cattle.html
+# this gives an average milk production of 3.5 gallons per day
+cow_daily_milk_volume = Decimal(3.5) * u.gallon / u.day
+# from some research, cows can give milk 300/365 days of the year (so 5/6 of the year)
+# on the other hand, the production tapers off as this period goes on
+# let's ad-hoc assign the effective number of days of milk production
+cow_annual_milking_days = Decimal(250) * u.day
+cow_annual_milk_volume = cow_daily_milk_volume * cow_annual_milking_days
+Recipe(
+    "cow milk",
+    "milk",
+    milk_weight * milk_sale_unit,
+    {},
+    {"cow": (milk_sale_unit / cow_annual_milk_volume) * u.head},
+    unit=milk_sale_unit,
+    vendor="dairy",
+    description="customer supplies container",
+)
