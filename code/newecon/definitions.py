@@ -1271,3 +1271,16 @@ Recipe(
     vendor="weaver",
     description="plainweave",
 )
+
+donkey_sale_weight = D(650) * u.lb
+Recipe(
+    "donkey foal",
+    "donkeys",
+    donkey_sale_weight / D(2),
+    {"donkeys": 1 * u.head},
+    {},
+    vendor="stockyard",
+    unit=1 * u.head,
+    description="yearling",
+)
+
