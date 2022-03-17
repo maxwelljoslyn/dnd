@@ -380,3 +380,22 @@ Recipe(
     },
     # description="ingot, 1.125x1.675x1.675 in.",
 )
+
+copper_in_lb_brass = Decimal(0.55) * u.lb
+zinc_in_lb_brass = Decimal(0.45) * u.lb
+volume_brass_ingot = (zinc_in_lb_brass / density["zinc"]) + (
+    copper_in_lb_brass / density["copper"]
+)
+density["brass"] = 1 * u.lb / volume_brass_ingot
+Recipe(
+    "brass",
+    "smelting",
+    1 * u.lb,
+    {},
+    {
+        "zinc ore": zinc_in_lb_brass,
+        "copper ore": copper_in_lb_brass,
+        "smelting fuel": 0.75 * u.lb,
+    },
+    #    description="ingot, 1.77x2.05x0.95 in.",
+)
