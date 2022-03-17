@@ -344,3 +344,11 @@ Recipe(
     {"iron filings": 0.25 * u.lb, "smelting fuel": 0.75 * u.lb},
     # description="ingot, 1.084x1.5x1.5 in.",
 )
+
+Recipe(
+    "zinc ore",
+    "smelting",
+    1 * u.lb,
+    {"zinc": 1 * u.lb},
+    {"smelting fuel": 0.75 * u.lb},
+)
