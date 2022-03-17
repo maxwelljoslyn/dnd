@@ -446,3 +446,16 @@ Recipe(
     },
     #    description="ingot, 1.5x1.5x1.185 in.",
 )
+
+hilt_volume = (Decimal(2) * u.inch * Decimal(2) * u.inch * Decimal(5) * u.inch).to(
+    "cuft"
+)
+hilt_weight = hilt_volume * density["timber"]
+Recipe(
+    "sword hilt",
+    "carpentry",
+    hilt_weight,
+    {"timber": hilt_weight},
+    unit=1 * u.item,
+    description="wooden tube, carved from 2x2x5 in. block",
+)
