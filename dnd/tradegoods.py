@@ -1735,6 +1735,31 @@ def fodder_while_growing(
         fodder = (daily_food_per_bodyweight * weight) * D(30)  # thirty days/month
         result += fodder
     return result
+
+
+pony_sale_weight = D(600) * u.lb
+pony_foal_age = D(1) * u.year
+pony_foal_weight = pony_sale_weight / D(3)
+pony_sale_age = D(2) * u.year
+# raised on milk until weaned, then on both forage and feed
+pony_raising_fodder = fodder_while_growing(
+    pony_foal_age,
+    pony_sale_age,
+    pony_foal_weight,
+    pony_sale_weight,
+    D(0.015) * u.lb / u.lb,  # 1.5% of bodyweight in lbs of food per day
+)
+Recipe(
+    "pony",
+    "ponies",
+    pony_sale_weight,
+    # TODO use ponies as raw material, once ponies have a production number, and if they don't become a 'Raw'
+    {"horses": 1 * u.head},
+    {"animal feed": pony_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{pony_sale_age} old, {pony_sale_weight:~}, {D(12) * u.hand:~} tall",
+)
 donkey_sale_weight = D(650) * u.lb
 donkey_foal_age = D(1) * u.year
 donkey_foal_weight = donkey_sale_weight / D(2)
