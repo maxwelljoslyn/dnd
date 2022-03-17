@@ -1241,4 +1241,17 @@ Recipe(
     {"cotton": D(2.5) * u.lb},
     {},
 )
+
+cotton_yarn_linear_density = D(1) * u.lb / (Decimal(4000) * u.ft)
+cotton_yarn_sale_weight = Decimal(0.5) * u.lb
+cotton_yarn_sale_unit = cotton_yarn_sale_weight / cotton_yarn_linear_density
 Recipe(
+    "cotton yarn",
+    "cotton",
+    cotton_yarn_sale_weight,
+    {},
+    {"carded cotton": cotton_yarn_sale_weight},
+    unit=cotton_yarn_sale_unit,
+    vendor="spinner",
+    description="useable as string, or in ropemaking and weaving",
+)
