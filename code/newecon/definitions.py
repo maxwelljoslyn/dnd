@@ -711,3 +711,15 @@ Recipe(
     vendor="stockyard",
     description="grain-finished, 16 months old; suitable for slaughtering",
 )
+
+cattle_carcass_fraction = Decimal(0.67)
+cattle_meat_fraction = Decimal(0.67)
+veal_per_calf = calf_sale_weight * cattle_carcass_fraction * cattle_meat_fraction
+Recipe(
+    "veal",
+    "meat",
+    1 * u.lb,
+    {},
+    {"veal calf": (Decimal(1) * u.lb / veal_per_calf) * u.head},
+    vendor="butcher",
+)
