@@ -628,3 +628,20 @@ Recipe(
     vendor="stockyard",
     description="grain-finished yearling, ready for slaughter",
 )
+
+milk_weight = density["milk"].to(u.lb / u.gallon)
+# one mature ewe produces ~ 400 LBS (not gallons!) of milk annually (once a year during lambing)
+sheep_annual_milk_weight = Decimal(400) * u.lb
+# then we convert it to gallons
+sheep_annual_milk_volume = (sheep_annual_milk_weight / milk_weight).to(u.gallon)
+milk_sale_unit = 1 * u.gallon
+Recipe(
+    "ewes' milk",
+    "milk",  # TODO shouldn't I use 'milk' here instead of more general 'dairying'? but then when to use 'dairying' at all other than for milk and cheese, which have more specific references?
+    milk_weight * milk_sale_unit,
+    {},
+    {"mature ewe": (milk_sale_unit / sheep_annual_milk_volume) * u.head},
+    unit=milk_sale_unit,
+    vendor="dairy",
+    description="customer supplies container",
+)
