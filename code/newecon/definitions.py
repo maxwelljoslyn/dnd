@@ -229,3 +229,17 @@ Recipe(
     {"iron ore": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
     description="weak, brittle purified iron",
 )
+
+Recipe(
+    "cast iron",
+    "ironmongery",
+    1 * u.lb,
+    {},
+    {
+        "smelting fuel": 0.75 * u.lb,
+        "manganese ore": 0.06 * u.lb,
+        "nickel ore": 0.01 * u.lb,
+        "pig iron": 0.93 * u.lb,
+    },
+    # description="volume of metal equalling 1x1x3.8 in.",
+)
