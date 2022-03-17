@@ -1382,3 +1382,31 @@ Recipe(
     vendor="grocer",
     description="black, gooey sugarcane extract",
 )
+
+
+def no_vendor():
+    return {k: v for k, v in registry.items() if not v.vendor}
+
+
+#    # TODO should the container still be listed in sub-recipes, or should it be implied by the presence of the container field (therefore requiring change to price caculation to check container? i feel that using weight of barrel directly within weight of 'ale' will lead to trouble as i try to calculate e.g. weight of N gallons of ale, and want to use the weight defined in this recipe, but have to remember to subtract away the barrel...)
+#    # given that i will definitely want a netweight vs full weight prperty, i think its worth taking containersout of explicit subrecipes and redoing price calculations to account for container. it's sane.
+
+
+def main():
+    for name, recipe in registry.items():
+        for t, tinfo in towns.items():
+            if t != "Pearl Island":
+                pass
+            else:
+                print(name)
+                print(f"{name}: {recipe.display_price(tinfo)}")
+                if recipe.description:
+                    print(recipe.description)
+                print()
+
+    print(list(no_vendor()))
+    print(f"Recipes: {len(registry)}")
+
+
+if __name__ == "__main__":
+    main()
