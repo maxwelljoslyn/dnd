@@ -131,6 +131,14 @@ base_age = {
 }
 
 
+def age_before_training():
+    return 12
+
+
+def years_in_training(PC):
+    pass
+
+
 def starting_age(pClass):
     # todo automatically incorporate aging effects - calculated and applied AFTER details have been determined AND char has been generated (because eg "+X years in prison" need to be added)
     base = base_age[pClass]

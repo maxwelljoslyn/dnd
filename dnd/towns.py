@@ -1,10 +1,11 @@
-import copy, math
+import copy
+import math
 from collections import defaultdict
 from decimal import Decimal, getcontext
 
 import references
-from references import world_references, u
 from a_star_search import a_star_search
+from references import u, world_references
 
 # set up the Decimal environment
 getcontext().prec = 6
@@ -37,7 +38,7 @@ towns = {
     },
     "Pearl Island": {
         "population": 3000,
-        "references": {"eels": 2, "olives": 1, "fish": 2, "timber": 1, "dried fish": 1},
+        "references": {"eels": 1, "olives": 1, "fish": 2, "timber": 1, "dried fish": 1},
         "hexes to": {"Allrivers": 1.5, "Northshore": 2},
     },
     "Allrivers": {
@@ -51,11 +52,12 @@ towns = {
             "carpentry": 1,
             "markets": 2,
             "boatbuilding": 1,
+            "woodcraft": 1,
         },
         "hexes to": {
             "Sacra Mara": 1,
             "Fiora": 1,
-            "Northshore": 2,
+            "Shipmoot": 1,
             "Lake Gingol": 1.5,
             "Orii": 1,
             "Pearl Island": 1.5,
@@ -65,11 +67,27 @@ towns = {
     "Northshore": {
         "population": 5000,
         "references": {"markets": 1},
-        "hexes to": {"Allrivers": 2, "Ribossi": 1.5},
+        "hexes to": {"Shipmoot": 1, "Ribossi": 1.5},
+    },
+    "Shipmoot": {
+        "population": 3821,
+        "references": {"shipbuilding": 1, "woodcraft": 1},
+        "hexes to": {"Northshore": 1, "Allrivers": 1, "Castle Baccia": 1},
+    },
+    "Castle Baccia": {
+        "population": 900,
+        "references": {"wine": 1, "wine, Baccia": 1, "grapes": 2},
+        "hexes to": {"Shipmoot": 1, "Ribossi": 1},
     },
     "Lake Gingol": {
         "population": 10000,
-        "references": {"cereals": 1, "markets": 1, "slaves": 1, "boatbuilding": 1},
+        "references": {
+            "cereals": 1,
+            "markets": 1,
+            "slaves": 1,
+            "boatbuilding": 1,
+            "gnomish beer": 1,
+        },
         "hexes to": {"Glimmergate": 2.5, "Allrivers": 1.5},
     },
     "Orii": {
@@ -80,13 +98,15 @@ towns = {
             "millet": 1,
             "alchemy": 2,
             "bookbinding": 1,
+            "paper": 1,
+            "paper products": 1,
+            "pearl": 1,
         },
         "hexes to": {"Allrivers": 1, "Lake Gingol": 3},
     },
     "Ribossi": {
         "population": 2000,
         "references": {
-            "cattle": 1,
             "timber": 2,
         },
         "hexes to": {"Northshore": 1.5},
@@ -95,33 +115,68 @@ towns = {
         "population": 1202,
         "references": {
             "refined sugar": 2,
-            "sugarbeets": 1,
-            "sugarcane": 1,
+            "sugarcane": 2,
+            "rum": 2,
         },
         "hexes to": {"Allrivers": 25},
     },
     "Glimmergate": {
         "population": 22000,
         "references": {
+            "markets": 2,
             "iron": 2,
             "ironmongery": 1,
-            "emerald": 1,
-            "sandstone": 1,
+            "pig iron": 2,
+            "metalsmithing": 1,
+            "alloys": 2,
             "limestone": 1,
-            "markets": 1,
+            "dolomite": 1,
             "silver": 1,
             "silversmithing": 1,
             "gold": 1,
             "goldsmithing": 1,
             "lead": 1,
             "leadsmithing": 1,
-            "metalsmithing": 1,
-            "pig iron": 1,
+            "leadsmelting": 1,
+            "nickel": 1,
+            "nickelsmelting": 1,
+            "pewter": 1,
         },
-        "hexes to": {"Lake Gingol": 2.5},
+        "hexes to": {
+            "Lake Gingol": 2.5,
+            "Dwerglow": 1,
+            "Giantsbane": 2,
+        },
     },
-}
-
+    "Dwerglow": {
+        "population": 7029,
+        "references": {
+            "emerald": 1,
+            "alexandrite": 1,
+            "chrysoprase": 1,
+        },
+        "hexes to": {"Glimmergate": 1, "Stoneshire": 2},
+    },
+    "Stoneshire": {
+        "population": 1985,
+        "references": {"bricks": 2, "ceramics": 2},
+        "hexes to": {"Dwerglow": 2, "Sheepshire": 1},
+    },
+    "Sheepshire": {
+        "population": 801,
+        "references": {
+            "sheep": 3,
+            "mutton": 2,
+            "lamb": 1,
+            "cheese, ewes' milk": 1,
+            "wool": 3,
+            "woolen cloth": 2,
+            "woolen goods": 2,
+            "worsted cloth": 1,
+            "worsted goods": 1,
+        },
+        "hexes to": {"Dwerglow": 2, "Stoneshire": 1},
+    },
 # decimalize all distances and populations
 for town, info in towns.items():
     info["population"] = Decimal(info["population"])
@@ -163,8 +218,13 @@ def far_away(towns):
     # assign all G - M remaining refs to the "Far Away"
     for k, info in world_references.items():
         refs = info["references"]
-        remaining_global_refs = max(0, refs - total_assigned_refs(towns)[k])
-        towns["Far Away"]["references"][k] = remaining_global_refs
+        remaining_global_refs = refs - total_assigned_refs(towns)[k]
+        if remaining_global_refs < 0:
+            print(
+                f"warning: Maxwell has assigned {abs(remaining_global_refs)} more refs to {k} than listed in world_references!"
+            )
+        refs_for_faraway = max(0, remaining_global_refs)
+        towns["Far Away"]["references"][k] = refs_for_faraway
 
 
 far_away(towns)
@@ -256,6 +316,15 @@ for t, tinfo in towns.items():
             )
 
 
+def infra_pop():
+    mylist = sorted(towns.keys())
+    for town in mylist:
+        info = towns[town]
+        print(town)
+        pop = info["population"]
+        print(f"Pop: {pop}", f"Infra: {infrastructure(pop)}")
+
+
 def main():
     for commodity in ("fish", "dried fish", "olives", "timber"):
         if (
@@ -270,20 +339,12 @@ def main():
                 print(template.format(t, commodity, towns[t]["price"][commodity]))
 
 
-def infra_pop():
-    mylist = sorted(towns.keys())
-    for town in mylist:
-        info = towns[town]
-        print(town)
-        pop = info["population"]
-        print(f"Pop: {pop}", f"Infra: {infrastructure(pop)}")
-
 if __name__ == "__main__":
     main()
 
 # todo: the zero problem
 # some commodities have references, but 0 production (common, eg alchemy)
-# some commodities have production, but 0 references (uncommon, about half a dozen, eg acid)
+# some commodities have production, but 0 references (uncommon, about half a dozen, eg acid, sugar)
 # both should be skipped until I figure out ways to "seed" both of these
 
 

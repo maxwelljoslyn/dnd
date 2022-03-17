@@ -6,6 +6,8 @@
 @alias cubic_inch = cuin
 @alias cubic_foot = cuft
 @alias cubic_meter = cumt
+@alias cubic_centimeter = cucm
+@alias fluid_oz = floz
 
 # money
 copper_piece = [money] = cp
@@ -15,3 +17,6 @@ gold_piece = 8 * silver_piece = gp
 # custom units
 head = [creatures]
 item = [objects]
+
+# historical units
+ell = 18 * inch

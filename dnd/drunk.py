@@ -9,16 +9,20 @@ getcontext().prec = 4
 # todo once economic recipes are  more structured data, import beer/ale/rum/etc ABV figures for use here
 beverages = {
     "beer": {
-        "abv": Decimal(3.04),
+        "abv": Decimal(4.07),
         "drinks per pint": 1,
     },
     "ale": {
-        "abv": Decimal(9.633),
+        "abv": Decimal(10.6),
         "drinks per pint": 1,
     },
     "rum": {
-        "abv": Decimal(31.08),
+        "abv": Decimal(29.6),
         "drinks per pint": 8,  # 2 oz. shots
+    },
+    "wine": {
+        "abv": Decimal(13.2),
+        "drinks per pint": 2,  # 4 oz. pours
     },
 }
 

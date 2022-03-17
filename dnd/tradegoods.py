@@ -1,6 +1,7 @@
-from decimal import getcontext, Decimal
+from decimal import Decimal, getcontext
 from math import ceil, floor
-from references import u, Q
+
+from references import Q, u, world_references
 from towns import towns
 
 # set up the Decimal environment
@@ -10,9 +11,8 @@ D = Decimal
 
 pi = Decimal(1) * u.pi
 
-
 registry = dict()
-
+vendors = set()
 
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
@@ -36,6 +36,19 @@ density = {
         "zinc": 445 * u.lb / u.cuft,
         "quicklime": 209.1337 * u.lb / u.cuft,
         "water": 8.345404 * u.lb / u.gallon,
+        "basalt": 2.9 * u.gram / u.cucm,
+        "dolomite": 2.85 * u.gram / u.cucm,
+        "granite": 2.65 * u.gram / u.cucm,
+        "limestone": 2.5 * u.gram / u.cucm,
+        "syenite": 2.7 * u.gram / u.cucm,
+        "marble": 2.55 * u.gram / u.cucm,
+        "glass": 2.6 * u.gram / u.cucm,
+        "sandstone": 2.5 * u.gram / u.cucm,
+        "red sandstone": 2.5 * u.gram / u.cucm,
+        "slate": 2.75 * u.gram / u.cucm,
+        "tuff": 1.4 * u.gram / u.cucm,
+        "tufa": 1.35 * u.gram / u.cucm,
+        "porphyry": 1.4 * u.gram / u.cucm,
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
@@ -88,7 +101,6 @@ def truncated_cone_volume(big_radius, small_radius, height):
 
 # TODO: Recipe subclasses for categories of goods, such as Weapon and Armor, which have special details (armor class, damage dice, break chance, etc)
 # TODO saves_as field, which controls how item saves against damage (as wood, paper, leather, metal, glass, et -- even if the item not primarily made of that material)
-# TODO container (as a separate field so that its weight can be ignored when doing ingredient math, but added in when calculating price)
 # TODO length width height dimensions (all 3 optional)
 # TODO description, with its reference to self.capacity and the height dimension (which I thought might also be a good field for Recipes) starting to look like sometimes it should b a function, or a method on the class, or sth... otherwise calculable from other Recipe fields
 class Recipe:
@@ -114,6 +126,7 @@ class Recipe:
     ):
         self.name = name
         self.governor = governor
+        # TODO make FULL sale weight include weight of any container
         self.weight = Decimal(weight.magnitude) * weight.units
         try:
             self.weight.to(u.lbs)
@@ -130,6 +143,7 @@ class Recipe:
         self.difficulty = D(difficulty)
         self.description = description
         self.capacity = capacity
+        # container is a separate field so recipe X's container's weight is ignored when calculating weights of further recipes that make use of X, but the price of X can still incorporate the container's cost
         self.container = container
         self.unit = unit
         if self.unit:
@@ -141,6 +155,8 @@ class Recipe:
         if self.name in registry:
             raise ValueError(f"{self.name} is already a recipe")
         registry[self.name] = self
+        if self.vendor:
+            vendors.add(self.vendor)
 
     def _ingredient_costs(self, towninfo):
         price_raws = {}
@@ -157,18 +173,24 @@ class Recipe:
             # can I memoize while keeping while keeping this a method, or need to pull out into a function?
             final = registry[recipe].price(towninfo).to(newunit) * q.magnitude
             price_recipes[recipe] = final
-        return price_raws, price_recipes
+        price_container = (
+            registry[self.container].price(towninfo)
+            if self.container
+            else D(0) * u.cp / u.item
+        )
+        return price_raws, price_recipes, price_container
 
     def _denominator(self):
         return self.unit if self.unit else self.weight
 
     def price(self, towninfo):
         global registry
-        ra, re = self._ingredient_costs(towninfo)
+        ra, re, pc = self._ingredient_costs(towninfo)
         # with necessary quantities of ingredients now priced in copper pieces, divide all units by themselves, making them dimensionless and summable (otherwise we may try adding cp / head and cp / pound, for instance)
         ra = {k: v / v.units for k, v in ra.items()}
         re = {k: v / v.units for k, v in re.items()}
-        baseprice = sum(ra.values()) + sum(re.values())
+        pc = pc / pc.units
+        baseprice = sum(ra.values()) + sum(re.values()) + pc
         refs = towninfo["references"][self.governor]
         serviceprice = (baseprice / refs) * self.difficulty
         final = baseprice + serviceprice
@@ -220,6 +242,7 @@ Recipe(
     0.75 * u.lb,
     dict(coal=0.5 * u.lb, limestone=0.25 * u.lb),
     description="generic supplies required to smelt 1 lb metal",
+    vendor="puddler",
 )
 
 Recipe(
@@ -233,7 +256,7 @@ Recipe(
 
 Recipe(
     "pig iron",
-    "ironmongery",
+    "pig iron",
     1 * u.lb,
     {},
     {"iron ore": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
@@ -311,7 +334,6 @@ Recipe(
     # description="ingot, 1x1x1.435 in.",
 )
 
-
 tin_in_lb_pewter = Decimal(0.85) * u.lb
 copper_in_lb_pewter = Decimal(0.15) * u.lb
 # this volume calculation works because we're making a 1 lb ingot, so the number of pounds = the proportion
@@ -323,7 +345,7 @@ density["pewter"] = Decimal(1) * u.lb / volume_pewter_ingot
 
 Recipe(
     "pewter",
-    "smelting",
+    "pewter",
     1 * u.lb,
     {},
     {
@@ -331,8 +353,10 @@ Recipe(
         "tin ore": tin_in_lb_pewter,
         "copper ore": copper_in_lb_pewter,
     },
+    vendor="puddler",
     # description="ingot, 1x1x3.65 in.",
 )
+
 
 Recipe(
     "steel",
@@ -340,6 +364,7 @@ Recipe(
     1 * u.lb,
     {},
     {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    vendor="puddler",
     # description="ingot, 1x1x3.5 in.",
 )
 
@@ -380,7 +405,7 @@ volume_bronze_ingot = (tin_in_lb_bronze / density["tin"]) + (
 density["bronze"] = 1 * u.lb / volume_bronze_ingot
 Recipe(
     "bronze",
-    "smelting",
+    "bronze",
     1 * u.lb,
     {},
     {
@@ -388,6 +413,7 @@ Recipe(
         "copper ore": copper_in_lb_bronze,
         "smelting fuel": 0.75 * u.lb,
     },
+    vendor="puddler",
     # description="ingot, 1.125x1.675x1.675 in.",
 )
 
@@ -399,7 +425,7 @@ volume_brass_ingot = (zinc_in_lb_brass / density["zinc"]) + (
 density["brass"] = 1 * u.lb / volume_brass_ingot
 Recipe(
     "brass",
-    "smelting",
+    "brass",
     1 * u.lb,
     {},
     {
@@ -407,6 +433,7 @@ Recipe(
         "copper ore": copper_in_lb_brass,
         "smelting fuel": 0.75 * u.lb,
     },
+    vendor="puddler",
     #    description="ingot, 1.77x2.05x0.95 in.",
 )
 
@@ -419,7 +446,7 @@ volume_bellmetal_ingot = (tin_in_lb_bellmetal / density["tin"]) + (
 density["bell metal"] = 1 * u.lb / volume_bellmetal_ingot
 Recipe(
     "bell metal",
-    "smelting",
+    "alloys",
     1 * u.lb,
     {},
     {
@@ -427,6 +454,7 @@ Recipe(
         "copper ore": copper_in_lb_bellmetal,
         "smelting fuel": 0.75 * u.lb,
     },
+    vendor="puddler",
     #    description="ingot, 1.2x1.35x2 in.",
 )
 
@@ -445,7 +473,7 @@ volume_sterlingsilver_ingot = (
 density["sterling silver"] = 1 * u.lb / volume_sterlingsilver_ingot
 Recipe(
     "sterling silver",
-    "smelting",
+    "alloys",
     1 * u.lb,
     {},
     {
@@ -454,20 +482,21 @@ Recipe(
         "silver ore": silver_in_lb_sterlingsilver,
         "smelting fuel": 0.75 * u.lb,
     },
+    vendor="puddler",
     #    description="ingot, 1.5x1.5x1.185 in.",
 )
 
-hilt_volume = (Decimal(2) * u.inch * Decimal(2) * u.inch * Decimal(5) * u.inch).to(
+hilt_volume = (Decimal(3) * u.inch * Decimal(3) * u.inch * Decimal(6) * u.inch).to(
     "cuft"
 )
 hilt_weight = hilt_volume * density["timber"]
 Recipe(
     "sword hilt",
-    "carpentry",
+    "woodcraft",
     hilt_weight,
     {"timber": hilt_weight},
     unit=1 * u.item,
-    description="wooden tube, carved from 2x2x5 in. block",
+    description="wooden tube",
 )
 
 pommel_weight = Decimal(0.25) * u.lb
@@ -488,7 +517,7 @@ unit_blade_volume = (
 unit_blade_weight = unit_blade_volume * density["steel"]
 Recipe(
     "blade",
-    "metalsmithing",
+    "metalsmithing",  # TODO weapons
     unit_blade_weight,
     {},
     {"steel": unit_blade_weight},
@@ -501,7 +530,7 @@ dagger_blade_needed = dagger_length / u.ft
 dagger_weight = hilt_weight + pommel_weight + (dagger_blade_needed * unit_blade_weight)
 Recipe(
     "dagger",
-    "metalsmithing",
+    "metalsmithing",  # TODO weapons
     dagger_weight,
     {},
     {
@@ -509,7 +538,7 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length}-foot blade",
+    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length} blade",
     unit=1 * u.item,
     vendor="weaponsmith",
 )
@@ -521,7 +550,7 @@ shortsword_weight = (
 )
 Recipe(
     "shortsword",
-    "metalsmithing",
+    "metalsmithing",  # TODO weapons
     shortsword_weight,
     {},
     {
@@ -529,7 +558,7 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d6 damage; {shortsword_length}-foot blade",
+    description=f"1d6 damage; {shortsword_length} blade",
     unit=1 * u.item,
     vendor="weaponsmith",
 )
@@ -541,7 +570,7 @@ longsword_weight = (
 )
 Recipe(
     "longsword",
-    "metalsmithing",
+    "metalsmithing",  # TODO weapons
     longsword_weight,
     {},
     {
@@ -549,7 +578,7 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d8 damage; {longsword_length}-foot blade",
+    description=f"1d8 damage; {longsword_length} blade",
     unit=1 * u.item,
     vendor="weaponsmith",
 )
@@ -560,7 +589,7 @@ greatsword_weight = (
     hilt_weight + pommel_weight + (greatsword_blade_needed * unit_blade_weight)
 )
 Recipe(
-    "greatsword",
+    "greatsword",  # TODO weapons
     "metalsmithing",
     greatsword_weight,
     {},
@@ -569,7 +598,7 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d10 damage; {greatsword_length}-foot blade",
+    description=f"1d10 damage; {greatsword_length} blade",
     unit=1 * u.item,
     vendor="weaponsmith",
 )
@@ -596,10 +625,9 @@ Recipe(
 
 Recipe(
     "quicklime",
-    "pottery",
+    "quicklime",
     1 * u.lb,
-    {"limestone": 1 * u.lb},
-    {"smelting fuel": 0.75 * u.lb},
+    {"quicklime": 1 * u.lb},
     vendor="potter",
     description="used in tanning and to make mortar",
 )
@@ -626,6 +654,20 @@ Recipe(
     description="eight months old, ready for milking or shearing",
 )
 
+sheep_carcass_fraction = Decimal(0.55)
+sheep_meat_fraction = Decimal(0.75)
+lamb_carcass_weight = sheep_carcass_fraction * ewe_sale_weight
+lamb_meat_weight = sheep_meat_fraction * lamb_carcass_weight
+Recipe(
+    "lamb",
+    "lamb",  # uses the very specific 'lamb' reference instead of meat - similar to rum vs brewing, mutton vs meat, and ewes' milk cheese vs cheese
+    1 * u.lb,
+    {},
+    {"mature ewe": (Decimal(1) * u.lb / lamb_meat_weight) * u.head},
+    vendor="butcher",
+    description="tender young lamb meat",
+)
+
 muttonsheep_sale_weight = 130 * u.lb
 Recipe(
     "mutton sheep",
@@ -647,7 +689,7 @@ sheep_annual_milk_volume = (sheep_annual_milk_weight / milk_weight).to(u.gallon)
 milk_sale_unit = 1 * u.gallon
 Recipe(
     "ewes' milk",
-    "milk",  # TODO shouldn't I use 'milk' here instead of more general 'dairying'? but then when to use 'dairying' at all other than for milk and cheese, which have more specific references?
+    "milk",
     milk_weight * milk_sale_unit,
     {},
     {"mature ewe": (milk_sale_unit / sheep_annual_milk_volume) * u.head},
@@ -660,25 +702,25 @@ salt_in_cheese = Decimal(0.25) * u.lb / u.lb  # a guess
 milk_in_cheese = Decimal(3) * u.gallon / u.lb
 rennet_in_cheese = Decimal(0.5) * u.teaspoon / u.gallon * milk_in_cheese
 cheese_sale_unit = 1 * u.lb
+
 Recipe(
     "ewes' milk cheese",
-    "cheese",  # TODO "cheese, ewes' milk" the more specific reference made shit CRAZY expensive because there are so few .... stupid bloody logic
+    "cheese, ewes' milk",
     cheese_sale_unit,
     {"salt": salt_in_cheese * cheese_sale_unit},
     {
         "ewes' milk": milk_in_cheese * cheese_sale_unit,
         "rennet": rennet_in_cheese * cheese_sale_unit,
     },
-    description="local variety",
+    description="halfling-made delicacy; includes feta, rocquefort, manchego, and pecorina romano",
     vendor="dairy",
-    # TODO Feta, rocquefort, manchego, pecorina romano are all sheep cheese
 )
 
-muttonsheep_carcass_weight = Decimal(0.55) * muttonsheep_sale_weight
-muttonsheep_meat_weight = Decimal(0.75) * muttonsheep_carcass_weight
+muttonsheep_carcass_weight = sheep_carcass_fraction * muttonsheep_sale_weight
+muttonsheep_meat_weight = sheep_meat_fraction * muttonsheep_carcass_weight
 Recipe(
     "mutton",
-    "meat",
+    "mutton",
     1 * u.lb,
     {},
     {"mutton sheep": (Decimal(1) * u.lb / muttonsheep_meat_weight) * u.head},
@@ -727,7 +769,7 @@ cattle_meat_fraction = Decimal(0.67)
 veal_per_calf = calf_sale_weight * cattle_carcass_fraction * cattle_meat_fraction
 Recipe(
     "veal",
-    "meat",
+    "beef",
     1 * u.lb,
     {},
     {"veal calf": (Decimal(1) * u.lb / veal_per_calf) * u.head},
@@ -735,13 +777,27 @@ Recipe(
 )
 
 # TODO turn 1 cow into 2 sides of cow, then subdivide cow into different cuts of beef
-beef_per_cow = cow_sale_weight * cattle_carcass_fraction * cattle_meat_fraction
+# https://beef.unl.edu/beefwatch/2020/how-many-pounds-meat-can-we-expect-beef-animal
+cow_carcass_weight = cow_sale_weight * cattle_carcass_fraction
+beef_per_cow = cow_carcass_weight * cattle_meat_fraction
+bone_per_cow = (cow_carcass_weight * (D(1) - cattle_meat_fraction)) / D(2)
+# divide bone per cow in half b/c we assume half of nonmeat carcass weight is bone, and half is fat
+fat_per_cow = bone_per_cow
 Recipe(
     "beef",
+    "beef",
+    1 * u.lb,
+    {},
+    {"cow": (Decimal(1) * u.lb / beef_per_cow) * u.head},
+    vendor="butcher",
+)
+
+Recipe(
+    "cattle bone",
     "meat",
     1 * u.lb,
     {},
-    {"cow": (Decimal(1) * u.lb / veal_per_calf) * u.head},
+    {"cow": (Decimal(1) * u.lb / bone_per_cow) * u.head},
     vendor="butcher",
 )
 
@@ -761,8 +817,7 @@ Recipe(
     "meat",
     abomasum_weight,
     {"salt": 0.25 * u.lb},
-    {"abomasum": 1 * u.item},
-    # "vinegar": 1}, # TODO after beer
+    {"abomasum": 1 * u.item, "vinegar, in barrel": D(0.5) * u.pint},
     unit=1 * u.item,
     vendor="butcher",
 )
@@ -798,6 +853,27 @@ Recipe(
     description="customer supplies container",
 )
 
+milk_per_serving = D(1) * u.pint
+Recipe(
+    "cow milk, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["milk"] * milk_per_serving).to(u.lb),
+    {},
+    {"cow milk": milk_per_serving},
+    unit=milk_per_serving,
+    vendor="innkeeper",
+)
+
+Recipe(
+    "ewes' milk, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["milk"] * milk_per_serving).to(u.lb),
+    {},
+    {"ewes' milk": milk_per_serving},
+    unit=milk_per_serving,
+    vendor="innkeeper",
+)
+
 Recipe(
     "cheese",
     "cheese",
@@ -811,15 +887,12 @@ Recipe(
     vendor="dairy",
 )
 
-cow_nonmeat_weight = cow_sale_weight - beef_per_cow
-# suet is not all fats, just certain fats
-suet_specificity = Decimal(2) * u.lb
 Recipe(
     "suet",
     "meat",  # what's a better one? chandler? butchery?
     1 * u.lb,
     {},
-    {"cow": (suet_specificity / cow_nonmeat_weight) * u.head},
+    {"cow": (1 * u.lb / fat_per_cow) * u.head},
     vendor="butcher",
     description="beef fat for cooking, or for manufacture of tallow",
 )
@@ -865,7 +938,7 @@ soap_volume = Decimal(3) * u.inch * Decimal(2) * u.inch * Decimal(6) * u.inch
 # but I'm going to cut that in half because Early Modern people got much dirtier than I ever do
 Recipe(
     "hard soap",
-    "candles and wax",  # TODO change to soap
+    "soap",
     soap_weight,
     {"salt": salt_per_soap_tallow * soap_weight},
     {
@@ -1004,12 +1077,25 @@ for name, info in casks.items():
         capacity=m["volume"].to(u.gal),
         description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
     )
-def calculate_abv(
-    sugar_weight, cereal_weight, malt_weight, water_volume, desired_volume
-):
-    cereal_sugar = sugar_weight.to(u.lb) * Decimal(0.75)
-    malt_sugar = malt_weight.to(u.lb) * Decimal(0.8)
-    total_sugar = sugar_weight + cereal_sugar + malt_sugar
+
+
+sugar_per_brewable = {
+    "raw sugar": D(1) * u.lb / u.lb,
+    "cereals": D(0.75) * u.lb / u.lb,
+    "malt": D(0.8) * u.lb / u.lb,
+    "roasted malt": D(0.8) * u.lb / u.lb,
+    "grapes": D(0.25) * u.lb / u.lb,
+}
+
+
+def calculate_abv(sugar_sources, water_volume, desired_volume):
+    # assumption: all the available sugar content of the sugar_sources is consumed by the yeast
+    total_sugar = sum(
+        [
+            sugar_per_brewable[name] * weight.to(u.lb)
+            for name, weight in sugar_sources.items()
+        ]
+    )
     water_weight = water_volume.to(u.gallon) * density["water"]
     mash_weight = total_sugar + water_weight
     # specific gravity, with respect to water, is the relative density of some solution and water
@@ -1033,37 +1119,35 @@ def calculate_abv(
 # https://www.cs.cmu.edu/~pwp/tofi/medieval_english_ale.html
 # thanks, Paul Placeway AKA Tofi Kerthjalfadsson
 cereal_for_ale = Decimal(1.5) * u.lb / u.gallon
-malt_for_ale = Decimal(4) * u.lb / u.gallon
-roasted_malt_for_ale = Decimal(0.67) * u.lb / u.gallon
+malt_for_ale = Decimal(2.5) * u.lb / u.gallon
+roasted_malt_for_ale = Decimal(0.5) * u.lb / u.gallon
 ale_abv = calculate_abv(
-    0 * u.lb,
-    cereal_for_ale * 1 * u.gallon,
-    malt_for_ale * 1 * u.gallon,
+    {
+        "cereals": cereal_for_ale * 1 * u.gallon,
+        "malt": malt_for_ale * 1 * u.gallon,
+        "roasted malt": roasted_malt_for_ale * 1 * u.gallon,
+    },
     1 * u.gallon,
     1 * u.gallon,
 )
 
-
-for c in ["barrel"]:
-    cask_capacity = registry[f"cask, {c}"].capacity
-    cask_weight = registry[f"cask, {c}"].weight
-    Recipe(
-        f"ale, in {c}",
-        "brewing",
-        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
-        {
-            "cereals": cereal_for_ale * cask_capacity,
-            "malt": malt_for_ale * cask_capacity,
-        },
-        {
-            "roasted malt": roasted_malt_for_ale * cask_capacity,
-            f"cask, {c}": 1 * u.item,
-        },
-        unit=cask_capacity,
-        container=f"cask, {c}",
-        vendor="brewer",
-        description=f"{str(ale_abv.magnitude)}% alcohol",
-    )
+barrel_capacity = registry["cask, barrel"].capacity
+Recipe(
+    "ale, in barrel",
+    "brewing",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {
+        "cereals": cereal_for_ale * barrel_capacity,
+        "malt": malt_for_ale * barrel_capacity,
+    },
+    {
+        "roasted malt": roasted_malt_for_ale * barrel_capacity,
+    },
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description=f"{str(ale_abv.magnitude)}% alcohol",
+)
 
 # beer is following a recipe taken from http://brewery.org/library/PeriodRen.html
 # "To brewe beer; 10 quarters malt. 2 quarters wheat, 2 quarters oats, 40 lbs hops. To make 60 barrels of single beer."
@@ -1076,61 +1160,59 @@ cereal_for_beer = Decimal(1024) * u.lb / original_gallons
 malt_for_beer = Decimal(2560) * u.lb / original_gallons
 hops_for_beer = Decimal(40) * u.lb / original_gallons
 beer_abv = calculate_abv(
-    0 * u.lb,
-    cereal_for_beer * 1 * u.gallon,
-    malt_for_beer * 1 * u.gallon,
+    {
+        "cereals": cereal_for_beer * 1 * u.gallon,
+        "malt": malt_for_beer * 1 * u.gallon,
+    },
     1 * u.gallon,
     1 * u.gallon,
 )
 
-for c in ["barrel"]:
-    cask_capacity = registry[f"cask, {c}"].capacity
-    cask_weight = registry[f"cask, {c}"].weight
-    Recipe(
-        f"beer, in {c}",
-        "brewing",
-        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
-        {
-            "cereals": cereal_for_beer * cask_capacity,
-            "malt": malt_for_beer * cask_capacity,
-            "hops": hops_for_beer * cask_capacity,
-        },
-        {
-            f"cask, {c}": 1 * u.item,
-        },
-        unit=cask_capacity,
-        container=f"cask, {c}",
-        vendor="brewer",
-        description=f"{str(beer_abv.magnitude)}% alcohol",
-    )
+Recipe(
+    "beer, in barrel",
+    "brewing",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {
+        "cereals": cereal_for_beer * barrel_capacity,
+        "malt": malt_for_beer * barrel_capacity,
+        "hops": hops_for_beer * barrel_capacity,
+    },
+    {},
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description="{str(beer_abv.magnitude)}% alcohol",
+)
 
-sugar_for_rum = D(6) * u.lb / u.gallon
+sugar_for_rum = D(10) * u.lb / u.gallon
 rum_abv = calculate_abv(
-    sugar_for_rum * 1 * u.gallon,
-    0 * u.lb,
-    0 * u.lb,
+    {"raw sugar": sugar_for_rum * 1 * u.gallon},
     1 * u.gallon,
     1 * u.gallon,
 )
 
-for c in ["barrel"]:
-    cask_capacity = registry[f"cask, {c}"].capacity
-    cask_weight = registry[f"cask, {c}"].weight
-    Recipe(
-        f"rum, in {c}",
-        "brewing",
-        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
-        {},
-        {
-            "raw sugar": sugar_for_rum * cask_capacity,
-            f"cask, {c}": 1 * u.item,
-        },
-        unit=cask_capacity,
-        container=f"cask, {c}",
-        vendor="brewer",
-        description=f"{str(rum_abv.magnitude)}% alcohol",
-    )
+Recipe(
+    "rum, in barrel",
+    "rum",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {},
+    {
+        "raw sugar": sugar_for_rum * barrel_capacity,
+    },
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description="{str(rum_abv.magnitude)}% alcohol",
+)
 
+Recipe("grapes", "grapes", 1 * u.lb, {"grapes": 1 * u.lb}, {}, vendor="grocer")
+
+grapes_for_wine = D(3.5) * u.lb / (D(750) * u.ml).to(u.gallon)
+wine_abv = calculate_abv(
+    {"grapes": grapes_for_wine * 1 * u.gallon},
+    1 * u.gallon,
+    1 * u.gallon,
+)
 
 # shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
 # I've chosen both ...
@@ -1165,6 +1247,17 @@ Recipe(
     description="brownish-white color",
 )
 
+# some wool is additionally brushed for softness
+Recipe(
+    "brushed wool",
+    "wool",
+    1 * u.lb,
+    {},
+    {"clean wool": 1 * u.lb},
+    description="extra soft",
+)
+
+
 wool_yarn_linear_density = D(1) * u.lb / (Decimal(3000) * u.ft)
 wool_yarn_sale_weight = Decimal(0.5) * u.lb
 wool_yarn_sale_unit = wool_yarn_sale_weight / wool_yarn_linear_density
@@ -1178,6 +1271,18 @@ Recipe(
     vendor="spinner",
     description="useable as string, or in ropemaking and weaving",
 )
+
+Recipe(
+    "brushed woolen yarn",
+    "woolen goods",
+    wool_yarn_sale_weight,
+    {},
+    {"brushed wool": wool_yarn_sale_weight},
+    unit=wool_yarn_sale_unit,
+    vendor="spinner",
+    description="extra soft; useable as string, or in ropemaking and weaving",
+)
+
 
 Recipe(
     "worsted yarn",
@@ -1201,9 +1306,9 @@ ordinary_cloth_picks = D(32)
 yarn_per_ordinary_cloth = (
     ((ordinary_cloth_ends + ordinary_cloth_picks) * u.inch) / (D(1) * u.sqin)
 ).to(u.inch / u.sqft)
-ordinary_cloth_sale_unit = D(1) * u.sqft
+cloth_sale_unit = (D(1) * u.ell) * (D(6) * u.ft)
 wool_ordinary_cloth_sale_weight = (
-    (ordinary_cloth_sale_unit * yarn_per_ordinary_cloth)
+    (cloth_sale_unit * yarn_per_ordinary_cloth)
     / wool_yarn_sale_unit
     * wool_yarn_sale_weight
 )
@@ -1214,33 +1319,60 @@ Recipe(
     "woolen cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"woolen yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
-    unit=ordinary_cloth_sale_unit,
+    {"woolen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
 )
 
 Recipe(
+    "flannel cloth",
+    "woolen cloth",
+    wool_ordinary_cloth_sale_weight,
+    {},
+    {"brushed woolen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
+    vendor="weaver",
+    description="extra soft plainweave",
+)
+Recipe(
     "worsted cloth",
     "worsted cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"worsted yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
-    unit=ordinary_cloth_sale_unit,
+    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
 )
+
+# Recipe(
+#        'wool sweater',
+#        'woolen goods',
+#        )
 
 Recipe(
     "worsted cloth, twill",
     "worsted cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"worsted yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
-    unit=ordinary_cloth_sale_unit,
+    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
     vendor="weaver",
     difficulty=1.1,
     description="twill weave",
+)
+
+Recipe(
+    "worsted cloth, serge",
+    "worsted cloth",
+    wool_ordinary_cloth_sale_weight,
+    {},
+    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
+    vendor="weaver",
+    difficulty=1.2,
+    description="diagonally-patterned twill weave",
 )
 
 Recipe(
@@ -1267,7 +1399,7 @@ Recipe(
 )
 
 cotton_plainweave_sale_weight = (
-    (ordinary_cloth_sale_unit * yarn_per_ordinary_cloth)
+    (cloth_sale_unit * yarn_per_ordinary_cloth)
     / cotton_yarn_sale_unit
     * cotton_yarn_sale_weight
 )
@@ -1276,35 +1408,11 @@ Recipe(
     "cotton cloth",
     cotton_plainweave_sale_weight,
     {},
-    {"cotton yarn": yarn_per_ordinary_cloth * ordinary_cloth_sale_unit},
-    unit=ordinary_cloth_sale_unit,
+    {"cotton yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
 )
-
-donkey_sale_weight = D(650) * u.lb
-Recipe(
-    "donkey foal",
-    "donkeys",
-    donkey_sale_weight / D(2),
-    {"donkeys": 1 * u.head},
-    {},
-    vendor="stockyard",
-    unit=1 * u.head,
-    description="yearling",
-)
-
-Recipe(
-    "donkey",
-    "donkeys",
-    donkey_sale_weight,
-    {},
-    {"donkey foal": 1 * u.head},
-    vendor="stockyard",
-    unit=1 * u.head,
-    description="two-year old jack (male) donkey",
-)
-
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
@@ -1326,12 +1434,13 @@ Recipe(
     unit=1 * u.head,
 )
 
+# TODO refactor into two sides of pork, which are then divided into different cuts
 pig_carcass_fraction = Decimal(0.75)
 pig_meat_fraction = Decimal(0.75)
 pork_per_pig = pig_sale_weight * pig_carcass_fraction * pig_meat_fraction
 Recipe(
     "pork",
-    "meat",
+    "pork",
     1 * u.lb,
     {},
     {"pig": (Decimal(1) * u.lb / pork_per_pig) * u.head},
@@ -1382,31 +1491,109 @@ Recipe(
     vendor="grocer",
     description="black, gooey sugarcane extract",
 )
+donkey_sale_weight = D(650) * u.lb
+donkey_foal_age = D(1) * u.year
+donkey_foal_weight = donkey_sale_weight / D(2)
+donkey_sale_age = D(2.5) * u.year
+# raised on milk until weaned, then on both forage and feed
+donkey_raising_fodder = fodder_while_growing(
+    donkey_foal_age,
+    donkey_sale_age,
+    donkey_foal_weight,
+    donkey_sale_weight,
+    D(0.015) * u.lb / u.lb,
+)
 
-
+Recipe(
+    "donkey",
+    "donkeys",
+    donkey_sale_weight,
+    {"donkeys": 1 * u.head},
+    {"animal feed": donkey_raising_fodder},
+    vendor="stockyard",
+    unit=1 * u.head,
+    description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
 
-#    # TODO should the container still be listed in sub-recipes, or should it be implied by the presence of the container field (therefore requiring change to price caculation to check container? i feel that using weight of barrel directly within weight of 'ale' will lead to trouble as i try to calculate e.g. weight of N gallons of ale, and want to use the weight defined in this recipe, but have to remember to subtract away the barrel...)
-#    # given that i will definitely want a netweight vs full weight prperty, i think its worth taking containersout of explicit subrecipes and redoing price calculations to account for container. it's sane.
+def list_all(town="Pearl Island"):
+    t = towns[town]
+    for name, recipe in registry.items():
+        print(name)
+        print(f"{recipe.display_price(t)}")
+        if recipe.description:
+            print(recipe.description)
+        print()
+
+
+def by_vendor(town="Pearl Island"):
+    t = towns[town]
+    for v in sorted(list(vendors)):
+        l = len(v)
+        print("-" * l)
+        print(v.upper())
+        print("-" * l)
+        print()
+        rs = {name: recipe for name, recipe in registry.items() if recipe.vendor == v}
+        for name, recipe in rs.items():
+            print(name)
+            print(f"{recipe.display_price(t)}")
+            if recipe.description:
+                print(recipe.description)
+            print()
+        print()
+    for name, recipe in no_vendor().items():
+        print(name)
+        print(f"{recipe.display_price(t)}")
+        if recipe.description:
+            print(recipe.description)
+        print()
 
 
 def main():
-    for name, recipe in registry.items():
-        for t, tinfo in towns.items():
-            if t != "Pearl Island":
-                pass
-            else:
-                print(name)
-                print(f"{name}: {recipe.display_price(tinfo)}")
-                if recipe.description:
-                    print(recipe.description)
-                print()
-
-    print(list(no_vendor()))
+    by_vendor()
     print(f"Recipes: {len(registry)}")
 
 
 if __name__ == "__main__":
     main()
+
+# TODO things which are raw materials - how to put them on pricing table w/o overcharging  for them by making them go through a recipe?
+# for instance, 'grapes' are used as a raw material in wine production...
+# ...  but for sale OF GRAPES THEMSELVES AS FOOD, what warrants making them more expensive by requiring a recipe?
+# why not use the raw material price directly?
+# this also applies to pig iron, iron (ore), gold, all the types of building stone, and more!
+# it could also take down the price of cattle, sheep, etc no?
+# currently, if I don't have a recipe I can't put them on the price table AS THEIR OWN ITEM
+# TODO do I need a subclass of recipe, Raw, which doesn't require a governor and is sold as-is?
+# TODO what is the dividing line between grapes (sold as a new Raw) and, say, cattle (which currently have to go through at least one recipe to be sold?)
+
+# TODO one issue with Raw proposal is that it doesn't account for fact taht some 'Raws' are derived from others and prices will be wrong if we go straight to using Raw price
+# for instance, 'dried fish' is a raw material, and very cheap; fresh fish is much more expensive
+# so 'dried fish' shouldn't be a Raw, lest dried fish somehow cost much less per unit than fresh even though it's been processed, etc.
+
+
+# https://en.wikipedia.org/wiki/Bone_char
+# used in sugar production as a filtering agent
+
+# watchdog (barks to alert but won't fight)
+# guard dog (as watchdog but also has combat training)
+# war dog (as guard dog but can wear barding, has bonus HP, and has +1 to hit)
+# working dog (including herd dog/sheepdog and draft dog which pulls dogcarts)
+
+
+# def d(x): return Decimal(x)
+# gallons olive oil produced per acre
+# Decimal('105.6691999999999964643393469')
+# 200 olive trees/acre * 4 lbs of oil annually/tree * 1 L oil/2 lbs * 0.264173... gal/L
+# d(200) * d(4) / d(2) * d(0.264173)
+
+# area of 2.2222222222 mile diameter hexagon, in sq mi
+# Decimal('4.276583127718347711819777428')
+# >>> import math as m
+# >>> d(m.sqrt(d(3))) * d(2.2222) * d(2.2222) / d(2)
+
+# earthenware ceramic goods
+# glazed and unglazed

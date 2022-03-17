@@ -19,6 +19,7 @@ getcontext().prec = 6
 # should I do so in the case of e.g. "horses" and "Brittany horses" or "wine" and "Chamblais wine" ? seems there is value in having both generic and specific in those cases.
 categories = {
     "animals",
+    "fish",
     "nuts",
     "beans",
     "wines",
@@ -35,10 +36,16 @@ categories = {
 # todo sanity checks
 # millet vs mullet
 # cloves vs clover
-# coral vs copal
+# coral vs copal vs opal
 # coral vs copal
 # chestnut (wood) vs chestnuts (food)
 # euphorbia (plant) vs euphoria (word)
+# lac vs lace
+# pepper (black) vs peppers (other) vs pimentos vs red pepper
+# pears vs peas vs pearl v peat
+# pots vs posts
+# rhodonite vs rhodolite
+# opal vs common opal vs fire opal vs precious opal vs water opal
 
 
 world_references = {
@@ -77,11 +84,12 @@ world_references = {
     "amethyst": {
         "references": 14,
     },
-    "sherry, amontillado": {
+    "sherry, Amontillado": {
         "references": 1,
     },
     "anchovies": {
         "references": 6,
+        "category": "fish",
     },
     "angora": {
         "references": 1,
@@ -94,6 +102,7 @@ world_references = {
     },
     "apricots": {
         "references": 31,
+        "category": "fruit",
     },
     "aquamarine": {
         "references": 19,
@@ -127,8 +136,9 @@ world_references = {
     },
     "asparagus": {
         "references": 5,
+        "category": "vegetable",
     },
-    "aspen": {
+    "wood, aspen": {
         "references": 1,
         "category": "timber",
     },
@@ -140,6 +150,7 @@ world_references = {
     },
     "avocados": {
         "references": 3,
+        "category": "fruit",
     },
     "azulejos": {
         "references": 1,
@@ -150,14 +161,16 @@ world_references = {
     "bacon": {
         "references": 11,
     },
-    "wine, Badocsony": {
+    "wine, Baccia": {
+        # originally Badocsony
         "references": 1,
     },
-    "bamboo": {
+    "wood, bamboo": {
         "references": 8,
     },
     "bananas": {
         "references": 47,
+        "category": "fruit",
     },
     "banking": {
         "references": 37,
@@ -182,6 +195,7 @@ world_references = {
     },
     "beans": {
         "references": 68,
+        "category": "fruit",
     },
     "bearskins": {
         "references": 8,
@@ -201,6 +215,7 @@ world_references = {
     },
     "berries": {
         "references": 2,
+        "category": "fruit",
     },
     "beryl": {
         "references": 4,
@@ -233,6 +248,7 @@ world_references = {
     },
     "blackberries": {
         "references": 1,
+        "category": "fruit",
     },
     "blankets": {
         "references": 11,
@@ -288,9 +304,11 @@ world_references = {
     },
     "breadfruit": {
         "references": 1,
+        "category": "fruit",
     },
     "bream": {
         "references": 2,
+        "category": "fish",
     },
     "horses, Brittany": {
         "references": 1,
@@ -327,6 +345,7 @@ world_references = {
     },
     "cabbage": {
         "references": 9,
+        "category": "vegetable",
     },
     "cabinetmaking": {
         "references": 5,
@@ -425,12 +444,14 @@ world_references = {
     },
     "catfish": {
         "references": 1,
+        "category": "fish",
     },
-    "catseye": {
+    "cat's eye": {
         "references": 9,
     },
     "cauliflower": {
         "references": 1,
+        "category": "vegetable",
     },
     "wood, cedar": {
         "references": 6,
@@ -462,6 +483,7 @@ world_references = {
     },
     "cherries": {
         "references": 19,
+        "category": "fruit",
     },
     "wood, chestnut": {
         "references": 15,
@@ -511,12 +533,14 @@ world_references = {
     },
     "citrus": {
         "references": 71,
+        "category": "fruit",
     },
     "civet": {
         "references": 1,
     },
     "clementines": {
         "references": 1,
+        "category": "fruit",
     },
     "clockmaking": {
         "references": 47,
@@ -532,6 +556,7 @@ world_references = {
     },
     "cob apples": {
         "references": 1,
+        "category": "fruit",
     },
     "cobaltsmelting": {
         "references": 1,
@@ -544,9 +569,11 @@ world_references = {
     },
     "coconuts": {
         "references": 57,
+        "category": "fruit",
     },
     "cod": {
         "references": 20,
+        "category": "fish",
     },
     "cod liver oil": {
         "references": 2,
@@ -578,7 +605,7 @@ world_references = {
     "coral": {
         "references": 13,
     },
-    "cork": {
+    "wood, cork": {
         "references": 38,
     },
     "cormorants": {
@@ -595,9 +622,11 @@ world_references = {
     },
     "crabs": {
         "references": 5,
+        "category": "fish",
     },
     "crayfish": {
         "references": 1,
+        "category": "fish",
     },
     "cream": {
         "references": 17,
@@ -616,15 +645,18 @@ world_references = {
     },
     "cucumbers": {
         "references": 5,
+        "category": "vegetable",
     },
     "currants": {
         "references": 13,
+        "category": "fruit",
     },
     "curtains": {
         "references": 1,
     },
     "cuttlefish": {
         "references": 2,
+        "category": "fish",
     },
     "wood, cypress": {
         "references": 2,
@@ -647,6 +679,7 @@ world_references = {
     },
     "dates": {
         "references": 69,
+        "category": "fruit",
     },
     "horn, deer and elk": {
         "references": 2,
@@ -683,6 +716,7 @@ world_references = {
     },
     "dried peas": {
         "references": 1,
+        "category": "vegetable",
     },
     "ducks": {
         "references": 7,
@@ -701,9 +735,11 @@ world_references = {
     },
     "eels": {
         "references": 3,
+        "category": "fish",
     },
     "eggplants": {
         "references": 1,
+        "category": "vegetable",
     },
     "elaeocarpus": {
         "references": 1,
@@ -764,6 +800,7 @@ world_references = {
     },
     "figs": {
         "references": 59,
+        "category": "fruit",
     },
     "figurines": {
         "references": 1,
@@ -801,12 +838,14 @@ world_references = {
     },
     "flatfish": {
         "references": 1,
+        "category": "fish",
     },
     "flatware": {
         "references": 1,
     },
     "flounder": {
         "references": 1,
+        "category": "fish",
     },
     "flowers": {
         "references": 18,
@@ -822,6 +861,7 @@ world_references = {
     },
     "freshwater fish": {
         "references": 52,
+        "category": "fish",
     },
     "friezes": {
         "references": 2,
@@ -876,6 +916,7 @@ world_references = {
     },
     "gooseberries": {
         "references": 2,
+        "category": "fruit",
     },
     "cheese, gorgonzola": {
         "references": 2,
@@ -900,6 +941,7 @@ world_references = {
     },
     "grapefruit": {
         "references": 6,
+        "category": "fruit",
     },
     "greenstone": {
         "references": 5,
@@ -918,6 +960,7 @@ world_references = {
     },
     "guavas": {
         "references": 3,
+        "category": "fruit",
     },
     "gudgeon": {
         "references": 1,
@@ -945,9 +988,11 @@ world_references = {
     },
     "haddock": {
         "references": 4,
+        "category": "fish",
     },
     "hake": {
         "references": 1,
+        "category": "fish",
     },
     "handkerchiefs": {
         "references": 1,
@@ -964,7 +1009,7 @@ world_references = {
     "hats": {
         "references": 29,
     },
-    "hawkseye": {
+    "hawk's eye": {
         "references": 1,
     },
     "hay": {
@@ -972,6 +1017,7 @@ world_references = {
     },
     "hazelnuts": {
         "references": 2,
+        "category": "nuts",
     },
     "healing earth": {
         "references": 1,
@@ -987,6 +1033,7 @@ world_references = {
     },
     "herring": {
         "references": 46,
+        "category": "fish",
     },
     "hessonite": {
         "references": 1,
@@ -1008,8 +1055,10 @@ world_references = {
         "references": 42,
     },
     "hushhash": {
+        # sour orange
         "references": 5,
-    },  # sour orange
+        "category": "fruit",
+    },
     "hyacinths": {
         "references": 1,
     },
@@ -1056,6 +1105,761 @@ world_references = {
     "jeweled daggers": {
         "references": 1,
     },
+    "jewelry": {
+        "references": 29,
+    },
+    "juniper berries": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "jute": {
+        "references": 32,
+    },
+    "kaffir": {
+        "references": 1,
+    },
+    "kanku": {
+        "references": 1,
+    },
+    "kaolin": {
+        "references": 43,
+    },
+    "kapok": {
+        "references": 4,
+    },
+    "karakul": {
+        "references": 5,
+    },
+    "kenaf": {
+        "references": 2,
+    },
+    "kendyr": {
+        "references": 1,
+    },
+    "kid gloves": {
+        "references": 1,
+    },
+    "kid leather": {
+        "references": 1,
+    },
+    "kirschwasser": {
+        "references": 4,
+    },
+    "knives": {
+        "references": 35,
+    },
+    "kokura-ori": {
+        "references": 1,
+    },
+    "kola nuts": {
+        "references": 10,
+    },
+    "kumiss": {
+        "references": 2,
+    },
+    "kutani": {
+        "references": 1,
+    },
+    "wine, La Rioja": {
+        "references": 2,
+    },
+    "lac": {
+        "references": 4,
+        # Lac is a thick semi-solid gummy substance acquired from a female insect (bug) named 'Tachardia lacca' on trees in the forests of India and Thailand. The process of making Lac jewelry is complex and requires high degree of precision.Nov 14, 2018
+    },
+    "lace": {
+        "references": 78,
+    },
+    "lacquerware": {
+        "references": 24,
+    },
+    "lamb": {
+        "references": 1,
+    },
+    "lamp oil": {
+        "references": 84,
+    },
+    "lamprey": {
+        "references": 2,
+        "category": "fish",
+    },
+    "lamps": {
+        "references": 70,
+    },
+    "lapidary": {
+        "references": 6,
+    },
+    "lapis lazuli": {
+        "references": 10,
+    },
+    "wood, larch": {
+        "references": 2,
+    },
+    "lard": {
+        "references": 2,
+    },
+    "wood, laurel": {
+        "references": 1,
+    },
+    "lavender": {
+        "references": 1,
+    },
+    "lemons": {
+        "references": 23,
+        "category": "fruit",
+    },
+    "lenses": {
+        "references": 21,
+    },
+    "lentils": {
+        "references": 11,
+    },
+    "leopardskin": {
+        "references": 4,
+    },
+    "lichee nuts": {
+        "references": 6,
+    },
+    "licorice": {
+        "references": 9,
+    },
+    "lilies": {
+        "references": 3,
+    },
+    "lily roots": {
+        "references": 1,
+    },
+    "cheese, Limberger": {
+        "references": 1,
+    },
+    "limes": {
+        "references": 5,
+        "category": "fruit",
+    },
+    "ling": {
+        "references": 1,
+        "category": "fish",
+    },
+    "lingerie": {
+        "references": 5,
+    },
+    "linseed": {
+        "references": 22,
+    },
+    "linseed oil": {
+        "references": 3,
+    },
+    "liqueur": {
+        "references": 7,
+    },
+    "lobsters": {
+        "references": 7,
+        "category": "fish",
+    },
+    "locks": {
+        "references": 4,
+    },
+    "looms": {
+        "references": 12,
+    },
+    "loquats": {
+        "references": 2,
+        "category": "fruit",
+    },
+    "lotus": {
+        "references": 2,
+    },
+    "ware, Lowestoft": {
+        "references": 1,
+    },
+    "lungen": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "lynx furs": {
+        "references": 1,
+    },
+    "mackerel": {
+        "references": 8,
+        "category": "fish",
+    },
+    "madder": {
+        "references": 4,
+    },
+    "wine, Madeira": {
+        "references": 1,
+    },
+    "mahogany": {
+        "references": 12,
+    },
+    "majolica": {
+        "references": 7,
+    },
+    "malachite": {
+        "references": 6,
+    },
+    "wine, Malaga": {
+        "references": 3,
+    },
+    "wine, Malvoisie": {
+        "references": 1,
+    },
+    "mandarin oranges": {
+        "references": 6,
+        "category": "fruit",
+    },
+    "mangoes": {
+        "references": 7,
+        "category": "fruit",
+    },
+    "wood, mangrove": {
+        "references": 3,
+    },
+    "manuscript illumination": {
+        "references": 4,
+    },
+    "maraschino cherries": {
+        "references": 3,
+        "category": "fruit",
+    },
+    "marigolds": {
+        "references": 3,
+    },
+    "wine, Marsala": {
+        "references": 3,
+    },
+    "mats": {
+        "references": 12,
+    },
+    "wine, Mavasia": {
+        "references": 1,
+    },
+    "wine, Mees": {
+        "references": 1,
+    },
+    "melanite": {
+        "references": 3,
+    },
+    "melons": {
+        "references": 39,
+        "category": "fruit",
+    },
+    "milk of magnesia": {
+        "references": 1,
+    },
+    "minting": {
+        "references": 5,
+    },
+    "mirrors": {
+        "references": 2,
+    },
+    "mistletoe": {
+        "references": 2,
+    },
+    "mlombwa": {
+        # a plant/tree
+        "references": 1,
+    },
+    "mninga": {
+        "references": 1,
+    },
+    "mohair": {
+        "references": 1,
+    },
+    "mohair cloth": {
+        "references": 7,
+    },
+    "wine, Montona": {
+        "references": 1,
+    },
+    "moonstone": {
+        "references": 24,
+    },
+    "morganite": {
+        "references": 6,
+    },
+    "Moroccan leathercraft": {
+        "references": 4,
+    },
+    "mosaics": {
+        "references": 1,
+    },
+    "moss agate": {
+        "references": 11,
+    },
+    "mother of pearl": {
+        "references": 4,
+    },
+    "mother of pearl inlay": {
+        "references": 1,
+    },
+    "murex": {
+        "references": 3,
+    },
+    "muscatel": {
+        "references": 4,
+    },
+    "mushrooms": {
+        "references": 7,
+    },
+    "music scripting": {
+        "references": 1,
+    },
+    "musical instruments": {
+        "references": 28,
+    },
+    "musk": {
+        "references": 4,
+    },
+    "muskmelons": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "muslin": {
+        "references": 9,
+    },
+    "muslin goods": {
+        "references": 2,
+    },
+    "mussels": {
+        "references": 3,
+        "category": "fish",
+    },
+    "mustard seed": {
+        "references": 1,
+    },
+    "mutton": {
+        "references": 9,
+    },
+    "myrrh": {
+        "references": 3,
+    },
+    "nails": {
+        "references": 3,
+    },
+    "narcissi": {
+        "references": 3,
+    },
+    "navagu": {
+        "references": 1,
+    },
+    "necklaces": {
+        "references": 1,
+    },
+    "nectarines": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "needles": {
+        "references": 8,
+    },
+    "nets": {
+        "references": 9,
+    },
+    "noodles": {
+        "references": 5,
+    },
+    "nutgall": {
+        "references": 1,
+    },
+    "wood, oak": {
+        "references": 16,
+    },
+    "oatmeal": {
+        "references": 1,
+    },
+    "ocher": {
+        "references": 10,
+    },
+    "onions": {
+        "references": 7,
+        "category": "vegetable",
+    },
+    "onyx": {
+        "references": 4,
+    },
+    "oranges": {
+        "references": 69,
+        "category": "fruit",
+    },
+    "organs": {
+        "references": 2,
+    },
+    "ornaments": {
+        "references": 6,
+    },
+    "ostriches": {
+        "references": 3,
+    },
+    "otter furs": {
+        "references": 1,
+    },
+    "ovens": {
+        "references": 19,
+    },
+    "oysters": {
+        "references": 25,
+        "category": "fish",
+    },
+    "ozocerite": {
+        "references": 3,
+    },
+    "paint": {
+        "references": 20,
+    },
+    "palm nuts": {
+        "references": 23,
+    },
+    "palm oil": {
+        "references": 35,
+    },
+    "palms": {
+        "references": 16,
+    },
+    "pans": {
+        "references": 2,
+    },
+    "papayas": {
+        "references": 3,
+        "category": "fruit",
+    },
+    "paper lanterns": {
+        "references": 1,
+    },
+    "paper products": {
+        "references": 6,
+        "production": 13_792_768 * u.oz,
+    },
+    "papier-mache": {
+        "references": 1,
+    },
+    "papyrus": {
+        "references": 4,
+    },
+    "parasols": {
+        "references": 6,
+    },
+    "parchment": {
+        "references": 2,
+    },
+    "cheese, Parmagiano": {
+        "references": 1,
+    },
+    "parquet stone": {
+        "references": 1,
+    },
+    "patchouli": {
+        "references": 1,
+    },
+    "pate": {
+        "references": 1,
+    },
+    "foie gras": {
+        "references": 3,
+    },
+    "peaches": {
+        "references": 23,
+        "category": "fruit",
+    },
+    "peanut oil": {
+        "references": 7,
+    },
+    "pearl": {
+        "references": 35,
+    },
+    "pears": {
+        "references": 27,
+        "category": "fruit",
+    },
+    "peas": {
+        "references": 21,
+        "category": "vegetable",
+    },
+    "peppermint": {
+        "references": 1,
+    },
+    "peppers": {
+        "references": 5,
+        "category": "vegetable",
+    },
+    "perch": {
+        "references": 2,
+        "category": "fish",
+    },
+    "horses, Percheron": {
+        "references": 5,
+    },
+    "peridot": {
+        "references": 10,
+    },
+    "Perigord truffles": {
+        "references": 1,
+    },
+    "perilla seed": {
+        "references": 1,
+    },
+    "persimmons": {
+        "references": 2,
+        "category": "fruit",
+    },
+    "petrified wood": {
+        "references": 4,
+    },
+    "pewter": {
+        "references": 1,
+    },
+    "pewterware": {
+        "references": 2,
+    },
+    "piassava": {
+        "references": 4,
+    },
+    "pike": {
+        "references": 4,
+        "category": "fish",
+    },
+    "pilchard": {
+        "references": 3,
+        "category": "fish",
+    },
+    "gnomish beer": {
+        # originally pilsener beer
+        "references": 1,
+    },
+    "pimentos": {
+        "references": 2,
+        "category": "vegetable",
+    },
+    "wood, pine": {
+        "references": 15,
+    },
+    "pineapples": {
+        "references": 16,
+        "category": "fruit",
+    },
+    "pistachios": {
+        "references": 7,
+    },
+    "plantains": {
+        "references": 4,
+        "category": "fruit",
+    },
+    "plaster": {
+        "references": 2,
+    },
+    "playing cards": {
+        "references": 1,
+    },
+    "ploughs": {
+        "references": 5,
+    },
+    "brandy, plum": {
+        "references": 2,
+    },
+    "plums": {
+        "references": 22,
+        "category": "fruit",
+    },
+    "plush": {
+        "references": 1,
+    },
+    "podo": {
+        "references": 1,
+    },
+    "podocarpus": {
+        "references": 1,
+    },
+    "poison": {
+        "references": 1,
+    },
+    "pollan": {
+        "references": 1,
+    },
+    "pomegranates": {
+        "references": 18,
+        "category": "fruit",
+    },
+    "pongee": {
+        "references": 2,
+    },
+    "ponies": {
+        "references": 2,
+    },
+    "cheese, pont l'eveque": {
+        "references": 1,
+    },
+    "poppyseed": {
+        "references": 6,
+    },
+    "port": {
+        "references": 9,
+    },
+    "pork": {
+        "references": 1,
+    },
+    "posts": {
+        "references": 3,
+    },
+    "pots": {
+        "references": 1,
+    },
+    "poultry and eggs": {
+        "references": 16,
+    },
+    "prase": {
+        "references": 4,
+    },
+    "prayer carpets": {
+        "references": 1,
+    },
+    "opal": {
+        "references": 12,
+    },
+    "precision tools": {
+        "references": 36,
+    },
+    "presses": {
+        "references": 10,
+    },
+    "prickly pears": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "prunes": {
+        "references": 5,
+        "category": "fruit",
+    },
+    "pumpkins": {
+        "references": 1,
+        "category": "fruit",
+    },
+    "pumps": {
+        "references": 4,
+    },
+    "pyrope": {
+        "references": 3,
+    },
+    "quality swords": {
+        "references": 2,
+    },
+    "quartz": {
+        "references": 15,
+    },
+    "quinine": {
+        "references": 1,
+    },
+    "racehorses": {
+        "references": 3,
+    },
+    "radishes": {
+        "references": 3,
+        "category": "vegetable",
+    },
+    "raffia": {
+        "references": 3,
+    },
+    "raisins": {
+        "references": 20,
+        "category": "fruit",
+    },
+    "ramie": {
+        "references": 6,
+    },
+    "rapeseed": {
+        "references": 34,
+    },
+    "rapeseed oil": {
+        "references": 1,
+    },
+    "raspberries": {
+        "references": 2,
+        "category": "fruit",
+    },
+    "cheese, red Leicester": {
+        "references": 1,
+    },
+    "rattan": {
+        "references": 4,
+    },
+    "pepper, red": {
+        "references": 1,
+    },
+    "red stamp ink": {
+        "references": 1,
+    },
+    "wood, redwood": {
+        "references": 1,
+    },
+    "resin": {
+        "references": 12,
+    },
+    "rhodochrosite": {
+        "references": 3,
+    },
+    "rhodolite": {
+        "references": 5,
+    },
+    "rhodonite": {
+        "references": 8,
+    },
+    "rhubarb": {
+        "references": 2,
+        "category": "fruit",
+    },
+    "ribbon": {
+        "references": 7,
+    },
+    "roach": {
+        "references": 1,
+    },
+    "robes": {
+        "references": 1,
+    },
+    "rope": {
+        "references": 62,
+    },
+    "rosaries": {
+        "references": 4,
+    },
+    "quartz, rose": {
+        "references": 2,
+    },
+    "roses": {
+        "references": 9,
+    },
+    "wood, rosewood": {
+        "references": 2,
+    },
+    "rosin": {
+        "references": 1,
+    },
+    "ruby": {
+        "references": 32,
+    },
+    "rum": {
+        "references": 5,
+    },
+    "sable": {
+        "references": 4,
+    },
+    "sacks": {
+        "references": 4,
+    },
+    "saddles": {
+        "references": 7,
+    },
+    "safflower seed": {
+        "references": 1,
+    },
+    "sago": {
+        "references": 1,
+    },
+    "sailcloth": {
+        "references": 10,
+    },
+    "sake": {
+        "references": 4,
+    },
     "alchemy": {
         # alchemist
         "references": 321,
@@ -1069,6 +1873,7 @@ world_references = {
     "antimonysmelting": {"references": 2, "production": 180_736 * u.oz},
     "apples": {
         "references": 78,
+        "category": "fruit",
     },
     "arsenic": {"references": 11, "production": 236_480 * u.oz},
     "artistic glassware": {"references": 0, "production": 3_607_423 * u.oz},
@@ -1188,7 +1993,11 @@ world_references = {
     "goats": {"references": 129, "production": 6_294_340 * u.head},
     "gold": {"references": 237, "production": 311_529 * u.oz},
     "goldsmithing": {"references": 21, "production": 38_195 * u.oz},
-    "grapes": {"references": 351, "production": 321_922_048 * u.oz},
+    "grapes": {
+        "references": 351,
+        "production": 321_922_048 * u.oz,
+        "category": "fruit",
+    },
     "griffs": {"references": 40, "production": 12_659 * u.head},
     "groundnuts": {
         "references": 89,
@@ -1197,12 +2006,12 @@ world_references = {
     },
     "guano": {"references": 2, "production": 74_547_200 * u.oz},
     "hemp goods": {
-        # why in oz
         "references": 18,
-        "production": 57_008_085 * u.oz,
     },
     "hemp": {
         "references": 95,
+        # I moved this production from hemp goods to its raw material
+        "production": 57_008_085 * u.oz,
     },
     "hides": {"references": 349, "production": 251_023_360 * u.oz},
     "honey": {"references": 43, "production": 51_173_504 * u.oz},
@@ -1234,7 +2043,7 @@ world_references = {
     "licorice": {"references": 9, "production": 2_150_400 * u.oz},
     "limestone": {"references": 79, "production": 10_712_144_744 * u.oz},
     "linen goods": {"references": 24, "production": 771_181 * u.sqyd},
-    "linen": {"references": 112, "production": 5_945_558 * u.sqyd},
+    "linen cloth": {"references": 112, "production": 5_945_558 * u.sqyd},
     "lithographic stone": {
         "references": 2,
         "production": 232_312_699 * u.oz,
@@ -1297,9 +2106,10 @@ world_references = {
     },
     "olives": {
         "references": 219,
+        "category": "fruit",
     },
     "opium": {"references": 26, "production": 300_489 * u.oz},
-    "ostrich feathers": {"references": 0, "production": 44_848 * u.oz},
+    "ostrich feathers": {"references": 4, "production": 44_848 * u.oz},
     "paper": {"references": 255, "production": 42_824_340 * u.oz},
     "paprika": {"references": 2, "production": 25_017_969 * u.oz},
     "peat": {"references": 33, "production": 1_435_105_289 * u.oz},
@@ -1322,6 +2132,7 @@ world_references = {
     "porphyry": {"references": 4, "production": 490_784_353 * u.oz},
     "potatoes": {
         "references": 201,
+        "category": "vegetable",
     },
     "pottery": {
         "references": 142,
@@ -1331,7 +2142,7 @@ world_references = {
     "qat": {"references": 1, "production": 11_557 * u.oz},
     "quicklime": {"references": 16, "production": 5_368_832_000 * u.oz},
     "rabbits": {"references": 1, "production": 1_352_500 * u.head},
-    "red sandstone": {"references": 0, "production": 271_616_994 * u.oz},
+    "red sandstone": {"references": 3, "production": 271_616_994 * u.oz},
     "refined sugar": {
         "references": 191,
     },
@@ -1458,16 +2269,10 @@ for r, info in world_references.items():
         # 'zero problem' - see towns.py
         continue
     else:
-        # pull this into a function of commodity name
         info["production per reference"] = (prod.magnitude / refs) * prod.units
 
 
-# def prod_per_ref(commodity):
-#    info = world_references[commodity]
-#    if info["references"] == 0:
-#        return None
-#    else:
-#        return (info["production"].magnitude / refs) * info["production"].units
+# [(x, info['references']) for x, info in r.world_references.items() if 'category' in info and info['production'] != 0 and info['category'] == 'fruit']
 
 
 def main():
