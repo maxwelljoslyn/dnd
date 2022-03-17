@@ -674,3 +674,15 @@ Recipe(
     {"mutton sheep": (Decimal(1) * u.lb / muttonsheep_meat_weight) * u.head},
     vendor="butcher",
 )
+
+calf_sale_weight = Decimal(410) * u.lb
+Recipe(
+    "calf",
+    "cattle",
+    calf_sale_weight,
+    {"cattle": 1 * u.head},
+    {},
+    vendor="stockyard",
+    unit=1 * u.head,
+    description="8 months old, suitable for rennet",
+)
