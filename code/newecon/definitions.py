@@ -352,3 +352,12 @@ Recipe(
     {"zinc": 1 * u.lb},
     {"smelting fuel": 0.75 * u.lb},
 )
+
+Recipe(
+    "silver ore",
+    "smelting",
+    1 * u.lb,
+    {"silver": 1 * u.lb},
+    {"smelting fuel": 0.75 * u.lb},
+    # description="ingot, 1.5x1.5x1.175 in.",
+)
