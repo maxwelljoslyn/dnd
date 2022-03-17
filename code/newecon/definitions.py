@@ -574,3 +574,12 @@ Recipe(
     vendor="miller",
     description="ground from cereals",
 )
+
+Recipe(
+    "bread",
+    "bread",
+    1 * u.lb,
+    {"salt": 0.05 * u.lb},
+    {"flour": 0.7 * u.lb},
+    vendor="baker",
+)
