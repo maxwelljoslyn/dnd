@@ -583,3 +583,13 @@ Recipe(
     {"flour": 0.7 * u.lb},
     vendor="baker",
 )
+
+Recipe(
+    "quicklime",
+    "pottery",
+    1 * u.lb,
+    {"limestone": 1 * u.lb},
+    {"smelting fuel": 0.75 * u.lb},
+    vendor="potter",
+    description="used in tanning and to make mortar",
+)
