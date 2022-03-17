@@ -211,3 +211,12 @@ Recipe(
     dict(coal=0.5 * u.lb, limestone=0.25 * u.lb),
     description="generic supplies required to smelt 1 lb metal",
 )
+
+Recipe(
+    "iron ore",
+    "iron",
+    1 * u.lb,
+    dict(iron=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+)
