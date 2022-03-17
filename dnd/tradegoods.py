@@ -1244,6 +1244,41 @@ wine_abv = calculate_abv(
     1 * u.gallon,
 )
 
+wines = {
+    "wine": "local variety of red or white",
+    "champagne": "sparkling, bubbly white",
+    "wine, Baccia": "dry white made of late harvest grapes",
+    # "wine, Chablis": "dry white with 'flinty' notes",
+    # "wine, Chianti": "very dry red",
+    # "wine, Chabrieres": "dry, musty, delicate red",
+    # "wine, Malvoisie": "light-berried white, intensely aromatic",
+    # "wine, Malaga": "dessert wine with hints of coffee and caramel",
+    # "wine, Mavasia": "light white with notes of honeysuckle and jasmine",
+    # "wine, Mees": "dry, fruity white",
+    # "wine, Montona": "purplish red, light in flavor",
+    # TODO these fortified wines can't be made with the same ingredients and ABV as the others
+    # "port": "fortified red with rich berry notes",
+    # "wine, Marsala": "heavy-sweet red used in cookery",
+    # "sherry, Amontillado": "hazel, caramel, and tobacco notes",
+    # "wine, canary sack": "sweet fortified wine aged in oak, with strong flavor and bitter finish",
+    # "wine, Madeira": "cinnamon-colored fortified red with a caramel, nutty flavor",
+}
+
+for w, description in wines.items():
+    Recipe(
+        f"{w}, in barrel",
+        w,
+        (density["water"] * barrel_capacity).to(u.lb),
+        # NOTE raw material grapes, not recipe grapes (the latter is cleaned more thoroughly for eating)
+        {
+            "grapes": grapes_for_wine * barrel_capacity,
+        },
+        {},
+        unit=barrel_capacity,
+        container="cask, barrel",
+        vendor="brewer",
+        description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
+    )
 # shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
 # I've chosen both ...
 greasy_wool_weight = Decimal(25) * u.lb
