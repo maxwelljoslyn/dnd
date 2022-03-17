@@ -493,6 +493,19 @@ ability_effects = {
     "charisma": {"max henchmen": cha_max_henchmen},
 }
 
+# see Velue addiction effects for how to better format this
+# for abi, effects in characters.ability_effects.items():
+#    ...:     print(abi.upper())
+#    ...:     for e, f in effects.items():
+#    ...:         for each in (normal, single, double):
+#    ...:             score = each[abi]
+#    ...:             output = f"{e}@{score}: "
+#    ...:             if e == 'bonus HP/level':
+#    ...:                 print(output + str(f(score, 'illusionist')))
+#    ...:             else:
+#    ...:                 print(output + str(f(score)))
+#    ...:
+
 
 def bodymass_hitdice(pounds):
     """Given POUNDS, return die or dice sizes of the bodymass hit die for a creature of that weight."""
@@ -608,6 +621,32 @@ def meets_bonus_xp_minimums(pc):
 
 def mod_to_text(num):
     return f"+{num}" if num >= 0 else f"{num}"
+
+
+def d(x):
+    """Basic die-roll function."""
+    return random.randint(1, x)
+
+
+def sage_points(levels, klass, status):
+    """Calculate total sage knowledge points earned in a `status` study over `levels` levels by a character of class `klass`.
+    Does not account for changes in chosen studies or fields; do multiple calls to sage_points with different `status` to find that."""
+    result = []
+    if klass not in classes:
+        raise ValueError(f"{klass} is not a character class")
+    if status not in ("study", "field", "outside"):
+        raise ValueError(f"{status} is not in ('study', 'field', 'outside')")
+    for i in range(levels):
+        if status == "study":
+            result.append(d(12))
+        elif status == "field":
+            if klass == "druid":
+                result.append(d(6) - 1)
+            else:
+                result.append(d(8) - 1)
+        else:
+            result.append(d(4) - 1)
+    return sum(result)
 
 
 #
