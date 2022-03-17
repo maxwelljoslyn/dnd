@@ -1093,3 +1093,30 @@ for c in ["barrel"]:
         vendor="brewer",
         description=f"{str(beer_abv.magnitude)}% alcohol",
     )
+
+sugar_for_rum = D(6) * u.lb / u.gallon
+rum_abv = calculate_abv(
+    sugar_for_rum * 1 * u.gallon,
+    0 * u.lb,
+    0 * u.lb,
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+for c in ["barrel"]:
+    cask_capacity = registry[f"cask, {c}"].capacity
+    cask_weight = registry[f"cask, {c}"].weight
+    Recipe(
+        f"rum, in {c}",
+        "brewing",
+        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
+        {},
+        {
+            "raw sugar": sugar_for_rum * cask_capacity,
+            f"cask, {c}": 1 * u.item,
+        },
+        unit=cask_capacity,
+        container=f"cask, {c}",
+        vendor="brewer",
+        description=f"{str(rum_abv.magnitude)}% alcohol",
+    )
