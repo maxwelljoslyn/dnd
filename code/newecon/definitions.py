@@ -994,3 +994,28 @@ for name, info in casks.items():
         capacity=m["volume"].to(u.gal),
         description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
     )
+def calculate_abv(
+    sugar_weight, cereal_weight, malt_weight, water_volume, desired_volume
+):
+    cereal_sugar = sugar_weight.to(u.lb) * Decimal(0.75)
+    malt_sugar = malt_weight.to(u.lb) * Decimal(0.8)
+    total_sugar = sugar_weight + cereal_sugar + malt_sugar
+    water_weight = water_volume.to(u.gallon) * density["water"]
+    mash_weight = total_sugar + water_weight
+    # specific gravity, with respect to water, is the relative density of some solution and water
+    # the original gravity is the specific gravity of the mash
+    # we are dissolving our sugar in water_volume gallons of water, and comparing the density of that to the density of water_volume gallons of water. because those two volumes are the same, we can ignore the volume component of density, and just make a ratio of the weights
+    original_gravity = mash_weight / water_weight
+    # distillation: boiling off and collecting the "spirit"
+    # spirit is about 20% pure alcohol; leave off 1% to represent non-usable "head"
+    distilled_volume = Decimal(0.19) * water_volume
+    # final gravity: the specific density of the spirit
+    # this value, 0.99, is an average one
+    final_gravity = Decimal(0.99)
+    base_abv = (original_gravity - final_gravity) * Decimal(129)
+    # dilute the distilled spirit with water to reach the desired_volume, our final spirit product
+    # the difference between distilled_volume and desired_volume is the volume of water added
+    diluted_abv = base_abv * (distilled_volume / desired_volume)
+    return diluted_abv
+
+
