@@ -1911,6 +1911,30 @@ for stone in (
             unit=masonry_unit,
             vendor="mason",
         )
+
+pan_thickness = D(1) / D(8) * u.inch
+pan_handle_length = D(4) * u.inch
+pan_handle_width = D(1) * u.inch
+pan_handle_hole_radius = D(1) / D(8) * u.inch
+pan_handle_volume = (
+    pan_handle_length * pan_handle_width * pan_thickness
+) - cylinder_volume(pan_thickness, pan_handle_hole_radius)
+pan_body_radius = D(5) * u.inch
+pan_body_height = D(2) * u.inch
+# a cylinder, minus a smaller cylinder, leaving the shape of a straight-walled pan's body
+pan_body_volume = cylinder_volume(pan_body_height, pan_body_radius) - cylinder_volume(
+    pan_body_height - pan_thickness, pan_body_radius - pan_thickness
+)
+pan_weight = (density["cast iron"] * (pan_body_volume + pan_handle_volume)).to(u.lb)
+Recipe(
+    "cooking pan",
+    "ironmongery",  # TODO "pans" is a reference... but if I do that it jumps from 2gp to 56gp!
+    pan_weight,
+    {},
+    {"cast iron": pan_weight},
+    vendor="blacksmith",
+    description=f"cast iron; diameter {pan_body_radius * 2}; handle has hole for hanging",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
