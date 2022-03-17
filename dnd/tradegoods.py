@@ -1935,6 +1935,30 @@ Recipe(
     vendor="blacksmith",
     description=f"cast iron; diameter {pan_body_radius * 2}; handle has hole for hanging",
 )
+
+clay_per_glass = D(0.7) * u.lb / u.lb
+soda_per_glass = D(0.15) * u.lb / u.lb
+quicklime_per_glass = D(0.1) * u.lb / u.lb
+salt_per_glass = D(0.01) * u.lb / u.lb
+dolomite_per_glass = D(0.04) * u.lb / u.lb  # source of magnesium
+Recipe(
+    "flat glass",
+    "ceramics",
+    1 * u.lb,
+    {
+        "soda ash": soda_per_glass * u.lb,
+        "dolomite": dolomite_per_glass * u.lb,
+        "salt": salt_per_glass * u.lb,
+    },
+    {
+        "fired clay": clay_per_glass * u.lb,
+        "quicklime": quicklime_per_glass * u.lb,
+    },
+    vendor="glazier",
+    description="6in x 7in x 0.25in sheet",
+)
+
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
