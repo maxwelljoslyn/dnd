@@ -1875,6 +1875,42 @@ Recipe(
     {},
     description="accounts for firing wet clay, so it does not have to be done separately for all clay goods",
 )
+
+masonry_unit = D(1) * u.cuft
+for stone in (
+    "alabaster",
+    "basalt",
+    "brownstone",
+    "dolomite",
+    "granite",
+    "limestone",
+    "marble",
+    "freestone",
+    "porphyry",
+    "sandstone",
+    "red sandstone",
+    "slate",
+    "syenite",
+    "trachyte",
+    "tufa",
+    "tuff",
+):
+    if world_references[stone]["production"] == 0:
+        # TODO - but I think all of these have production except for granite, which will get some from building stone eventually
+        pass
+    elif stone not in density:
+        # TODO add more figures to densty
+        pass
+    else:
+        theweight = (density[stone] * masonry_unit).to(u.lb)
+        Recipe(
+            f"masonry, {stone}",
+            "masonry",
+            theweight,
+            {f"{stone}": theweight},
+            unit=masonry_unit,
+            vendor="mason",
+        )
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
