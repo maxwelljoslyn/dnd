@@ -334,3 +334,13 @@ Recipe(
 )
 
 Recipe("iron filings", "ironmongery", 1 * u.lb, {}, {"wrought iron": 1 * u.lb})
+
+# filings used following the methods described in Subterraneal Treasures
+Recipe(
+    "lead ore",
+    "leadsmelting",
+    1 * u.lb,
+    {"lead": 1 * u.lb},
+    {"iron filings": 0.25 * u.lb, "smelting fuel": 0.75 * u.lb},
+    # description="ingot, 1.084x1.5x1.5 in.",
+)
