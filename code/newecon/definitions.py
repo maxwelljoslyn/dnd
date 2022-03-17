@@ -1019,3 +1019,38 @@ def calculate_abv(
     return diluted_abv
 
 
+# based on the Clare household strong ale recipe from:
+# https://www.cs.cmu.edu/~pwp/tofi/medieval_english_ale.html
+# thanks, Paul Placeway AKA Tofi Kerthjalfadsson
+cereal_for_ale = Decimal(1.5) * u.lb / u.gallon
+malt_for_ale = Decimal(4) * u.lb / u.gallon
+roasted_malt_for_ale = Decimal(0.67) * u.lb / u.gallon
+ale_abv = calculate_abv(
+    0 * u.lb,
+    cereal_for_ale * 1 * u.gallon,
+    malt_for_ale * 1 * u.gallon,
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+
+for c in ["barrel"]:
+    cask_capacity = registry[f"cask, {c}"].capacity
+    cask_weight = registry[f"cask, {c}"].weight
+    Recipe(
+        f"ale, in {c}",
+        "brewing",
+        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
+        {
+            "cereals": cereal_for_ale * cask_capacity,
+            "malt": malt_for_ale * cask_capacity,
+        },
+        {
+            "roasted malt": roasted_malt_for_ale * cask_capacity,
+            f"cask, {c}": 1 * u.item,
+        },
+        unit=cask_capacity,
+        container=f"cask, {c}",
+        vendor="brewer",
+        description=f"{str(ale_abv.magnitude)}% alcohol",
+    )
