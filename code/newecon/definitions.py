@@ -252,3 +252,12 @@ Recipe(
     {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
     # description="ingot, 1x1x3.57 in.",
 )
+
+Recipe(
+    "nickel ore",
+    "nickel",
+    1 * u.lb,
+    dict(nickel=1 * u.lb),
+    {"smelting fuel": 0.75 * u.lb},
+    description="separated from waste rock and impurities",
+)
