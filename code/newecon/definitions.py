@@ -663,3 +663,14 @@ Recipe(
     vendor="dairy",
     # TODO Feta, rocquefort, manchego, pecorina romano are all sheep cheese
 )
+
+muttonsheep_carcass_weight = Decimal(0.55) * muttonsheep_sale_weight
+muttonsheep_meat_weight = Decimal(0.75) * muttonsheep_carcass_weight
+Recipe(
+    "mutton",
+    "meat",
+    1 * u.lb,
+    {},
+    {"mutton sheep": (Decimal(1) * u.lb / muttonsheep_meat_weight) * u.head},
+    vendor="butcher",
+)
