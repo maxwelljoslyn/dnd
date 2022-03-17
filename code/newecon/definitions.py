@@ -1054,3 +1054,42 @@ for c in ["barrel"]:
         vendor="brewer",
         description=f"{str(ale_abv.magnitude)}% alcohol",
     )
+
+# beer is following a recipe taken from http://brewery.org/library/PeriodRen.html
+# "To brewe beer; 10 quarters malt. 2 quarters wheat, 2 quarters oats, 40 lbs hops. To make 60 barrels of single beer."
+# a "quarter" equals 256 lbs of grain (b/c it's 64 gallons of dry volume and 1 gallon of grain ~= 4 lbs)
+# a medieval barrel of beer was 36 gallons; 36 * 60 barrels = 2160 gal
+# thus we have 2560 lbs malt, 512 lbs + 512 lbs = 1024 lbs cereal, 40 lbs hops = 2160 gallons.
+# divide all amounts by 2160 to arrive at a 1-gallon recipe
+original_gallons = Decimal(2160) * u.gallon
+cereal_for_beer = Decimal(1024) * u.lb / original_gallons
+malt_for_beer = Decimal(2560) * u.lb / original_gallons
+hops_for_beer = Decimal(40) * u.lb / original_gallons
+beer_abv = calculate_abv(
+    0 * u.lb,
+    cereal_for_beer * 1 * u.gallon,
+    malt_for_beer * 1 * u.gallon,
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+for c in ["barrel"]:
+    cask_capacity = registry[f"cask, {c}"].capacity
+    cask_weight = registry[f"cask, {c}"].weight
+    Recipe(
+        f"beer, in {c}",
+        "brewing",
+        (density["water"] * cask_capacity).to(u.lb) + cask_weight,
+        {
+            "cereals": cereal_for_beer * cask_capacity,
+            "malt": malt_for_beer * cask_capacity,
+            "hops": hops_for_beer * cask_capacity,
+        },
+        {
+            f"cask, {c}": 1 * u.item,
+        },
+        unit=cask_capacity,
+        container=f"cask, {c}",
+        vendor="brewer",
+        description=f"{str(beer_abv.magnitude)}% alcohol",
+    )
