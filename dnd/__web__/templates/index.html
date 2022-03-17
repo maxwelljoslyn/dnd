@@ -1,0 +1,15 @@
+$def with (towns, recipes)
+
+<ul>
+$for town, info in towns.items():
+    <li><a href=/towns/$town>$town</a> (pop. $info['population'])<br>
+    $for destination, distance in info['hexes to'].items():
+        <p>It is $distance hexes to $destination</p>
+    $recipes['longsword'].display_price(info)
+    </li>
+</ul>
+
+<ul>
+$for recipe in recipes.items():
+    <li>$recipe</li>
+</ul>
