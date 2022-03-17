@@ -523,3 +523,23 @@ Recipe(
     unit=1 * u.item,
     vendor="weaponsmith",
 )
+
+longsword_length = Decimal(3.5) * u.ft
+longsword_blade_needed = longsword_length / u.ft
+longsword_weight = (
+    hilt_weight + pommel_weight + (longsword_blade_needed * unit_blade_weight)
+)
+Recipe(
+    "longsword",
+    "metalsmithing",
+    longsword_weight,
+    {},
+    {
+        "blade": longsword_blade_needed * u.item,
+        "pommel": 1 * u.item,
+        "sword hilt": 1 * u.item,
+    },
+    description=f"1d8 damage; {longsword_length}-foot blade",
+    unit=1 * u.item,
+    vendor="weaponsmith",
+)
