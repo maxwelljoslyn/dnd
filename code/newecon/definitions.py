@@ -787,3 +787,16 @@ Recipe(
     vendor="dairy",
     description="customer supplies container",
 )
+
+Recipe(
+    "cheese",
+    "cheese",
+    cheese_sale_unit,
+    {"salt": salt_in_cheese * cheese_sale_unit},
+    {
+        "cow milk": milk_in_cheese * cheese_sale_unit,
+        "rennet": rennet_in_cheese * cheese_sale_unit,
+    },
+    description="local variety",
+    vendor="dairy",
+)
