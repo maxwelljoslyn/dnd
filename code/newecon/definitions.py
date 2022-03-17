@@ -459,3 +459,14 @@ Recipe(
     unit=1 * u.item,
     description="wooden tube, carved from 2x2x5 in. block",
 )
+
+pommel_weight = Decimal(0.25) * u.lb
+Recipe(
+    "pommel",
+    "metalsmithing",
+    pommel_weight,
+    {},
+    {"steel": pommel_weight},
+    unit=1 * u.item,
+    description="metal knob which holds hilt and blade together",
+)
