@@ -1570,6 +1570,24 @@ Recipe(
     vendor="weaver",
     description="plainweave",
 )
+
+Recipe(
+    "retted flax",
+    "flax",
+    1 * u.lb,
+    # this ratio is guesswork based on yield from 'scutching', which technically comes between retting and combing
+    {"flax": 15 * u.lb},
+    {},
+)
+
+Recipe(
+    "combed flax",
+    "flax",
+    1 * u.lb,
+    {},
+    {"retted flax": 1 * u.lb},
+    difficulty=D(2),  # it's hard to work with flax fibers
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
