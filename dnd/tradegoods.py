@@ -1833,6 +1833,28 @@ Recipe(
     unit=1 * u.head,
     description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}",
 )
+
+griff_sale_weight = D(1100) * u.lb
+griff_sale_age = D(1) * u.year
+griff_raising_fodder = fodder_while_growing(
+    0 * u.year,
+    griff_sale_age,
+    0 * u.lb,
+    griff_sale_weight,
+    D(0.02) * u.lb / u.lb,
+)
+
+Recipe(
+    "griffon",
+    "griffs",
+    griff_sale_weight,
+    {"griffs": 1 * u.head},
+    {"beef": griff_raising_fodder},
+    vendor="stockyard",
+    unit=1 * u.head,
+    difficulty=2.5,
+    description=f"{griff_sale_age} old, {griff_sale_weight:~}",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
