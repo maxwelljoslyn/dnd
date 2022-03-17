@@ -815,3 +815,13 @@ Recipe(
 )
 
 Recipe("tallow", "candles and wax", 1 * u.lb, {}, {"suet": 1 * u.lb})
+
+timber_per_ashes = Decimal(10) * u.lb / u.lb
+Recipe(
+    "ashes",
+    "timber",
+    1 * u.lb,
+    {"timber": timber_per_ashes * u.lb},
+    {},
+    vendor="chandler",
+)
