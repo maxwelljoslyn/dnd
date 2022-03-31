@@ -987,9 +987,26 @@ Recipe(
     description=f"grain-finished, {calf_sale_age:} old, suitable for veal",
 )
 
+cow_sale_age = Decimal(16) * u.month
 cow_sale_weight = Decimal(800) * u.lb
+cow_raising_fodder = fodder_while_growing(
+    calf_sale_age,
+    cow_sale_age,
+    calf_sale_weight,
+    cow_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
 Recipe(
     "cow",
+    "cattle",
+    cow_sale_weight,
+    {},
+    {"calf": 1 * u.head, "animal feed": cow_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"grain-finished, {cow_sale_age:~} old; suitable for slaughtering",
+)
     "cattle",
     cow_sale_weight,
     {},
