@@ -357,7 +357,7 @@ def main(testing, charclass, race):
 
     # Calculation of background details
     # some of these internally modify other aspects of the Player record
-    characters_dir = dnd_globals.dnd_dir / Path("code/created-characters")
+    characters_dir = dnd_globals.dnd_dir / Path("dnd/created-characters")
     # todo write to standard out if fail to open file
     output_file = characters_dir / Path(c.name + ".txt")
     with open(output_file, "w") as f:
