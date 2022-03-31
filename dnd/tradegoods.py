@@ -1582,16 +1582,19 @@ wine_abv = calculate_abv(
 
 wines = {
     "wine": "local variety of red or white",
-    "champagne": "sparkling, bubbly white",
-    "wine, Baccia": "dry white made of late harvest grapes",
+    "champagne": "sparkling, bubbly white, produced by northern elves",
+    "wine, Baccia": "the queen of Marasan viticulture; dry white wine made of late harvest grapes",
+    "wine, asti spumante": "sweet, sparkling dessert wine with creamy texture and aromas of pear, honeysuckle, and peaches",
+    "wine, Sacramaran": "central Marasan wine; light red with notes of apricot and currants",
+    "wine, Lutewood": "aromatic 'orange' wine with tart aftertaste, made from skin-on white grapes",
     # "wine, Chablis": "dry white with 'flinty' notes",
     # "wine, Chianti": "very dry red",
     # "wine, Chabrieres": "dry, musty, delicate red",
-    # "wine, Malvoisie": "light-berried white, intensely aromatic",
     # "wine, Malaga": "dessert wine with hints of coffee and caramel",
-    # "wine, Mavasia": "light white with notes of honeysuckle and jasmine",
     # "wine, Mees": "dry, fruity white",
-    # "wine, Montona": "purplish red, light in flavor",
+    # "wine, Montona": "purplish red, light in flavor", # Croatian (formery Italian) territory https://en.wikipedia.org/wiki/Motovun note that they grow Malvasia/Malvazia wine here... might roll Montona into Malvasia
+    # "wine, Tokay": {"references": 1},
+    # "wine, Valtellina": {"references": 1},
     # TODO these fortified wines can't be made with the same ingredients and ABV as the others
     # "port": "fortified red with rich berry notes",
     # "wine, Marsala": "heavy-sweet red used in cookery",
