@@ -1193,7 +1193,7 @@ Recipe(
 
 Recipe(
     "lye",
-    "candles and wax",  # TODO change to lye once that's added to refs.py
+    "lye",  # TODO I used soap and wax at first ... "lye" ref makes it ~100x more exensive
     1 * u.lb,
     {},
     {"wood ash": 1 * u.lb},
