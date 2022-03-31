@@ -811,6 +811,14 @@ Recipe(
 )
 
 Recipe(
+    "coal ash",
+    "coal",
+    1 * u.lb,
+    {"coal": 10 * u.lb},
+    {},
+    vendor="potter",  # potter b/c made in a kiln
+)
+Recipe(
     "animal feed",
     "cereals",
     1 * u.lb,
