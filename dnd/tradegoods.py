@@ -1312,22 +1312,22 @@ def cask_measurements(height, radius):
     cask_circumference = pi * radius * Decimal(2)
     head_thickness = Decimal(2) / Decimal(3) * u.inch
     head_volume = cylinder_volume(head_thickness, radius)
-    head_weight = density["timber"] * head_volume
+    head_weight = (density["timber"] * head_volume).to(u.lb)
 
     hoop_breadth = gauge16wire_thickness
     fat_hoop_width = Decimal(1.25) * u.inch
     fat_hoop_volume = cask_circumference * fat_hoop_width * hoop_breadth
-    fat_hoop_weight = density["wrought iron"] * fat_hoop_volume
+    fat_hoop_weight = (density["wrought iron"] * fat_hoop_volume).to(u.lb)
 
-    thin_hoop_width = Decimal(1) * u.inch
+    thin_hoop_width = Decimal(0.75) * u.inch
     thin_hoop_volume = cask_circumference * thin_hoop_width * hoop_breadth
-    thin_hoop_weight = density["wrought iron"] * thin_hoop_volume
+    thin_hoop_weight = (density["wrought iron"] * thin_hoop_volume).to(u.lb)
 
-    stave_thickness = Decimal(1.125) * u.inch
+    stave_thickness = Decimal(1) * u.inch
     staves_per_cask = Decimal(20)
     stave_width = cask_circumference / staves_per_cask
     stave_volume = height * stave_width * stave_thickness
-    stave_weight = density["timber"] * stave_volume
+    stave_weight = (density["timber"] * stave_volume).to(u.lb)
 
     return {
         "volume": volume,
