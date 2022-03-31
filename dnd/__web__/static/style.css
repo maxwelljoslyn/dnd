@@ -1,0 +1,16 @@
+body { background-color: antiquewhite; }
+
+/*a {background-color: inherit}*/
+
+li {
+  background-color: white;
+  padding-left: 1em;
+  list-style: none;
+  }
+
+li:nth-child(odd) { background-color: lightgrey; }
+
+polygon:hover {
+  stroke: blue;
+  fill: red;
+}
