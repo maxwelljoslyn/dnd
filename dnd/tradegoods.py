@@ -1540,7 +1540,38 @@ Recipe(
     description=f"{str(rum_abv.magnitude)}% alcohol",
 )
 
-Recipe("grapes", "grapes", 1 * u.lb, {"grapes": 1 * u.lb}, {}, vendor="grocer")
+for member in categories["fruits"]["members"]:
+    description = "sour orange" if member == "hushhash" else None
+    Recipe(
+        member,
+        member,
+        1 * u.lb,
+        {member: 1 * u.lb},
+        {},
+        vendor="costermonger",
+        description=description,
+    )
+
+for member in categories["vegetables"]["members"]:
+    Recipe(
+        member,
+        member,
+        1 * u.lb,
+        {member: 1 * u.lb},
+        {},
+        vendor="greengrocer",
+    )
+
+for tuber in ("potatoes", "groundnuts", "sweet potatoes", "yams"):
+    Recipe(
+        tuber,
+        tuber,
+        1 * u.lb,
+        {tuber: 1 * u.lb},
+        {},
+        vendor="greengrocer",
+    )
+
 
 grapes_for_wine = D(3.5) * u.lb / (D(750) * u.ml).to(u.gallon)
 wine_abv = calculate_abv(
