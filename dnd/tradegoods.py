@@ -179,7 +179,7 @@ class Recipe:
         if self.vendor:
             vendors.add(self.vendor)
 
-    def _ingredient_costs(self, towninfo):
+    def ingredient_costs(self, towninfo):
         price_raws = {}
         for raw, q in self.raws.items():
             # unit employed in a recipe not always the base unit used in references.py
@@ -201,13 +201,13 @@ class Recipe:
         )
         return price_raws, price_recipes, price_container
 
-    def _denominator(self):
+    def denominator(self):
         return self.unit if self.unit else self.weight
 
     def price(self, towninfo):
         global registry
-        ra, re, pc = self._ingredient_costs(towninfo)
         # with necessary quantities of ingredients now priced in copper pieces, divide all units by themselves, making them dimensionless and summable (otherwise we may try adding cp / head and cp / pound, for instance)
+        ra, re, pc = self.ingredient_costs(towninfo)
         ra = {k: v / v.units for k, v in ra.items()}
         re = {k: v / v.units for k, v in re.items()}
         pc = pc / pc.units
@@ -216,12 +216,12 @@ class Recipe:
         serviceprice = (baseprice / refs) * self.difficulty
         final = baseprice + serviceprice
         # convert dimensionless final back to cp / something
-        return (final.magnitude * u.cp) / self._denominator()
+        return (final.magnitude * u.cp) / self.denominator()
 
     def chunked_price(self, towninfo):
         p = self.price(towninfo)
         result = {}
-        justmoney = p * self._denominator()
+        justmoney = p * self.denominator()
         ingold = justmoney.to(u.gp)
         roundgold = floor(ingold.magnitude) * u.gp
         if roundgold.magnitude > 0:
@@ -239,7 +239,7 @@ class Recipe:
             # )
             justmoney = justmoney - roundsilver
         result["cp"] = justmoney
-        result["denominator"] = self._denominator()
+        result["denominator"] = self.denominator()
         return result
 
     def display_price(self, towninfo):
@@ -254,7 +254,7 @@ class Recipe:
                     result.append(f"{val:~}")
                 else:
                     result.append(f"{p[thing]:~}")
-        return ", ".join(result) + f" / {self._denominator():~}"
+        return ", ".join(result) + f" / {self.denominator():~}"
 
 
 Recipe(
