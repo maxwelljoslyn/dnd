@@ -2195,7 +2195,9 @@ Recipe(
     description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}",
 )
 
-griff_sale_weight = D(1100) * u.lb
+# part eagle part lion - relatively light for its height
+# compare with hippogriff, part eagle part horse - much heavier and nastier
+griff_sale_weight = D(600) * u.lb
 griff_sale_age = D(1) * u.year
 griff_raising_fodder = fodder_while_growing(
     0 * u.year,
@@ -2214,7 +2216,7 @@ Recipe(
     vendor="stockyard",
     unit=1 * u.head,
     difficulty=2.5,
-    description=f"{griff_sale_age} old, {griff_sale_weight:~}",
+    description=f"{griff_sale_age} old, {griff_sale_weight:~}, {D(12) * u.hand} tall",
 )
 
 Recipe(
