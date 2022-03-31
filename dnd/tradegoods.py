@@ -289,7 +289,7 @@ Recipe(
 )
 
 Recipe(
-    "iron ore",
+    "raw iron",
     "iron",
     1 * u.lb,
     dict(iron=1 * u.lb),
@@ -302,7 +302,7 @@ Recipe(
     "pig iron",
     1 * u.lb,
     {},
-    {"iron ore": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    {"raw iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
     description="weak, brittle purified iron",
 )
 
@@ -313,8 +313,8 @@ Recipe(
     {},
     {
         "smelting fuel": 0.75 * u.lb,
-        "manganese ore": 0.06 * u.lb,
-        "nickel ore": 0.01 * u.lb,
+        "raw manganese": 0.06 * u.lb,
+        "raw nickel": 0.01 * u.lb,
         "pig iron": 0.93 * u.lb,
     },
     # description="volume of metal equalling 1x1x3.8 in.",
@@ -330,7 +330,7 @@ Recipe(
 )
 
 Recipe(
-    "nickel ore",
+    "raw nickel",
     "nickel",
     1 * u.lb,
     dict(nickel=1 * u.lb),
@@ -339,7 +339,7 @@ Recipe(
 )
 
 Recipe(
-    "manganese ore",
+    "raw manganese",
     "manganese",
     1 * u.lb,
     dict(manganese=1 * u.lb),
@@ -348,7 +348,7 @@ Recipe(
 )
 
 Recipe(
-    "copper ore",
+    "raw copper",
     "copper",
     1 * u.lb,
     dict(copper=1 * u.lb),
@@ -358,7 +358,7 @@ Recipe(
 )
 
 Recipe(
-    "tin ore",
+    "raw tin",
     "tin",
     1 * u.lb,
     dict(tin=1 * u.lb),
@@ -368,7 +368,7 @@ Recipe(
 
 
 Recipe(
-    "gold ore",
+    "raw gold",
     "gold",
     1 * u.lb,
     dict(gold=1 * u.lb),
@@ -385,9 +385,9 @@ Recipe(
     "goldsmithing",
     gold_leaf_weight,
     {},
-    {"gold ore": gold_leaf_weight},
     difficulty=3.5,
     description="80mm * 80mm * 1/10,000 mm sheet",
+    {"raw gold": gold_leaf_weight * gold_leaf_sale_unit.magnitude},
 )
 
 tin_in_lb_pewter = Decimal(0.85) * u.lb
@@ -406,8 +406,8 @@ Recipe(
     {},
     {
         "smelting fuel": 0.75 * u.lb,
-        "tin ore": tin_in_lb_pewter,
-        "copper ore": copper_in_lb_pewter,
+        "raw tin": tin_in_lb_pewter,
+        "raw copper": copper_in_lb_pewter,
     },
     vendor="puddler",
     # description="ingot, 1x1x3.65 in.",
@@ -428,7 +428,7 @@ Recipe("iron filings", "ironmongery", 1 * u.lb, {}, {"wrought iron": 1 * u.lb})
 
 # filings used following the methods described in Subterraneal Treasures
 Recipe(
-    "lead ore",
+    "raw lead",
     "leadsmelting",
     1 * u.lb,
     {"lead": 1 * u.lb},
@@ -437,7 +437,7 @@ Recipe(
 )
 
 Recipe(
-    "zinc ore",
+    "raw zinc",
     "smelting",
     1 * u.lb,
     {"zinc": 1 * u.lb},
@@ -445,7 +445,7 @@ Recipe(
 )
 
 Recipe(
-    "silver ore",
+    "raw silver",
     "smelting",
     1 * u.lb,
     {"silver": 1 * u.lb},
@@ -465,8 +465,8 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "tin ore": tin_in_lb_bronze,
-        "copper ore": copper_in_lb_bronze,
+        "raw tin": tin_in_lb_bronze,
+        "raw copper": copper_in_lb_bronze,
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
@@ -485,8 +485,8 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "zinc ore": zinc_in_lb_brass,
-        "copper ore": copper_in_lb_brass,
+        "raw zinc": zinc_in_lb_brass,
+        "raw copper": copper_in_lb_brass,
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
@@ -506,8 +506,8 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "tin ore": tin_in_lb_bellmetal,
-        "copper ore": copper_in_lb_bellmetal,
+        "raw tin": tin_in_lb_bellmetal,
+        "raw copper": copper_in_lb_bellmetal,
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
@@ -533,9 +533,9 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "tin ore": tin_in_lb_sterlingsilver,
-        "copper ore": copper_in_lb_sterlingsilver,
-        "silver ore": silver_in_lb_sterlingsilver,
+        "raw tin": tin_in_lb_sterlingsilver,
+        "raw copper": copper_in_lb_sterlingsilver,
+        "raw silver": silver_in_lb_sterlingsilver,
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
