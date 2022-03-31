@@ -859,6 +859,9 @@ def fodder_while_growing(
         fodder = (daily_food_per_bodyweight * weight) * D(30)  # thirty days/month
         result += fodder
     return result
+
+
+ewe_sale_age = D(8) * u.month
 ewe_sale_weight = 90 * u.lb
 Recipe(
     "mature ewe",
@@ -885,14 +888,22 @@ Recipe(
     description="tender young lamb meat",
 )
 
+muttonsheep_sale_age = D(12) * u.month
 muttonsheep_sale_weight = 130 * u.lb
+muttonsheep_raising_fodder = fodder_while_growing(
+    ewe_sale_age,
+    muttonsheep_sale_age,
+    ewe_sale_weight,
+    muttonsheep_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
 Recipe(
     "mutton sheep",
     "sheep",
     muttonsheep_sale_weight,
     {},
-    {"mature ewe": 1 * u.head, "animal feed": 120 * u.lb},
-    # 120 lbs feed because four months of feeding at 1 lb grain/day
+    {"mature ewe": 1 * u.head, "animal feed": muttonsheep_raising_fodder},
     unit=1 * u.head,
     vendor="stockyard",
     description="grain-finished yearling, ready for slaughter",
