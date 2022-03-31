@@ -843,6 +843,22 @@ Recipe(
     vendor="stockyard",
 )
 
+
+def fodder_while_growing(
+    start_age, end_age, start_weight, end_weight, daily_food_per_bodyweight
+):
+    """Return the total amount of fodder needed to raise an animal from `start_age` to `end_age`."""
+    months = (end_age - start_age).to(u.month)
+    growth = (end_weight - start_weight).to(u.lb)
+    result = D(0) * u.lb
+    # TODO clean this up so I can use Decimals instead of having to lossily convert to Ints and back
+    for i in range(1, int(months.magnitude) + 1):
+        i = D(i) * u.month
+        # age = start_age + i # used for debugging
+        weight = start_weight + i * (growth / months)
+        fodder = (daily_food_per_bodyweight * weight) * D(30)  # thirty days/month
+        result += fodder
+    return result
 ewe_sale_weight = 90 * u.lb
 Recipe(
     "mature ewe",
@@ -1906,23 +1922,6 @@ Recipe(
     vendor="tobacconist",
     description="powdered tobacco, unscented",
 )
-
-
-def fodder_while_growing(
-    start_age, end_age, start_weight, end_weight, daily_food_per_bodyweight
-):
-    """Return the total amount of fodder needed to raise an animal from `start_age` to `end_age`."""
-    months = (end_age - start_age).to(u.month)
-    growth = (end_weight - start_weight).to(u.lb)
-    result = D(0) * u.lb
-    # TODO clean this up so I can use Decimals instead of having to lossily convert to Ints and back
-    for i in range(1, int(months.magnitude) + 1):
-        i = D(i) * u.month
-        # age = start_age + i # used for debugging
-        weight = start_weight + i * (growth / months)
-        fodder = (daily_food_per_bodyweight * weight) * D(30)  # thirty days/month
-        result += fodder
-    return result
 
 
 pony_sale_weight = D(600) * u.lb
