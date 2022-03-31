@@ -14,8 +14,9 @@ dnd/old*
 old/*
 old-econ/*
 *.xcf
+poetry.lock
+world/*
 # temporary
 dming
 response_to_Council_2016_01_17.txt
-poetry.lock
 package-structure.txt
