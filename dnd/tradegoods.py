@@ -2221,7 +2221,7 @@ Recipe(
 
 Recipe(
     "vinegar, in barrel",
-    "brewing",  # TODO vinegar ref
+    "vinegar",  # TODO vinegar ref makes it 10x more expensive :(
     registry["beer, in barrel"].weight,
     {},
     {"beer, in barrel": registry["beer, in barrel"].unit},
