@@ -2089,12 +2089,12 @@ Recipe(
 
 Recipe(
     "snuff",
-    "tobacco",
+    "snuff",
     1 * u.lb,
     {},
     {"cured tobacco": 1 * u.lb},
     vendor="tobacconist",
-    description="powdered tobacco, unscented",
+    description="powdered tobacco for insufflation",
 )
 
 
