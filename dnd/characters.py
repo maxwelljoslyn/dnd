@@ -661,3 +661,21 @@ def sage_points(levels, klass, status):
 #
 # def attack(attacker, defender):
 #    elf_modifier = is_attacker_elf_and_defender_troll(attacker, defender)
+
+
+def highest_assassination_target(level, murder_specialty=False):
+    max_roll = 4 + 4  # 2d4
+    builtin_penalty = -5
+    level_bonus = level if murder_specialty else math.floor(level / 2)
+    return max_roll + builtin_penalty + level_bonus
+
+
+def main():
+    for level in range(1, 21):
+        print(
+            f"{level}: {highest_assassination_target(level)} or {highest_assassination_target(level, True)}"
+        )
+
+
+if __name__ == "__main__":
+    main()
