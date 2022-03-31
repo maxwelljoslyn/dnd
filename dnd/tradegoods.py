@@ -554,6 +554,94 @@ Recipe(
     description="ingot, 1.5x1.5x1.185 in.",
 )
 
+holysymbols = {
+    "small pendant": {"height": D(1.5) * u.inch},
+    "large pendant": {"height": D(4) * u.inch},
+}
+
+
+def holy_symbol_measurements(height, body_material, loop_material=None, thickness=None):
+    """Measurements for a small crucifix `height` high, with all other measurements derived therefrom.
+    All metal holy symbols will use the same amount of material as this crucifix, regardless of shape."""
+    trunk_width = height / D(6)  # e.g. 1/4 inch for a 1.5-inch-high crucifix
+    crossbar_length = D(2) / D(3) * height
+    # area equals combined area of two pieces minus their overlap
+    area = (height * trunk_width) + (crossbar_length * trunk_width) - (trunk_width ** 2)
+    thickness = thickness if thickness else trunk_width / D(2)
+    body_volume = area * thickness
+    body_weight = density[body_material] * body_volume
+    result = {
+        "height": height,
+        "width": crossbar_length,
+        "area": area,
+        "body weight": body_weight,
+    }
+    if loop_material:
+        # include a loop for attaching a chain, rope, or similar
+        loop_width = trunk_width / D(4)
+        loop_volume = ring_volume(
+            thickness, trunk_width, thickness, trunk_width - loop_width
+        )
+        result["loop weight"] = density[loop_material] * loop_volume
+    return result
+
+
+for name, info in holysymbols.items():
+    h = info["height"]
+    m = holy_symbol_measurements(h, "sterling silver", "steel")
+    bw = m["body weight"]
+    lw = m.get("loop weight", D(0) * u.lb)
+    Recipe(
+        f"silver holy symbol, {name}",
+        "silversmithing",
+        (bw + lw).to(u.lb),
+        {},
+        {"steel": lw.to(u.oz), "sterling silver": bw.to(u.oz)},
+        unit=1 * u.item,
+        vendor="goldsmith",
+        description=f"sterling silver with steel loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
+    )
+
+    m = holy_symbol_measurements(h, "bronze", "bronze")
+    bw = m["body weight"]
+    lw = m.get("loop weight", D(0) * u.lb)
+    Recipe(
+        f"bronze holy symbol, {name}",
+        "coppersmithing",  # TODO anything better?
+        (bw + lw).to(u.lb),
+        {},
+        {"bronze": (bw + lw).to(u.lb)},
+        unit=1 * u.item,
+        vendor="blacksmith",
+        description=f"bronze, with loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
+    )
+
+
+for name, info in holysymbols.items():
+    # a separate loop because I want all the gilded ones listed after the plain silver ones
+    h = info["height"]
+    m = holy_symbol_measurements(h, "sterling silver", "steel")
+    bw = m["body weight"]
+    lw = m.get("loop weight", D(0) * u.lb)
+    area = m["area"]
+    leaves = ceil(area / gold_leaf_area)
+    # for each in (h, area, f"{(area / gold_leaf_area).to('dimensionless'):~P}", leaves):
+    #    print(each)
+    Recipe(
+        f"gilt holy symbol, {name}",
+        "silversmithing",
+        (bw + lw + leaves * registry["gold leaf"].weight).to(u.lb),
+        {},
+        {
+            "sterling silver": (lw + bw).to(u.oz),
+            "gold leaf": leaves * u.leaf,
+        },
+        unit=1 * u.item,
+        vendor="goldsmith",
+        description=f"gilded sterling silver with loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
+    )
+
+
 hilt_volume = (Decimal(3) * u.inch * Decimal(3) * u.inch * Decimal(6) * u.inch).to(
     "cuft"
 )
