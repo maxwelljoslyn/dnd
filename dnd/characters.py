@@ -55,7 +55,7 @@ def inclusive_range(a, b):
 
 def ir(a, b):
     """Alias for inclusive_range."""
-    # todo how can I aoid the extra function call?
+    # todo how can I avoid the extra function call?
     # some languages have an alias mechanism
     return inclusive_range(a, b)
 
