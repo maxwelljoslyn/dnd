@@ -1704,6 +1704,16 @@ Recipe(
 )
 )
 
+Recipe(
+    "wine, Lutewood, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * wine_per_serving).to(u.lb),
+    {},
+    {"wine, Lutewood, in barrel": wine_per_serving},
+    unit=wine_per_serving,
+    vendor="innkeeper",
+    description=registry["wine, Lutewood, in barrel"].description,
+)
 
 # shall the price of greasy wool depend on the wool raw material? on the mature ewe recipe? or both?
 # I've chosen both ...
