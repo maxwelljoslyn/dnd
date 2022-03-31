@@ -1181,12 +1181,12 @@ Recipe(
 
 Recipe("tallow", "candles and wax", 1 * u.lb, {}, {"suet": 1 * u.lb})
 
-timber_per_ashes = Decimal(10) * u.lb / u.lb
+timber_per_ash = Decimal(10) * u.lb / u.lb
 Recipe(
-    "ashes",
+    "wood ash",
     "timber",
     1 * u.lb,
-    {"timber": timber_per_ashes * u.lb},
+    {"timber": timber_per_ash * u.lb},
     {},
     vendor="chandler",
 )
@@ -1196,9 +1196,9 @@ Recipe(
     "candles and wax",  # TODO change to lye once that's added to refs.py
     1 * u.lb,
     {},
-    {"ashes": 1 * u.lb},
+    {"wood ash": 1 * u.lb},
     vendor="chandler",
-    description="made by leaching ashes in water",
+    description="made by leaching ash in water",
 )
 
 soap_weight = Decimal(1) * u.lb
