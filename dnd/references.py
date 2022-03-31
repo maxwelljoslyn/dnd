@@ -1320,6 +1320,40 @@ world_references = {
     "zsolnay": {"references": 1},
 }
 
+
+def distribute_category(world_references, category, info):
+    """Distribute production totals for a category of reference into the specific references within that category.
+
+    For instance, we have a production total for generic fruit, but nothing for whortleberries, apples, etc., so we assign a portion of the fruit production total to those more-specific fruit references.
+
+    If fruits['production'] == 1000 oz, total_refs == 100, m == 'apples', and world_references['apples']['references'] == 1, assign 1 / 100 * 1000 oz = 10 oz to world_references['apples']['production']"""
+    total_refs = sum([world_references[m]["references"] for m in info["members"]])
+    generic_refs = info.get("references", 0)
+    # TODO better way to use generic_refs?
+    # TODO once Cheapest or similar is better established, maybe _don't_ put category into world_references... although it IS useful as a generic. sort of an alternate way to represent 'cheapest'/whatever works
+    if generic_refs:
+        world_references[category] = {
+            "references": generic_refs,
+            "production": info["production"],
+        }
+    for m in info["members"]:
+        if world_references[m].get("production"):
+            # that member already has production specified, e.g. grapes in the fruit category
+            continue
+        else:
+            r = world_references[m]["references"]
+            fraction = r / total_refs
+            world_references[m]["production"] = fraction * info["production"]
+
+
+for category, info in categories.items():
+    if info is None or "members" not in info or "production" not in info:
+        # defensive programming for unfinished categories
+        continue
+    else:
+        distribute_category(world_references, category, info)
+
+
 for r, info in world_references.items():
     # decimalize reference counts and production totals
     info["references"] = Decimal(info["references"])
