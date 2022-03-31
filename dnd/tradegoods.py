@@ -998,7 +998,7 @@ cow_raising_fodder = fodder_while_growing(
 )
 
 Recipe(
-    "cow",
+    "cow, beef",
     "cattle",
     cow_sale_weight,
     {},
@@ -1007,11 +1007,32 @@ Recipe(
     vendor="stockyard",
     description=f"grain-finished, {cow_sale_age:~} old; suitable for slaughtering",
 )
+
+dairycow_raising_fodder = fodder_while_growing(
+    calf_sale_age,
+    cow_sale_age,
+    calf_sale_weight,
+    cow_sale_weight,
+    D(0.005) * u.lb / u.lb,  # less grain needed than grain-finished beef cow
+)
+
+cow_daily_milk_volume = Decimal(3) * u.gallon / u.day
+# from some research, cows can give milk 300/365 days of the year (so 5/6 of the year)
+# on the other hand, the production tapers off as this period goes on, so let's call it fewer days per year to make up for that
+cow_annual_milking_days = Decimal(250) * u.day
+cow_annual_milk_volume = cow_daily_milk_volume * cow_annual_milking_days
+
+
+Recipe(
+    "cow, dairy",
     "cattle",
     cow_sale_weight,
     {},
-    {"calf": 1 * u.head, "animal feed": 243 * u.lb},
-    # 243 = 8 additional months of feed at 1 lb/day to grain-finish
+    {"calf": 1 * u.head, "animal feed": dairycow_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{cow_sale_age:~} old; produces {cow_annual_milk_volume:~} milk annually, on average",
+)
     unit=1 * u.head,
     vendor="stockyard",
     description="grain-finished, 16 months old; suitable for slaughtering",
@@ -1041,7 +1062,7 @@ Recipe(
     "beef",
     1 * u.lb,
     {},
-    {"cow": (Decimal(1) * u.lb / beef_per_cow) * u.head},
+    {"cow, beef": (Decimal(1) * u.lb / beef_per_cow) * u.head},
     vendor="butcher",
 )
 
@@ -1050,7 +1071,7 @@ Recipe(
     "meat",
     1 * u.lb,
     {},
-    {"cow": (Decimal(1) * u.lb / bone_per_cow) * u.head},
+    {"cow, beef": (Decimal(1) * u.lb / bone_per_cow) * u.head},
     vendor="butcher",
 )
 
@@ -1087,20 +1108,12 @@ Recipe(
     vendor="dairy",
 )
 
-# http://www.personal.utulsa.edu/~marc-carlson/history/cattle.html
-# this gives an average milk production of 3.5 gallons per day
-cow_daily_milk_volume = Decimal(3.5) * u.gallon / u.day
-# from some research, cows can give milk 300/365 days of the year (so 5/6 of the year)
-# on the other hand, the production tapers off as this period goes on
-# let's ad-hoc assign the effective number of days of milk production
-cow_annual_milking_days = Decimal(250) * u.day
-cow_annual_milk_volume = cow_daily_milk_volume * cow_annual_milking_days
 Recipe(
     "cow milk",
     "milk",
     milk_weight * milk_sale_unit,
     {},
-    {"cow": (milk_sale_unit / cow_annual_milk_volume) * u.head},
+    {"cow, dairy": (milk_sale_unit / cow_annual_milk_volume) * u.head},
     unit=milk_sale_unit,
     vendor="dairy",
     description="customer supplies container",
@@ -1145,7 +1158,7 @@ Recipe(
     "meat",  # what's a better one? chandler? butchery?
     1 * u.lb,
     {},
-    {"cow": (1 * u.lb / fat_per_cow) * u.head},
+    {"cow, beef": (1 * u.lb / fat_per_cow) * u.head},
     vendor="butcher",
     description="beef fat for cooking, or for manufacture of tallow",
 )
@@ -1210,7 +1223,7 @@ Recipe(
     "hides",
     cowhide_weight,
     {},
-    {"cow": 1 * u.head},
+    {"cow, beef": 1 * u.head},
     unit=cowhide_area,
 )
 
