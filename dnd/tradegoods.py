@@ -1628,6 +1628,7 @@ Recipe(
     {"ale, in barrel": ale_per_serving},
     unit=ale_per_serving,
     vendor="innkeeper",
+    description=registry["ale, in barrel"].description,
 )
 
 
@@ -1640,6 +1641,7 @@ Recipe(
     {"beer, in barrel": beer_per_serving},
     unit=beer_per_serving,
     vendor="innkeeper",
+    description=registry["beer, in barrel"].description,
 )
 
 Recipe(
@@ -1650,6 +1652,7 @@ Recipe(
     {"gnomish beer, in barrel": beer_per_serving},
     unit=beer_per_serving,
     vendor="innkeeper",
+    description=registry["gnomish beer, in barrel"].description,
 )
 
 rum_per_serving = D(2) * u.floz
@@ -1661,6 +1664,7 @@ Recipe(
     {"rum, in barrel": rum_per_serving},
     unit=rum_per_serving,
     vendor="innkeeper",
+    description=registry["rum, in barrel"].description,
 )
 
 
@@ -1673,16 +1677,18 @@ Recipe(
     {"wine, in barrel": wine_per_serving},
     unit=wine_per_serving,
     vendor="innkeeper",
+    description=registry["wine, in barrel"].description,
 )
 
 Recipe(
-    "Baccia wine, by the glass",
+    "wine, Baccia, by the glass",
     "foodstuffs",  # TODO anything better?
     (density["water"] * wine_per_serving).to(u.lb),
     {},
     {"wine, Baccia, in barrel": wine_per_serving},
     unit=wine_per_serving,
     vendor="innkeeper",
+    description=registry["wine, Baccia, in barrel"].description,
 )
 
 
@@ -1694,6 +1700,8 @@ Recipe(
     {"champagne, in barrel": wine_per_serving},
     unit=wine_per_serving,
     vendor="innkeeper",
+    description=registry["champagne, in barrel"].description,
+)
 )
 
 
