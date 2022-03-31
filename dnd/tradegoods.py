@@ -1377,6 +1377,25 @@ for name, info in casks.items():
         description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
     )
 
+timber_per_pitch = (D(18) * u.cumt * density["timber"]).to(u.lb) / (
+    D(500) * u.liter
+).to(u.gallon)
+pitch_container = "cask, firkin"
+pitch_sale_volume = registry[pitch_container].capacity
+pitch_sale_weight = density["pitch"].to(u.lb / u.gallon) * pitch_sale_volume
+pitch_timber_weight = (timber_per_pitch * pitch_sale_volume).to(u.lb)
+Recipe(
+    "pitch",
+    "pitch",
+    pitch_sale_weight,
+    {"timber": pitch_timber_weight},
+    {},
+    container=pitch_container,
+    unit=pitch_sale_volume,
+    vendor="potter",
+    # TODO how much can it cover?
+)
+
 
 sugar_per_brewable = {
     "raw sugar": D(1) * u.lb / u.lb,
