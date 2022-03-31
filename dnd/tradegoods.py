@@ -13,6 +13,16 @@ pi = Decimal(1) * u.pi
 
 registry = dict()
 vendors = set()
+# the subset of vendors available at a settlement with no market references
+limited_vendors = {
+    "blacksmith",
+    "brewer",
+    "butcher",
+    "costermonger",
+    "greengrocer",
+    "innkeeper",
+    "stockyard",
+}
 
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
