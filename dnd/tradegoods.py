@@ -1616,7 +1616,7 @@ for w, description in wines.items():
         description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
     )
 
-ale_per_serving = D(1) * u.pint
+ale_per_serving = (D(1) * u.cup).to(u.floz)
 Recipe(
     "ale, by the glass",
     "foodstuffs",  # TODO anything better?
