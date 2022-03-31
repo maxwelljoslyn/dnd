@@ -11,4 +11,5 @@ class Home:
 
     def get(self):
         """Render a profile summary and a reverse chronological feed of public posts."""
-        return app.view.index(dnd.towns, dnd.recipes)
+        return app.view.index(dnd.towns, dnd.registry)
+
