@@ -792,6 +792,16 @@ Recipe(
 )
 
 Recipe(
+    "black bread",
+    "bread, black",
+    1 * u.lb,
+    {"salt": 0.05 * u.lb},
+    {"flour": 0.7 * u.lb},
+    vendor="baker",
+    description="southwestern millers' specialty",
+)
+
+Recipe(
     "quicklime",
     "quicklime",
     1 * u.lb,
