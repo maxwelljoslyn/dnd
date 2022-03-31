@@ -1373,10 +1373,15 @@ for r, info in world_references.items():
         info["production per reference"] = (prod.magnitude / refs) * prod.units
 
 
-# [(x, info['references']) for x, info in r.world_references.items() if 'category' in info and info['production'] != 0 and info['category'] == 'fruit']
-
-
 def main():
+    # q = categories["fish"]["members"]
+    # d = set(
+    #    [k for k, info in world_references.items() if info.get("category") == "fish"]
+    # )
+    # print(q, len(q))
+    # print(d, len(d))
+    # print(d - q, len(d - q))
+    # print(q - d, len(q - d))
     for w, info in world_references.items():
         refs = info["references"]
         ppr = info.get("production per reference")
