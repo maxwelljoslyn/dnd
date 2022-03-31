@@ -5,7 +5,6 @@
 @alias square_mile = sqmi
 @alias cubic_inch = cuin
 @alias cubic_foot = cuft
-@alias cubic_meter = cumt
 @alias cubic_centimeter = cucm
 @alias fluid_oz = floz
 
@@ -17,6 +16,8 @@ gold_piece = 8 * silver_piece = gp
 # custom units
 head = [creatures]
 item = [objects]
+leaf = [goldleaves]
 
 # historical units
 ell = 18 * inch
+cubic_meter = 1000000 cubic_centimeter = cumt
