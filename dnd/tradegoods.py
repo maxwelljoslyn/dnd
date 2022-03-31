@@ -318,7 +318,7 @@ Recipe(
         "raw nickel": 0.01 * u.lb,
         "pig iron": 0.93 * u.lb,
     },
-    # description="volume of metal equalling 1x1x3.8 in.",
+    description="for a volume of 1x1x3.8 in.",
 )
 
 Recipe(
@@ -327,7 +327,8 @@ Recipe(
     1 * u.lb,
     {},
     {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
-    # description="ingot, 1x1x3.57 in.",
+    vendor="puddler",
+    description="ingot, 1x1x3.57 in.",
 )
 
 Recipe(
@@ -336,7 +337,7 @@ Recipe(
     1 * u.lb,
     dict(nickel=1 * u.lb),
     {"smelting fuel": 0.75 * u.lb},
-    description="separated from waste rock and impurities",
+    vendor="puddler",
 )
 
 Recipe(
@@ -345,7 +346,7 @@ Recipe(
     1 * u.lb,
     dict(manganese=1 * u.lb),
     {"smelting fuel": 0.75 * u.lb},
-    description="separated from waste rock and impurities",
+    vendor="puddler",
 )
 
 Recipe(
@@ -354,8 +355,8 @@ Recipe(
     1 * u.lb,
     dict(copper=1 * u.lb),
     {"smelting fuel": 0.75 * u.lb},
-    description="separated from waste rock and impurities",
-    # description="ingot, 2x1.065x1.45 in.",
+    vendor="puddler",
+    description="ingot, 2x1.065x1.45 in.",
 )
 
 Recipe(
@@ -364,6 +365,7 @@ Recipe(
     1 * u.lb,
     dict(tin=1 * u.lb),
     {"smelting fuel": 0.75 * u.lb},
+    vendor="puddler",
     description="separated from waste rock and impurities",
 )
 
@@ -374,8 +376,8 @@ Recipe(
     1 * u.lb,
     dict(gold=1 * u.lb),
     {"smelting fuel": 0.75 * u.lb},
-    description="separated from waste rock and impurities",
-    # description="ingot, 1x1x1.435 in.",
+    description="ingot, 1x1x1.435 in.",
+    vendor="puddler",
 )
 
 # yes: 80mm x 80mm x 1/10,00 mm is the correct dimension for gold leaf!
@@ -411,7 +413,7 @@ Recipe(
         "raw copper": copper_in_lb_pewter,
     },
     vendor="puddler",
-    # description="ingot, 1x1x3.65 in.",
+    description="ingot, 1x1x3.65 in.",
 )
 
 
@@ -422,7 +424,7 @@ Recipe(
     {},
     {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
     vendor="puddler",
-    # description="ingot, 1x1x3.5 in.",
+    description="ingot, 1x1x3.5 in.",
 )
 
 Recipe("iron filings", "ironmongery", 1 * u.lb, {}, {"wrought iron": 1 * u.lb})
@@ -434,7 +436,8 @@ Recipe(
     1 * u.lb,
     {"lead": 1 * u.lb},
     {"iron filings": 0.25 * u.lb, "smelting fuel": 0.75 * u.lb},
-    # description="ingot, 1.084x1.5x1.5 in.",
+    vendor="puddler",
+    description="ingot, 1.084x1.5x1.5 in.",
 )
 
 Recipe(
@@ -443,6 +446,7 @@ Recipe(
     1 * u.lb,
     {"zinc": 1 * u.lb},
     {"smelting fuel": 0.75 * u.lb},
+    vendor="puddler",
 )
 
 Recipe(
@@ -451,7 +455,8 @@ Recipe(
     1 * u.lb,
     {"silver": 1 * u.lb},
     {"smelting fuel": 0.75 * u.lb},
-    # description="ingot, 1.5x1.5x1.175 in.",
+    description="ingot, 1.5x1.5x1.175 in.",
+    vendor="puddler",
 )
 
 copper_in_lb_bronze = Decimal(0.88) * u.lb
@@ -471,7 +476,7 @@ Recipe(
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
-    # description="ingot, 1.125x1.675x1.675 in.",
+    description="ingot, 1.125x1.675x1.675 in.",
 )
 
 copper_in_lb_brass = Decimal(0.55) * u.lb
@@ -491,7 +496,7 @@ Recipe(
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
-    #    description="ingot, 1.77x2.05x0.95 in.",
+    description="ingot, 1.77x2.05x0.95 in.",
 )
 
 
@@ -512,7 +517,7 @@ Recipe(
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
-    #    description="ingot, 1.2x1.35x2 in.",
+    description="ingot, 1.2x1.35x2 in.",
 )
 
 
@@ -540,7 +545,7 @@ Recipe(
         "smelting fuel": 0.75 * u.lb,
     },
     vendor="puddler",
-    #    description="ingot, 1.5x1.5x1.185 in.",
+    description="ingot, 1.5x1.5x1.185 in.",
 )
 
 hilt_volume = (Decimal(3) * u.inch * Decimal(3) * u.inch * Decimal(6) * u.inch).to(
