@@ -759,6 +759,18 @@ Recipe(
     vendor="weaponsmith",
 )
 
+
+Recipe(
+    "fresh fish",
+    "fish",
+    1 * u.lb,
+    {"fish": 1 * u.lb},
+    {},
+    vendor="fishmonger",
+    description="local variety",
+)
+
+
 Recipe(
     "flour",
     "flour",
