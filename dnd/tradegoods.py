@@ -49,8 +49,18 @@ density = {
         "basalt": 2.9 * u.gram / u.cucm,
         "dolomite": 2.85 * u.gram / u.cucm,
         "granite": 2.65 * u.gram / u.cucm,
+        "alabaster": 2.32 * u.gram / u.cucm,
         "limestone": 2.5 * u.gram / u.cucm,
+        "crushed limestone": 90 * u.lb / u.cuft,
         "syenite": 2.7 * u.gram / u.cucm,
+        "marble, green": 2.55 * u.gram / u.cucm,
+        "marble, black": 2.55 * u.gram / u.cucm,
+        "marble, brown": 2.55 * u.gram / u.cucm,
+        "marble, crimson": 2.55 * u.gram / u.cucm,
+        "marble, gray": 2.55 * u.gram / u.cucm,
+        "marble, pink": 2.55 * u.gram / u.cucm,
+        "marble, white": 2.55 * u.gram / u.cucm,
+        "marble, yellow": 2.55 * u.gram / u.cucm,
         "marble": 2.55 * u.gram / u.cucm,
         "glass": 2.6 * u.gram / u.cucm,
         "sandstone": 2.5 * u.gram / u.cucm,
@@ -59,6 +69,7 @@ density = {
         "tuff": 1.4 * u.gram / u.cucm,
         "tufa": 1.35 * u.gram / u.cucm,
         "porphyry": 1.4 * u.gram / u.cucm,
+        "pitch": 72 * u.lb / u.cuft,
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
