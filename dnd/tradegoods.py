@@ -381,16 +381,22 @@ Recipe(
 )
 
 # yes: 80mm x 80mm x 1/10,00 mm is the correct dimension for gold leaf!
-gold_leaf_volume = (D(80) * u.mm * D(80) * u.mm * (D(1) / D(10000) * u.mm)).to(u.cuft)
+# TODO add the materials for the 25-sheet book, made of kid skin
+gold_leaf_area = D(80) * u.mm * D(80) * u.mm
+gold_leaf_thickness = D(1) / D(10000) * u.mm
+gold_leaf_volume = (gold_leaf_area * gold_leaf_thickness).to(u.cuft)
 gold_leaf_weight = gold_leaf_volume * density["gold"]
+gold_leaf_sale_unit = D(25) * u.leaf
 Recipe(
     "gold leaf",
     "goldsmithing",
-    gold_leaf_weight,
+    gold_leaf_weight * gold_leaf_sale_unit.magnitude,
     {},
-    difficulty=3.5,
-    description="80mm * 80mm * 1/10,000 mm sheet",
     {"raw gold": gold_leaf_weight * gold_leaf_sale_unit.magnitude},
+    difficulty=5,
+    unit=gold_leaf_sale_unit,
+    vendor="goldsmith",
+    description="each sheet is 80mm * 80mm * 1/10,000 mm",
 )
 
 tin_in_lb_pewter = Decimal(0.85) * u.lb
