@@ -1713,6 +1713,16 @@ Recipe(
     vendor="innkeeper",
     description=registry["wine, asti spumante, in barrel"].description,
 )
+
+Recipe(
+    "wine, Sacramaran, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * wine_per_serving).to(u.lb),
+    {},
+    {"wine, Sacramaran, in barrel": wine_per_serving},
+    unit=wine_per_serving,
+    vendor="innkeeper",
+    description=registry["wine, Sacramaran, in barrel"].description,
 )
 
 Recipe(
