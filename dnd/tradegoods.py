@@ -1033,9 +1033,25 @@ Recipe(
     vendor="stockyard",
     description=f"{cow_sale_age:~} old; produces {cow_annual_milk_volume:~} milk annually, on average",
 )
+
+ox_sale_age = Decimal(30) * u.month
+ox_sale_weight = Decimal(1200) * u.lb
+ox_raising_fodder = fodder_while_growing(
+    calf_sale_age,
+    ox_sale_age,
+    calf_sale_weight,
+    ox_sale_weight,
+    D(0.005) * u.lb / u.lb,
+)
+Recipe(
+    "ox",
+    "cattle",
+    ox_sale_weight,
+    {},
+    {"calf": 1 * u.head, "animal feed": ox_raising_fodder},
     unit=1 * u.head,
     vendor="stockyard",
-    description="grain-finished, 16 months old; suitable for slaughtering",
+    description=f"female or gelded male; {ox_sale_age:~} old, bred for work",
 )
 
 cattle_carcass_fraction = Decimal(0.67)
