@@ -156,7 +156,6 @@ class Recipe:
     ):
         self.name = name
         self.governor = governor
-        # TODO make FULL sale weight include weight of any container
         self.weight = Decimal(weight.magnitude) * weight.units
         try:
             self.weight.to(u.lbs)
@@ -209,6 +208,12 @@ class Recipe:
             else D(0) * u.cp / u.item
         )
         return price_raws, price_recipes, price_container
+
+    def total_weight(self):
+        if self.container:
+            return self.weight + registry[self.container].weight
+        else:
+            return self.weight
 
     def denominator(self):
         return self.unit if self.unit else self.weight
