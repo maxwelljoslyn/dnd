@@ -686,7 +686,7 @@ dagger_blade_needed = dagger_length / u.ft
 dagger_weight = hilt_weight + pommel_weight + (dagger_blade_needed * unit_blade_weight)
 Recipe(
     "dagger",
-    "metalsmithing",  # TODO weapons
+    "weapons",
     dagger_weight,
     {},
     {
@@ -706,7 +706,7 @@ shortsword_weight = (
 )
 Recipe(
     "shortsword",
-    "metalsmithing",  # TODO weapons
+    "swords",
     shortsword_weight,
     {},
     {
@@ -726,7 +726,7 @@ longsword_weight = (
 )
 Recipe(
     "longsword",
-    "metalsmithing",  # TODO weapons
+    "swords",
     longsword_weight,
     {},
     {
@@ -745,8 +745,8 @@ greatsword_weight = (
     hilt_weight + pommel_weight + (greatsword_blade_needed * unit_blade_weight)
 )
 Recipe(
-    "greatsword",  # TODO weapons
-    "metalsmithing",
+    "greatsword",
+    "swords",
     greatsword_weight,
     {},
     {
