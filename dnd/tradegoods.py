@@ -968,16 +968,23 @@ Recipe(
     description=f"{calf_sale_age:} old, suitable for rennet",
 )
 
+# spends half of life being grain-finished
+vealcalf_raising_fodder = fodder_while_growing(
+    calf_sale_age / D(2),
+    calf_sale_age,
+    calf_sale_weight / D(2),
+    calf_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
 Recipe(
     "veal calf",
     "cattle",
     calf_sale_weight,
     {"cattle": 1 * u.head},
-    {"animal feed": 121 * u.lb},
-    # four months - half of life - being grain-finished at 1 lb/day
+    {"animal feed": vealcalf_raising_fodder},
     vendor="stockyard",
     unit=1 * u.head,
-    description="grain-finished, 8 months old, suitable for veal",
+    description=f"grain-finished, {calf_sale_age:} old, suitable for veal",
 )
 
 cow_sale_weight = Decimal(800) * u.lb
