@@ -1,15 +1,14 @@
-$def with (towns, recipes)
+$def with (towns, registry)
 
+<h2>Towns</h2>
 <ul>
-$for town, info in towns.items():
-    <li><a href=/towns/$town>$town</a> (pop. $info['population'])<br>
-    $for destination, distance in info['hexes to'].items():
-        <p>It is $distance hexes to $destination</p>
-    $recipes['longsword'].display_price(info)
-    </li>
+$for (town, info) in sorted([(town, info) for town, info in towns.items()], key=lambda x: x[0]):
+    $if town != 'Far Away':
+        <li><a href="/towns/$town">$town</a> (pop. $info['population'])</li>
 </ul>
 
+<h2>Trade Goods</h2>
 <ul>
-$for recipe in recipes.items():
-    <li>$recipe</li>
+$for good in sorted(registry.keys()):
+    <li><a href="/tradegoods/$good">$good</a></li>
 </ul>
