@@ -806,7 +806,7 @@ Recipe(
     "quicklime",
     1 * u.lb,
     {"quicklime": 1 * u.lb},
-    vendor="potter",
+    vendor="potter",  # potter b/c made in a kiln
     description="used in tanning and to make mortar",
 )
 
