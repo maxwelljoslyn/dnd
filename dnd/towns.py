@@ -21,14 +21,24 @@ towns = {
     # todo add location: Hex(q, r, s)
     # todo add whether a route is by land, sea, or river
     # todo add whether a route is one-way-only
+    # NOTE 'hexes to' takes into account elevation changes, so it is NOT hexes as the crow flies -- it is 'hex equivalent' distance
     "Sacra Mara": {
         "population": 8300,
-        "references": {"timber": 1, "wine": 1, "limestone": 1},
+        "references": {
+            "timber": 1,
+            "wine": 2,
+            "wine, Sacramaran": 1,
+            "limestone": 1,
+        },
         "hexes to": {"Allrivers": 1},
     },
     "Castle Docemille": {
         "population": 5200,
-        "references": {"smelting": 2},
+        "references": {
+            "smelting": 2,
+            "wine, Lutewood": 1,
+            "timber": 1,
+        },
         "hexes to": {"Fiora": 3},
     },
     "Fiora": {
@@ -37,8 +47,15 @@ towns = {
         "hexes to": {"Allrivers": 1, "Castle Docemille": 3},
     },
     "Pearl Island": {
-        "population": 3000,
-        "references": {"eels": 1, "olives": 1, "fish": 2, "timber": 1, "dried fish": 1},
+        "population": 5800,
+        "references": {
+            "eels": 1,
+            "olives": 2,
+            "olive oil": 2,
+            "fish": 2,
+            "timber": 1,
+            "dried fish": 1,
+        },
         "hexes to": {"Allrivers": 1.5, "Northshore": 2},
     },
     "Allrivers": {
@@ -53,6 +70,7 @@ towns = {
             "markets": 2,
             "boatbuilding": 1,
             "woodcraft": 1,
+            "wine": 2,
         },
         "hexes to": {
             "Sacra Mara": 1,
@@ -66,7 +84,10 @@ towns = {
     },
     "Northshore": {
         "population": 5000,
-        "references": {"markets": 1},
+        "references": {
+            "markets": 1,
+            "armor": 1,
+        },
         "hexes to": {"Shipmoot": 1, "Ribossi": 1.5},
     },
     "Shipmoot": {
@@ -93,14 +114,21 @@ towns = {
     "Orii": {
         "population": 7000,
         "references": {
+            "markets": 1,
             "cereals": 2,
             "wheat": 2,
             "millet": 1,
+            "rye": 1,
             "alchemy": 2,
             "bookbinding": 1,
             "paper": 1,
             "paper products": 1,
             "pearl": 1,
+            "apricots": 1,
+            "pears": 1,
+            "pomegranates": 1,
+            "cherries": 1,
+            "peaches": 1,
         },
         "hexes to": {"Allrivers": 1, "Lake Gingol": 3},
     },
@@ -108,8 +136,9 @@ towns = {
         "population": 2000,
         "references": {
             "timber": 2,
+            "wine, asti spumante": 2,
         },
-        "hexes to": {"Northshore": 1.5},
+        "hexes to": {"Northshore": 1.5, "Parinea": 3},
     },
     "Sugar Bay": {
         "population": 1202,
@@ -117,6 +146,7 @@ towns = {
             "refined sugar": 2,
             "sugarcane": 2,
             "rum": 2,
+            "coconuts": 1,
         },
         "hexes to": {"Allrivers": 25},
     },
@@ -172,7 +202,15 @@ towns = {
     },
     "Stoneshire": {
         "population": 1985,
-        "references": {"bricks": 2, "ceramics": 2},
+        "references": {
+            "bricks": 2,
+            "ceramics": 2,
+            "pottery": 1,
+            "flint": 1,
+            "enamelware": 1,
+            "lacquerware": 1,
+            "glassware": 1,
+        },
         "hexes to": {"Dwerglow": 2, "Sheepshire": 1},
     },
     "Sheepshire": {
@@ -187,30 +225,43 @@ towns = {
             "woolen goods": 2,
             "worsted cloth": 1,
             "worsted goods": 1,
+            "dogs": 1,
+            "donkeys": 1,
         },
         "hexes to": {"Dwerglow": 2, "Stoneshire": 1},
     },
     "Langakuur": {
         "population": 2000,
-        "references": {"griffs": 3, "edible birds' nests": 1},
-        "hexes to": {"Giantsbane": 2, "Ubulan": 1},
+        "references": {"griffs": 3, "edible birds' nests": 1, "niter": 1},
+        "hexes to": {"Giantsbane": 2, "Uluban": 1},
     },
-    "Ubulan": {
+    "Uluban": {
         "population": 9800,
-        "references": {"griffs": 1, "markets": 1, "horses": 2},
-        "hexes to": {"Langakuur": 1, "Lower Ubulan": 4},
+        "references": {"griffs": 1, "markets": 1, "horses": 2, "sulfur": 1},
+        "hexes to": {"Langakuur": 1, "Lower Uluban": 4},
     },
-    "Lower Ubulan": {
+    "Lower Uluban": {
         "population": 1000,
         "references": {
             "horses": 3,
             "horses, draft": 1,
             "ponies": 1,
+            "cattle": 2,
+            "goats": 1,
+            "dogs": 1,
             "kumiss": 1,
             "leathercraft": 2,
-            "cattle": 2,
         },
-        "hexes to": {"Ubulan": 4},
+        "hexes to": {"Uluban": 4},
+    },
+    "Parinea": {
+        "population": 18000,
+        "references": {
+            "champagne": 1,
+            "horses, draft": 1,
+            "grapes": 1,
+        },
+        "hexes to": {"Ribossi": 3},
     },
 }
 
