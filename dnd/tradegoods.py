@@ -880,7 +880,7 @@ lamb_carcass_weight = sheep_carcass_fraction * ewe_sale_weight
 lamb_meat_weight = sheep_meat_fraction * lamb_carcass_weight
 Recipe(
     "lamb",
-    "lamb",  # uses the very specific 'lamb' reference instead of meat - similar to rum vs brewing, mutton vs meat, and ewes' milk cheese vs cheese
+    "lamb",
     1 * u.lb,
     {},
     {"mature ewe": (Decimal(1) * u.lb / lamb_meat_weight) * u.head},
