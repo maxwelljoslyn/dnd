@@ -955,6 +955,7 @@ Recipe(
     vendor="butcher",
 )
 
+calf_sale_age = Decimal(8) * u.month
 calf_sale_weight = Decimal(410) * u.lb
 Recipe(
     "calf",
@@ -964,7 +965,7 @@ Recipe(
     {},
     vendor="stockyard",
     unit=1 * u.head,
-    description="8 months old, suitable for rennet",
+    description=f"{calf_sale_age:} old, suitable for rennet",
 )
 
 Recipe(
