@@ -29,3 +29,11 @@ class Town:
             vendors = dnd.limited_vendors
         return app.view.town(town, info, dnd.registry, has_market, vendors)
 
+
+@app.control("tradegoods/{tradegood}")
+class TradeGood:
+    def get(self, tradegood):
+        info = dnd.registry.get(tradegood)
+        if not info:
+            raise web.BadRequest
+        return app.view.tradegood(tradegood, info, dnd.registry)
