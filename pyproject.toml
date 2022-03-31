@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "code"
+name = "dnd"
 version = "0.1.0"
 description = ""
 authors = ["Maxwell Joslyn <maxwelljoslyn@gmail.com>"]
@@ -9,6 +9,8 @@ python = "^3.9"
 click = "^8.0.3"
 noise = "^1.2.2"
 Pint = "^0.18"
+understory = "^0.0.207"
+emoji = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.10.1"
