@@ -2,7 +2,9 @@ import web
 
 import dnd
 
-app = web.application(__name__, db=True)
+app = web.application(
+    __name__, db=True, args={"tradegood": ".*", "town": ".*", "testing": ".*"}
+)
 
 
 @app.control("")
