@@ -1499,7 +1499,7 @@ Recipe(
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description="{str(beer_abv.magnitude)}% alcohol",
+    description=f"{str(beer_abv.magnitude)}% alcohol",
 )
 
 Recipe(
@@ -1537,7 +1537,7 @@ Recipe(
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description="{str(rum_abv.magnitude)}% alcohol",
+    description=f"{str(rum_abv.magnitude)}% alcohol",
 )
 
 Recipe("grapes", "grapes", 1 * u.lb, {"grapes": 1 * u.lb}, {}, vendor="grocer")
