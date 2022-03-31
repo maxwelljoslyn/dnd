@@ -1,7 +1,8 @@
 from decimal import Decimal, getcontext
 from math import ceil, floor
+from collections import Counter
 
-from references import Q, u, world_references
+from references import Q, u, world_references, categories
 from towns import towns
 
 # set up the Decimal environment
