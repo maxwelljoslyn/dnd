@@ -1110,6 +1110,7 @@ Recipe(
     {"abomasum": 1 * u.item, "vinegar, in barrel": D(0.5) * u.pint},
     unit=1 * u.item,
     vendor="butcher",
+    description=registry["abomasum"].description,
 )
 
 rennet_per_abomasum = Decimal(2) * u.pint / u.item
