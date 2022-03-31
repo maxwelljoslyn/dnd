@@ -84,6 +84,15 @@ def cylinder_volume(height, radius):
     return (pi * height.to(u.ft) * radius.to(u.ft) * radius.to(u.ft)).to(u.cuft)
 
 
+def ring_volume(bigheight, bigradius, smallheight, smallradius):
+    """Return the difference in volumes of two cylinders, which gives the volume of a flat ring such as a washer."""
+    big = cylinder_volume(bigheight, bigradius)
+    small = cylinder_volume(smallheight, smallradius)
+    if small > big:
+        raise ValueError("small cylinder is bigger than large one")
+    return big - small
+
+
 def sphere_volume(radius):
     return (pi * Decimal(4) / Decimal(3) * (radius.to(u.ft) ** Decimal(3))).to(u.cuft)
 
