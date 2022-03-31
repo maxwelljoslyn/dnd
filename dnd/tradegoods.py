@@ -818,6 +818,21 @@ Recipe(
     {},
     vendor="potter",  # potter b/c made in a kiln
 )
+
+Recipe(
+    "mortar",
+    "plaster",
+    1 * u.lb,
+    {},
+    {
+        "quicklime": D(0.9) * u.lb,
+        "coal ash": D(0.1) * u.lb,
+    },
+    vendor="mason",
+    description="lime-based hydraulic mortar or plaster",
+)
+
+
 Recipe(
     "animal feed",
     "cereals",
