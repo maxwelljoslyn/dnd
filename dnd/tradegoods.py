@@ -1232,6 +1232,22 @@ Recipe(
     description="will wash 1 person 60 times; 2x3x6 in.",
 )
 
+Recipe(
+    "hard soap, rose scent",
+    "soap",
+    soap_weight,
+    {
+        "salt": salt_per_soap_tallow * soap_weight,
+        "attar of roses": D(0.5) * u.ounce,
+    },
+    {
+        "lye": lye_per_soap_tallow * soap_weight,
+        "tallow": tallow_per_soap * soap_weight,
+    },
+    vendor="chandler",
+    description="will wash 1 person 60 times; 2x3x6 in.",
+)
+
 # TODO should these be specified as being per head?
 cowhide_area = Decimal(50) * u.sqft
 cowhide_weight = Decimal(60) * u.lb
