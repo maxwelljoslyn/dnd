@@ -218,18 +218,26 @@ class Recipe:
     def denominator(self):
         return self.unit if self.unit else self.weight
 
+    def service_cost(self, baseprice, towninfo):
+        if self.governor:
+            # ordinary case, for all non-"raw" recipes
+            refs = towninfo["references"][self.governor]
+            return baseprice / refs
+        # else:
+        #    return 0
+
     def price(self, towninfo):
         global registry
-        # with necessary quantities of ingredients now priced in copper pieces, divide all units by themselves, making them dimensionless and summable (otherwise we may try adding cp / head and cp / pound, for instance)
         ra, re, pc = self.ingredient_costs(towninfo)
+        # necessary quantities of ingredients now priced in units of copper pieces per X
+        # dividing by those units makes prices dimensionless and summable
+        # otherwise we may try adding up, for instance, cp / head and cp / pound
         ra = {k: v / v.units for k, v in ra.items()}
         re = {k: v / v.units for k, v in re.items()}
         pc = pc / pc.units
         baseprice = sum(ra.values()) + sum(re.values()) + pc
-        refs = towninfo["references"][self.governor]
-        serviceprice = (baseprice / refs) * self.difficulty
-        final = baseprice + serviceprice
-        # convert dimensionless final back to cp / something
+        final = (baseprice + self.service_cost(baseprice, towninfo)) * self.difficulty
+        # convert dimensionless final back to cp / X
         return (final.magnitude * u.cp) / self.denominator()
 
     def chunked_price(self, towninfo):
