@@ -17,7 +17,5 @@ gold_piece = 8 * silver_piece = gp
 head = [creatures]
 item = [objects]
 leaf = [goldleaves]
-
-# historical units
 ell = 18 * inch
 cubic_meter = 1000000 cubic_centimeter = cumt
