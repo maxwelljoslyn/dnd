@@ -2289,41 +2289,46 @@ Recipe(
     description="accounts for firing wet clay, so it does not have to be done separately for all clay goods",
 )
 
-masonry_unit = D(1) * u.cuft
-for stone in (
-    "alabaster",
-    "basalt",
-    "brownstone",
-    "dolomite",
-    "granite",
-    "limestone",
-    "marble",
-    "freestone",
-    "porphyry",
-    "sandstone",
-    "red sandstone",
-    "slate",
-    "syenite",
-    "trachyte",
-    "tufa",
-    "tuff",
-):
-    if world_references[stone]["production"] == 0:
-        # TODO - but I think all of these have production except for granite, which will get some from building stone eventually
-        pass
-    elif stone not in density:
-        # TODO add more figures to densty
-        pass
-    else:
-        theweight = (density[stone] * masonry_unit).to(u.lb)
-        Recipe(
-            f"masonry, {stone}",
-            "masonry",
-            theweight,
-            {f"{stone}": theweight},
-            unit=masonry_unit,
-            vendor="mason",
-        )
+# this is a huge fudge since it varies from stone to stone, but accurate enough for my purposes
+AGGREGATE_DENSITY_FACTOR = D(1.6)
+
+
+def aggregate_density(stone):
+    d = density.get(stone)
+    if not d:
+        raise ValueError
+    return density.get(f"crushed {stone}", d / AGGREGATE_DENSITY_FACTOR)
+
+
+applicable_stones = [
+    stone
+    for stone in categories["building stones"]["members"]
+    if (world_references[stone]["production"] != 0) and (stone in density)
+]
+for stone in applicable_stones:
+    d = density[stone]
+    theweight = (d * masonry_unit).to(u.lb)
+    Recipe(
+        f"masonry, {stone}",
+        "masonry",
+        theweight,
+        {f"{stone}": theweight},
+        unit=masonry_unit,
+        vendor="mason",
+    )
+
+    ad = aggregate_density(stone)
+    aggregate_sale_weight = (ad * masonry_unit).to(u.lb)
+    Recipe(
+        f"crushed {stone}",
+        "masonry",
+        aggregate_sale_weight,
+        {
+            f"{stone}": aggregate_sale_weight,
+        },
+        {},
+        unit=masonry_unit,
+    )
 
 pan_thickness = D(1) / D(8) * u.inch
 pan_handle_length = D(4) * u.inch
