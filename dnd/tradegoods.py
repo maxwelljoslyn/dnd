@@ -2508,6 +2508,42 @@ for slave, info in slaves.items():
         description=f"{info['description']}; age {info['minimum age']} and up",
     )
 
+
+building_member_width = D(6) * u.inch
+building_member_thickness = D(6) * u.inch
+for length in (2, 3, 3.47, 4, 5, 6, 8, 9, 14, 15):
+    # lengths needed for standard housing size
+    height = D(length) * u.foot
+    volume = height * building_member_width * building_member_thickness
+    weight = (density["timber"] * volume).to(u.lb)
+    Recipe(
+        f"building member, {length}-foot",
+        "timber",  # TODO carpentry?
+        weight,
+        {
+            "timber": weight,
+        },
+        {},
+        unit=1 * u.item,
+        description="hewn wooden member for timber framing",
+    )
+    if length == 14:
+        # a wider member, used to form core of flooring on higher levels
+        thickness = D(12) * u.inch
+        volume = height * building_member_width * thickness
+        weight = (density["timber"] * volume).to(u.lb)
+        Recipe(
+            f"building member, wide, {length}-foot",
+            "timber",  # TODO carpentry?
+            weight,
+            {
+                "timber": weight,
+            },
+            {},
+            unit=1 * u.item,
+            description="hewn wooden member for timber framing",
+        )
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
