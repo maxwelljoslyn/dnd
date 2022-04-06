@@ -2441,6 +2441,18 @@ Recipe(
     difficulty=D(1.5),
     description=f"{dog_sale_age} old, {dog_sale_weight:~}; as hunting dog, plus combat abilities",
 )
+
+Recipe(
+    "dog, war",
+    "dogs",
+    dog_sale_weight,
+    {"dogs": 1 * u.head},
+    {"beef": dog_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    difficulty=D(2),
+    description=f"{dog_sale_age} old, {dog_sale_weight:~}; as guard dog, plus bonus HP and can wear armor",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
