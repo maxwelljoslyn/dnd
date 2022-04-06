@@ -2406,6 +2406,18 @@ Recipe(
     vendor="stockyard",
     description=f"{puppy_sale_age} old, {puppy_sale_weight:~}; totally untrained",
 )
+
+Recipe(
+    "dog, working",
+    "dogs",
+    dog_sale_weight,
+    {"dogs": 1 * u.head},
+    {"beef": dog_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{dog_sale_age} old, {dog_sale_weight:~}; includes herding and cart-pulling dogs",
+)
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
