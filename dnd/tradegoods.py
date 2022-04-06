@@ -192,7 +192,7 @@ class Recipe:
         # name of shop where sold. differs from self.governor b/c that's not always a 'service' reference, unlike in v1 of my economy system
         # if None, recipe is not itself available for sale (replacing the old notion of "semigoods")
         vendor=None,
-        unit=None,
+        unit=D(1) * u.item,
         difficulty=1,
         capacity=None,  # how much other stuff can it contain?
         container=None,  # what container does it come in?
@@ -218,9 +218,7 @@ class Recipe:
         self.capacity = capacity
         # container is a separate field so recipe X's container's weight is ignored when calculating weights of further recipes that make use of X, but the price of X can still incorporate the container's cost
         self.container = container
-        self.unit = unit
-        if self.unit:
-            self.unit = Decimal(unit.magnitude) * unit.units
+        self.unit = Decimal(unit.magnitude) * unit.units
         self._register()
 
     def _register(self):
@@ -264,6 +262,7 @@ class Recipe:
             return self.weight
 
     def denominator(self):
+        # TODO deprecate this now that all recipes have default item unit
         return self.unit if self.unit else self.weight
 
     def service_cost(self, baseprice, towninfo):
@@ -316,12 +315,14 @@ class Recipe:
         )
 
 
+smeltingfuel_sale_unit = D(0.75) * u.lb
 Recipe(
     "smelting fuel",
     "smelting",
-    0.75 * u.lb,
+    smeltingfuel_sale_unit,
     dict(coal=0.5 * u.lb, limestone=0.25 * u.lb),
     description="generic supplies required to smelt 1 lb metal",
+    unit=smeltingfuel_sale_unit,
     vendor="puddler",
 )
 
@@ -330,7 +331,8 @@ Recipe(
     "iron",
     1 * u.lb,
     dict(iron=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     description="separated from waste rock and impurities",
 )
 
@@ -339,7 +341,8 @@ Recipe(
     "pig iron",
     1 * u.lb,
     {},
-    {"raw iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    {"raw iron": 1 * u.lb, "smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     description="weak, brittle purified iron",
 )
 
@@ -349,11 +352,12 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
         "raw manganese": 0.06 * u.lb,
         "raw nickel": 0.01 * u.lb,
         "pig iron": 0.93 * u.lb,
     },
+    unit=1 * u.lb,
     description="for a volume of 1x1x3.8 in.",
 )
 
@@ -362,8 +366,9 @@ Recipe(
     "ironmongery",
     1 * u.lb,
     {},
-    {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    {"pig iron": 1 * u.lb, "smelting fuel": smeltingfuel_sale_unit},
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1x1x3.57 in.",
 )
 
@@ -372,7 +377,8 @@ Recipe(
     "nickel",
     1 * u.lb,
     dict(nickel=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     vendor="puddler",
 )
 
@@ -381,7 +387,8 @@ Recipe(
     "manganese",
     1 * u.lb,
     dict(manganese=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     vendor="puddler",
 )
 
@@ -390,7 +397,8 @@ Recipe(
     "copper",
     1 * u.lb,
     dict(copper=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     vendor="puddler",
     description="ingot, 2x1.065x1.45 in.",
 )
@@ -400,8 +408,9 @@ Recipe(
     "tin",
     1 * u.lb,
     dict(tin=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
     vendor="puddler",
+    unit=1 * u.lb,
     description="separated from waste rock and impurities",
 )
 
@@ -411,8 +420,9 @@ Recipe(
     "gold",
     1 * u.lb,
     dict(gold=1 * u.lb),
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
     description="ingot, 1x1x1.435 in.",
+    unit=1 * u.lb,
     vendor="puddler",
 )
 
@@ -450,10 +460,11 @@ Recipe(
     1 * u.lb,
     {},
     {
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
         "raw tin": tin_in_lb_pewter,
         "raw copper": copper_in_lb_pewter,
     },
+    unit=1 * u.lb,
     vendor="puddler",
     description="ingot, 1x1x3.65 in.",
 )
@@ -464,12 +475,20 @@ Recipe(
     "ironmongery",
     1 * u.lb,
     {},
-    {"pig iron": 1 * u.lb, "smelting fuel": 0.75 * u.lb},
+    {"pig iron": 1 * u.lb, "smelting fuel": smeltingfuel_sale_unit},
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1x1x3.5 in.",
 )
 
-Recipe("iron filings", "ironmongery", 1 * u.lb, {}, {"wrought iron": 1 * u.lb})
+Recipe(
+    "iron filings",
+    "ironmongery",
+    1 * u.lb,
+    {},
+    {"wrought iron": 1 * u.lb},
+    unit=1 * u.lb,
+)
 
 # filings used following the methods described in Subterraneal Treasures
 Recipe(
@@ -477,8 +496,9 @@ Recipe(
     "leadsmelting",
     1 * u.lb,
     {"lead": 1 * u.lb},
-    {"iron filings": 0.25 * u.lb, "smelting fuel": 0.75 * u.lb},
+    {"iron filings": 0.25 * u.lb, "smelting fuel": smeltingfuel_sale_unit},
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1.084x1.5x1.5 in.",
 )
 
@@ -487,7 +507,8 @@ Recipe(
     "smelting",
     1 * u.lb,
     {"zinc": 1 * u.lb},
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
     vendor="puddler",
 )
 
@@ -496,8 +517,9 @@ Recipe(
     "smelting",
     1 * u.lb,
     {"silver": 1 * u.lb},
-    {"smelting fuel": 0.75 * u.lb},
+    {"smelting fuel": smeltingfuel_sale_unit},
     description="ingot, 1.5x1.5x1.175 in.",
+    unit=1 * u.lb,
     vendor="puddler",
 )
 
@@ -515,9 +537,10 @@ Recipe(
     {
         "raw tin": tin_in_lb_bronze,
         "raw copper": copper_in_lb_bronze,
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
     },
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1.125x1.675x1.675 in.",
 )
 
@@ -535,9 +558,10 @@ Recipe(
     {
         "raw zinc": zinc_in_lb_brass,
         "raw copper": copper_in_lb_brass,
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
     },
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1.77x2.05x0.95 in.",
 )
 
@@ -556,9 +580,10 @@ Recipe(
     {
         "raw tin": tin_in_lb_bellmetal,
         "raw copper": copper_in_lb_bellmetal,
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
     },
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1.2x1.35x2 in.",
 )
 
@@ -584,9 +609,10 @@ Recipe(
         "raw tin": tin_in_lb_sterlingsilver,
         "raw copper": copper_in_lb_sterlingsilver,
         "raw silver": silver_in_lb_sterlingsilver,
-        "smelting fuel": 0.75 * u.lb,
+        "smelting fuel": smeltingfuel_sale_unit,
     },
     vendor="puddler",
+    unit=1 * u.lb,
     description="ingot, 1.5x1.5x1.185 in.",
 )
 
@@ -633,7 +659,6 @@ for name, info in holysymbols.items():
         (bw + lw).to(u.lb),
         {},
         {"steel": lw.to(u.oz), "sterling silver": bw.to(u.oz)},
-        unit=1 * u.item,
         vendor="goldsmith",
         description=f"sterling silver with steel loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
     )
@@ -647,7 +672,6 @@ for name, info in holysymbols.items():
         (bw + lw).to(u.lb),
         {},
         {"bronze": (bw + lw).to(u.lb)},
-        unit=1 * u.item,
         vendor="blacksmith",
         description=f"bronze, with loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
     )
@@ -672,7 +696,6 @@ for name, info in holysymbols.items():
             "sterling silver": (lw + bw).to(u.oz),
             "gold leaf": leaves * u.leaf,
         },
-        unit=1 * u.item,
         vendor="goldsmith",
         description=f"gilded sterling silver with loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
     )
@@ -687,7 +710,6 @@ Recipe(
     "woodcraft",
     hilt_weight,
     {"timber": hilt_weight},
-    unit=1 * u.item,
     description="wooden tube",
 )
 
@@ -698,7 +720,6 @@ Recipe(
     pommel_weight,
     {},
     {"steel": pommel_weight},
-    unit=1 * u.item,
     description="metal knob which holds hilt and blade together",
 )
 
@@ -713,7 +734,6 @@ Recipe(
     unit_blade_weight,
     {},
     {"steel": unit_blade_weight},
-    unit=1 * u.item,
     description="price for a one-foot steel blade",
 )
 
@@ -731,7 +751,6 @@ Recipe(
         "sword hilt": 1 * u.item,
     },
     description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length} blade",
-    unit=1 * u.item,
     vendor="weaponsmith",
 )
 
@@ -751,7 +770,6 @@ Recipe(
         "sword hilt": 1 * u.item,
     },
     description=f"1d6 damage; {shortsword_length} blade",
-    unit=1 * u.item,
     vendor="weaponsmith",
 )
 
@@ -771,7 +789,6 @@ Recipe(
         "sword hilt": 1 * u.item,
     },
     description=f"1d8 damage; {longsword_length} blade",
-    unit=1 * u.item,
     vendor="weaponsmith",
 )
 
@@ -791,7 +808,6 @@ Recipe(
         "sword hilt": 1 * u.item,
     },
     description=f"1d10 damage; {greatsword_length} blade",
-    unit=1 * u.item,
     vendor="weaponsmith",
 )
 
@@ -803,6 +819,7 @@ Recipe(
     {"fish": 1 * u.lb},
     {},
     vendor="fishmonger",
+    unit=1 * u.lb,
     description="local variety",
 )
 
@@ -815,6 +832,7 @@ Recipe(
     {"flour": 1 * u.lb},
     {},
     vendor="miller",
+    unit=1 * u.lb,
     description="ground from cereals",
 )
 
@@ -824,6 +842,7 @@ Recipe(
     1 * u.lb,
     {"salt": 0.05 * u.lb},
     {"flour": 0.7 * u.lb},
+    unit=1 * u.lb,
     vendor="baker",
 )
 
@@ -833,6 +852,7 @@ Recipe(
     1 * u.lb,
     {"salt": 0.05 * u.lb},
     {"flour": 0.7 * u.lb},
+    unit=1 * u.lb,
     vendor="baker",
     description="southwestern millers' specialty",
 )
@@ -843,6 +863,7 @@ Recipe(
     1 * u.lb,
     {"quicklime": 1 * u.lb},
     vendor="potter",  # potter b/c made in a kiln
+    unit=1 * u.lb,
     description="used in tanning and to make mortar",
 )
 
@@ -852,6 +873,7 @@ Recipe(
     1 * u.lb,
     {"coal": 10 * u.lb},
     {},
+    unit=1 * u.lb,
     vendor="potter",  # potter b/c made in a kiln
 )
 
@@ -867,6 +889,7 @@ Recipe(
         "coal ash": D(0.1) * u.lb,
     },
     vendor="mason",
+    unit=drymortar_sale_weight,
     description="powdered, lime-based hydraulic mortar or plaster; sufficient for 1 cubic foot wet mortar",
 )
 
@@ -890,6 +913,7 @@ Recipe(
     {"cereals": 1 * u.lb},
     {},
     description="coarsely ground from cereals",
+    unit=1 * u.lb,
     vendor="stockyard",
 )
 
@@ -935,6 +959,7 @@ Recipe(
     {},
     {"mature ewe": (Decimal(1) * u.lb / lamb_meat_weight) * u.head},
     vendor="butcher",
+    unit=1 * u.lb,
     description="tender young lamb meat",
 )
 
@@ -991,6 +1016,7 @@ Recipe(
         "rennet": rennet_in_cheese * cheese_sale_unit,
     },
     description="halfling-made delicacy; includes feta, rocquefort, manchego, and pecorina romano",
+    unit=cheese_sale_unit,
     vendor="dairy",
 )
 
@@ -1002,6 +1028,7 @@ Recipe(
     1 * u.lb,
     {},
     {"mutton sheep": (Decimal(1) * u.lb / muttonsheep_meat_weight) * u.head},
+    unit=1 * u.lb,
     vendor="butcher",
 )
 
@@ -1113,6 +1140,7 @@ Recipe(
     1 * u.lb,
     {},
     {"veal calf": (Decimal(1) * u.lb / veal_per_calf) * u.head},
+    unit=1 * u.lb,
     vendor="butcher",
 )
 
@@ -1129,6 +1157,7 @@ Recipe(
     1 * u.lb,
     {},
     {"cow, beef": (Decimal(1) * u.lb / beef_per_cow) * u.head},
+    unit=1 * u.lb,
     vendor="butcher",
 )
 
@@ -1138,6 +1167,7 @@ Recipe(
     1 * u.lb,
     {},
     {"cow, beef": (Decimal(1) * u.lb / bone_per_cow) * u.head},
+    unit=1 * u.lb,
     vendor="butcher",
 )
 
@@ -1148,7 +1178,6 @@ Recipe(
     abomasum_weight,
     {},
     {"calf": (abomasum_weight / calf_sale_weight * cattle_carcass_fraction) * u.head},
-    unit=1 * u.item,
     description="fourth compartment of calf stomach",
 )
 
@@ -1158,7 +1187,6 @@ Recipe(
     abomasum_weight,
     {"salt": 0.25 * u.lb},
     {"abomasum": 1 * u.item, "vinegar, in barrel": D(0.5) * u.pint},
-    unit=1 * u.item,
     vendor="butcher",
     description=registry["abomasum"].description,
 )
@@ -1216,6 +1244,7 @@ Recipe(
         "cow milk": milk_in_cheese * cheese_sale_unit,
         "rennet": rennet_in_cheese * cheese_sale_unit,
     },
+    unit=cheese_sale_unit,
     description="local variety",
     vendor="dairy",
 )
@@ -1227,10 +1256,19 @@ Recipe(
     {},
     {"cow, beef": (1 * u.lb / fat_per_cow) * u.head},
     vendor="butcher",
+    unit=1 * u.lb,
     description="beef fat for cooking, or for manufacture of tallow",
 )
 
-Recipe("tallow", "candles and wax", 1 * u.lb, {}, {"suet": 1 * u.lb}, vendor="chandler")
+Recipe(
+    "tallow",
+    "candles and wax",
+    1 * u.lb,
+    {},
+    {"suet": 1 * u.lb},
+    unit=1 * u.lb,
+    vendor="chandler",
+)
 
 timber_per_ash = Decimal(10) * u.lb / u.lb
 Recipe(
@@ -1239,6 +1277,7 @@ Recipe(
     1 * u.lb,
     {"timber": timber_per_ash * u.lb},
     {},
+    unit=1 * u.lb,
     vendor="chandler",
 )
 
@@ -1249,6 +1288,7 @@ Recipe(
     {},
     {"wood ash": 1 * u.lb},
     vendor="chandler",
+    unit=1 * u.lb,
     description="made by leaching ash in water",
 )
 
@@ -1347,6 +1387,7 @@ Recipe(
     1 * u.lb,
     {"malt": 1 * u.lb},
     vendor="brewer",
+    unit=1 * u.lb,
     description="germinated and dried; used for brewing",
 )
 
@@ -1421,7 +1462,6 @@ for name, info in casks.items():
         + total_thin_hoop_weight,
         {"timber": total_head_weight + total_stave_weight},
         {"wrought iron": total_fat_hoop_weight + total_thin_hoop_weight},
-        unit=1 * u.item,
         vendor="cooper",
         capacity=m["volume"].to(u.gal),
         description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
@@ -1599,6 +1639,7 @@ for member in categories["fruits"]["members"]:
         {member: 1 * u.lb},
         {},
         vendor="costermonger",
+        unit=1 * u.lb,
         description=description,
     )
 
@@ -1609,6 +1650,7 @@ for member in categories["vegetables"]["members"]:
         1 * u.lb,
         {member: 1 * u.lb},
         {},
+        unit=1 * u.lb,
         vendor="greengrocer",
     )
 
@@ -1619,6 +1661,7 @@ for tuber in ("potatoes", "groundnuts", "sweet potatoes", "yams"):
         1 * u.lb,
         {tuber: 1 * u.lb},
         {},
+        unit=1 * u.lb,
         vendor="greengrocer",
     )
 
@@ -1795,6 +1838,7 @@ Recipe(
     greasy_wool_weight,
     {"wool": greasy_wool_weight},
     {"mature ewe": 1 * u.head},
+    unit=greasy_wool_weight,
 )
 
 scoured_wool_weight = D(15) * u.lb
@@ -1805,8 +1849,9 @@ Recipe(
     {},
     {
         "greasy wool": scoured_wool_weight,
-        # "fuller's earth": 1,
+        # TODO "fuller's earth": 1,
     },
+    unit=scoured_wool_weight,
 )
 
 # final step in cleaning wool is pounding by mills
@@ -1816,6 +1861,7 @@ Recipe(
     1 * u.lb,
     {},
     {"scoured wool": 1 * u.lb},
+    unit=1 * u.lb,
     description="brownish-white color",
 )
 
@@ -1826,6 +1872,7 @@ Recipe(
     1 * u.lb,
     {},
     {"clean wool": 1 * u.lb},
+    unit=1 * u.lb,
     description="extra soft",
 )
 
@@ -1883,7 +1930,7 @@ wool_ordinary_cloth_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / wool_yarn_sale_unit
     * wool_yarn_sale_weight
-)
+).to(u.lb)
 # the WEAVE PATTERN influences neither weight nor ends/picks per inch, but does influence difficulty
 
 Recipe(
@@ -1912,7 +1959,7 @@ broadcloth_shrinking_factor = D(3)
 Recipe(
     "broadcloth",
     "woolen cloth",
-    wool_ordinary_cloth_sale_weight,
+    wool_ordinary_cloth_sale_weight * D(2),
     {},
     {"woolen cloth": cloth_sale_unit * broadcloth_shrinking_factor},
     unit=cloth_sale_unit * D(2),
@@ -1967,6 +2014,7 @@ Recipe(
     # roughly 60% of the weight of raw cotton is the boll, which is thrown away
     {"cotton": D(2.5) * u.lb},
     {},
+    unit=1 * u.lb,
 )
 
 cotton_yarn_linear_density = D(1) * u.lb / (Decimal(4000) * u.ft)
@@ -1987,7 +2035,7 @@ cotton_plainweave_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / cotton_yarn_sale_unit
     * cotton_yarn_sale_weight
-)
+).to(u.lb)
 Recipe(
     "cotton cloth",
     "cotton cloth",
@@ -2006,6 +2054,7 @@ Recipe(
     # this ratio is guesswork based on yield from 'scutching', which technically comes between retting and combing
     {"flax": 15 * u.lb},
     {},
+    unit=1 * u.lb,
 )
 
 Recipe(
@@ -2015,6 +2064,7 @@ Recipe(
     {},
     {"retted flax": 1 * u.lb},
     difficulty=D(2),  # it's hard to work with flax fibers
+    unit=1 * u.lb,
 )
 
 linen_yarn_linear_density = D(1) * u.lb / (Decimal(5000) * u.ft)
@@ -2035,7 +2085,7 @@ linen_plainweave_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / linen_yarn_sale_unit
     * linen_yarn_sale_weight
-)
+).to(u.lb)
 Recipe(
     "linen cloth",
     "linen cloth",
@@ -2078,6 +2128,7 @@ Recipe(
     1 * u.lb,
     {},
     {"pig": (Decimal(1) * u.lb / pork_per_pig) * u.head},
+    unit=1 * u.lb,
     vendor="butcher",
 )
 
@@ -2095,6 +2146,7 @@ Recipe(
     {"sugarcane": sugarcane_per_sugar * u.lb},
     {},
     vendor="grocer",
+    unit=1 * u.lb,
     description="brown sugar with high molasses content",
 )
 
@@ -2105,6 +2157,7 @@ Recipe(
     {},
     {"raw sugar": 1 * u.lb},
     vendor="grocer",
+    unit=1 * u.lb,
     description="pale brown sugar with low molasses content",
 )
 
@@ -2123,10 +2176,18 @@ Recipe(
     {"sugarcane": sugarcane_per_molasses * molasses_sale_weight},
     {},
     vendor="grocer",
+    unit=molasses_sale_volume,
     description="black, gooey sugarcane extract",
 )
 
-Recipe("raw tobacco", "tobacco", 1 * u.lb, {"tobacco": 1 * u.lb}, {})
+Recipe(
+    "raw tobacco",
+    "tobacco",
+    1 * u.lb,
+    {"tobacco": 1 * u.lb},
+    {},
+    unit=1 * u.lb,
+)
 
 Recipe(
     "cured tobacco",
@@ -2134,6 +2195,7 @@ Recipe(
     1 * u.lb,
     {},
     {"raw tobacco": 5 * u.lb},
+    unit=1 * u.lb,
     vendor="tobacconist",
 )
 
@@ -2144,6 +2206,7 @@ Recipe(
     {},
     {"cured tobacco": 1 * u.lb},
     vendor="tobacconist",
+    unit=1 * u.lb,
     description="powdered tobacco for insufflation",
 )
 
@@ -2286,6 +2349,7 @@ Recipe(
     clay_slab_weight,
     {"ceramics": Decimal(1.15) * clay_slab_weight},
     {},
+    unit=clay_slab_weight,
     description="accounts for firing wet clay, so it does not have to be done separately for all clay goods",
 )
 
@@ -2373,7 +2437,8 @@ Recipe(
         "quicklime": quicklime_per_glass * u.lb,
     },
     vendor="glazier",
-    description="6in x 7in x 0.25in sheet",
+    unit=1 * u.lb,  # TODO use panes as unit
+    description="6in x 7in x 0.25in pane",
 )
 
 
@@ -2524,7 +2589,6 @@ for length in (2, 3, 3.47, 4, 5, 6, 8, 9, 14, 15):
             "timber": weight,
         },
         {},
-        unit=1 * u.item,
         description="hewn wooden member for timber framing",
     )
     if length == 14:
@@ -2540,7 +2604,6 @@ for length in (2, 3, 3.47, 4, 5, 6, 8, 9, 14, 15):
                 "timber": weight,
             },
             {},
-            unit=1 * u.item,
             description="hewn wooden member for timber framing",
         )
 
@@ -2565,7 +2628,6 @@ Recipe(
     framing_first_story_weight,
     {},
     {k: v * u.item for k, v in Counter(framing_first_story_members).items()},
-    unit=1 * u.item,
     description="per 60 feet of perimeter",
 )
 
@@ -2585,9 +2647,15 @@ Recipe(
     framing_second_story_weight,
     {},
     {k: v * u.item for k, v in Counter(framing_second_story_members).items()},
-    unit=1 * u.item,
     description="per 60 feet of perimeter",
 )
+
+# TODO if i use Cheapest(building_stones), how do I make sure that aggregate_recipe.weight uses the correct density when calculating weight? aw crap...
+# Recipe('aggregate stone',
+#        'masonry',
+#
+
+
 alabaster_for_cement = D(0.25) * u.lb / aggregate_density("alabaster")
 Recipe(
     "cement",
@@ -2600,6 +2668,7 @@ Recipe(
         # the rest of the weight is sand/clay/shale -- no price available, too cheap to meter
     },
     vendor="mason",
+    unit=1 * u.lb,
     description="powdered",
 )
 
@@ -2616,6 +2685,7 @@ Recipe(
         # the rest of the weight is sand/clay/shale, and water
     },
     vendor="mason",
+    unit=dryconcrete_sale_weight,
     description="powdered; sufficient for 1 cubic foot wet concrete",
 )
 
@@ -2649,7 +2719,6 @@ Recipe(
     {
         "masonry, concrete": building_foundation_volume,
     },
-    unit=1 * u.item,
     description=f"{building_foundation_width:~} ft. square, {building_foundation_height:~} thick",
 )
 
@@ -2670,7 +2739,6 @@ Recipe(
     {
         "building member, 15-foot": members_for_buildingsill * u.item,
     },
-    unit=1 * u.item,
     description="timber layer above foundation",
 )
 
@@ -2694,7 +2762,6 @@ Recipe(
     framing_roof_weight,
     {},
     {k: v * u.item for k, v in Counter(framing_roof_members).items()},
-    unit=1 * u.item,
     description="per 60 feet of perimeter; additions may only require longer roofbeams",
 )
 
@@ -2710,7 +2777,6 @@ Recipe(
     {},
     {"masonry, slate": shingle_volume},
     vendor="mason",
-    unit=1 * u.item,
     description=f"{shingle_length:~} x {shingle_width:~} x {shingle_thickness:~}",
 )
 
@@ -2722,7 +2788,6 @@ Recipe(
     {},
     {"fired clay": earthenware_shingle_weight},
     vendor="potter",
-    unit=1 * u.item,
     description=registry["shingle, slate"].description,
 )
 
@@ -2747,7 +2812,6 @@ for material in ("slate", "earthenware"):
         shingles_per_roof * weight,
         {},
         {f"shingle, {material}": shingles_per_roof * u.item},
-        unit=1 * u.item,
         description="includes both sides of roof",
     )
 
@@ -2786,7 +2850,6 @@ Recipe(
     {},
     onestory_house_components,
     vendor="builder",
-    unit=1 * u.item,
     description="15 x 15 ft perimeter, 14 x 14 ft usable internal area per floor; slate-roofed, with concrete foundation",
 )
 
@@ -2808,7 +2871,6 @@ Recipe(
     {},
     twostory_house_components,
     vendor="builder",
-    unit=1 * u.item,
     description=registry["timber-framed house, one story"].description,
 )
 
@@ -2928,6 +2990,7 @@ Recipe(
 #    # TODO add container
 #    description="orange mixture of acids which dissolves noble metals; used in alchemy, glassmaking, and lithography",
 # )
+
 
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
