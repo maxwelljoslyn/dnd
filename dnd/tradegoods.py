@@ -2993,11 +2993,6 @@ if __name__ == "__main__":
 # https://en.wikipedia.org/wiki/Bone_char
 # used in sugar production as a filtering agent
 
-# watchdog (barks to alert but won't fight)
-# guard dog (as watchdog but also has combat training)
-# war dog (as guard dog but can wear barding, has bonus HP, and has +1 to hit)
-# working dog (including herd dog/sheepdog and draft dog which pulls dogcarts)
-
 
 # def d(x): return Decimal(x)
 # gallons olive oil produced per acre
