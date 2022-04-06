@@ -1,1 +1,1 @@
-WEBCTX=DEV poetry run web serve dnd.__web__:app --port 9090
+WEBCTX=dev poetry run web serve dnd.__web__:app --port 9090
