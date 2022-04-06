@@ -2673,6 +2673,30 @@ Recipe(
     unit=1 * u.item,
     description="timber layer above foundation",
 )
+
+roofbeams_per_roof = 8
+framing_roofbeams = ["building member, 14-foot"] * roofbeams_per_roof
+framing_roof_oneside_members = (
+    ["building member, 9-foot"] * 2
+    + ["building member, 2-foot"] * 6
+    + ["building member, 4-foot"] * 3
+    + ["building member, 3-foot"] * 2
+    + ["building member, 6-foot"] * 1
+    + ["building member, 8-foot"] * 1
+    # 3.47 foot = approx sqrt(12); these are trusses within the top triangle, perpendicular to the roofing tiles
+    + ["building member, 3.47-foot"] * 2
+)
+framing_roof_members = framing_roofbeams + (2 * framing_roof_oneside_members)
+framing_roof_weight = sum([registry[m].weight for m in framing_roof_members])
+Recipe(
+    "timber framing, roof",
+    "carpentry",
+    framing_roof_weight,
+    {},
+    {k: v * u.item for k, v in Counter(framing_roof_members).items()},
+    unit=1 * u.item,
+    description="per 60 feet of perimeter; additions may only require longer roofbeams",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
