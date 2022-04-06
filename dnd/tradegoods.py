@@ -234,6 +234,8 @@ class Recipe:
     def ingredient_costs(self, towninfo):
         price_raws = {}
         for raw, q in self.raws.items():
+            if isinstance(raw, Cheapest):
+                raw = raw.choose(towninfo)
             # unit employed in a recipe not always the base unit used in references.py
             # e.g. stone produced in oz, but usually recipes call for lbs
             newunit = u.cp / q.units
@@ -241,6 +243,8 @@ class Recipe:
             price_raws[raw] = final
         price_recipes = {}
         for recipe, q in self.recipes.items():
+            if isinstance(recipe, Cheapest):
+                recipe = recipe.choose(towninfo)
             newunit = u.cp / q.units
             # TODO avoid costs of recursion
             # can I memoize while keeping while keeping this a method, or need to pull out into a function?
