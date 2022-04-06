@@ -71,6 +71,11 @@ density = {
         "tufa": 1.35 * u.gram / u.cucm,
         "porphyry": 1.4 * u.gram / u.cucm,
         "pitch": 72 * u.lb / u.cuft,
+        "dry mortar": 150 * u.lb / u.cuft,
+        # wet mortar has 0.75% the volume of dry mortar: airy voids between dry materials are filled with water as material mixes
+        "wet mortar": 150 * u.lb / (D(0.75) * u.cuft),
+        "wet concrete": 143 * u.lb / u.cuft,
+        "dry concrete": 143 * u.lb / (D(1.5) * u.cuft),
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
