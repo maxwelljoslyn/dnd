@@ -2751,6 +2751,44 @@ for material in ("slate", "earthenware"):
         description="includes both sides of roof",
     )
 
+
+infill_onewall_volume = D(14) * u.foot * D(13.5) * u.foot * D(0.5) * u.foot
+infill_oneside_roof_volume = D(79.9422) * u.sqft * D(0.5) * u.foot
+infill_volume_per_story = D(4) * infill_onewall_volume
+infill_volume_per_roof = D(2) * infill_oneside_roof_volume
+
+
+def total_infill_volume(stories):
+    return infill_volume_per_roof + (stories * infill_volume_per_story)
+
+
+def infill_ingredients(volume):
+    return {
+        Cheapest(*[f"crushed {stone}" for stone in applicable_stones]): D(0.9) * volume,
+        "masonry, mortar": D(0.1) * volume,
+    }
+
+
+onestory_house_components = {
+    "building foundation": 1 * u.item,
+    "building sill": 1 * u.item,
+    "timber framing, first story": 1 * u.item,
+    "timber framing, roof": 1 * u.item,
+    "roofing, slate": 1 * u.item,
+}
+
+onestory_house_components.update(infill_ingredients(total_infill_volume(1)))
+
+Recipe(
+    "timber-framed house, one story",
+    "carpentry",  # TODO anything better?
+    1000000000000 * u.lb,  # TODO
+    {},
+    onestory_house_components,
+    vendor="builder",
+    unit=1 * u.item,
+    description="15 x 15 ft perimeter, 14 x 14 ft usable internal area per floor; slate-roofed, with concrete foundation",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
