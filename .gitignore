@@ -1,8 +1,8 @@
-# permanent
 *.pdf
 *.png
 *.jpg
 *.jpeg
+*.mov
 finished
 images
 __pycache__
@@ -16,7 +16,8 @@ old-econ/*
 *.xcf
 poetry.lock
 world/*
-# temporary
 dming
 response_to_Council_2016_01_17.txt
+design.txt
 package-structure.txt
+icons/icon_attribution.txt
