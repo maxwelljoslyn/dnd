@@ -2631,6 +2631,27 @@ Recipe(
     unit=masonry_unit,
     vendor="mason",
 )
+
+# TODO make this more accurate by checking historical timber framing books
+building_foundation_height = D(6) * u.inch
+building_foundation_width = D(15) * u.foot
+building_foundation_volume = (
+    building_foundation_height * building_foundation_width * building_foundation_width
+).to(u.cuft)
+building_foundation_weight = (density["wet concrete"] * building_foundation_volume).to(
+    u.lb
+)
+Recipe(
+    "building foundation",
+    "masonry",
+    building_foundation_weight,
+    {},
+    {
+        "masonry, concrete": building_foundation_volume,
+    },
+    unit=1 * u.item,
+    description=f"{building_foundation_width:~} ft. square, {building_foundation_height:~} thick",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
