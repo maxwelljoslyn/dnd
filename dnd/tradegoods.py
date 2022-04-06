@@ -142,6 +142,35 @@ class Cheapest:
         name, price = min(prices, key=lambda x: x[1])
         return name
 
+
+def to_copper_pieces(quantities):
+    return sum([q.to(u.cp) for q in quantities])
+
+
+def to_fewest_coins(money):
+    # TODO write roundtrip test
+    result = {}
+    coppers = money.to(u.cp)
+    ingold = coppers.to(u.gp)
+    roundgold = floor(ingold.magnitude) * u.gp
+    if roundgold.magnitude > 0:
+        result["gp"] = roundgold
+        # print(
+        #    f"subtracting {roundgold} from {coppers} makes {coppers - roundgold}"
+        # )
+        coppers = coppers - roundgold
+    insilver = coppers.to(u.sp)
+    roundsilver = floor(insilver.magnitude) * u.sp
+    if roundsilver.magnitude > 0:
+        result["sp"] = roundsilver
+        # print(
+        #    f"subtracting {roundsilver} from {coppers} makes {coppers - roundsilver}"
+        # )
+        coppers = coppers - roundsilver
+    result["cp"] = coppers
+    return result
+
+
 # molassesGallonWeight = densityMolasses * cuFtPerGallonLiquid
 
 # TODO: Recipe subclasses for categories of goods, such as Weapon and Armor, which have special details (armor class, damage dice, break chance, etc)
@@ -257,26 +286,10 @@ class Recipe:
 
     def chunked_price(self, towninfo):
         p = self.price(towninfo)
-        result = {}
-        justmoney = p * self.denominator()
-        ingold = justmoney.to(u.gp)
-        roundgold = floor(ingold.magnitude) * u.gp
-        if roundgold.magnitude > 0:
-            result["gp"] = roundgold
-            # print(
-            #    f"subtracting {roundgold} from {justmoney} makes {justmoney - roundgold}"
-            # )
-            justmoney = justmoney - roundgold
-        insilver = justmoney.to(u.sp)
-        roundsilver = floor(insilver.magnitude) * u.sp
-        if roundsilver.magnitude > 0:
-            result["sp"] = roundsilver
-            # print(
-            #    f"subtracting {roundsilver} from {justmoney} makes {justmoney - roundsilver}"
-            # )
-            justmoney = justmoney - roundsilver
-        result["cp"] = justmoney
+        coppers = p * self.denominator()
+        result = to_fewest_coins(coppers)
         result["denominator"] = self.denominator()
+        result["cp"] = round(result["cp"])
         return result
 
     def display_price(self, towninfo):
