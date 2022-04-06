@@ -128,6 +128,15 @@ def truncated_cone_volume(big_radius, small_radius, height):
     ).to(u.cuft)
 
 
+class Cheapest:
+    def __init__(self, *choices):
+        self.choices = choices
+
+    def choose(self, towninfo):
+        prices = [(c, registry[c].price(towninfo)) for c in self.choices]
+        name, price = min(prices, key=lambda x: x[1])
+        return name
+
 # molassesGallonWeight = densityMolasses * cuFtPerGallonLiquid
 
 # TODO: Recipe subclasses for categories of goods, such as Weapon and Armor, which have special details (armor class, damage dice, break chance, etc)
