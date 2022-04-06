@@ -2697,6 +2697,34 @@ Recipe(
     unit=1 * u.item,
     description="per 60 feet of perimeter; additions may only require longer roofbeams",
 )
+
+shingle_length = D(1) * u.foot
+shingle_width = D(1) * u.foot
+shingle_thickness = D(0.25) * u.inch
+shingle_volume = (shingle_length * shingle_width * shingle_thickness).to(u.cuft)
+slate_shingle_weight = density["slate"] * shingle_volume
+Recipe(
+    "shingle, slate",
+    "masonry",
+    slate_shingle_weight,
+    {},
+    {"masonry, slate": shingle_volume},
+    vendor="mason",
+    unit=1 * u.item,
+    description=f"{shingle_length:~} x {shingle_width:~} x {shingle_thickness:~}",
+)
+
+earthenware_shingle_weight = density["clay"] * shingle_volume
+Recipe(
+    "shingle, earthenware",
+    "pottery",
+    earthenware_shingle_weight,
+    {},
+    {"fired clay": earthenware_shingle_weight},
+    vendor="potter",
+    unit=1 * u.item,
+    description=registry["shingle, slate"].description,
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
