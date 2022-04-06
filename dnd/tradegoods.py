@@ -2418,6 +2418,17 @@ Recipe(
     description=f"{dog_sale_age} old, {dog_sale_weight:~}; includes herding and cart-pulling dogs",
 )
 
+Recipe(
+    "dog, hunting/watch",
+    "dogs",
+    dog_sale_weight,
+    {"dogs": 1 * u.head},
+    {"beef": dog_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    difficulty=D(1.25),
+    description=f"{dog_sale_age} old, {dog_sale_weight:~}; dog can track animals and alert owner to threats, but won't fight",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
