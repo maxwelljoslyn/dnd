@@ -855,19 +855,33 @@ Recipe(
     vendor="potter",  # potter b/c made in a kiln
 )
 
+masonry_unit = D(1) * u.cuft
+drymortar_sale_weight = (density["dry mortar"] * masonry_unit).to(u.lb)
 Recipe(
-    "mortar",
+    "mortar, dry",
     "plaster",
-    1 * u.lb,
+    drymortar_sale_weight,
     {},
     {
         "quicklime": D(0.9) * u.lb,
         "coal ash": D(0.1) * u.lb,
     },
     vendor="mason",
-    description="lime-based hydraulic mortar or plaster",
+    description="powdered, lime-based hydraulic mortar or plaster; sufficient for 1 cubic foot wet mortar",
 )
 
+wetmortar_sale_weight = (density["wet mortar"] * masonry_unit).to(u.lb)
+Recipe(
+    "masonry, mortar",
+    "masonry",
+    wetmortar_sale_weight,
+    {},
+    {
+        "mortar, dry": drymortar_sale_weight,
+    },
+    unit=masonry_unit,
+    vendor="mason",
+)
 
 Recipe(
     "animal feed",
