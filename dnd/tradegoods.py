@@ -2602,6 +2602,35 @@ Recipe(
     vendor="mason",
     description="powdered",
 )
+
+# One recipe from Wikipedia: "Typically, a batch of concrete can be made by using 1 part Portland cement, 2 parts dry sand, 3 parts dry stone, 1/2 part water. The parts are in terms of weight – not volume. For example, 1-cubic-foot (0.028 m3) of concrete would be made using 22 lb (10.0 kg) cement, 10 lb (4.5 kg) water, 41 lb (19 kg) dry sand, 70 lb (32 kg) dry stone (1/2" to 3/4" stone). This would make 1-cubic-foot (0.028 m3) of concrete and would weigh about 143 lb (65 kg). The sand should be mortar or brick sand (washed and filtered if possible) and the stone should be washed if possible. Organic materials (leaves, twigs, etc.) should be removed from the sand and stone to ensure the highest strength."
+dryconcrete_sale_weight = (density["dry concrete"] * masonry_unit).to(u.lb)
+Recipe(
+    "concrete, dry",
+    "masonry",
+    dryconcrete_sale_weight,
+    {},
+    {
+        "cement": 22 * u.lb,
+        "crushed limestone": D(70) * u.lb / aggregate_density("limestone")
+        # the rest of the weight is sand/clay/shale, and water
+    },
+    vendor="mason",
+    description="powdered; sufficient for 1 cubic foot wet concrete",
+)
+
+wetconcrete_sale_weight = (density["wet concrete"] * masonry_unit).to(u.lb)
+Recipe(
+    "masonry, concrete",
+    "masonry",
+    wetconcrete_sale_weight,
+    {},
+    {
+        "concrete, dry": dryconcrete_sale_weight,
+    },
+    unit=masonry_unit,
+    vendor="mason",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
