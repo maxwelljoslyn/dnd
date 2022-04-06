@@ -2377,6 +2377,35 @@ Recipe(
 )
 
 
+dog_sale_weight = D(40) * u.lb
+puppy_sale_weight = dog_sale_weight / D(4)
+puppy_sale_age = D(3) * u.month
+dog_sale_age = D(1) * u.year
+puppy_raising_fodder = fodder_while_growing(
+    D(0) * u.month,
+    puppy_sale_age,
+    D(0) * u.lb,
+    puppy_sale_weight,
+    D(0.03) * u.lb / u.lb,
+)
+dog_raising_fodder = fodder_while_growing(
+    D(0) * u.month,
+    dog_sale_age,
+    D(0) * u.lb,
+    dog_sale_weight,
+    D(0.03) * u.lb / u.lb,
+)
+
+Recipe(
+    "dog, puppy",
+    "dogs",
+    puppy_sale_weight,
+    {"dogs": 1 * u.head},
+    {"beef": puppy_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{puppy_sale_age} old, {puppy_sale_weight:~}; totally untrained",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
