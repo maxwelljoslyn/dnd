@@ -299,12 +299,17 @@ class Recipe:
             if thing not in p:
                 continue
             else:
-                if thing == "cp":
-                    val = round(p[thing])
-                    result.append(f"{val:~}")
-                else:
-                    result.append(f"{p[thing]:~}")
-        return ", ".join(result) + f" / {self.denominator():~}"
+                result.append(f"{p[thing]:~}")
+        # TODO format 'cup' unit as 'cup' instead of pint default abbrev 'cp'
+        return (
+            ", ".join(result)
+            + f" / {self.denominator():~}"
+            + (
+                f" ({self.total_weight()})"
+                if self.denominator() != self.total_weight()
+                else ""
+            )
+        )
 
 
 Recipe(
