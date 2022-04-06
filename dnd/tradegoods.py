@@ -2652,6 +2652,27 @@ Recipe(
     unit=1 * u.item,
     description=f"{building_foundation_width:~} ft. square, {building_foundation_height:~} thick",
 )
+
+building_sill_height = building_member_thickness
+building_sill_width = D(15) * u.foot
+members_for_buildingsill = (building_sill_width / building_member_width).to(
+    u.dimensionless
+)
+building_sill_volume = (
+    building_sill_width * building_sill_width * building_sill_height
+).to(u.cuft)
+building_sill_weight = (density["timber"] * building_sill_volume).to(u.lb)
+Recipe(
+    "building sill",
+    "carpentry",
+    building_sill_weight,
+    {},
+    {
+        "building member, 15-foot": members_for_buildingsill * u.item,
+    },
+    unit=1 * u.item,
+    description="timber layer above foundation",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
