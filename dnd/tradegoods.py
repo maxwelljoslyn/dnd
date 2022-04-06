@@ -2725,6 +2725,32 @@ Recipe(
     unit=1 * u.item,
     description=registry["shingle, slate"].description,
 )
+
+
+roofing_area = D(9) * u.foot * D(14) * u.foot
+## if shingles are to cover 10 square feet, 12 square feet of shingles will be needed
+shingle_overlap = D(0.20)
+shingles_per_oneside_roof = (
+    (roofing_area + (roofing_area * shingle_overlap)) / (shingle_length * shingle_width)
+).to(u.dimensionless)
+shingles_per_roof = D(2) * shingles_per_oneside_roof
+for material in ("slate", "earthenware"):
+    weight = (
+        earthenware_shingle_weight
+        if material == "earthenware"
+        else slate_shingle_weight
+    )
+    governor = "pottery" if material == "earthenware" else "masonry"
+    Recipe(
+        f"roofing, {material}",
+        governor,
+        shingles_per_roof * weight,
+        {},
+        {f"shingle, {material}": shingles_per_roof * u.item},
+        unit=1 * u.item,
+        description="includes both sides of roof",
+    )
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
