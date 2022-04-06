@@ -261,10 +261,6 @@ class Recipe:
         else:
             return self.weight
 
-    def denominator(self):
-        # TODO deprecate this now that all recipes have default item unit
-        return self.unit if self.unit else self.weight
-
     def service_cost(self, baseprice, towninfo):
         if self.governor:
             # ordinary case, for all non-"raw" recipes
@@ -285,13 +281,12 @@ class Recipe:
         baseprice = sum(ra.values()) + sum(re.values()) + pc
         final = (baseprice + self.service_cost(baseprice, towninfo)) * self.difficulty
         # convert dimensionless final back to cp / X
-        return (final.magnitude * u.cp) / self.denominator()
+        return (final.magnitude * u.cp) / self.unit
 
     def chunked_price(self, towninfo):
         p = self.price(towninfo)
-        coppers = p * self.denominator()
+        coppers = p * self.unit
         result = to_fewest_coins(coppers)
-        result["denominator"] = self.denominator()
         result["cp"] = round(result["cp"])
         return result
 
@@ -306,12 +301,8 @@ class Recipe:
         # TODO format 'cup' unit as 'cup' instead of pint default abbrev 'cp'
         return (
             ", ".join(result)
-            + f" / {self.denominator():~}"
-            + (
-                f" ({self.total_weight()})"
-                if self.denominator() != self.total_weight()
-                else ""
-            )
+            + f" / {self.unit:~}"
+            + (f" ({self.total_weight()})" if self.unit != self.total_weight() else "")
         )
 
 
