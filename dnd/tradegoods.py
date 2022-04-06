@@ -2453,6 +2453,61 @@ Recipe(
     difficulty=D(2),
     description=f"{dog_sale_age} old, {dog_sale_weight:~}; as guard dog, plus bonus HP and can wear armor",
 )
+
+slaves = {
+    "porter/laborer": {
+        "weight": D(150) * u.lb,
+        "minimum age": D(16) * u.year,
+        "difficulty": 1.1,
+        "description": "large, strong male; Str and Con 11+, other abilities usually 8",
+    },
+    "courtesan": {
+        "weight": D(110) * u.lb,
+        "minimum age": D(14) * u.year,
+        "description": "attractive  female; Cha 11+, other abilities usually 8",
+        "difficulty": 1.2,
+    },
+    "entertainer": {
+        "weight": D(130) * u.lb,
+        "minimum age": D(14) * u.year,
+        "description": "talented male; Dex and Cha 11+, other abilities usually 8",
+        "difficulty": 1.4,
+    },
+    "house servant": {
+        "weight": D(120) * u.lb,
+        "minimum age": D(16) * u.year,
+        "description": "male or female; all abilities usually 9",
+    },
+}
+
+for slave, info in slaves.items():
+    slave_raising_fodder = fodder_while_growing(
+        D(0) * u.month,
+        info["minimum age"].to(u.month),
+        D(0) * u.lb,
+        info["weight"],
+        D(0.01) * u.lb / u.lb,
+    )
+    Recipe(
+        f"slave, {slave}",
+        "slaves",
+        info["weight"],
+        {"slaves": 1 * u.head},
+        {
+            Cheapest(
+                *list(
+                    categories["fruits"]["members"]
+                    .union(categories["vegetables"]["members"])
+                    .union({"bread", "beef", "mutton", "pork"})
+                )
+            ): slave_raising_fodder,
+        },
+        unit=1 * u.head,
+        vendor="slave trader",
+        difficulty=info.get("difficulty", 1),
+        description=f"{info['description']}; age {info['minimum age']} and up",
+    )
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
