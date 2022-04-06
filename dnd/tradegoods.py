@@ -2789,6 +2789,28 @@ Recipe(
     unit=1 * u.item,
     description="15 x 15 ft perimeter, 14 x 14 ft usable internal area per floor; slate-roofed, with concrete foundation",
 )
+
+twostory_house_components = {
+    "building foundation": 1 * u.item,
+    "building sill": 1 * u.item,
+    "timber framing, first story": 1 * u.item,
+    "timber framing, second story and higher": 1 * u.item,
+    "timber framing, roof": 1 * u.item,
+    "roofing, slate": 1 * u.item,
+}
+
+twostory_house_components.update(infill_ingredients(total_infill_volume(2)))
+
+Recipe(
+    "timber-framed house, two stories",
+    "carpentry",  # TODO anything better?
+    1000000000000 * u.lb,  # TODO
+    {},
+    twostory_house_components,
+    vendor="builder",
+    unit=1 * u.item,
+    description=registry["timber-framed house, one story"].description,
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
