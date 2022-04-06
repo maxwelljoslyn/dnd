@@ -2544,6 +2544,50 @@ for length in (2, 3, 3.47, 4, 5, 6, 8, 9, 14, 15):
             description="hewn wooden member for timber framing",
         )
 
+
+# sunk one foot into sill and foundation
+posts_per_story = 4
+framing_first_story_posts = ["building member, 15-foot"] * posts_per_story
+# between the posts
+beams_per_story = 4
+framing_first_story_beams = ["building member, 14-foot"] * beams_per_story
+trusses_per_story = 8
+framing_first_story_trusses = ["building member, 5-foot"] * trusses_per_story
+framing_first_story_members = (
+    framing_first_story_posts + framing_first_story_beams + framing_first_story_trusses
+)
+framing_first_story_weight = sum(
+    [registry[m].weight for m in framing_first_story_members]
+)
+Recipe(
+    "timber framing, first story",
+    "carpentry",
+    framing_first_story_weight,
+    {},
+    {k: v * u.item for k, v in Counter(framing_first_story_members).items()},
+    unit=1 * u.item,
+    description="per 60 feet of perimeter",
+)
+
+floorbeams_per_story = 4
+framing_second_story_floorbeams = [
+    "building member, wide, 14-foot"
+] * floorbeams_per_story
+framing_second_story_members = (
+    framing_first_story_members + framing_second_story_floorbeams
+)
+framing_second_story_weight = sum(
+    [registry[m].weight for m in framing_second_story_members]
+)
+Recipe(
+    "timber framing, second story and higher",
+    "carpentry",
+    framing_second_story_weight,
+    {},
+    {k: v * u.item for k, v in Counter(framing_second_story_members).items()},
+    unit=1 * u.item,
+    description="per 60 feet of perimeter",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
