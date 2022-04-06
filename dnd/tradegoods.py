@@ -2588,6 +2588,20 @@ Recipe(
     unit=1 * u.item,
     description="per 60 feet of perimeter",
 )
+alabaster_for_cement = D(0.25) * u.lb / aggregate_density("alabaster")
+Recipe(
+    "cement",
+    "masonry",
+    1 * u.lb,
+    {},
+    {
+        "quicklime": 0.25 * u.lb,
+        "crushed alabaster": alabaster_for_cement,
+        # the rest of the weight is sand/clay/shale -- no price available, too cheap to meter
+    },
+    vendor="mason",
+    description="powdered",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
