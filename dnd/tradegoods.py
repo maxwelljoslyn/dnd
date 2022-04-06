@@ -2811,6 +2811,124 @@ Recipe(
     unit=1 * u.item,
     description=registry["timber-framed house, one story"].description,
 )
+
+## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
+## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
+## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
+## I can skip the sulfur because I have elemental copper available
+## 2 KNO_3 + Cu + H_2O ⟶  CuO + 2 HNO_3 + 2 K
+# density["aqua fortis"] = D(1.5129) * u.gram / u.cucm
+# niter_molar_weight = D(101.1) * u.gram
+# copper_molar_weight = D(63.546) * u.gram
+## cupricoxide_molar_weight = D(79.545) * u.gram
+# aquafortis_molar_weight = D(63.012) * u.gram
+# aquafortis_sale_unit = D(1) * u.pint
+# aquafortis_sale_weight = (density["aqua fortis"] * aquafortis_sale_unit).to(u.lb)
+# aquafortis_sale_concentration = D(0.68)
+# aquafortis_just_acid_weight = aquafortis_sale_concentration * aquafortis_sale_weight
+# aquafortis_sale_moles = aquafortis_just_acid_weight / aquafortis_molar_weight
+# print(aquafortis_sale_moles)
+## formula above produces 2 moles acid per 2 moles niter and 1 mole copper
+# niter_for_aquafortis = (aquafortis_sale_moles * niter_molar_weight).to(u.lb)
+# copper_for_aquafortis = ((aquafortis_sale_moles * copper_molar_weight) / D(2)).to(u.lb)
+# Recipe(
+#    "aqua fortis",
+#    "alchemy",
+#    aquafortis_sale_weight,
+#    {"niter": niter_for_aquafortis},
+#    {"raw copper": copper_for_aquafortis},
+#    vendor="alchemist",
+#    # difficulty b/c this method takes multiple days, especially the precipitation
+#    # https://www.youtube.com/watch?v=hmB5x0LYfSE
+#    difficulty=1.5,
+#    unit=aquafortis_sale_unit,
+#    # TODO add container
+#    description=f"nitric acid, {aquafortis_sale_concentration*100:.2}% concentration by weight",
+# )
+#
+## 2 KNO_3 + 2 S + 2 H_2O ⟶ 2 H_2SO_4 + 2 K + N_2
+## niter + sulfur + water -> sulfuric acid + potassium + nitrogen gas
+# density["oil of vitriol"] = D(1.8302) * u.gram / u.cucm
+# oilvitriol_molar_weight = D(98.07) * u.gram
+# sulfur_molar_weight = D(32.06) * u.gram
+# oilvitriol_sale_unit = D(1) * u.pint
+# oilvitriol_sale_weight = (density["oil of vitriol"] * oilvitriol_sale_unit).to(u.lb)
+# oilvitriol_sale_concentration = D(0.65)
+# print("ov weight", oilvitriol_sale_weight)
+# print("ov concentration", oilvitriol_sale_concentration)
+# oilvitriol_just_acid_weight = oilvitriol_sale_concentration * oilvitriol_sale_weight
+# print("ov just acid weight", oilvitriol_just_acid_weight)
+# oilvitriol_sale_moles = oilvitriol_just_acid_weight / oilvitriol_molar_weight
+# print("ov moles", oilvitriol_sale_moles)
+# niter_for_oilvitriol = (oilvitriol_sale_moles * niter_molar_weight).to(u.lb)
+# sulfur_for_oilvitriol = (oilvitriol_sale_moles * sulfur_molar_weight).to(u.lb)
+# Recipe(
+#    "oil of vitriol",
+#    "vitriol",
+#    # TODO does vitriol ref refer to oil of vitriol, or to the vitriol minerals?! that determines whether to use vitriol or alchemy as the reference here
+#    oilvitriol_sale_weight,
+#    {
+#        "sulfur": sulfur_for_oilvitriol,
+#        "niter": niter_for_oilvitriol,
+#    },
+#    {},
+#    vendor="alchemist",
+#    unit=oilvitriol_sale_unit,
+#    # TODO add container
+#    description=f"sulfuric acid, {oilvitriol_sale_concentration*100:.2}% concentration by weight",
+# )
+#
+## 3 NaCl + 2 H_2SO_4 + H_2O ⟶ 3 HCl + 3 NaOH + 2 S + 3 O_2
+## table salt + sulfuric acid + water -> hydrochloric acid + sulfur + oxygen gas
+# density["spirit of salt"] = D(1.169) * u.gram / u.cucm
+# spiritsalt_molar_weight = D(36.46) * u.gram
+# salt_molar_weight = D(58.44) * u.gram
+# spiritsalt_sale_unit = D(1) * u.pint
+# spiritsalt_sale_weight = (density["spirit of salt"] * spiritsalt_sale_unit).to(u.lb)
+# spiritsalt_sale_concentration = D(0.34)
+# spiritsalt_just_acid_weight = spiritsalt_sale_concentration * spiritsalt_sale_weight
+# spiritsalt_sale_moles = spiritsalt_just_acid_weight / spiritsalt_molar_weight
+# salt_for_spiritsalt = (spiritsalt_sale_moles * salt_molar_weight).to(u.lb)
+## TODO this comes out wrong -- 19 pints of oil of vitriol? no way
+# oilvitriol_for_spiritsalt = (
+#    ((spiritsalt_sale_moles * oilvitriol_sale_moles) * D(2) / D(3))
+#    * oilvitriol_sale_unit
+# ).to(u.pint)
+# Recipe(
+#    "spirit of salt",
+#    "alchemy",
+#    spiritsalt_sale_weight,
+#    {
+#        "salt": salt_for_spiritsalt,
+#    },
+#    {"oil of vitriol": oilvitriol_for_spiritsalt},
+#    vendor="alchemist",
+#    unit=spiritsalt_sale_unit,
+#    # TODO add container
+#    description=f"hydrochloric acid, {spiritsalt_sale_concentration*100:.2}% concentration by weight",
+# )
+
+## TODO convert the 3:1 ratio to amounts in pints of spirit of salt and oil vitriol
+# spiritsalt_for_aquaregia = 3  # moles
+# oilvitriol_for_aquaregia = 1  # moles
+# density["aqua regia"] = D(1.11) * u.gram / u.cucm
+# aquaregia_sale_unit = D(1) * u.pint
+# aquaregia_sale_weight = D(1) * u.pint
+# Recipe(
+#    "aqua regia",
+#    "alchemy",
+#    aquaregia_sale_weight,
+#    {},
+#    {
+#        #        "oil of vitriol": oilvitriol_for_aquaregia,
+#        #        "spirit of salt": spiritsalt_for_aquaregia,
+#    },
+#    vendor="alchemist",
+#    unit=aquaregia_sale_unit,
+#    # TODO add container
+#    description="orange mixture of acids which dissolves noble metals; used in alchemy, glassmaking, and lithography",
+# )
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
