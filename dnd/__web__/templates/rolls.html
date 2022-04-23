@@ -1,0 +1,45 @@
+$def with ()
+
+<h1>Step 1: Rolling Dice</h1>
+
+<p>
+Obtain four six-sided dice.
+</p>
+
+<p>
+Do this six times:
+<ol>
+  <li>
+    Roll your four dice. Remove the <i>lowest</i> die, ignoring ties.
+  </li>
+  <li>
+    Sum the three remaining dice, and enter the sum into one of the inputs below.
+  </li>
+</ol>
+</p>
+
+<p>
+</p>
+
+<p>What numbers did you roll?</p>
+<form method=post action="/create/rolls">
+  <p>
+  <input type=number min=3 max=18 name=roll-1 required>
+  </p>
+  <p>
+  <input type=number min=3 max=18 name=roll-2 required>
+  </p>
+  <p>
+  <input type=number min=3 max=18 name=roll-3 required>
+  </p>
+  <p>
+  <input type=number min=3 max=18 name=roll-4 required>
+  </p>
+  <p>
+  <input type=number min=3 max=18 name=roll-5 required>
+  </p>
+  <p>
+  <input type=number min=3 max=18 name=roll-6 required>
+  </p>
+  <button type=submit>Submit</button>
+</form>
