@@ -3109,6 +3109,36 @@ Recipe(
     description=f"1d6 damage, haft {spear_haft_length:~} long; melee or thrown 4/7/10",
 )
 
+mace_flange_length = D(4) * u.inch
+mace_flange_height = D(1) * u.inch
+mace_flange_thickness = D(0.25) * u.inch
+mace_flange_volume = triangular_prism_volume(
+    mace_flange_length, mace_flange_height, mace_flange_thickness
+)
+mace_flange_weight = (density["steel"] * mace_flange_volume).to(u.lb)
+Recipe(
+    "mace flange",
+    "weapons",
+    mace_flange_weight,
+    {},
+    {"steel": mace_flange_weight},
+)
+
+mace_haft_length = D(2.5) * u.foot
+mace_haft_radius = D(1) * u.inch
+mace_haft_volume = cylinder_volume(mace_haft_length, mace_haft_radius)
+mace_haft_weight = (density["timber"] * mace_haft_volume).to(u.lb)
+mace_weight = mace_haft_weight + (6 * mace_flange_weight)
+Recipe(
+    "mace",
+    "weapons",
+    mace_weight,
+    {"timber": mace_haft_weight},
+    {"mace flange": 6 * u.item},
+    vendor="weaponsmith",
+    description=f"1d8 damage, one-handed; haft {mace_haft_length:~} long",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
