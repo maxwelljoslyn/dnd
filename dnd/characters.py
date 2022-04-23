@@ -2,14 +2,39 @@ import math
 import random
 from collections import Counter
 from decimal import Decimal
+from enum import Enum, unique
 
 from class_tables import classes, class_table_order
 from weapons import weapons, armors
 
-# the 'ABILITY_based' lists in characters.py are a TERRIBLE way to register the named modifiers associated with each ability score
-# todo use a dictionary instead: {'wisdom' : {'which_modifies' : {'name' : 'Cleric Spellcasting Success Chance', 'function' : wis_cleric_spell_success_percent, ... }}}
-# (obviously swapping string  'wisdom' for proper data constructor once tha's possible
-# as usual, the ease of creating nested data is paramount in language design, yet overlooked
+
+@unique
+class Size(Enum):
+    def __ge__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value >= other.value
+        return NotImplemented
+
+    def __gt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value > other.value
+        return NotImplemented
+
+    def __le__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value <= other.value
+        return NotImplemented
+
+    def __lt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value < other.value
+        return NotImplemented
+
+    TINY = "tiny"
+    SMALL = "small"
+    MEDIUM = "medium"
+    LARGE = "large"
+    HUGE = "huge"
 
 
 # todo convert these to
@@ -397,7 +422,8 @@ martial_classes = {"assassin", "fighter", "paladin", "ranger"}
 races = {
     # there are half-elves, but they are played as humans (halfelf) or elves (halfhuman); ditto halfdwarves
     "human": {
-        "ability modifiers": None,
+        "ability modifiers": dict(),
+        "size": Size.MEDIUM,
         "permitted classes": set(classes.keys()),
         "base height": {"male": Decimal(70), "female": Decimal(66)},  # inches
         "base weight": {"male": Decimal(175), "female": Decimal(140)},  # pounds
@@ -405,6 +431,8 @@ races = {
     },
     "elf": {
         "ability modifiers": dict(intelligence=1, constitution=-1),
+        "size": Size.MEDIUM,
+        # TODO make this class choices to match 'weapon choices', 'armor choices' in class_tables
         "permitted classes": {
             "fighter",
             "thief",
@@ -424,6 +452,7 @@ races = {
     },
     "halforc": {
         "ability modifiers": dict(strength=1, charisma=-1),
+        "size": Size.MEDIUM,
         "permitted classes": {"thief", "assassin", "fighter", "cleric", "ranger"},
         "base height": {"male": Decimal(65), "female": Decimal(60)},  # inches
         "base weight": {"male": Decimal(150), "female": Decimal(120)},  # pounds
@@ -432,6 +461,7 @@ races = {
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
         "permitted classes": {"fighter", "thief", "druid"},
+        "size": Size.SMALL,
         "base height": {"male": Decimal(36), "female": Decimal(32)},  # inches
         "base weight": {"male": Decimal(75), "female": Decimal(55)},  # pounds
         "special characteristics": [
@@ -440,6 +470,7 @@ races = {
     },
     "gnome": {
         "ability modifiers": dict(wisdom=1, constitution=-1),
+        "size": Size.SMALL,
         "permitted classes": {
             "fighter",
             "thief",
@@ -457,6 +488,7 @@ races = {
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
         "permitted classes": {"fighter", "thief", "assassin", "monk"},
+        "size": Size.MEDIUM,
         "base height": {"male": Decimal(48), "female": Decimal(42)},  # inches
         "base weight": {"male": Decimal(140), "female": Decimal(120)},  # pounds
         "special characteristics": [
