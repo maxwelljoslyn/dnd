@@ -3019,6 +3019,17 @@ Recipe(
     vendor="stockyard",
     unit=D(12) * u.item,
 )
+# arrowhead_volume = cone_volume(D(2) * u.inch, arrow_radius)
+# arrowhead_weight = (density["wrought iron"] * arrowhead_volume).to(u.lb)
+arrowhead_weight = D(15) * u.gram
+Recipe(
+    "arrowhead",
+    "ironmongery",
+    arrowhead_weight,
+    {},
+    {"steel": arrowhead_weight},
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
