@@ -3356,6 +3356,111 @@ make_armor(
     },
     "AC +4; chainmail with half sleeves, covering wearer to the waist",
 )
+
+
+plate_armor_description_tag = "part of half- and full-plate"
+
+# TODO this is too simplistic a construction for the cuirass, which ought to be made of multiple plates riveted together; thus, current version uses too little metal and is too light
+cuirass_area = torso_area
+cuirass_strap_area = D(0.33) * u.sqft
+# TODO make straps using a belt recipe function, since the straps would have included buckles
+cuirass_strap_weight = (
+    cuirass_strap_area / registry["leather"].unit * registry["leather"].weight
+)
+cuirass_plating_weight = (
+    density["steel"] * cuirass_area * bodyarmor_plating_thickness
+).to(u.lb)
+cuirass_weight = cuirass_plating_weight + cuirass_strap_weight
+
+make_armor(
+    "cuirass",
+    cuirass_weight,
+    {},
+    {
+        "steel": cuirass_plating_weight,
+        "leather": cuirass_strap_area,
+    },
+    description="; ".join(
+        [
+            "steel breastplate and backplate joined with leather straps",
+            plate_armor_description_tag,
+        ]
+    ),
+    forsale=False,
+)
+
+plate_armor_pieces = {
+    "pauldron": dict(area=D(1) * u.sqft, description="steel armor for the shoulder"),
+    "rerebrace": dict(
+        area=halfsleeve_area, description="steel armor for the upper arm"
+    ),
+    "vambrace": dict(area=forearm_area, description="steel armor for the forearm"),
+    "fauld": dict(
+        area=thigh_area_around_both,
+        description="steel armor skirt for the hips and groin, joined to the cuirass with leather straps",
+    ),
+    "chauss": dict(area=thigh_area_around_one, description="steel armor for the thigh"),
+    "greave": dict(area=calf_area_around_one, description="steel armor for the calf"),
+}
+
+for name, info in plate_armor_pieces.items():
+    area, description = info["area"], info["description"]
+    weight = (density["steel"] * area * bodyarmor_plating_thickness).to(u.lb)
+    ingredients = {"steel": weight}
+    if name == "fauld":
+        # TODO use belts; adjust number/size of belts away from same as cuirass
+        # TODO pauldron needs rivets
+        # TODO pauldron and fauld should be made in lamellar fashion
+        # TODO this loop is an over abstraction - write individual recipes for each item
+        strap_area, strap_weight = cuirass_strap_area, cuirass_strap_weight
+        ingredients.update({"leather": strap_area})
+        weight += strap_weight
+    make_armor(
+        name,
+        weight,
+        dict(),
+        ingredients,
+        "; ".join([description, plate_armor_description_tag]),
+        forsale=False,
+    )
+
+# TODO OMGWTF fuck python! why is this variable still bound outside the plate_armor_pieces for loop?!?!?! WHY ON EARTH IS THAT NOT A BUG?!?!?!?!? lexical scoping, people, PLEASE! jesus christ
+# print(description)
+
+halfplate_components = {"cuirass": 1, "fauld": 1, "rerebrace": 2, "pauldron": 2}
+fullplate_components = {
+    "cuirass": 1,
+    "fauld": 1,
+    "rerebrace": 2,
+    "pauldron": 2,
+    "chauss": 2,
+    "greave": 2,
+    "vambrace": 2,
+}
+
+for size in ("medium", "small"):
+    for name, components in [
+        ("half-plate", halfplate_components),
+        ("full-plate", fullplate_components),
+    ]:
+        if name == "half-plate":
+            desc = "AC +6; steel armor covering the wearer from neck to thighs, with metal half-sleeves"
+        else:
+            desc = "AC +7; steel armor covering the wearer from neck to ankle, with full metal sleeves"
+        if size == "small":
+            components = {f"{k}, small": v for k, v in components.items()}
+        weight = sum(
+            [registry[piece].weight * count for piece, count in components.items()]
+        )
+        Recipe(
+            name if size != "small" else f"{name}, small",
+            "armor",
+            weight,
+            dict(),
+            {k: v * u.item for k, v in components.items()},
+            vendor="armorer",
+            description=desc,
+        )
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
