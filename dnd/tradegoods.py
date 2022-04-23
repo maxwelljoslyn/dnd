@@ -3481,6 +3481,39 @@ Recipe(
     description="1d2 damage, range 4/6/8; four-pointed throwing star, three inches wide",
 )
 
+
+# head modeled as a simple wedge
+handaxe_head_length = D(6) * u.inch
+handaxe_head_height = D(3) * u.inch
+handaxe_head_width = D(1) * u.inch
+handaxe_head_volume = triangular_prism_volume(
+    handaxe_head_width, handaxe_head_length, handaxe_head_height
+)
+handaxe_head_weight = (density["steel"] * handaxe_head_volume).to(u.lb)
+
+Recipe(
+    "handaxe head",
+    "weapons",
+    handaxe_head_weight,
+    {},
+    {"steel": handaxe_head_weight},
+)
+
+handaxe_haft_length = mace_haft_length
+handaxe_haft_radius = mace_haft_radius
+assert 2 * handaxe_haft_radius > handaxe_head_width
+handaxe_haft_volume = cylinder_volume(handaxe_haft_length, handaxe_haft_radius)
+handaxe_haft_weight = (density["timber"] * handaxe_haft_volume).to(u.lb)
+handaxe_weight = handaxe_haft_weight + handaxe_head_weight
+Recipe(
+    "handaxe",
+    "weapons",
+    handaxe_weight,
+    {"timber": handaxe_haft_weight},
+    {"handaxe head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d6+1 damage, haft {handaxe_haft_length:~} long",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
