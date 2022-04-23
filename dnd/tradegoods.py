@@ -288,6 +288,22 @@ class Recipe:
         coppers = p * self.unit
         result = to_fewest_coins(coppers)
         result["cp"] = round(result["cp"])
+        if result["cp"] == 25 * u.cp:
+            # convert 1 silver's worth of cp into sp
+            del result["cp"]
+            if "sp" in result:
+                result["sp"] += 1 * u.sp
+            else:
+                result["sp"] = 1 * u.sp
+        if "sp" in result and result["sp"] == 8 * u.sp:
+            # convert 1 gold's worth of sp into gp
+            del result["sp"]
+            if "gp" in result:
+                result["gp"] += 1 * u.gp
+            else:
+                result["gp"] = 1 * u.gp
+        if "cp" in result and result["cp"] == 0 * u.cp:
+            del result["cp"]
         return result
 
     def display_price(self, towninfo):
