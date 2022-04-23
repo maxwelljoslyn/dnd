@@ -620,23 +620,26 @@ def ability_scores(pc):
     return {abi: vars(pc)[abi.capitalize()] for abi in abilities}
 
 
-# todo rewrite this in terms of class names and ability dictionary so I can use it without a PC object, e.g. in (web) character creation interface
-def meets_ability_minimums(pc):
-    scores = ability_scores(pc)
-    for ability, minimum in classes[pc.pClass]["ability minimums"].items():
-        # todo: one more reason to make ability scores a string -> value map -- checking pc's score becomes easier
-        if scores[ability] < minimum:
-            return False
-    return True
+def satisfied_ability_minimums(klass, scores):
+    result = {}
+    for ability, minimum in classes[klass]["ability minimums"].items():
+        result[ability] = scores.get(ability, 0) >= minimum
+    return result
 
 
-# todo rewrite this in terms of class names and ability dictionary so I can use it without a PC object, e.g. in (web) character creation interface
-def meets_bonus_xp_minimums(pc):
-    scores = ability_scores(pc)
-    for ability, minimum in classes[pc.pClass]["bonus xp minimums"].items():
-        if scores[ability] < minimum:
-            return False
-    return True
+def satisfied_bonus_xp_minimums(klass, scores):
+    result = {}
+    for ability, minimum in classes[klass]["bonus xp minimums"].items():
+        result[ability] = scores.get(ability, 0) >= minimum
+    return result
+
+
+def meets_ability_minimums(klass, scores):
+    return all(list(satisfied_ability_minimums(klass, scores).values()))
+
+
+def meets_bonus_xp_minimums(klass, scores):
+    return all(list(satisfied_bonus_xp_minimums(klass, scores).values()))
 
 
 def mod_to_text(num):
