@@ -161,7 +161,7 @@ def str_damage_mod(s):
         return 5
 
 
-def con_max_hp_increase_adjustment(con, char_class):
+def con_max_hp_increase_adjustment(con, char_class=None):
     """Amount of HP to add to each Hit Die rolled upon level up."""
     if con < 0:
         raise ValueError(f"con {con} less than 0 but ability scores can't go below 0")
