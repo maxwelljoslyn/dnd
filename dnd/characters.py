@@ -640,7 +640,10 @@ def meets_bonus_xp_minimums(pc):
 
 
 def mod_to_text(num):
-    return f"+{num}" if num >= 0 else f"{num}"
+    if num is None:
+        return None
+    else:
+        return f"+{num}" if num >= 0 else f"{num}"
 
 
 def d(x):
