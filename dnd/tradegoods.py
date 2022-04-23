@@ -3461,6 +3461,26 @@ for size in ("medium", "small"):
             vendor="armorer",
             description=desc,
         )
+
+# approximate as a metal cylinder plus four triangular spikes
+shuriken_thickness = D(0.25) * u.inch
+shuriken_body_radius = D(1) * u.inch
+shuriken_body_volume = cylinder_volume(shuriken_thickness, shuriken_body_radius)
+shuriken_spike_volume = triangular_prism_volume(
+    D(1) * u.inch, D(1) * u.inch, shuriken_thickness
+)
+shuriken_total_volume = shuriken_body_volume + (4 * shuriken_spike_volume)
+shuriken_weight = density["steel"] * shuriken_total_volume
+Recipe(
+    "shuriken",
+    "weapons",
+    shuriken_weight,
+    {},
+    {"steel": shuriken_weight},
+    vendor="weaponsmith",
+    description="1d2 damage, range 4/6/8; four-pointed throwing star, three inches wide",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
