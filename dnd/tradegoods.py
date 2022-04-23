@@ -1,4 +1,4 @@
-from decimal import Decimal, getcontext
+from decimal import Decimal, getcontext, localcontext, ROUND_UP
 from math import ceil, floor
 from collections import Counter
 
@@ -7,7 +7,7 @@ from towns import towns
 from characters import races
 
 # set up the Decimal environment
-getcontext().prec = 6
+getcontext().prec = 4
 
 D = Decimal
 
