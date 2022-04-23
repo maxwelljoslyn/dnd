@@ -1,0 +1,78 @@
+$def with (klass, info)
+
+<h1>$:titlecase(klass)</h1>
+
+<p>
+Hit Die: $:info['hit die']
+</p>
+
+<p>
+The minimum ability scores for $ana(klass) $:klass are $:info['ability minimums'].
+</p>
+
+<p>
+$:titlecase(ana(klass)) $:klass earns 10% bonus XP if these additional ability thresholds are met: $:info['bonus xp minimums']
+</p>
+
+Nonproficiency Penalty: $:info['nonproficiency penalty']
+
+<p>
+Weapon choices:
+$if info['weapon choices'] == set(characters.weapons):
+    Any
+$else:
+    $:info['weapon choices']
+</p>
+
+<p>
+Armor choices:
+$ armor_choices = info['armor choices']
+$if armor_choices == set(characters.armors):
+    Any
+$elif armor_choices:
+    $:info['armor choices']
+$else:
+    None ($:ana(klass) $:klass cannot use armor)
+</p>
+
+
+<table>
+<tr>
+<th>Level</th>
+$for key in characters.class_table_order:
+    <th>$:titlecase(key)</th>
+</tr>
+$for level in range(1, 21):
+    <tr>
+    <td>$:level</td>
+    $ thislevel = info['levels'][level]
+    $for key in characters.class_table_order:
+        $ val = thislevel.get(key)
+        $if val is None:
+            <td></td>
+        $else:
+            $if key == 'min xp':
+                <td>$f'{val:,d}'</td>
+            $else:
+                <td>${val}</td>
+    </tr>
+</table>
+
+
+$if klass == 'assassin':
+    <h2>Highest Possible Asssassination Target</h2>
+    $ target = characters.highest_assassination_target
+    <table>
+    <tr>
+    <th>Level</th>
+    <th>Target's Power (HD + Levels)</th>
+    <th>(if 10+ points in Murder sage study)</th>
+    </tr>
+    $for level in range(1, 21):
+        <tr>
+        <td>$:level</td>
+        <td>$:target(level)</td>
+        <td>$:target(level, True)</td>
+
+        </tr>
+    </table>
