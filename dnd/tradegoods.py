@@ -2881,7 +2881,9 @@ def total_infill_volume(stories):
 
 def infill_ingredients(volume):
     return {
-        Cheapest(*[f"crushed {stone}" for stone in applicable_stones]): D(0.9) * volume,
+        # Cheapest(*[f"crushed {stone}" for stone in applicable_stones]): D(0.9) * volume,
+        "crushed limestone": D(0.7) * volume,
+        "crushed sandstone": D(0.2) * volume,
         "masonry, mortar": D(0.1) * volume,
     }
 
@@ -2899,7 +2901,12 @@ onestory_house_components.update(infill_ingredients(total_infill_volume(1)))
 Recipe(
     "timber-framed house, one story",
     "carpentry",  # TODO anything better?
-    1000000000000 * u.lb,  # TODO
+    sum(
+        [
+            registry[x].weight * amount.magnitude
+            for x, amount in onestory_house_components.items()
+        ]
+    ),
     {},
     onestory_house_components,
     vendor="builder",
@@ -2920,7 +2927,12 @@ twostory_house_components.update(infill_ingredients(total_infill_volume(2)))
 Recipe(
     "timber-framed house, two stories",
     "carpentry",  # TODO anything better?
-    1000000000000 * u.lb,  # TODO
+    sum(
+        [
+            registry[x].weight * amount.magnitude
+            for x, amount in twostory_house_components.items()
+        ]
+    ),
     {},
     twostory_house_components,
     vendor="builder",
