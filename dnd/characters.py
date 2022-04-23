@@ -689,6 +689,15 @@ def sage_points(levels, klass, status):
 #    elf_modifier = is_attacker_elf_and_defender_troll(attacker, defender)
 
 
+def final_abilities(abilities, race):
+    modifiers = races[race]["ability modifiers"]
+    result = {k: v for k, v in abilities.items()}
+    for m, value in modifiers.items():
+        if m in result:
+            result[m] += value
+    return result
+
+
 def highest_assassination_target(level, murder_specialty=False):
     max_roll = 4 + 4  # 2d4
     builtin_penalty = -5
