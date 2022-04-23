@@ -3211,6 +3211,50 @@ calf_area_around_both = (
     * body_proportions["torso"]["girth"]
 )
 torso_area = body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
+
+gambeson_layers = D(6)
+gambeson_area = torso_area + (fullsleeve_area * 2)
+gambeson_cloth = gambeson_area * gambeson_layers
+# string is stitched around the perimeter of each layer, attaching it to the next
+gambeson_string = gambeson_cloth / u.sqft * u.foot
+gambeson_cloth_weight = (
+    (gambeson_cloth / registry["cotton cloth"].unit) * registry["cotton cloth"].weight
+).to(u.lb)
+gambeson_string_weight = (
+    (gambeson_string / registry["cotton yarn"].unit) * registry["cotton yarn"].weight
+).to(u.lb)
+gambeson_weight = gambeson_cloth_weight + gambeson_string_weight
+
+
+def make_armor(name, base_weight, raws, recipes, description, forsale=True):
+    for race in ("human", "gnome"):
+        if race == "human":
+            size = None
+        else:
+            size = "small"
+        ratio = armor_size(race)
+        Recipe(
+            name if not size else name + f", {size}",
+            "armor",
+            base_weight * ratio,
+            {k: v * ratio for k, v in raws.items()},
+            {k: v * ratio for k, v in recipes.items()},
+            vendor="armorer" if forsale else None,
+            description=description,
+        )
+
+
+make_armor(
+    "gambeson",
+    gambeson_weight,
+    {},
+    {
+        "cotton cloth": gambeson_cloth,
+        "cotton yarn": gambeson_string,
+    },
+    "AC +1; thickly-layered cloth armor with full sleeves, covering wearer to the waist",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
