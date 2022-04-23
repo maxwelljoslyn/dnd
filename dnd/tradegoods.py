@@ -1410,15 +1410,28 @@ quicklime_per_hide = (Decimal(3.5) * u.cuft * density["quicklime"]) / (
 )
 # tanned_hide_toughness = _weight.to(u.oz) / cowhide_area
 Recipe(
-    "tanned cowhide",
+    "leather",
     "hides",
     rawhide_weight,
     {},
     {"quicklime": quicklime_per_hide * rawhide_area, "rawhide": rawhide_area},
     unit=rawhide_area,
     vendor="tanner",
-    description=f"typical leather, {rawhide_area:~}",
+    description="soft cowhide",
 )
+
+# as with baked clay, while boiling is actually the last step for a piece of leather in a useful size and shape,  the trade good system processes the boiling before the shaping so that we don't clog up the registry with boiled and unboiled variants of all leather goods
+Recipe(
+    "boiled leather",
+    "hides",
+    rawhide_weight,
+    {},
+    {"leather": rawhide_area},
+    unit=rawhide_area,
+    vendor="tanner",
+    description="leather hardened into rigid shape",
+)
+
 
 Recipe(
     "roasted malt",
