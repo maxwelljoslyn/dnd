@@ -238,9 +238,14 @@ towns = {
         "hexes to": {"Dwerglow": 2, "Stoneshire": 1},
     },
     "Langakuur": {
-        "population": 2000,
+        "population": 2300,
         "references": {"griffs": 3, "edible birds' nests": 1, "niter": 1},
-        "hexes to": {"Giantsbane": 2, "Uluban": 1},
+        "hexes to": {"Giantsbane": 2, "Uluban": 1, "Tloon": 4},
+    },
+    "Tloon": {
+        "population": 17092,
+        "references": {},
+        "hexes to": {"Langakuur": 4},
     },
     "Uluban": {
         "population": 9800,
