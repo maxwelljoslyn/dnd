@@ -190,11 +190,8 @@ def con_system_shock_survival_chance(con):
         return base
     elif con <= 14:
         return base + ((con - 3) * 5)
-    elif con <= 18:
-        # at con 18, system shock rate is 98%
-        return base + ((con - 3) * 5) + ((con - 14) * 2)
     else:
-        return 99
+        return min(100, base + ((con - 3) * 5) + ((con - 14) * 2))
 
 
 def abi_mod_factory(f, attribute, pc):
