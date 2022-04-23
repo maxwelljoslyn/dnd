@@ -3,8 +3,8 @@ import random
 from collections import Counter
 from decimal import Decimal
 
-from class_tables import classes
-from weapons import weapons
+from class_tables import classes, class_table_order
+from weapons import weapons, armors
 
 # the 'ABILITY_based' lists in characters.py are a TERRIBLE way to register the named modifiers associated with each ability score
 # todo use a dictionary instead: {'wisdom' : {'which_modifies' : {'name' : 'Cleric Spellcasting Success Chance', 'function' : wis_cleric_spell_success_percent, ... }}}
