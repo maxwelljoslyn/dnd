@@ -3548,6 +3548,19 @@ Recipe(
     description=f"1d8+1 damage, 2-handed; {battleaxe_haft_length:~} haft",
 )
 
+club_length = D(2) * u.feet
+# multiplier accounts for carving away from a chunk of wood
+club_volume = D(0.9) * cylinder_volume(club_length, D(1) * u.inch)
+club_weight = (density["wood, oak"] * club_volume).to(u.lb)
+Recipe(
+    "club",
+    "weapons",
+    club_weight,
+    {"wood, oak": club_weight},
+    {},
+    vendor="weaponsmith",
+    description=f"1d6 damage; stout oaken cudgel, {club_length:~} long",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
