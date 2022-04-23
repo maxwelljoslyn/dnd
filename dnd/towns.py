@@ -2,6 +2,7 @@ import copy
 import math
 from collections import defaultdict
 from decimal import Decimal, getcontext
+import warnings
 
 import references
 from a_star_search import a_star_search
@@ -315,8 +316,8 @@ def far_away(towns):
         refs = info["references"]
         remaining_global_refs = refs - total_assigned_refs(towns)[k]
         if remaining_global_refs < 0:
-            print(
-                f"warning: Maxwell has assigned {abs(remaining_global_refs)} more refs to {k} than listed in world_references!"
+            warnings.warn(
+                f"Maxwell has assigned {abs(remaining_global_refs)} more refs to {k} than listed in world_references!"
             )
         refs_for_faraway = max(0, remaining_global_refs)
         towns["Far Away"]["references"][k] = refs_for_faraway
