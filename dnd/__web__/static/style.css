@@ -1,15 +1,21 @@
 body { background-color: antiquewhite; }
 
-/*a {background-color: inherit}*/
+/*a {background-color: inherit} */
 
-li {
-  background-color: white;
+ul.bare > li {
   padding-left: 1em;
   list-style: none;
-  }
+}
 
-li:nth-child(odd) { background-color: lightgrey; }
+ul.bare > li:nth-child(even) { background-color: white; }
+ul.bare > li:nth-child(odd) { background-color: lightgrey; }
+tr:nth-child(even) { background-color: white; }
+tr:nth-child(odd) { background-color: lightgrey; }
 
+/* don't apply white/grey coloring to the <tr> which contains <th> */
+tr:nth-child(1) { background-color: inherit; }
+
+/* map */
 polygon:hover {
   stroke: blue;
   fill: red;
