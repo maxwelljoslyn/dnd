@@ -3514,6 +3514,40 @@ Recipe(
     vendor="weaponsmith",
     description=f"1d6+1 damage, haft {handaxe_haft_length:~} long",
 )
+
+
+battleaxe_head_length = D(1.25) * handaxe_head_length
+battleaxe_head_width = handaxe_head_width
+battleaxe_head_height = handaxe_head_height
+battleaxe_head_volume = triangular_prism_volume(
+    battleaxe_head_width, battleaxe_head_length, battleaxe_head_height
+)
+battleaxe_head_weight = (density["steel"] * battleaxe_head_volume).to(u.lb)
+
+Recipe(
+    "battleaxe head",
+    "weapons",
+    battleaxe_head_weight,
+    {},
+    {"steel": battleaxe_head_weight},
+)
+
+battleaxe_haft_length = D(3) * u.feet
+battleaxe_haft_radius = mace_haft_radius
+assert 2 * battleaxe_haft_radius > battleaxe_head_width
+battleaxe_haft_volume = cylinder_volume(battleaxe_haft_length, battleaxe_haft_radius)
+battleaxe_haft_weight = (density["timber"] * battleaxe_haft_volume).to(u.lb)
+battleaxe_weight = battleaxe_haft_weight + 2 * battleaxe_head_weight
+Recipe(
+    "battleaxe",
+    "weapons",
+    battleaxe_weight,
+    {"timber": battleaxe_haft_weight},
+    {"battleaxe head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d8+1 damage, 2-handed; {battleaxe_haft_length:~} haft",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
