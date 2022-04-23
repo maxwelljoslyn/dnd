@@ -460,8 +460,8 @@ races = {
     },
     "halfling": {
         "ability modifiers": dict(dexterity=1, strength=-1),
-        "permitted classes": {"fighter", "thief", "druid"},
         "size": Size.SMALL,
+        "permitted classes": {"fighter", "thief", "druid", "ranger"},
         "base height": {"male": Decimal(36), "female": Decimal(32)},  # inches
         "base weight": {"male": Decimal(75), "female": Decimal(55)},  # pounds
         "special characteristics": [
@@ -477,7 +477,7 @@ races = {
             "assassin",
             "illusionist",
             "druid",
-            "ranger",
+            "mage",
         },
         "base height": {"male": Decimal(42), "female": Decimal(38)},  # inches
         "base weight": {"male": Decimal(95), "female": Decimal(75)},  # pounds
@@ -487,8 +487,8 @@ races = {
     },
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
-        "permitted classes": {"fighter", "thief", "assassin", "monk"},
         "size": Size.MEDIUM,
+        "permitted classes": {"fighter", "thief", "assassin", "monk", "cleric"},
         "base height": {"male": Decimal(48), "female": Decimal(42)},  # inches
         "base weight": {"male": Decimal(140), "female": Decimal(120)},  # pounds
         "special characteristics": [
