@@ -1,0 +1,17 @@
+$def with (players)
+
+
+<form method=post action=/login>
+
+<input type="hidden" name="role" value="player"/>
+
+<fieldset>
+
+$for player in players:
+    <label>$player['name']<input type="radio" name="pid" value="$player['rowid']"/></label>
+
+</fieldset>
+
+<button>Log In</button>
+
+</form>
