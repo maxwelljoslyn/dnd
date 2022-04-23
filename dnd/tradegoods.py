@@ -1399,7 +1399,7 @@ Recipe(
     {"fleshy cowhide": rawhide_area},
     unit=rawhide_area,
     vendor="tanner",
-    description=f"cleaned and dried cowskin, {rawhide_area:~}",
+    description="cleaned and dried cowskin",
 )
 
 # http://boar.org.uk/aaiwxw3MusprattL6Preparation.htm
