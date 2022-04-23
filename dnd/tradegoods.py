@@ -313,13 +313,14 @@ class Recipe:
             if thing not in p:
                 continue
             else:
-                result.append(f"{p[thing]:~}")
+                result.append(f"{p[thing]:~,}")
         # TODO format 'cup' unit as 'cup' instead of pint default abbrev 'cp'
-        return (
-            ", ".join(result)
-            + f" / {self.unit:~}"
-            + (f" ({self.total_weight()})" if self.unit != self.total_weight() else "")
-        )
+        text = [", ".join(result)]
+        if self.unit != D(1) * u.item:
+            text.append(f"/ {self.unit:~,f}")
+        if self.unit != self.total_weight():
+            text.append(f"({self.total_weight():,f})")
+        return " ".join(text)
 
 
 smeltingfuel_sale_unit = D(0.75) * u.lb
