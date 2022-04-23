@@ -723,6 +723,17 @@ Recipe(
     description="wooden tube",
 )
 
+big_hilt_volume = cylinder_volume(D(8) * u.inch, D(1.5) * u.inch)
+big_hilt_weight = big_hilt_volume * density["timber"]
+Recipe(
+    "sword hilt, big",
+    "woodcraft",
+    big_hilt_weight,
+    {"timber": big_hilt_weight},
+    description="wooden tube",
+)
+
+
 pommel_weight = Decimal(0.25) * u.lb
 Recipe(
     "pommel",
@@ -760,8 +771,8 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length} blade",
     vendor="weaponsmith",
+    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length:~} blade",
 )
 
 shortsword_length = Decimal(2) * u.ft
@@ -779,8 +790,8 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d6 damage; {shortsword_length} blade",
     vendor="weaponsmith",
+    description=f"1d6 damage; {shortsword_length} blade",
 )
 
 longsword_length = Decimal(3.5) * u.ft
@@ -798,14 +809,33 @@ Recipe(
         "pommel": 1 * u.item,
         "sword hilt": 1 * u.item,
     },
-    description=f"1d8 damage; {longsword_length} blade",
+    description=f"1d8 damage; {longsword_length:~} blade",
     vendor="weaponsmith",
 )
 
-greatsword_length = Decimal(4.5) * u.ft
+broadsword_length = Decimal(4.5) * u.ft
+broadsword_blade_needed = broadsword_length / u.ft
+broadsword_weight = (
+    big_hilt_weight + pommel_weight + (broadsword_blade_needed * unit_blade_weight)
+)
+Recipe(
+    "broadsword",
+    "swords",
+    broadsword_weight,
+    {},
+    {
+        "blade": broadsword_blade_needed * u.item,
+        "pommel": 1 * u.item,
+        "sword hilt, big": 1 * u.item,
+    },
+    vendor="weaponsmith",
+    description=f"1d10 damage; {broadsword_length:~} blade",
+)
+
+greatsword_length = Decimal(5.5) * u.ft
 greatsword_blade_needed = greatsword_length / u.ft
 greatsword_weight = (
-    hilt_weight + pommel_weight + (greatsword_blade_needed * unit_blade_weight)
+    big_hilt_weight + pommel_weight + (greatsword_blade_needed * unit_blade_weight)
 )
 Recipe(
     "greatsword",
@@ -815,12 +845,11 @@ Recipe(
     {
         "blade": greatsword_blade_needed * u.item,
         "pommel": 1 * u.item,
-        "sword hilt": 1 * u.item,
+        "sword hilt, big": 1 * u.item,
     },
-    description=f"1d10 damage; {greatsword_length} blade",
     vendor="weaponsmith",
+    description=f"1d12 damage, 2-handed; {greatsword_length:~} blade",
 )
-
 
 Recipe(
     "fresh fish",
