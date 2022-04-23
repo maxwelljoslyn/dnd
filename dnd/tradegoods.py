@@ -33,6 +33,7 @@ density = {
         "steel": 489 * u.lb / u.cuft,
         "molasses": 88.1233091 * u.lb / u.cuft,
         "timber": 40 * u.lb / u.cuft,
+        "wood, oak": 704 * u.kg / u.cumt,
         "milk": 64.488 * u.lb / u.cuft,
         "tallow": 54.09 * u.lb / u.cuft,
         "tin": 456.3484 * u.lb / u.cuft,
