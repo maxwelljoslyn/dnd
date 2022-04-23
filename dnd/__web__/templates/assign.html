@@ -1,0 +1,91 @@
+$def with (rolls, base_abilities, race, klass)
+
+$if rolls:
+    <p>Unassigned die rolls:</p>
+    <ul>
+    $for r in rolls:
+        <li>$:r</li>
+    </ul>
+
+<h3>Ability Scores</h3>
+
+$if race:
+    $ abilities = final_abilities(base_abilities, race)
+
+$for abi in characters.abilities:
+    $if race:
+        $ abimod = characters.races[race]['ability modifiers'].get(abi)
+    $else:
+        $ abimod = 0
+    $if abi in base_abilities:
+        <form method=post action="/create/clear/$abi">
+        <label for="clear-$abi">$abi</label>
+        $ chosen = base_abilities[abi]
+        <input name=$abi type=hidden>$chosen</input>
+        $if abimod:
+            $:mod_to_text(abimod)
+            = $abilities[abi]
+        <button>Clear</button>
+        </form>
+
+    $else:
+        <form method=post action="/create/assign/$abi">
+        <label for="assign-$abi">$abi</label>
+        <select name="$abi" id="assign-$abi">
+            <option value="">--</option>
+            $for each in rolls:
+                <option value="$each">$each</option>
+        </select>
+        <button>Assign</button>
+        </form>
+
+<h3>Race</h3>
+
+$if race:
+    Race: $race
+
+$ race_command = 'change' if race else 'choose'
+
+<form method=post action="/create/assign/race">
+<label for="race-select">$race_command race:</label>
+<select name="race" id="race-select">
+<option value="">--</option>
+$for each in characters.races:
+    $if race and (each == race):
+        $ continue
+    <option value="$each">$each</option>
+</select>
+<button>$race_command</button>
+</form>
+
+<h3>Class</h3>
+
+$if klass:
+    Class: $klass
+
+$ available = characters.classes if not race else characters.races[race]['permitted classes']
+
+$ class_command = 'change' if klass else 'choose'
+
+
+<form method=post action="/create/assign/class">
+<label for="class-select">$class_command class:</label>
+<select name="class" id="class-select">
+<option value="">--</option>
+$for each in sorted(available):
+    $if klass and (each == klass):
+        $ continue
+    <option value="$each">$each</option>
+</select>
+<button>$class_command</button>
+</form>
+
+$for each in sorted(available):
+    $each<br>
+    Minimums: $characters.classes[each]['ability minimums']<br>
+    Satisfied minimums: $characters.satisfied_ability_minimums(each, base_abilities if not race else abilities)<br>
+    $ meets = characters.meets_ability_minimums(each, base_abilities if not race else abilities)
+    Meets minimums? $meets<br>
+    $if meets:
+        Satisfied bonus thresholds: $characters.satisfied_bonus_xp_minimums(each, base_abilities if not race else abilities)<br>
+        Gets bonus XP? $characters.meets_bonus_xp_minimums(each, base_abilities if not race else abilities)<br>
