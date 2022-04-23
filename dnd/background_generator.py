@@ -17,6 +17,7 @@ from characters import (
     str_attack_mod,
     str_damage_mod,
     wis_charm_illusion_save_mod,
+    wis_bonus_cleric_druid_spells,
     cha_max_henchmen,
     default_literate,
     bodymass_hitdice,
@@ -396,6 +397,12 @@ def main(testing, charclass, race):
                     + " save vs. Charm/Illusion"
                 ]
                 f.write(" (" + "; ".join(deets) + ")")
+                if c.pClass in ("cleric", "druid"):
+                    f.write(
+                        " (bonus spells: "
+                        + str(wis_bonus_cleric_druid_spells(stat))
+                        + ")"
+                    )
             if name == "Charisma":
                 f.write(" (max henchmen " + str(cha_max_henchmen(stat)) + ")")
             f.write("\n")
