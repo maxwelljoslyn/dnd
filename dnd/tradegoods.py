@@ -3019,6 +3019,19 @@ Recipe(
     vendor="stockyard",
     unit=D(12) * u.item,
 )
+
+feather_weight = (D(0.00125) * u.gram).to(u.oz)
+feathers_per_goose = D(1000)
+Recipe(
+    "feather, goose",
+    "geese",
+    feather_weight,
+    {},
+    {
+        "goose": D(1) * u.head / feathers_per_goose,
+    },
+)
+
 # arrowhead_volume = cone_volume(D(2) * u.inch, arrow_radius)
 # arrowhead_weight = (density["wrought iron"] * arrowhead_volume).to(u.lb)
 arrowhead_weight = D(15) * u.gram
@@ -3030,6 +3043,27 @@ Recipe(
     {"steel": arrowhead_weight},
 )
 
+
+arrow_radius = D(0.125) * u.inch
+arrow_length = D(28) * u.inch
+arrow_volume = cylinder_volume(arrow_length, arrow_radius)
+# TODO make these out of any of multiple types of wood WITH DIFFERENT DENSITIES
+# TODO again, "If I use a Cheapest ingredient, I need to ensure that the overall weight of the recipe takes into account the result of evaluating the Cheapest"...
+arrow_timber_weight = (density["timber"] * arrow_volume).to(u.oz)
+arrow_feather_weight = D(3) * registry["feather, goose"].weight
+total_arrow_weight = arrow_timber_weight + arrow_feather_weight + arrowhead_weight
+Recipe(
+    "arrow",
+    "woodcraft",
+    total_arrow_weight,
+    {"timber": arrow_timber_weight},
+    {
+        "feather, goose": D(3) * u.item,
+        "arrowhead": D(1) * u.item,
+    },
+    vendor="fletcher",
+    description=f"{arrow_length}",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
