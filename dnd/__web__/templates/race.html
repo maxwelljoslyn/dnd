@@ -1,0 +1,22 @@
+$def with (race, info)
+
+<h1>$:titlecase(race)</h1>
+
+<p>
+Size: $:info['size'].value
+</p>
+
+<p>
+Ability Modifiers: $info['ability modifiers'].
+</p>
+
+<p>
+Class choices:
+$ klasses = info['permitted classes']
+$if klasses == set(characters.classes):
+    Any
+$else:
+    klasses
+</p>
+
+Average Height and Weight:
