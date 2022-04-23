@@ -3561,6 +3561,37 @@ Recipe(
     vendor="weaponsmith",
     description=f"1d6 damage; stout oaken cudgel, {club_length:~} long",
 )
+
+goedendag_head_length = D(4) * u.inch
+goedendag_haft_radius = D(1) * u.inch
+goedendag_head_volume = cone_volume(goedendag_head_length, goedendag_haft_radius)
+goedendag_head_weight = (density["steel"] * goedendag_head_volume).to(u.lb)
+
+Recipe(
+    "goedendag head",
+    "weapons",
+    goedendag_head_weight,
+    {},
+    {"steel": goedendag_head_weight},
+)
+
+goedendag_haft_length = D(4) * u.feet
+# more wood carved away from goedendag than club to keep weight manageable
+goedendag_haft_volume = D(0.8) * cylinder_volume(
+    goedendag_haft_length, goedendag_haft_radius
+)
+goedendag_haft_weight = (density["wood, oak"] * goedendag_haft_volume).to(u.lb)
+goedendag_weight = goedendag_haft_weight + registry["goedendag head"].weight
+Recipe(
+    "goedendag",
+    "weapons",
+    goedendag_weight,
+    {"wood, oak": goedendag_haft_weight},
+    {"goedendag head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"2d4 damage, 2-handed; oaken bludgeon, {goedendag_haft_length:~} long, topped with large spearhead",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
