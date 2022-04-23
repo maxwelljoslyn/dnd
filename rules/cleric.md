@@ -20,3 +20,5 @@ Clerics have the following special abilities:
   Finally, a minimum Wisdom score is required to cast 6th- and 7th-level cleric spells. See [Wisdom](/dnd/wisdom).
 
 - Clerics can [turn the undead](/dnd/turnundead).
+
+    [Engelhart, clerics are HIGHLY respectable. I suggest you shout out your clericalism to everyone that you meet. I am guessing, not sure, but you are not wearing vestments, yes? If you are, I should be corrected on this, as you will be much regarded if people know what you are]
