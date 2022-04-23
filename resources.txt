@@ -6,6 +6,8 @@ dawg from high plains drifter
 "no no no" fingerw ag by fench guy at ~ 1 hour in , french connection
 "toulero" faces or whatever those dutch paintings are  - yawning, shushing, etc
 1:13 irish cops face while driving in frenchconn
+https://en.wikipedia.org/wiki/Meisterstiche_(D%C3%BCrer)
+https://en.wikipedia.org/wiki/Jean-Eug%C3%A8ne_Buland
 
 ui design:
 crusader kings 3 nested tooltips
@@ -24,11 +26,11 @@ animations and transformations https://www.joshwcomeau.com/css/transforms/
 https://blog.jim-nielsen.com/2021/css-system-colors/
 https://csswizardry.com/ct (by same guy: https://cssguidelin.es/)
 
-grids: 
+grids:
 amitp https://www.redblobgames.com/grids/hexagons/implementation.html
 linked from amitp https://vonwolfehaus.github.io/von-grid/editor/
 
-data structures and data authoring: 
+data structures and data authoring:
 https://ericlippert.com/2015/05/11/wizards-and-warriors-part-five/
 
 ceptre, by chris martens at NCSU  POEM lab:
@@ -48,3 +50,6 @@ https://www.delempicka.org/artwork/
 https://en.wikipedia.org/wiki/Ivan_Bilibin#Gallery
 Gustave Doré, illustrator. Idylls of the King and other arthurian ilustrations
 Aubrey Beardsley who illustrated MOrte d Arthur - beautiful style that probably inspired classic final fantasy game covers
+
+maps:
+http://mrgris.com/projects/oilslick/ height maps
