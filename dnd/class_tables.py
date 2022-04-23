@@ -1,4 +1,4 @@
-from weapons import weapons
+from weapons import weapons, armors
 
 
 classes = {
@@ -27,10 +27,15 @@ classes = {
             7: {"base attack bonus": 4, "min xp": 50000},
             8: {"min xp": 100000},
             9: {"base attack bonus": 5, "min xp": 200000, "proficiencies": 5},
-            "nonproficiency penalty": -2,
-            "weapon choices": set(weapons),
-            "armor choices": {"gambeson", "leather", "coat of plates"},
         },
+        "nonproficiency penalty": -2,
+        "weapon choices": set(weapons),
+        "armor choices": {
+            "gambeson",
+            "leather",
+            "coat of plates",
+        },
+        "shields": True,
     },
     "cleric": {
         "hit die": "d8",
@@ -62,14 +67,22 @@ classes = {
         "weapon choices": {
             "bolas",
             "club",
-            "quarterstaff",
-            "goedendag",
             "flail",
-            "sling",
-            "sling staff",
+            "goedendag",
             "mace",
+            "quarterstaff",
+            "sling staff",
+            "sling",
             "warhammer",
         },
+        "armor choices": {
+            "gambeson",
+            "leather",
+            "coat of plates",
+            "hauberk",
+            "haubergeon",
+        },
+        "shields": True,
     },
     "druid": {
         "hit die": "d8",
@@ -102,16 +115,21 @@ classes = {
             "bolas",
             "club",
             "dagger",
-            "quarterstaff",
-            "javelin",
-            "scimitar",
-            "spear",
-            "sling",
-            "sling staff",
-            "mace",
             "dart",
+            "javelin",
+            "mace",
+            "quarterstaff",
+            "scimitar",
+            "sling staff",
+            "sling",
+            "spear",
             "warhammer",
         },
+        "armor choices": {
+            "gambeson",
+            "leather",
+        },
+        "shields": True,
     },
     "fighter": {
         "hit die": "d10",
@@ -143,6 +161,8 @@ classes = {
         },
         "nonproficiency penalty": -2,
         "weapon choices": set(weapons),
+        "armor choices": set(armors),
+        "shields": True,
     },
     "illusionist": {
         "hit die": "d4",
@@ -172,12 +192,13 @@ classes = {
         },
         "nonproficiency penalty": -5,
         "weapon choices": {
+            "club",
             "dagger",
             "dart",
-            "club",
             "quarterstaff",
-            "sling",
         },
+        "armor choices": {},
+        "shields": False,
     },
     "mage": {
         "hit die": "d4",
@@ -207,12 +228,13 @@ classes = {
         },
         "nonproficiency penalty": -5,
         "weapon choices": {
-            "dagger",
             "club",
+            "dagger",
             "dart",
             "quarterstaff",
-            "sling",
         },
+        "armor choices": {},
+        "shields": False,
     },
     "monk": {
         "hit die": "d6",
@@ -251,6 +273,19 @@ classes = {
             9: {"base attack bonus": 4, "min xp": 350000, "proficiencies": 6},
         },
         "nonproficiency penalty": -3,
+        "weapon choices": {
+            "cestus",
+            "chakram",
+            "club",
+            "dart",
+            "quarterstaff",
+            "shuriken",
+            "dagger",
+            "spear",
+            "scimitar",
+        },
+        "armor choices": {"gambeson"},
+        "shields": True,
     },
     "paladin": {
         "hit die": "d10",
@@ -285,6 +320,8 @@ classes = {
         },
         "nonproficiency penalty": -2,
         "weapon choices": set(weapons),
+        "armor choices": set(armors),
+        "shields": True,
     },
     "ranger": {
         "hit die": "d10",
@@ -319,6 +356,15 @@ classes = {
         },
         "nonproficiency penalty": -2,
         "weapon choices": set(weapons),
+        "armor choices": {
+            "gambeson",
+            "leather",
+            "coat of plates",
+            "hauberk",
+            "haubergeon",
+            "breastplate",
+        },
+        "shields": True,
     },
     "thief": {
         "hit die": "d6",
@@ -356,12 +402,10 @@ classes = {
             "sling",
             "bow",
             "shortsword",
+            "longsword",
+            "scimitar",
         },
         "armor choices": {"gambeson", "leather", "coat of plates"},
         "shields": False,
     },
 }
-
-#        "bard": {'hit die': 'd6',
-#                'weapon choices': []}
-# }
