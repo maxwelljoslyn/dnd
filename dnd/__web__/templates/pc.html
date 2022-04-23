@@ -1,0 +1,9 @@
+$def with (pc, money)
+
+I am $:pc.
+
+$ coins = ", ".join([f"{each['amount']} {each['coin']}" for each in money])
+
+I have ${coins}.
+
+$# tx.user.role == 'player' and tx.user.name == player
