@@ -1,5 +1,6 @@
 from weapons import weapons, armors
 
+class_table_order = ["min xp", "base attack bonus", "proficiencies"]
 
 classes = {
     "assassin": {
