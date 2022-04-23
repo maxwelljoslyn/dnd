@@ -713,9 +713,7 @@ for name, info in holysymbols.items():
     )
 
 
-hilt_volume = (Decimal(3) * u.inch * Decimal(3) * u.inch * Decimal(6) * u.inch).to(
-    "cuft"
-)
+hilt_volume = cylinder_volume(D(6) * u.inch, D(1.5) * u.inch)
 hilt_weight = hilt_volume * density["timber"]
 Recipe(
     "sword hilt",
