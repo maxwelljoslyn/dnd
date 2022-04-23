@@ -2974,6 +2974,51 @@ Recipe(
     vendor="butcher",
 )
 
+chicken_sale_age = D(4) * u.month
+chicken_sale_weight = D(2.5) * u.lb
+chicken_raising_fodder = fodder_while_growing(
+    D(0) * u.month,
+    chicken_sale_age,
+    D(2) * u.oz,
+    chicken_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
+Recipe(
+    "hen",
+    "chickens",
+    chicken_sale_weight,
+    {"chickens": 1 * u.head},
+    {"animal feed": chicken_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+)
+
+chicken_carcass_fraction = D(0.75)
+chicken_meat_fraction = D(0.75)
+chicken_carcass_weight = chicken_carcass_fraction * chicken_sale_weight
+chicken_meat_weight = chicken_meat_fraction * chicken_carcass_weight
+Recipe(
+    "chicken meat",
+    "meat",
+    1 * u.lb,
+    {},
+    {"hen": (Decimal(1) * u.lb / chicken_meat_weight) * u.head},
+    unit=1 * u.lb,
+    vendor="butcher",
+)
+
+# one hen will produce approximately 300 eggs in the first year, and fewer in future years; so let's adjust that first-year figure to 250 for a more average number
+chicken_annual_eggs = D(250)
+Recipe(
+    "egg, chicken",
+    "poultry and eggs",
+    Decimal(0.125) * u.lb,
+    {},
+    {"hen": D(1) * u.head / chicken_annual_eggs * D(12)},
+    vendor="stockyard",
+    unit=D(12) * u.item,
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
