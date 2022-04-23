@@ -2,36 +2,62 @@ $def with (town, info, registry, has_market, vendors)
 
 <h1>$town.upper()</h1>
 
-$#<details>
-$#<summary>Raw Material Prices</summary>
-$#<ul>
-$#$for c, price in info['price'].items():
-$#    <li>$c, $price</li>
-$#</ul>
-$#</details>
+$ foo = [(where, distance) for where, distance in info['hexes to'].items()]
+$ foo.sort(key=lambda x: x[1])
+$ foo.pop() # get rid of Far Away
 
-<p>
-Number of trade goods: $len(registry)
-</p>
+<details>
+<summary>Distance to Other Settlements</summary>
+<table>
+<tr>
+<th>Name</th>
+<th>Days Away</th>
+</tr>
+$for where, distance in foo:
+    <tr>
+    <td>$where</td>
+    <td>$distance</td>
+    </tr>
+</table>
+</details>
+
+<h2>Marketplace</h2>
 
 $if has_market:
-    <p>$titlecase(town) has an official market; all goods are available for purchase.</p>
+    <p>$titlecase(town) has an official market; <strong>all goods</strong> can be purchased.</p>
+    <p>Goods available: $len(registry)</p>
 $else:
-    <p>$titlecase(town) has no official market; only the most common vendors can be visited.</p>
+    <p>$titlecase(town) has no official market; only <strong>common goods</strong> can be purchased.</p>
+    <p>Goods available: $len({r:info for r, info in registry.items() if info.vendor in vendors})</p>
 
-$for v in sorted(list(vendors)):
-    <h2>$v.title()</h2>
-    $ rs = [(name, recipe) for name, recipe in registry.items() if recipe.vendor == v]
-    $if v != 'cooper':
-        $#barrels are already sorted by size
-        $rs.sort()
-    <ul>
-    $for name, recipe in rs:
+$for vendor in sorted(list(vendors)):
+    <h3>$vendor.title()</h3>
+    $if vendor == 'armorer':
+        Small armors are for gnomes and halflings.
+    $ recipes = [(name, recipe) for name, recipe in registry.items() if recipe.vendor == vendor]
+    $if vendor != 'cooper':
+        $# don't sort for the cooper because barrels are already sorted by size
+        $ recipes.sort()
+    $ filename = vendor.replace(" ", "_") + ".jpg"
+    $if (static_dir() / filename).exists():
+        $# TODO how do I make this path resolve relative to the app root?
+        <img height=100px width=100px src="/static/$filename">
+    <ul class=bare>
+    $for name, recipe in recipes:
         <li>
         <a href="/tradegoods/$name">$name</a><br>
-        $ p = recipe.display_price(info)
-        $p<br>
+        $recipe.display_price(info)<br>
         $if recipe.description:
             $recipe.description<br>
         </li>
     </ul>
+$#        $if tx.user.role == 'player':
+$#            $ chars = my_characters(tx.user.name)
+$#        $else:
+$#            $ chars = list(all_characters.keys())
+$#        $ whocanbuy = [c for c in chars if can_afford(recipe.chunked_price(info).values(), all_characters[c]['money'].values())]
+$#        $if whocanbuy:
+$#            $if tx.user.role == 'player':
+$#                Your characters who could buy this: $:whocanbuy<br>
+$#            $else:
+$#                PCs who could buy this: $:whocanbuy<br>
