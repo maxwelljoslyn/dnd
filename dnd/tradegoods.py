@@ -3255,6 +3255,31 @@ make_armor(
     "AC +1; thickly-layered cloth armor with full sleeves, covering wearer to the waist",
 )
 
+leatherarmor_layers = D(2)
+leatherarmor_area = torso_area + (fullsleeve_area * 2)
+leatherarmor_leather = leatherarmor_area * leatherarmor_layers
+# 2 courses of string stitched around the perimeter of each layer, attaching it to the next
+leatherarmor_string = 2 * leatherarmor_area / u.sqft * u.foot
+leatherarmor_leather_weight = (
+    (leatherarmor_leather / registry["boiled leather"].unit)
+    * registry["boiled leather"].weight
+).to(u.lb)
+leatherarmor_string_weight = (
+    (leatherarmor_string / registry["woolen yarn"].unit)
+    * registry["woolen yarn"].weight
+).to(u.lb)
+leatherarmor_weight = leatherarmor_leather_weight + leatherarmor_string_weight
+
+make_armor(
+    "leather armor",
+    leatherarmor_weight,
+    {},
+    {
+        "boiled leather": leatherarmor_leather,
+        "woolen yarn": leatherarmor_string,
+    },
+    "AC +2; stiffened cowhide armor with full sleeves, covering wearer to the waist",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
