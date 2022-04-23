@@ -3300,6 +3300,62 @@ make_armor(
     },
     "AC +3; as leather armor, but reinforced with metal plates between the leather layers",
 )
+
+
+mailring_radius = Decimal(0.25) * u.inch
+# this circumference == feet of wire per ring
+mailring_circumference = (pi * mailring_radius * Decimal(2)).to(u.inch)
+mailring_weight = (
+    mailring_circumference / registry["wire"].unit * registry["wire"].weight
+).to(u.oz)
+# a strip is a single chain of mail rings
+mailring_per_strip = D(1) * u.foot / mailring_radius
+# I will ignore overlap of the rings
+mailring_strip_area = D(1) * u.foot * (2 * mailring_radius)
+mail_sale_unit = D(1) * u.sqft
+mailring_per_mail = (mail_sale_unit / mailring_strip_area * mailring_per_strip).to(
+    u.dimensionless
+)
+mail_sale_weight = (mailring_per_mail * mailring_weight).to(u.lb) / mail_sale_unit
+wire_per_mail = mailring_per_mail * mailring_circumference / mail_sale_unit
+# Recipe(
+#    "mail",
+#    "ironmongery",
+#    mail_sale_weight,
+#    {},
+#    {"wire": mailring_per_mail * mailring_circumference},
+#    unit=mail_sale_unit,
+# )
+
+# hauberkand haubergeon area ~= tube around the body from neck to knee, or to waist
+hauberk_area = (
+    body_proportions["torso"]["length"] + body_proportions["thigh"]["length"]
+) * body_proportions["torso"]["girth"] + (halfsleeve_area * 2)
+
+hauberk_weight = (hauberk_area * mail_sale_weight).to(u.lb)
+make_armor(
+    "hauberk",
+    hauberk_weight,
+    {},
+    {
+        "wire": wire_per_mail * hauberk_area,
+        # "mail": hauberk_area,
+    },
+    "AC +5; chainmail with half sleeves, covering wearer to the knees",
+)
+
+haubergeon_area = torso_area + (halfsleeve_area * 2)
+haubergeon_weight = (haubergeon_area * mail_sale_weight).to(u.lb)
+make_armor(
+    "haubergeon",
+    haubergeon_weight,
+    {},
+    {
+        "wire": wire_per_mail * haubergeon_area,
+        # "mail": haubergeon_area,
+    },
+    "AC +4; chainmail with half sleeves, covering wearer to the waist",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
