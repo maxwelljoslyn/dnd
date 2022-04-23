@@ -313,19 +313,19 @@ def wis_bonus_cleric_druid_spells(w):
         return result
     else:
         # higher and higher Wisdom *cumulatively* adds bonus spells; multiple if statements *cumulatively* add to the result
-        if w == 13:
+        if w >= 13:
             result[1] = 1  # one bonus 1st-level spell
-        if w == 14:
+        if w >= 14:
             result[1] += 1  # another 1st-level spell
-        if w == 15:
+        if w >= 15:
             result[2] = 1  # one bonus 2nd-level spell
-        if w == 16:
+        if w >= 16:
             result[2] += 1
-        if w == 17:
+        if w >= 17:
             result[3] = 1
-        if w == 18:
+        if w >= 18:
             result[4] = 1
-        if w == 19:
+        if w >= 19:
             result[4] += 1
             result[1] += 1
         return result
