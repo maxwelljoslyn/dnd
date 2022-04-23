@@ -3139,6 +3139,23 @@ Recipe(
     description=f"1d8 damage, one-handed; haft {mace_haft_length:~} long",
 )
 
+
+wire_sale_unit = D(100) * u.foot
+wire_volume = cylinder_volume(wire_sale_unit, gauge16wire_thickness)
+wire_sale_weight = (density["wrought iron"] * wire_volume).to(u.lb)
+Recipe(
+    "wire",
+    "ironmongery",  # TODO should use wire but only 9 references so things get expensive
+    wire_sale_weight,
+    {},
+    {"wrought iron": wire_sale_weight},
+    # lots of hammering, then lots and lots of pulling
+    difficulty=2,
+    unit=wire_sale_unit,
+    vendor="blacksmith",
+    description=f"16-gauge ({gauge16wire_thickness:~} thick)",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
