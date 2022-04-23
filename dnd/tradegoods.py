@@ -894,7 +894,7 @@ Recipe(
     {"flour": 0.7 * u.lb},
     unit=1 * u.lb,
     vendor="baker",
-    description="southwestern millers' specialty",
+    description="uses a recipe from Etain, a realm in the southwest",
 )
 
 Recipe(
