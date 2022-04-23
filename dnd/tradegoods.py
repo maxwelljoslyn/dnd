@@ -3081,6 +3081,34 @@ Recipe(
     description=f"{arrow_length}",
 )
 
+
+spearhead_length = D(5) * u.inch
+spear_haft_radius = D(0.75) * u.inch
+spearhead_volume = cone_volume(spearhead_length, spear_haft_radius)
+spearhead_weight = (density["steel"] * spearhead_volume).to(u.lb)
+
+Recipe(
+    "spearhead",
+    "weapons",
+    spearhead_weight,
+    {},
+    {"steel": spearhead_weight},
+)
+
+spear_haft_length = D(4) * u.foot
+spear_haft_volume = cylinder_volume(spear_haft_length, spear_haft_radius)
+spear_haft_weight = (density["timber"] * spear_haft_volume).to(u.lb)
+spear_weight = spear_haft_weight + spearhead_weight
+Recipe(
+    "spear",
+    "weapons",
+    spear_weight,
+    {"timber": spear_haft_weight},
+    {"spearhead": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d6 damage, haft {spear_haft_length:~} long; melee or thrown 4/7/10",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
