@@ -3064,6 +3064,23 @@ Recipe(
     vendor="fletcher",
     description=f"{arrow_length}",
 )
+
+silvering_percentage = D(0.02)
+silver_arrow_silver_weight = arrowhead_weight * silvering_percentage
+Recipe(
+    "arrow, silver",
+    "woodcraft",
+    total_arrow_weight + silver_arrow_silver_weight,
+    {"timber": arrow_timber_weight},
+    {
+        "feather, goose": D(3) * u.item,
+        "arrowhead": D(1) * u.item,
+        "raw silver": silver_arrow_silver_weight,
+    },
+    vendor="fletcher",
+    description=f"{arrow_length}",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
