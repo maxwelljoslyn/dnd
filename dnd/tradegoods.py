@@ -4,6 +4,7 @@ from collections import Counter
 
 from references import Q, u, world_references, categories
 from towns import towns
+from characters import races
 
 # set up the Decimal environment
 getcontext().prec = 6
@@ -3156,6 +3157,60 @@ Recipe(
     description=f"16-gauge ({gauge16wire_thickness:~} thick)",
 )
 
+
+def armor_size(race):
+    # all armors are calculated relative to human proportions, then adjusted by the average for medium or small races
+    # since humans included with other smaller-but-still-size-medium races, they get roughly a 15% discount on armor prices relative to what they should pay for their size
+    def helper(race):
+        return (
+            races[race]["base height"]["male"] / races["human"]["base height"]["male"]
+        )
+
+    if race not in races:
+        raise ValueError(f"{race} is not a valid race")
+    medium_races = ("human", "halforc", "dwarf", "elf")
+    small_races = ("gnome", "halfling")
+    if race in medium_races:
+        return sum([helper(r) for r in medium_races]) / len(medium_races)
+    else:
+        return sum([helper(r) for r in small_races]) / len(small_races)
+
+
+body_proportions = {
+    # these measurements are for a male human; scale up or down for other races
+    "torso": {"length": D(2) * u.ft, "girth": D(3) * u.ft},
+    "forearm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
+    "upper arm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
+    "thigh": {"length": D(1.5) * u.ft, "girth": D(1.5) * u.ft},
+    "calf": {"length": D(1.5) * u.ft, "girth": D(1) * u.ft},
+}
+
+halfsleeve_area = (
+    body_proportions["upper arm"]["length"] * body_proportions["upper arm"]["girth"]
+)
+fullsleeve_area = (
+    body_proportions["upper arm"]["length"] * body_proportions["upper arm"]["girth"]
+) + (body_proportions["forearm"]["length"] * body_proportions["forearm"]["girth"])
+forearm_area = (
+    body_proportions["forearm"]["length"] * body_proportions["forearm"]["girth"]
+)
+thigh_area_around_one = (
+    body_proportions["thigh"]["length"] * body_proportions["thigh"]["girth"]
+)
+thigh_area_around_both = (
+    # NOTE torso girth because this is a continuous loop encompassing both thighs, as with a skirt or a fauld
+    body_proportions["thigh"]["length"]
+    * body_proportions["torso"]["girth"]
+)
+calf_area_around_one = (
+    body_proportions["calf"]["length"] * body_proportions["calf"]["girth"]
+)
+calf_area_around_both = (
+    # NOTE torso girth because this is a continuous loop encompassing both calves
+    body_proportions["calf"]["length"]
+    * body_proportions["torso"]["girth"]
+)
+torso_area = body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
