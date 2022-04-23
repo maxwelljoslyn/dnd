@@ -7,8 +7,29 @@ $for (town, info) in sorted([(town, info) for town, info in towns.items()], key=
         <li><a href="/towns/$town">$town</a> (pop. $info['population'])</li>
 </ul>
 
-<h2>Trade Goods</h2>
+<h2>Classes</h2>
+
 <ul>
-$for good in sorted(registry.keys()):
-    <li><a href="/tradegoods/$good">$good</a></li>
+  $for c in characters.classes:
+      <li><a href="/rules/$c">$:titlecase(c)</a></li>
 </ul>
+
+<h2>Races</h2>
+
+<ul>
+  $for r in characters.races:
+      <li><a href="/rules/$r">$:titlecase(r)</a></li>
+</ul>
+
+<h2>Ability Stats</h2>
+
+<ul>
+  $for abi in characters.abilities:
+      <li><a href="/rules/$abi">$:titlecase(abi)</a></li>
+</ul>
+
+$#<h2>Trade Goods</h2>
+$#<ul>
+$#$for good in sorted(registry.keys()):
+$#    <li><a href="/tradegoods/$good">$good</a></li>
+$#</ul>
