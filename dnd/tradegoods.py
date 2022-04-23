@@ -2939,6 +2939,41 @@ Recipe(
     description=registry["timber-framed house, one story"].description,
 )
 
+
+goose_sale_weight = D(9.5) * u.lb
+goose_sale_age = D(4) * u.month
+goose_raising_fodder = fodder_while_growing(
+    D(0) * u.month,
+    goose_sale_age,
+    D(2) * u.oz,
+    goose_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
+Recipe(
+    "goose",
+    "geese",
+    goose_sale_weight,
+    {"geese": 1 * u.head},
+    {"animal feed": goose_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+)
+
+goose_carcass_fraction = D(0.85)
+goose_meat_fraction = D(0.75)
+goose_carcass_weight = goose_carcass_fraction * goose_sale_weight
+goose_meat_weight = goose_meat_fraction * goose_carcass_weight
+Recipe(
+    "goose meat",
+    "meat",
+    1 * u.lb,
+    {},
+    {"goose": (Decimal(1) * u.lb / goose_meat_weight) * u.head},
+    unit=1 * u.lb,
+    vendor="butcher",
+)
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
