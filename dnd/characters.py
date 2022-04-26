@@ -476,8 +476,7 @@ races = {
             "thief",
             "assassin",
             "illusionist",
-            "druid",
-            "mage",
+            "cleric",
         },
         "base height": {"male": Decimal(42), "female": Decimal(38)},  # inches
         "base weight": {"male": Decimal(95), "female": Decimal(75)},  # pounds
