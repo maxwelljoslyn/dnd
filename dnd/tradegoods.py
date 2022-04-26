@@ -3839,3 +3839,8 @@ if __name__ == "__main__":
 
 # earthenware ceramic goods
 # glazed and unglazed
+
+# candles: The wicks need to be mordanted with salts to make the wick bend into the flame, slowing down the burn time so that the wax is consumed as the candle burns and the flame is not extinguished in the melted wax.   A solution of 1 litre of water, 1/4 cup. coarse salt or other nonadditive salts, 1/2 cup of borax is used to prepare the wicks.  You can mordant your wicks in a skein or you can cut them to size and then mordant them individually.  Simmer the wicks for one hour in the solution.  Cool in the solution and then remove and allow to dry completely.
+
+# TODO oil the hafts of weapons, or the whole bodies of wooden ones, so they stay durable
+# TODO differetiate woods used for buildings, weapons, barrels, etc. (like the oak club)
