@@ -233,12 +233,14 @@ class Town:
             vendors = dnd.vendors
         else:
             vendors = dnd.limited_vendors
+        industries = dnd.original_towns[town]["references"].keys()
         return app.view.town(
             town,
             info,
             dnd.registry,
             has_market,
             vendors,
+            industries,
         )
 
 
