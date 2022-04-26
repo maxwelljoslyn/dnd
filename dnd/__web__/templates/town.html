@@ -1,4 +1,4 @@
-$def with (town, info, registry, has_market, vendors)
+$def with (town, info, registry, has_market, vendors, industries)
 
 <h1>$town.upper()</h1>
 
@@ -15,13 +15,15 @@ $ foo.pop() # get rid of Far Away
 </tr>
 $for where, distance in foo:
     <tr>
-    <td>$where</td>
+      <td><a href="/towns/$where">$where</a></td>
     <td>$distance</td>
     </tr>
 </table>
 </details>
 
 <h2>Marketplace</h2>
+
+Major crafts and industries in $titlecase(town) include $sorted(industries).
 
 $if has_market:
     <p>$titlecase(town) has an official market; <strong>all goods</strong> can be purchased.</p>
