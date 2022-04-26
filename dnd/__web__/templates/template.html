@@ -11,10 +11,10 @@ $def with (inner)
 <nav>
 <a href=/>Home</a>
 $if not tx.user.role:
-    <form method=get action='/login'><button>Log In</button></form>
+    <a href=/login>Log In</a>
 $else:
     $ link = "/dm" if tx.user.role == "dm" else f"/players/{tx.user.pid}"
-    You, $tx.user.name, are $tx.user.role_string. View your <a href=$link>page</a>.<form method=post action='/logout'><button>Log Out</button></form>
+    You, $tx.user.name, are $tx.user.role_string. <a href=$link>Your Page</a><p><form method=post action='/logout'><button>Log Out</button></form></p>
 </nav>
 
 $:inner
