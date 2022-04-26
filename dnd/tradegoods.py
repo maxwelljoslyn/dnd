@@ -78,7 +78,9 @@ density = {
         "wet mortar": 150 * u.lb / (D(0.75) * u.cuft),
         "wet concrete": 143 * u.lb / u.cuft,
         "dry concrete": 143 * u.lb / (D(1.5) * u.cuft),
+        "flour": 4.75 * u.oz / u.cup,
         "butter": 0.95 * u.lb / u.pint,
+        "salt": 2.17 * u.gram / u.cucm,
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
@@ -871,7 +873,7 @@ Recipe(
     "flour",
     # TODO shouldn't this be made from husked cereals, which are derived from base recipe cereals? well no, it should be derived from wheat ... to which i have yet to give a prduction number based on cereals
     1 * u.lb,
-    {"flour": 1 * u.lb},
+    {"wheat": 1 * u.lb},
     {},
     vendor="miller",
     unit=1 * u.lb,
@@ -3607,6 +3609,39 @@ Recipe(
     vendor="weaponsmith",
     description=f"2d4 damage, 2-handed; oaken bludgeon, {goedendag_haft_length:~} long, topped with large spearhead",
 )
+
+# TODO add pie tin
+piecrust_flour = (density["flour"] * D(2) * u.cup).to(u.lb)
+piecrust_salt = D(1) * u.teaspoon
+piecrust_salt_weight = (density["salt"] * piecrust_salt).to(u.lb)
+piecrust_eggs = D(1)
+piecrust_vinegar = D(2) * u.teaspoon
+piecrust_vinegar_weight = (density["vinegar"] * piecrust_vinegar).to(u.lb)
+piecrust_butter = D(1.25) * u.cup
+piecrust_butter_weight = (density["butter"] * piecrust_butter).to(u.lb)
+piecrust_weight = (
+    piecrust_flour
+    + piecrust_salt_weight
+    + (piecrust_eggs * registry["egg, chicken"].weight)
+    + piecrust_vinegar_weight
+    + piecrust_butter_weight
+)
+Recipe(
+    "piecrust",
+    "bread",  # TODO anything better?
+    # "cakes" only thing I've found so far: no pie, tart, baking, pastry
+    # there *is* "confectionery" ... not quite the same though
+    piecrust_weight,
+    {"salt": piecrust_salt_weight},
+    {
+        "flour": piecrust_flour,
+        "egg, chicken": piecrust_eggs * u.item,
+        "vinegar, in barrel": piecrust_vinegar,
+        "butter": piecrust_butter_weight,
+    },
+    vendor="baker",
+)
+
 
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
