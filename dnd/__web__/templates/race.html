@@ -2,21 +2,40 @@ $def with (race, info)
 
 <h1>$:titlecase(race)</h1>
 
-<p>
-Size: $:info['size'].value
-</p>
+<h2>Ability Modifiers</h2>
 
 <p>
-Ability Modifiers: $info['ability modifiers'].
+$ mods = {k: mod_to_text(v) for k, v in info['ability modifiers'].items()}
+$if not mods:
+    None
+$else:
+    $mods
 </p>
 
+<h2>Class Choices</h2>
+
 <p>
-Class choices:
 $ klasses = info['permitted classes']
 $if klasses == set(characters.classes):
     Any
 $else:
-    klasses
+    $klasses
 </p>
 
-Average Height and Weight:
+<h2>Average Height and Weight</h2>
+
+$ hw_min = sum([x[0] for x in characters.height_weight_dice])
+$ hw_max = sum([x[1] for x in characters.height_weight_dice])
+$ hw_avg = int((hw_min + hw_max) / 2)
+$for sex in ("male", "female"):
+    $ lowest_height, lowest_weight = characters.calc_height_weight(race, sex, hw_min, hw_avg)
+    $ highest_height, highest_weight = characters.calc_height_weight(race, sex, hw_max, hw_avg)
+    $ lowest_weight = round(lowest_weight)
+    $ highest_weight = round(highest_weight)
+    A $sex $race will typically stand between $lowest_height and $highest_height inches tall, and weigh between $lowest_weight and $highest_weight lbs.<br>
+
+
+
+<p>
+For the purpose of combat, as well as purchasing armor and clothing, $ana(race) $race is size "$:{info['size'].value}."
+</p>
