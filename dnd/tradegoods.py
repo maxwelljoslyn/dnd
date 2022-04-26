@@ -78,6 +78,7 @@ density = {
         "wet mortar": 150 * u.lb / (D(0.75) * u.cuft),
         "wet concrete": 143 * u.lb / u.cuft,
         "dry concrete": 143 * u.lb / (D(1.5) * u.cuft),
+        "butter": 0.95 * u.lb / u.pint,
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
@@ -1254,6 +1255,21 @@ Recipe(
     vendor="dairy",
     description="customer supplies container",
 )
+
+
+milk_per_butter = D(3.25) * u.gallon / D(1) * u.lb
+butter_sale_weight = D(0.5) * u.lb
+Recipe(
+    "butter",
+    "butter",
+    butter_sale_weight,
+    # NOTE there *is* a butter production number ... ignoring it as usual
+    {},
+    {"cow milk": (milk_per_butter / butter_sale_weight).to(u.gallon)},
+    unit=butter_sale_weight,
+    vendor="dairy",
+)
+
 
 milk_per_serving = D(1) * u.pint
 Recipe(
