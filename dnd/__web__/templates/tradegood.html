@@ -28,3 +28,8 @@ $if recipe.raws:
 
 $if recipe.recipes:
     <p>Producing $name requires these sub-recipes:<br> $recipe.recipes</p>
+
+$#<h2>Prices</h2>
+$#
+$#if recipe.vendor in dnd.limited_vendors, show it at all towns
+$#otherwise show it at all market towns (there's a function to write)
