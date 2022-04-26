@@ -21,6 +21,8 @@ from characters import (
     cha_max_henchmen,
     default_literate,
     bodymass_hitdice,
+    calc_height_weight,
+    height_weight_roll,
     dice_to_text,
     mod_to_text,
 )
@@ -154,19 +156,12 @@ def starting_age(pClass):
     return base
 
 
-def calc_height_weight(race, sex):
-    source = randint(1, 6) + randint(1, 6) + randint(1, 6) + randint(1, 6)
+def random_height_weight(race, sex):
+    source = height_weight_roll()
     # bell curve for 4d6 has peak at 14:  ((6 * 4) + (1 * 4)) / 2 = 14
     avg = 14
-    deviation = source - avg
-    # low source, e.g. 4, means 4 - 14 = -10
-    # high source, e.g. 18, means 18 - 14 = 4
-    height_mod = 1 + (deviation * Decimal(0.01))
-    weight_mod = 1 + (deviation * Decimal(0.025))
-
-    height = height_mod * races[race]["base height"][sex]
-    weight = weight_mod * races[race]["base weight"][sex]
-    return (round(height), weight)
+    height, weight = calc_height_weight(race, sex, source, avg)
+    return height, weight
 
 
 def calc_max_encumbrance(race, sex, strength, weight, enc_mult):
@@ -354,7 +349,7 @@ def main(testing, charclass, race):
     # these must be calculated BEFORE any weight modifiers, i.e. fatness,
     # are accounted for in final printed weight,
     # so that e.g. fatness does not increase player's max encumbrance
-    c.height, c.weight = calc_height_weight(c.race, c.sex)
+    c.height, c.weight = random_height_weight(c.race, c.sex)
 
     # Calculation of background details
     # some of these internally modify other aspects of the Player record

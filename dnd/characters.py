@@ -705,6 +705,25 @@ def highest_assassination_target(level, murder_specialty=False):
     return max_roll + builtin_penalty + level_bonus
 
 
+def calc_height_weight(race, sex, roll, avg):
+    deviation = roll - avg
+    # low roll, e.g. 4, means 4 - 14 = -10
+    # high roll, e.g. 18, means 18 - 14 = 4
+    height_mod = 1 + (deviation * Decimal(0.01))
+    weight_mod = 1 + (deviation * Decimal(0.025))
+
+    height = height_mod * races[race]["base height"][sex]
+    weight = weight_mod * races[race]["base weight"][sex]
+    return (round(height), weight)
+
+
+height_weight_dice = [(1, 6)] * 4
+
+
+def height_weight_roll():
+    return sum([random.randint(*die) for die in height_weight_dice])
+
+
 def main():
     for level in range(1, 21):
         print(
