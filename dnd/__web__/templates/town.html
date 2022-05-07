@@ -23,7 +23,8 @@ $for where, distance in foo:
 
 <h2>Marketplace</h2>
 
-Major crafts and industries in $titlecase(town) include $sorted(industries).
+$if industries:
+    Major crafts and industries in $titlecase(town) include $sorted(industries).
 
 $if has_market:
     <p>$titlecase(town) has an official market; <strong>all goods</strong> can be purchased.</p>

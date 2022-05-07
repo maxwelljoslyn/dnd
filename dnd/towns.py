@@ -407,6 +407,10 @@ cp_per_gold_ore_ref = (
 original_towns = copy.deepcopy(towns)
 
 
+def has_market(town):
+    return "markets" in original_towns[town]["references"]
+
+
 def export_quantity(amount, distance):
     return Decimal(amount / (distance + 1))
 

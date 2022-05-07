@@ -228,7 +228,7 @@ class Town:
         info = dnd.towns.get(town)
         if not info:
             raise web.BadRequest
-        has_market = "markets" in dnd.original_towns[town]["references"]
+        has_market = dnd.has_market(town)
         if has_market:
             vendors = dnd.vendors
         else:
@@ -250,7 +250,9 @@ class TradeGood:
         info = dnd.registry.get(tradegood)
         if not info:
             raise web.BadRequest
-        return app.view.tradegood(tradegood, info, dnd.registry)
+        return app.view.tradegood(
+            tradegood, info, dnd.registry, dnd.vendors, dnd.limited_vendors
+        )
 
 
 @app.control("x/map")
