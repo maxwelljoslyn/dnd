@@ -1,7 +1,7 @@
 from random import choice, randint, sample
 from decimal import *
 from collections import namedtuple
-from characters import martial_classes, classes
+from characters import martial_classes, classes, ability_scores, meets_bonus_xp_minimums
 
 getcontext().prec = 3
 
@@ -425,13 +425,17 @@ def detail_tendency(magnitude, player):
         result = "The character's good will causes all hirelings and followers within five hexes to have +1 morale."
     elif magnitude == 6:
         xp = randint(6, 9) * 50
-        result = (
-            "If the character's class gives 10% bonus XP for high scores, but the character's scores are not high enough, or if "
-            + poss
-            + " class does not offer that bonus, the character receives 10% bonus XP. If they already qualify for 10% bonus XP, they instead begin adventuring with "
-            + str(xp)
-            + " XP."
-        )
+        if meets_bonus_xp_minimums(player.pClass, ability_scores(player)):
+            result = f"Character begins adventuring with {xp} XP."
+        else:
+            result = "Character gains 10% bonus XP even though their ability scores don't meed the normal bonus thresholds."
+        # result = (
+        #    "If the character's class gives 10% bonus XP for high scores, but the character's scores are not high enough, or if "
+        #    + poss
+        #    + " class does not offer that bonus, the character receives 10% bonus XP. If they already qualify for 10% bonus XP, they instead begin adventuring with "
+        #    + str(xp)
+        #    + " XP."
+        # )
     elif magnitude == 7:
         result = "When the possibility arises, a successful save vs. poison will reveal to the character the location of a cursed item or location within 50 feet."
     elif magnitude <= 9:

@@ -30,8 +30,6 @@ from characters import (
 # todo 2021-08-15 asssign NAMES to the family members o h thats a splendid idea!
 # and draw up a rudimentary family tree!!!!
 
-# todo add XP field to PC; add "bonus_xp" field to PC; write XP field in final output; check char's scores against class bonus xp minimums to (1) add "+{PC.bonus_XP}% bonus XP gain" in final output if needed (2) reduce wordiness of "if character doesn't receive min xp due to abilities, they get it anyway; if they already receive bonus xp, they start game with free XP"
-
 # todo display "years spent in training" in final output as component of age
 # todo enhance that, also displaying "years spent prison" (at first, can assume 1 stretch of prison before training ... later, can break it up into multiple sentences, which will require something like PC.years list... or PC.lifetime ... ultimately these will all become "modifier" dicts hanging off the main PC, which will be read and converted into printed output)
 
