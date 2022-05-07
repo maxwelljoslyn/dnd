@@ -71,7 +71,7 @@ towns = {
         "hexes to": {"Allrivers": 1.5, "Northshore": 2},
     },
     "Allrivers": {
-        "population": 15000,
+        "population": 45000,
         "references": {
             "fish": 1,
             "dried fish": 1,
@@ -93,6 +93,7 @@ towns = {
             "Orii": 1,
             "Pearl Island": 1.5,
             "Sugar Bay": 25,
+            "Saint Marcus": 99,
         },
     },
     "Northshore": {
@@ -266,7 +267,7 @@ towns = {
         "hexes to": {"Wasteguard": 1, "Langakuur": 4},
     },
     "Wasteguard": {
-        "population": 1,
+        "population": 0,
         "references": {},
         "hexes to": {"Tloon": 1, "Talamorga": 3},
     },
@@ -274,7 +275,7 @@ towns = {
         "population": 40_000,
         "references": {
             "markets": 4,
-            "bread, black": 1,
+            "bread, black": 2,
             "beans": 4,
             "peas": 2,
             "pulses": 2,
@@ -286,13 +287,19 @@ towns = {
         "hexes to": {"Wasteguard": 3},
     },
     "Grut": {
-        "population": 1,
+        "population": 0,
         "references": {},
         "hexes to": {"Giantsbane": 4},
     },
     "Uluban": {
         "population": 9800,
-        "references": {"griffs": 1, "markets": 1, "horses": 2, "sulfur": 1},
+        "references": {
+            "griffs": 1,
+            "markets": 1,
+            "horses": 2,
+            "sulfur": 1,
+            "leathercraft": 2,
+        },
         "hexes to": {"Langakuur": 1, "Lower Uluban": 4},
     },
     "Lower Uluban": {
@@ -317,6 +324,14 @@ towns = {
             "horses, draft": 1,
         },
         "hexes to": {"Ribossi": 3},
+    },
+    "Saint Marcus": {
+        "population": 19100,
+        "references": {
+            "cochineal": 2,
+            "tobacco": 3,
+        },
+        "hexes to": {"Allrivers": 99},
     },
 }
 
