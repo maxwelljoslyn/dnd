@@ -188,14 +188,20 @@ categories = {
             "plums",
             "pomegranates",
             "prickly pears",
-            "prunes",
             "pumpkins",
-            "raisins",
             "raspberries",
             "strawberries",
             "tangerines",
             "watermelons",
             "whortleberries",
+        },
+    },
+    "dried fruit": {
+        "references": 51,
+        "production": 32_606_945 * u.oz,
+        "members": {
+            "raisins",
+            "prunes",
         },
     },
     "vegetables": {
@@ -364,16 +370,26 @@ categories = {
     "spices": None,
     "horses": None,
     "smithing": None,
+    "dyestuff": {
+        "references": 71,
+        "production": 11_495_703 * u.oz,
+        "members": {
+            "carbon black",
+            "catechu",
+            "henna",
+            "indigo",
+            "madder",
+            "murex",
+            "ocher",
+            "cochineal",
+        },
+    },
 }
 
 # https://tao-dnd.blogspot.com/2008/07/commodities-list-part-i.html
 # https://tao-dnd.blogspot.com/2008/07/commodities-list-part-ii.html
 
-# dyestuffs
-# carbon black, catechu, henna, indigo, madder, murex, ocher
-
-
-# TODO sanity checks
+# TODO sanity checks and/or tests
 # millet (grain) vs mullet (fish)
 # cloves vs clover
 # coral vs copal vs opal
@@ -598,7 +614,9 @@ world_references = {
     "coffins": {"references": 1},
     "cognac": {"references": 4},
     "coir": {"references": 7},
+    # coir: coconut husk fiber
     "colza": {"references": 3},
+    # colza: cultivated for its seeds, which yield an oil valued for illuminating and lubricating purposes; summer rape.
     "combs": {"references": 1},
     "common opal": {"references": 5},
     "copal": {"references": 7},
@@ -606,6 +624,7 @@ world_references = {
     "coppersmelting": {"references": 47, "production": 36_544_466 * u.oz},
     "coppersmithing": {"references": 26, "production": 24_107_504 * u.oz},
     "copra": {"references": 25},
+    # copra: processed, dried coconut kernel
     "coral": {"references": 13},
     "coriander": {"references": 1, "production": 56_125 * u.oz},
     "cormorants": {"references": 1},
@@ -648,12 +667,10 @@ world_references = {
     "drapery": {"references": 2},
     "dresses": {"references": 1},
     "dried fish": {"references": 117, "production": 339_813_736 * u.oz},
-    "dried fruit": {"references": 51, "production": 32_606_945 * u.oz},
     "dried meat": {"references": 9, "production": 177_049_600 * u.oz},
     "dried peas": {"references": 1},
     "drugget goods": {"references": 1},
     "ducks": {"references": 7},
-    "dyestuff": {"references": 71, "production": 11_495_703 * u.oz},
     "eau de Cologne": {"references": 1},
     "ebony": {"references": 10},
     "edible birds' nests": {"references": 3},
