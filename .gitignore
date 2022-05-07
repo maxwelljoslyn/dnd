@@ -3,6 +3,7 @@
 *.jpg
 *.jpeg
 *.mov
+*.db
 finished
 images
 __pycache__
