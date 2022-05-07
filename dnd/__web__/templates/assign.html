@@ -11,6 +11,8 @@ $if rolls:
 
 $if race:
     $ abilities = final_abilities(base_abilities, race)
+$else:
+    $ abilities = base_abilities
 
 $for abi in characters.abilities:
     $if race:
@@ -27,7 +29,6 @@ $for abi in characters.abilities:
             = $abilities[abi]
         <button>Clear</button>
         </form>
-
     $else:
         <form method=post action="/create/assign/$abi">
         <label for="assign-$abi">$abi</label>
@@ -38,6 +39,17 @@ $for abi in characters.abilities:
         </select>
         <button>Assign</button>
         </form>
+
+$# TODO add me back in form of grid... even if I make it hard to design a form *pouts*
+$#        Classes requiring $titlecase(abi):
+$#        $for klass, info in characters.classes.items():
+$#            $if abi in info['ability minimums']:
+$#                $ starter = "; ".join(["<a href=/rules/{0}>{0}</a> (<span class='satisfied {2}'>{1}</span>)"])
+$#                $:starter.format(klass, info['ability minimums'][abi], chosen >= info['ability minimums'][abi])
+$#        </div>
+
+
+
 
 <h3>Race</h3>
 
@@ -75,17 +87,11 @@ $ class_command = 'change' if klass else 'choose'
 $for each in sorted(available):
     $if klass and (each == klass):
         $ continue
-    <option value="$each">$each</option>
+    $ meets = characters.meets_ability_minimums(each, abilities)
+    $if meets:
+        <option value="$each">$each</option>
+    $else:
+        <option value="$each" disabled>$each</option>
 </select>
 <button>$class_command</button>
 </form>
-
-$for each in sorted(available):
-    $each<br>
-    Minimums: $characters.classes[each]['ability minimums']<br>
-    Satisfied minimums: $characters.satisfied_ability_minimums(each, base_abilities if not race else abilities)<br>
-    $ meets = characters.meets_ability_minimums(each, base_abilities if not race else abilities)
-    Meets minimums? $meets<br>
-    $if meets:
-        Satisfied bonus thresholds: $characters.satisfied_bonus_xp_minimums(each, base_abilities if not race else abilities)<br>
-        Gets bonus XP? $characters.meets_bonus_xp_minimums(each, base_abilities if not race else abilities)<br>
