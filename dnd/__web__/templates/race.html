@@ -2,6 +2,16 @@ $def with (race, info)
 
 <h1>$:titlecase(race)</h1>
 
+$#$ if info['flavor-quotes']:
+$#  $ for q in quotes:
+$#    <blockquote class=p-flavor-quote>
+$#      $q.text
+$#      $if q.source:
+$#      <cite>$q.source</cite>
+$#    </blockquote>
+$#
+$#$ info.introduction
+
 <h2>Ability Modifiers</h2>
 
 <p>
