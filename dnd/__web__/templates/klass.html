@@ -2,34 +2,25 @@ $def with (klass, info)
 
 <h1>$:titlecase(klass)</h1>
 
-<details>
-<summary>Other Classes</summary>
-<ul>
-$for k in characters.classes:
-    $if k != klass:
-        <li><a href="/rules/$k">$k</a></li>
-</ul>
-</details>
-
-
 $ races = [r for r in characters.races if klass in characters.races[r]['permitted classes']]
 
 $:titlecase(ana(klass)) $:klass can be of these races:
-$for race in races:
-    $:{f"<a href='/rules/{race}'>{race}</a>"}
-.
+$ links = [f"<a href='/rules/{r}'>{titlecase(r)}</a>"  for r in races]
+$:andlist(links, ', ')
 
 
 <p>
 Hit Die: $:info['hit die']
 </p>
 
+$ minimums = [f"<a href='/rules/{abi}'>{abi}</a> ({threshold})" for abi, threshold in info['ability minimums'].items()]
 <p>
-The minimum ability scores for $ana(klass) $:klass are $:info['ability minimums'].
+$:titlecase(ana(klass)) $:klass must have these minimum ability scores: $:andlist(minimums, ", "). Note: $ana(klass) ${klass} whose scores fall below these minimums will temporarily lose all class abilities.
 </p>
 
+$ bonus_minimums = [f"<a href='/rules/{abi}'>{abi}</a> ({threshold})" for abi, threshold in info['bonus xp minimums'].items()]
 <p>
-$:titlecase(ana(klass)) $:klass earns 10% bonus XP if these additional ability thresholds are met: $:info['bonus xp minimums']
+$:titlecase(ana(klass)) $:klass earns 10% bonus XP if these additional ability thresholds are met: $:andlist(bonus_minimums, ", ").
 </p>
 
 Nonproficiency Penalty: $:info['nonproficiency penalty']
@@ -94,3 +85,9 @@ $if klass == 'assassin':
 
         </tr>
     </table>
+
+<p>
+Other classes:
+$ links = [f"<a href='/rules/{c}'>{titlecase(c)}</a>"  for c in characters.classes if c != klass]
+$:andlist(links, ', ')
+</p>
