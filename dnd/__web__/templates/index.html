@@ -1,37 +1,60 @@
 $def with (towns, registry)
 
-<h2>Towns</h2>
-<ul>
-$for (town, info) in sorted([(town, info) for town, info in towns.items()], key=lambda x: x[0]):
-    $if town != 'Far Away':
-        <li><a href="/towns/$town">$town</a> (pop. $info['population'])</li>
-</ul>
+$#TODO: use this https://pypi.org/project/inflect/
 
-<h2>Classes</h2>
+<p>The market town nearest the party is <a href="/towns/Allrivers">Allrivers</a>.</p>
+
+<h2>Player Characters</h2>
 
 <ul>
-  $for c in characters.classes:
-      <li><a href="/rules/$c">$:titlecase(c)</a></li>
+<li>Classes (\
+$ links = [f"<a href='/rules/{c}'>{titlecase(c)}</a>"  for c in characters.classes]
+$:andlist(links, ', '))</li>
+</li>
+
+<li>Races (\
+$ links = [f"<a href='/rules/{r}'>{titlecase(r)}</a>"  for r in characters.races]
+$:andlist(links, ', '))</li>
+</li>
 </ul>
 
-<h2>Races</h2>
+<h3>Sage Knowledge</h3>
 
 <ul>
-  $for r in characters.races:
-      <li><a href="/rules/$r">$:titlecase(r)</a></li>
+<li><a href="/rules/falconry">Falconry</a></li>
+<li><a href="/rules/unarmed-combat">Unarmed Combat</a></li>
+<li>Heightened Balance</li>
 </ul>
 
-<h2>Ability Stats</h2>
+<h2>Adventuring</h2>
 
 <ul>
-  $for abi in characters.abilities:
-      <li><a href="/rules/$abi">$:titlecase(abi)</a></li>
+<li>Ability Scores:
+$ links = [f"<a href='/rules/{abi}'>{titlecase(abi)}</a>"  for abi in characters.abilities]
+$:andlist(links, ', ')</li>
+<li><a href="/rules/weapons">Weapons</a></li>
+<li><a href="/rules/saving-throws">Saving Throws</a></li>
+<li><a href="/maps">Maps</a></li>
+<li>Wilderness Damage</li>
+<li>HP, Death, and Dying</li>
+<li>Combat</li>
+<li>Action Points</li>
 </ul>
 
-$#<h2>Trade Goods</h2>
+$#<h2>Towns</h2>
 $#<ul>
-$#$for good in sorted(registry.keys()):
-$#    <li><a href="/tradegoods/$good">$good</a></li>
+$#$for (town, info) in sorted([(town, info) for town, info in towns.items()], key=lambda x: x[0]):
+$#    $ pop = info['population']
+$#    $if town != 'Far Away':
+$#        $ strang = f"(pop. {pop:,})" if pop else ""
+$#        <li><a href="/towns/$town">$town</a> $strang</li>
 $#</ul>
 
-TODO: use this https://pypi.org/project/inflect/
+<h2>Trade Goods</h2>
+
+<details>
+<summary>Show All</summary>
+$for good in sorted(registry.keys()):
+    <li><a href="/tradegoods/$good">$good</a></li>
+</ul>
+</details>
