@@ -591,3 +591,11 @@ class SavingThrows:
     def get(self):
         return app.view.savingthrows()
 
+
+@app.control("maps")
+class Maps:
+    def get(self):
+        # TODO
+        mapfiles = ("ardane-20mile", "allrivers-2mile", "pearl-island-2mile")
+        return app.view.maps(mapfiles, dnd.towns)
+

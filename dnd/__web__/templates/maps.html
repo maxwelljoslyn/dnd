@@ -1,0 +1,13 @@
+$def with (mapfiles, towns)
+
+<h1>Maps</h1>
+
+$for filename in mapfiles:
+    $ foo = filename.split('-')
+    $ name = foo[0] if len(foo) == 1 else " ".join(foo[:-1])
+    $ name.replace('-', ' ')
+    $ name = titlecase(name)
+    <h2>$name</h2>
+    $if name in towns:
+        <p><a href="/towns/$name">Info for $name</a></p>
+    <img src=/static/${filename}.png width=50% height=50%>
