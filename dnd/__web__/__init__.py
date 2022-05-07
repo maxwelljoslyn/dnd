@@ -584,3 +584,10 @@ class AssignClass:
 class Weapons:
     def get(self):
         return app.view.weapons(dnd.weapons, dnd.registry)
+
+
+@app.control("rules/saving-throws")
+class SavingThrows:
+    def get(self):
+        return app.view.savingthrows()
+
