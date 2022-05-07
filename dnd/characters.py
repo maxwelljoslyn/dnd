@@ -469,7 +469,7 @@ races = {
         ],
     },
     "gnome": {
-        "ability modifiers": dict(wisdom=1, constitution=-1),
+        "ability modifiers": dict(wisdom=1, strength=-1),
         "size": Size.SMALL,
         "permitted classes": {
             "fighter",
