@@ -615,8 +615,7 @@ def dice_to_text(dice):
 
 
 def ability_scores(pc):
-    # todo remove capitalization once same has been done in background_generator.PC
-    return {abi: vars(pc)[abi.capitalize()] for abi in abilities}
+    return {abi: pc[abi] for abi in abilities}
 
 
 def satisfied_ability_minimums(klass, scores):
