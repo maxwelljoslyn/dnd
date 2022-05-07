@@ -38,7 +38,11 @@ $else:
 $for vendor in sorted(list(vendors)):
     <h3>$vendor.title()</h3>
     $if vendor == 'armorer':
-        Small armors are for gnomes and halflings.
+        <strong>Gnomes and halflings</strong> wear small-size armors.
+    $if vendor == 'hatter':
+        Hats are the same size for all races.
+    $if vendor == 'tailor':
+        Non-armor clothing is the same size for all races.
     $ recipes = [(name, recipe) for name, recipe in registry.items() if recipe.vendor == vendor]
     $if vendor != 'cooper':
         $# don't sort for the cooper because barrels are already sorted by size
