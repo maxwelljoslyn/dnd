@@ -20,3 +20,8 @@ polygon:hover {
   stroke: blue;
   fill: red;
 }
+
+img.vendor {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }

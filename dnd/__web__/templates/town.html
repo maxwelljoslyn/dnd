@@ -46,7 +46,7 @@ $for vendor in sorted(list(vendors)):
     $ filename = vendor.replace(" ", "_") + ".jpg"
     $if (static_dir() / filename).exists():
         $# TODO how do I make this path resolve relative to the app root?
-        <img height=100px width=100px src="/static/$filename">
+        <img class=vendor height=300 src="/static/$filename">
     <ul class=bare>
     $for name, recipe in recipes:
         <li>
