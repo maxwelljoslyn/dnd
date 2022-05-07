@@ -2,9 +2,11 @@ $def with (town, info, registry, has_market, vendors, industries)
 
 <h1>$town.upper()</h1>
 
-$ foo = [(where, distance) for where, distance in info['hexes to'].items()]
-$ foo.sort(key=lambda x: x[1])
-$ foo.pop() # get rid of Far Away
+$ distances = [(where, distance) for where, distance in info['hexes to'].items()]
+$ distances.sort(key=lambda x: x[1])
+$for where, distance in distances:
+    $if where =='Far Away':
+        $ distances.remove(('Far Away', distance))
 
 <details>
 <summary>Distance to Other Settlements</summary>
@@ -13,7 +15,7 @@ $ foo.pop() # get rid of Far Away
 <th>Name</th>
 <th>Days Away</th>
 </tr>
-$for where, distance in foo:
+$for where, distance in distances:
     <tr>
       <td><a href="/towns/$where">$where</a></td>
     <td>$distance</td>
