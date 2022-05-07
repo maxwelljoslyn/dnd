@@ -1,4 +1,4 @@
-$def with (name, recipe, registry)
+$def with (name, recipe, registry, vendors, limited_vendors)
 
 <h1>$name</h1>
 
@@ -31,5 +31,19 @@ $if recipe.recipes:
 
 $#<h2>Prices</h2>
 $#
-$#if recipe.vendor in dnd.limited_vendors, show it at all towns
-$#otherwise show it at all market towns (there's a function to write)
+$#$if recipe.vendor in limited_vendors:
+$#    $ ts = [t for t in towns]
+$#$else:
+$#    $ ts = [t for t in towns if has_market(t)]
+$#
+$#$ ts.sort()
+$#$if 'Far Away' in ts:
+$#    $ ts.remove('Far Away')
+$#
+$#<table>
+$#<tr>
+$#<th>Location</th><th>Typical Price</th>
+$#</tr>
+$#$for t in ts:
+$#    <tr><td>$t</td><td>$recipe.display_price(towns[t])</td></tr>
+$#</table>
