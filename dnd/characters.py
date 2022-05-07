@@ -401,7 +401,7 @@ abilities = {
     },
     "constitution": {
         "bonus HP/level": con_max_hp_increase_adjustment,
-        "system shock survival % chance": con_system_shock_survival_chance,
+        "system shock survival chance": con_system_shock_survival_chance,
         # con_resurrection_survival_chance,
     },
     "wisdom": {
