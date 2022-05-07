@@ -1,0 +1,31 @@
+$def with (weapons, registry)
+
+<h1>Weapons</h1>
+
+$ names = list(weapons.keys())
+$ names.sort()
+
+$ keys = ('damage', 'form', 'hands', 'range', 'includes', 'note')
+
+<table>
+<tr>
+<th>Name</th>
+$for key in keys:
+    <th>$titlecase(key)</th>
+</tr>
+$for w in names:
+    <tr>
+    $if w in registry:
+        <td><a href="/tradegoods/$w">$w</a></td>
+    $else:
+        <td>$w</td>
+    $for key in keys:
+        $ val = weapons[w].get(key)
+        $if not val:
+            <td>--</td>
+        $else:
+            $if key in ('form', 'includes'):
+                $ val = andlist(val, separator=', ')
+            <td>$val</td>
+    <tr>
+</table

@@ -576,3 +576,9 @@ class AssignClass:
 # Provide access to a /simplified/ "economy" but also a world map. If you wind up putting a bunch of /data/ inside the textarea then start thinking of a way to pull that data /out/ of the textarea and into /anywhere else on the page/ and /how/..
 # You have to be pushing into this "new" territory during your thesis.. You need to be able to import tectonic's world into your system. You need to be able to pull Alexsi's ideas in (with effort, but quickly) to the magic python textarea.
 # The magic python textarea should read pure. Provide helper functions as locals and allow modification of supplied globals to all for the configuration of the world state.
+
+
+@app.control("rules/weapons")
+class Weapons:
+    def get(self):
+        return app.view.weapons(dnd.weapons, dnd.registry)

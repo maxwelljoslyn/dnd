@@ -10,3 +10,4 @@ from tradegoods import (
 from towns import towns, original_towns
 import characters
 from references import world_references
+from weapons import weapons, armors
