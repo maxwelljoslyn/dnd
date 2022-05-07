@@ -143,15 +143,15 @@ def str_damage_mod(s):
         raise ValueError(f"s {s} less than 0 but ability scores can't go below 0")
     if s in ir(0, 2):
         return -3
-    elif s in ir(3, 5):
+    elif s in ir(3, 6):
         return -2
-    elif s in ir(6, 8):
+    elif s in ir(7, 8):
         return -1
     elif s in ir(9, 12):
         return 0
-    elif s in ir(13, 15):
+    elif s in ir(13, 14):
         return 1
-    elif s in ir(16, 18):
+    elif s in ir(15, 18):
         return 2
     elif s in ir(19, 20):
         return 3
