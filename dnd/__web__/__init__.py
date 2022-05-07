@@ -271,7 +271,7 @@ class Ability:
                 for c, info in all_characters.items()
                 if info["abilities"][ability] == s
             ]
-            for s in range(2, 20)
+            for s in range(1, 21)
         }
         return app.view.ability(ability, dnd.characters.abilities[ability], abilitymap)
 
