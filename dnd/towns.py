@@ -15,7 +15,7 @@ SQMI_PER_HEX = Decimal(346) * u.sqmi
 
 
 def infrastructure(population):
-    return math.floor(population / SQMI_PER_HEX)
+    return math.floor(population / SQMI_PER_HEX.magnitude)
 
 
 towns = {
