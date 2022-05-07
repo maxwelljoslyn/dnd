@@ -1,31 +1,31 @@
-"""
->>> import dice
->>> from dice import constant as c
->>> dice.XdY(2,6)
-Dice(2d6)
->>> dice.XdY(3,10)
-Dice(3d10)
->>> dice.Xd6(3)
-Dice(3d6)
->>> dice.Dice(2,6)
-Dice(2,6)
->>> dice.4d6.roll()
-23
->>> dice.4d6.min #propertized fun
-4 
->>> dice.4d6.max #ditto
-24
->>> dice.4d6.average 
-14
->>> dice.4d6 + c(1)
-Dice(4d6+1)
->>> dice.4d6 - c(1)
-Dice(4d6-1)
->>> dice.4d6 + dice.3d6
-Dice(7d6)
->>> dice.4d6 + dice.3d5
-Dice(4d6+3d5)
-"""
+#"""
+#>>> import dice
+#>>> from dice import constant as c
+#>>> dice.XdY(2,6)
+#Dice(2d6)
+#>>> dice.XdY(3,10)
+#Dice(3d10)
+#>>> dice.Xd6(3)
+#Dice(3d6)
+#>>> dice.Dice(2,6)
+#Dice(2,6)
+#>>> dice.4d6.roll()
+#23
+#>>> dice.4d6.min #propertized fun
+#4 
+#>>> dice.4d6.max #ditto
+#24
+#>>> dice.4d6.average 
+#14
+#>>> dice.4d6 + c(1)
+#Dice(4d6+1)
+#>>> dice.4d6 - c(1)
+#Dice(4d6-1)
+#>>> dice.4d6 + dice.3d6
+#Dice(7d6)
+#>>> dice.4d6 + dice.3d5
+#Dice(4d6+3d5)
+#"""
 
 import random
 

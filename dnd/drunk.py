@@ -51,14 +51,6 @@ intoxication_effects = {
 }
 
 
-def equivalent_drinks(kind, pints):
-    """Given `pints` pints of `kind` drink, how many drink-equivalents is that for purpose of drunkenness?
-    >>> equivalent_drinks('beer', 1) => 1
-    >>> equivalent_drinks('rum', 1) => 8
-    """
-    return Decimal(pints) / beverages[kind]["drink per pint"]
-
-
 # todo all these positional arguments perhaps ought to be keyword arguments
 def intoxication_ratio(race, sex, weight, con):
     # since average CON is 10, the 0.1 factors it out

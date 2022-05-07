@@ -11,6 +11,7 @@ noise = "^1.2.2"
 Pint = "^0.18"
 understory = "^0.0.207"
 emoji = "^1.7.0"
+pytest = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.10.1"
