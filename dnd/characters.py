@@ -598,7 +598,7 @@ def roll_die(sides, add=None, subtract=None, divide=None, multiply=None):
     return random.randint(1, sides)
 
 
-def roll_bodymass_hitdice(dice):
+def roll_dice(dice):
     return sum([roll_die(high) for (low, high) in dice])
 
 
