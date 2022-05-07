@@ -1,5 +1,6 @@
 import web
 from web import tx
+from web.templating import TemplatePackage
 import json
 
 import dnd
@@ -12,7 +13,9 @@ entity_id_regex = r"[\d]+"
 player_id_regex = entity_id_regex
 integer_regex = r"[\d]+"
 coin_regex = r"gp|sp|cp"
+rule_regex = r"[\w\d\-]+"
 
+rules = TemplatePackage("rules")
 
 app = web.application(
     __name__,
@@ -29,6 +32,7 @@ app = web.application(
         "coin": coin_regex,
         "klass": class_regex,
         "race": race_regex,
+        "rule": rule_regex,
     },
     model={
         "players": {"name": "TEXT NOT NULL"},
@@ -599,3 +603,8 @@ class Maps:
         mapfiles = ("ardane-20mile", "allrivers-2mile", "pearl-island-2mile")
         return app.view.maps(mapfiles, dnd.towns)
 
+
+@app.control("rules/{rule}")
+class Rule:
+    def get(self, rule):
+        return getattr(rules, rule)()
