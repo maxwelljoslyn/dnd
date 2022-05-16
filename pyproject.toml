@@ -5,13 +5,14 @@ description = ""
 authors = ["Maxwell Joslyn <maxwelljoslyn@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">3.9,<3.11"
 click = "^8.0.3"
 noise = "^1.2.2"
 Pint = "^0.18"
-understory = "^0.0.207"
+understory = "^0.0.353"
 emoji = "^1.7.0"
 pytest = "^7.1.2"
+pendulum = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.10.1"
