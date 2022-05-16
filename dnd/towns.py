@@ -3,10 +3,16 @@ import math
 from collections import defaultdict
 from decimal import Decimal, getcontext
 import warnings
+import logging
 
 import references
 from a_star_search import a_star_search
 from references import u, world_references
+import web
+import sqlyte
+from models import town_model
+
+# logging.basicConfig(level=logging.DEBUG, force=True)
 
 # set up the Decimal environment
 getcontext().prec = 6
@@ -499,9 +505,35 @@ towns = export_references(towns, original_towns)
 towns = determine_unit_prices(towns)
 
 
+def dbify_towns(db, towns):
+    with db.transaction as cur:
+        for town, info in towns.items():
+            logging.debug(f"inserting {town}")
+            rowid = cur.insert("towns", name=town, population=info["population"])
+            refs = []
+            for ref, amount in info["references"].items():
+                logging.debug(f" {town}: {ref}: {str(amount)}")
+                refs.append(dict(town=rowid, name=ref, amount=str(amount)))
+            cur.insert("town_references", *refs)
+            travels = []
+            for destination, distance in info["hexes to"].items():
+                logging.debug(f" {town}: to {destination}: {distance}")
+                travels.append(
+                    dict(source=rowid, destination=destination, distance=distance)
+                )
+            cur.insert("travel_times", *travels)
+            materials = []
+            for thing, unit_price in info["price"].items():
+                materials.append(dict(town=rowid, name=thing, price=str(unit_price)))
+            cur.insert("material_costs", *materials)
 
 
 def main():
+    db = sqlyte.db("foo.db", sqlyte.Model("town_model", **town_model))
+    dbify_towns(db, towns)
+
+
+def sanity_check():
     for commodity in ("fish", "dried fish", "olives", "timber"):
         if (
             world_references[commodity]["references"] == 0
