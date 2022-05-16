@@ -24,6 +24,8 @@ limited_vendors = {
     "greengrocer",
     "innkeeper",
     "stockyard",
+    "tavern",
+    "vintner",
 }
 
 density = {
