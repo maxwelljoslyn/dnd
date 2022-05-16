@@ -2466,6 +2466,30 @@ Recipe(
     vendor="dairy",
     description="customer supplies container",
 )
+
+
+milk_for_kumiss = Decimal(3) * u.gallon / u.gallon
+kumiss_abv = calculate_abv(
+    {
+        "mare milk": milk_for_kumiss * 1 * u.gallon,
+    },
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+Recipe(
+    "kumiss, in barrel",
+    "kumiss",
+    (density["milk"] * barrel_capacity).to(u.lb),
+    {},
+    {
+        "mare milk": milk_for_kumiss * barrel_capacity,
+    },
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description=f"{str(kumiss_abv.magnitude)}% alcohol; fermented mare milk, a favorite among the Ulub",
+)
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
 drafthorse_foal_weight = drafthorse_sale_weight / D(3)
