@@ -983,6 +983,17 @@ Recipe(
     {},
     unit=1 * u.lb,
 )
+
+Recipe(
+    "dried hay",
+    "hay",
+    1 * u.lb,
+    {"hay": 2 * u.lb},
+    {},
+    unit=1 * u.lb,
+)
+
+
 Recipe(
     "animal feed",
     "cereals",
