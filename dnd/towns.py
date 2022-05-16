@@ -228,7 +228,7 @@ towns = {
             "dried fish": 1,
             "cabinetmaking": 1,
             "shipbuilding": 2,
-            "timber": 3,
+            "timber": 4,
             "carpentry": 1,
             "grapes": 2,
             "markets": 2,
@@ -414,7 +414,13 @@ towns = {
     },
     "Tloon": {
         "population": 17092,
-        "references": {"alchemy": 2, "markets": 1, "weapons": 1, "armor": 1},
+        "references": {
+            "alchemy": 2,
+            "markets": 1,
+            "weapons": 1,
+            "armor": 1,
+            "horncarving": 2,
+        },
         "hexes to": {"Wasteguard": 1, "Langakuur": 4},
     },
     "Wasteguard": {
@@ -465,6 +471,7 @@ towns = {
             "kumiss": 1,
             "leathercraft": 2,
             "meat": 1,
+            "horncarving": 1,
         },
         "hexes to": {"Uluban": 4},
     },
