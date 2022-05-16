@@ -3340,6 +3340,20 @@ Recipe(
     vendor="weaponsmith",
     description=f"1d6 damage, haft {spear_haft_length:~} long; 2-handed melee or 1-handed thrown 4/7/10",
 )
+
+dart_haft_length = D(6) * u.inch
+dart_haft_radius = spear_haft_radius
+dart_haft_volume = cylinder_volume(dart_haft_length, dart_haft_radius)
+dart_haft_weight = (density["timber"] * dart_haft_volume).to(u.lb)
+dart_weight = dart_haft_weight + spearhead_weight
+Recipe(
+    "dart",
+    "weapons",
+    dart_weight,
+    {"timber": dart_haft_weight},
+    {"spearhead": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d3 damage; {dart_haft_length} haft; roughly a miniature spear; melee or thrown 3/4/5",
 )
 
 mace_flange_length = D(4) * u.inch
