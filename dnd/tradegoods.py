@@ -785,6 +785,24 @@ Recipe(
     description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length:~} blade",
 )
 
+silver_per_silver_dagger = (
+    dagger_blade_needed * unit_blade_weight
+) * silvering_percentage
+Recipe(
+    "dagger, silver",
+    "weapons",
+    dagger_weight,
+    {},
+    {
+        "blade": dagger_blade_needed * u.item,
+        "pommel": 1 * u.item,
+        "sword hilt": 1 * u.item,
+        "raw silver": silver_per_silver_dagger,
+    },
+    vendor="weaponsmith",
+    description=registry["dagger"].description,
+)
+
 shortsword_length = Decimal(2) * u.ft
 shortsword_blade_needed = shortsword_length / u.ft
 shortsword_weight = (
