@@ -1277,7 +1277,7 @@ Recipe(
     abomasum_weight,
     {},
     {"calf": (abomasum_weight / calf_sale_weight * cattle_carcass_fraction) * u.head},
-    description="fourth compartment of calf stomach",
+    description="fourth compartment of calf stomach; not for human consumption",
 )
 
 Recipe(
