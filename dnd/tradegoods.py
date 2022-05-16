@@ -2669,9 +2669,12 @@ soda_per_glass = D(0.15) * u.lb / u.lb
 quicklime_per_glass = D(0.1) * u.lb / u.lb
 salt_per_glass = D(0.01) * u.lb / u.lb
 dolomite_per_glass = D(0.04) * u.lb / u.lb  # source of magnesium
+glass_pane_length = D(7) * u.inch
+glass_pane_width = D(6) * u.inch
+glass_pane_thickness = D(0.25) * u.inch
 Recipe(
     "flat glass",
-    "ceramics",
+    "glassware",
     1 * u.lb,
     {
         "soda ash": soda_per_glass * u.lb,
@@ -2684,7 +2687,7 @@ Recipe(
     },
     vendor="glazier",
     unit=1 * u.lb,  # TODO use panes as unit
-    description="6in x 7in x 0.25in pane",
+    description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
 
