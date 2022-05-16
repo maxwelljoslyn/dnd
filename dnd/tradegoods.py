@@ -4141,6 +4141,34 @@ Recipe(
     vendor="dyer",
     description="deep purple dye",
 )
+
+# Jacoby D (2004). "Silk economics and cross-cultural artistic interaction: Byzantium, the Muslim world, and the Christian west". Dumbarton Oaks Papers. 58: 210, 197–240. doi:10.2307/3591386. JSTOR 3591386.
+# David Jacoby remarks that "twelve thousand snails of Murex brandaris yield no more than 1.4 g of pure dye, enough to colour only the trim of a single garment."[15]
+# so let's follow his lead; that seems a shit-ton of snails but Tyrian purple is famously labor intensive
+# TODO how much does a murex weigh anyway
+murex_weight = D(4) * u.oz
+Recipe(
+    "murex powder",
+    # https://thekindcraft.com/the-process-indigo-from-plant-to-paste/
+    "dyestuff",
+    1 * u.gram,
+    {"murex": 12_000 * murex_weight},
+    {},
+    unit=1 * u.gram,
+    description="the only true royal purple dyestuff",
+)
+
+Recipe(
+    "dye, royal purple",
+    "dyestuff",
+    dye_sale_weight,
+    {},
+    # no mordants because royal purple is colorfast
+    {"murex powder": 1 * u.gram},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="gorgeous reddish-purple dye, fit for a king",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
