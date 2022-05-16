@@ -2861,15 +2861,7 @@ for slave, info in slaves.items():
         "slaves",
         info["weight"],
         {"slaves": 1 * u.head},
-        {
-            Cheapest(
-                *list(
-                    categories["fruits"]["members"]
-                    .union(categories["vegetables"]["members"])
-                    .union({"bread", "beef", "mutton", "pork"})
-                )
-            ): slave_raising_fodder,
-        },
+        {"bread": slave_raising_fodder},
         unit=1 * u.head,
         vendor="slave trader",
         difficulty=info.get("difficulty", 1),
@@ -2952,12 +2944,6 @@ Recipe(
     {k: v * u.item for k, v in Counter(framing_second_story_members).items()},
     description="per 60 feet of perimeter",
 )
-
-# TODO if i use Cheapest(building_stones), how do I make sure that aggregate_recipe.weight uses the correct density when calculating weight? aw crap...
-# Recipe('aggregate stone',
-#        'masonry',
-#
-
 
 alabaster_for_cement = D(0.25) * u.lb / aggregate_density("alabaster")
 Recipe(
@@ -3131,7 +3117,6 @@ def total_infill_volume(stories):
 
 def infill_ingredients(volume):
     return {
-        # Cheapest(*[f"crushed {stone}" for stone in applicable_stones]): D(0.9) * volume,
         "crushed limestone": D(0.7) * volume,
         "crushed sandstone": D(0.2) * volume,
         "masonry, mortar": D(0.1) * volume,
@@ -3297,8 +3282,6 @@ Recipe(
 arrow_radius = D(0.125) * u.inch
 arrow_length = D(28) * u.inch
 arrow_volume = cylinder_volume(arrow_length, arrow_radius)
-# TODO make these out of any of multiple types of wood WITH DIFFERENT DENSITIES
-# TODO again, "If I use a Cheapest ingredient, I need to ensure that the overall weight of the recipe takes into account the result of evaluating the Cheapest"...
 arrow_timber_weight = (density["timber"] * arrow_volume).to(u.oz)
 arrow_feather_weight = D(3) * registry["feather, goose"].weight
 total_arrow_weight = arrow_timber_weight + arrow_feather_weight + arrowhead_weight
