@@ -3383,7 +3383,7 @@ Recipe(
     {"timber": mace_haft_weight},
     {"mace flange": 6 * u.item},
     vendor="weaponsmith",
-    description=f"1d8 damage, one-handed; haft {mace_haft_length:~} long",
+    description=f"1d6+1 damage, one-handed; haft {mace_haft_length:~} long",
 )
 
 
