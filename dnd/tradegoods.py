@@ -3134,7 +3134,7 @@ onestory_house_components = {
 onestory_house_components.update(infill_ingredients(total_infill_volume(1)))
 
 Recipe(
-    "timber-framed house, one story",
+    "half-timbered house, one story",
     "carpentry",  # TODO anything better?
     sum(
         [
@@ -3160,7 +3160,7 @@ twostory_house_components = {
 twostory_house_components.update(infill_ingredients(total_infill_volume(2)))
 
 Recipe(
-    "timber-framed house, two stories",
+    "half-timbered house, two stories",
     "carpentry",  # TODO anything better?
     sum(
         [
@@ -3171,7 +3171,7 @@ Recipe(
     {},
     twostory_house_components,
     vendor="builder",
-    description=registry["timber-framed house, one story"].description,
+    description=registry["half-timbered house, one story"].description,
 )
 
 
