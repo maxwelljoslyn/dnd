@@ -4097,6 +4097,27 @@ Recipe(
     description="cochineal-derived dye; usable on wool but not cotton",
 )
 
+# TODO how accurate is 20 lbs madder for 1 pound pigment
+Recipe(
+    "madder pigment",
+    "dyestuff",
+    1 * u.lb,
+    {"madder": 20 * u.lb},
+    {},
+    unit=1 * u.lb,
+    description="pigment ground from madder",
+)
+
+Recipe(
+    "dye, pink",
+    "dyestuff",
+    dye_sale_weight,
+    {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
+    {"madder pigment": 1 * u.gram},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="dusty pink dye",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
