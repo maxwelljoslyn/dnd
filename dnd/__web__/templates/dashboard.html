@@ -1,7 +1,0 @@
-$def with (chars)
-
-$for row in chars:
-    $ cid = row['rowid']
-    $ pid = row['player_id']
-    $ cname = row['name']
-    <form method=post action=/dm/givemoney/character/$cid/cp/1><button>Give $cname 1 copper piece</button></form>
