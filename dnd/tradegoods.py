@@ -4251,6 +4251,98 @@ Recipe(
     vendor="tailor",
     description="unisex leggings covering groin, both legs, and both feet",
 )
+
+
+# TODO 4 leather or ceramic buttons
+# TODO stitching
+jerkin_area = torso_area
+jerkin_weight = (
+    jerkin_area / registry["leather"].unit * registry["leather"].weight
+).to(u.lb)
+Recipe(
+    "jerkin",
+    "clothing",  # NOT leathercraft
+    jerkin_weight,
+    {},
+    {"leather": jerkin_area},
+    vendor="tailor",
+    description="sleeveless leather overshirt; commonly worn over a doublet or tunic",
+)
+
+# TODO stitching
+tunic_area = torso_area + (2 * halfsleeve_area)
+tunic_weight = (
+    tunic_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "tunic",
+    "clothing",
+    tunic_weight,
+    {},
+    {"cotton cloth": tunic_area},
+    vendor="tailor",
+    description="short-sleeved cotton shirt",
+)
+
+# TODO stitching
+# on both sides of the body (the 2x factor), a sheet of cloth falling from neck to roughly the knees, but not wrapping all the way around (thus, half girth)
+scapular_area = (
+    D(2)
+    * (body_proportions["torso"]["length"] + body_proportions["thigh"]["length"])
+    * (D(0.5) * body_proportions["torso"]["girth"])
+)
+scapular_weight = (
+    scapular_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "scapular",
+    "clothing",
+    scapular_weight,
+    {},
+    {"cotton cloth": scapular_area},
+    vendor="tailor",
+    description="long cloth sheet with neck hole, draping down front and back of body; part of religious habit",
+)
+
+# TODO stitching
+cassock_area = (
+    (
+        body_proportions["torso"]["length"]
+        + body_proportions["thigh"]["length"]
+        + body_proportions["thigh"]["length"]
+    )
+    * body_proportions["torso"]["girth"]
+) + (2 * fullsleeve_area)
+cassock_weight = (
+    cassock_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "cassock",
+    "clothing",
+    cassock_weight,
+    {},
+    {"cotton cloth": cassock_area},
+    vendor="tailor",
+    description="floor-length fitted robe with full sleeves; part of religious habit",
+)
+
+# TODO stitching
+chemise_area = (
+    (body_proportions["torso"]["length"] + body_proportions["thigh"]["length"])
+    * body_proportions["torso"]["girth"]
+) + (2 * fullsleeve_area)
+chemise_weight = (
+    chemise_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "chemise",
+    "clothing",
+    chemise_weight,
+    {},
+    {"cotton cloth": chemise_area},
+    vendor="tailor",
+    description="thigh-length, long-sleeved, slightly baggy shirt worn next to skin",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
