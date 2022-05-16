@@ -4215,6 +4215,27 @@ Recipe(
     vendor="hatter",
     description="thick woolen beanie-like hat",
 )
+
+# 4 foot chinstrap/string for hanging from neck, looped from one side to the other and back again for added security
+strawhat_string = D(8) * u.feet
+strawhat_string_weight = (strawhat_string / registry["cotton yarn"].unit) * registry[
+    "cotton yarn"
+].weight
+# TODO total guess
+strawhat_straw_weight = D(0.33) * u.lb
+strawhat_weight = strawhat_straw_weight + strawhat_string_weight
+Recipe(
+    "straw hat",
+    "straw hats",
+    strawhat_weight,
+    {},
+    {
+        "straw": strawhat_weight,
+        "cotton yarn": strawhat_string,
+    },
+    vendor="hatter",
+    description="wide-brimmed, with cotton strap to secure under chin or hang from neck",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
