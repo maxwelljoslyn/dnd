@@ -2490,6 +2490,21 @@ Recipe(
     vendor="brewer",
     description=f"{str(kumiss_abv.magnitude)}% alcohol; fermented mare milk, a favorite among the Ulub",
 )
+
+
+kumiss_per_serving = D(1) * u.pint
+Recipe(
+    "kumiss, by the glass",
+    "foodstuffs",
+    (density["milk"] * kumiss_per_serving).to(u.lb),
+    {},
+    {"kumiss, in barrel": kumiss_per_serving},
+    unit=kumiss_per_serving,
+    description=registry["kumiss, in barrel"].description,
+    vendor="tavern",
+)
+
+
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
 drafthorse_foal_weight = drafthorse_sale_weight / D(3)
