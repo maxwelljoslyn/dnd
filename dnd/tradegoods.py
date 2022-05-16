@@ -2454,6 +2454,18 @@ Recipe(
     description=f"{ridinghorse_sale_age} old, {ridinghorse_sale_weight:~}, {D(15) * u.hand:~} tall",
 )
 
+# assumes that a riding horse could instead be used for milking
+mare_annual_milk_volume = (D(550) * u.liter).to(u.gallon)
+Recipe(
+    "mare milk",
+    "milk",
+    milk_weight * milk_sale_unit,
+    {},
+    {"riding horse": (D(1) / (mare_annual_milk_volume / milk_sale_unit)) * u.head},
+    unit=milk_sale_unit,
+    vendor="dairy",
+    description="customer supplies container",
+)
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
 drafthorse_foal_weight = drafthorse_sale_weight / D(3)
