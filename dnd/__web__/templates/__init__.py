@@ -23,12 +23,20 @@ __all__ = [
 ]
 
 
-def titlecase(s):
-    def helper(s):
-        # don't change all-caps items, which are probably abbreviations ... sigh, if only we had *structures* instead of strings... (text 'blah blah blah' (abbr 'CIA' :full 'Central Intelligence Agency') 'blah blah blah')
-        return s if s.isupper() else s.capitalize()
-
-    return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: helper(mo.group(0)), s)
+def titlecase(arg):
+    """Capitalize all words in `ARG` that aren't short (and, of, in, the) or abbreviations (CIA, NBA, FBI)."""
+    specials = {"and", "of", "the", "in"}
+    result = arg.split(" ")
+    for idx, each in enumerate(result):
+        if each.isupper():
+            # don't change what are probably abbreviations
+            # if only we had *structures* instead of strings... (text 'blah blah blah' (abbr 'CIA' :full 'Central Intelligence Agency') 'blah blah blah')
+            pass
+        elif each in specials:
+            result[idx] = each.capitalize() if idx == 0 else each.lower()
+        else:
+            result[idx] = each.capitalize()
+    return " ".join(result)
 
 
 def static_dir():
