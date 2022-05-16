@@ -1442,14 +1442,15 @@ Recipe(
     soap_weight,
     {
         "salt": salt_per_soap_tallow * soap_weight,
-        "attar of roses": D(0.5) * u.ounce,
+        "attar of roses": D(0.05) * soap_weight,
     },
     {
         "lye": lye_per_soap_tallow * soap_weight,
         "tallow": tallow_per_soap * soap_weight,
     },
     vendor="chandler",
-    description="will wash 1 person 60 times; 2x3x6 in.",
+    unit=registry["hard soap"].unit,
+    description=registry["hard soap"].description,
 )
 
 # TODO should these be specified as being per head?
