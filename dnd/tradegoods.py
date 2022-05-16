@@ -4236,6 +4236,21 @@ Recipe(
     vendor="hatter",
     description="wide-brimmed, with cotton strap to secure under chin or hang from neck",
 )
+
+
+hose_area = D(2) * (thigh_area_around_one + calf_area_around_one)
+hose_weight = (
+    hose_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "hose",
+    "hosiery",  # TODO hosiery
+    hose_weight,
+    {},
+    {"cotton cloth": hose_area},
+    vendor="tailor",
+    description="unisex leggings covering groin, both legs, and both feet",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
