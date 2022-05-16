@@ -4421,6 +4421,61 @@ Recipe(
     description=registry["high boot, soft"].description
     + ", toughened for hard wearing",
 )
+
+glove_area = hand_area
+long_glove_area = hand_area + forearm_area
+leatherglove_weight = (
+    glove_area / registry["leather"].unit * registry["leather"].weight
+).to(u.oz)
+Recipe(
+    "glove, leather",
+    "gloves",
+    leatherglove_weight,
+    {},
+    {"leather": glove_area},
+    vendor="glover",
+    description="sold singly",
+)
+
+long_leatherglove_weight = (
+    long_glove_area / registry["leather"].unit * registry["leather"].weight
+).to(u.oz)
+Recipe(
+    "long glove, leather",
+    "gloves",
+    long_leatherglove_weight,
+    {},
+    {"leather": long_glove_area},
+    vendor="glover",
+    description="sold singly; extends to the elbow",
+)
+
+woolglove_weight = (
+    glove_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
+).to(u.oz)
+Recipe(
+    "glove, wool",
+    "gloves",
+    woolglove_weight,
+    {},
+    {"woolen cloth": glove_area},
+    vendor="glover",
+    description="sold singly",
+)
+
+
+long_woolglove_weight = (
+    long_glove_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
+).to(u.oz)
+Recipe(
+    "long glove, wool",
+    "gloves",
+    long_woolglove_weight,
+    {},
+    {"woolen cloth": long_glove_area},
+    vendor="glover",
+    description="sold singly; extends to the elbow",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
