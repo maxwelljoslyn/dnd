@@ -4343,6 +4343,52 @@ Recipe(
     vendor="tailor",
     description="thigh-length, long-sleeved, slightly baggy shirt worn next to skin",
 )
+
+foot_sole_area = (
+    body_proportions["foot"]["length"] * D(0.5) * body_proportions["foot"]["girth"]
+)
+leather_sole_weight = (
+    foot_sole_area / registry["boiled leather"].unit * registry["boiled leather"].weight
+).to(u.oz)
+
+# 0.5 factor is for mid-calf height
+lowboot_area = (
+    body_proportions["foot"]["length"] * body_proportions["foot"]["girth"]
+) + (D(0.5) * body_proportions["calf"]["length"] * body_proportions["calf"]["girth"])
+lowboot_soft_weight = (
+    lowboot_area / registry["leather"].unit * registry["leather"].weight
+).to(u.oz) + leather_sole_weight
+Recipe(
+    "boot, soft",
+    "boots and shoes",
+    lowboot_soft_weight,
+    {},
+    {
+        "leather": lowboot_area,
+        "boiled leather": foot_sole_area,
+    },
+    vendor="cobbler",
+    description="sold singly; unisex mid-calf boot",
+)
+
+highboot_area = (
+    body_proportions["foot"]["length"] * body_proportions["foot"]["girth"]
+) + (body_proportions["calf"]["length"] * body_proportions["calf"]["girth"])
+highboot_soft_weight = (
+    highboot_area / registry["leather"].unit * registry["leather"].weight
+).to(u.oz) + leather_sole_weight
+Recipe(
+    "high boot, soft",
+    "boots and shoes",
+    highboot_soft_weight,
+    {},
+    {
+        "leather": highboot_area,
+        "boiled leather": foot_sole_area,
+    },
+    vendor="cobbler",
+    description="sold singly; unisex knee-high boot",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
