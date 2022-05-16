@@ -3776,6 +3776,84 @@ Recipe(
     description="hard blob; heat 1:3 gelatin:water mixture to use as binder",
     vendor="tanner",
 )
+
+bow_limb_length = D(2) * u.feet
+bow_riser_length = D(2) * u.inch
+bow_length = bow_riser_length + (2 * bow_limb_length)
+# multiplier on bowstring length is for tying knots at ends of bow limbs
+bowstring_length = D(1.1) * bow_length
+bowstring_width = D(0.125) * u.inch
+strands_per_bowstring = D(3)
+hide_sqft_per_bowstring = (
+    (bowstring_length * bowstring_width) * strands_per_bowstring
+).to(u.sqft)
+bowstring_weight = (
+    (hide_sqft_per_bowstring / registry["rawhide"].unit) * registry["rawhide"].weight
+).to(u.oz)
+Recipe(
+    "bowstring",
+    "leathercraft",
+    bowstring_weight,
+    {},
+    {"rawhide": hide_sqft_per_bowstring},
+    vendor="bowyer",
+)
+
+bow_thickness = D(1) * u.inch
+bow_limb_width = D(1.5) * u.inch
+bow_limb_volume = bow_limb_length * bow_limb_width * bow_thickness
+bow_limb_wood_fraction = D(0.7)
+bow_limb_horn_fraction = D(1) - bow_limb_wood_fraction
+bow_limb_wood = (density["timber"] * bow_limb_volume * bow_limb_wood_fraction).to(u.lb)
+bow_limb_horn = (density["horn"] * bow_limb_volume * bow_limb_horn_fraction).to(u.lb)
+bow_limb_hide = (bow_limb_width * bow_limb_length).to(u.sqft)
+bow_layers = D(3)  # wood, horn, hide
+bow_limb_glue = (
+    (bow_limb_length * bow_limb_width * (bow_layers - 1)).to(u.sqft) / glue_coverage
+) * registry["hide glue"].weight
+bow_limb_weight = (
+    bow_limb_wood
+    + bow_limb_horn
+    + (bow_limb_hide / registry["rawhide"].unit * registry["rawhide"].weight)
+    + bow_limb_glue
+).to(u.lb)
+Recipe(
+    "bow limb",
+    "woodcraft",
+    bow_limb_weight,
+    {"timber": bow_limb_wood},
+    {
+        "cattle horn": bow_limb_horn,
+        "rawhide": bow_limb_hide,
+        "hide glue": bow_limb_glue,
+    },
+)
+
+bow_riser_volume = cylinder_volume(bow_riser_length, D(0.125) * u.inch)
+bow_riser_weight = (density["wrought iron"] * bow_riser_volume).to(u.lb)
+Recipe(
+    "bow riser",
+    "ironmongery",
+    bow_riser_weight,
+    {},
+    {"wrought iron": bow_riser_weight},
+)
+
+bow_weight = bow_riser_weight + bowstring_weight + (2 * bow_limb_weight)
+Recipe(
+    "bow",
+    "weapons",
+    bow_weight,
+    {},
+    {
+        "bow riser": 1 * u.item,
+        "bow limb": 2 * u.item,
+        "bowstring": 1 * u.item,
+    },
+    vendor="bowyer",
+    description=f"1d6 damage, {bow_length:~} long, range 15/30/45; comes with 1 bowstring",
+)
+
 # approximate as a metal cylinder plus four triangular spikes
 shuriken_thickness = D(0.25) * u.inch
 shuriken_body_radius = D(1) * u.inch
