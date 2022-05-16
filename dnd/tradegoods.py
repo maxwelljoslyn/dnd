@@ -2340,6 +2340,16 @@ Recipe(
     vendor="tobacconist",
 )
 
+cigar_weight = D(0.75) * u.oz
+Recipe(
+    "cigar",
+    "tobacco",
+    cigar_weight,
+    {},
+    {"cured tobacco": cigar_weight},
+    difficulty=2,  # aging, drying, and wrapping
+    vendor="tobacconist",
+)
 Recipe(
     "snuff",
     "snuff",
