@@ -145,7 +145,7 @@ weapons = {
     "longsword": {
         "damage": "1d8",
         "form": ["melee"],
-        "includes": ["falchion", "bastard sword"],
+        "includes": ["falchion", "bastard sword", "kriegsmesser"],
     },
     "mace": {
         "damage": "1d6+1",
@@ -173,6 +173,7 @@ weapons = {
             "cutlass",
             "hanger",
             "gladius",
+            "lange messer",
             "arming sword",
             "estoc",
         ],
