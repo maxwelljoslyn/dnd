@@ -1,11 +1,13 @@
-$def with (pid, name, characters)
+$def with (username, name, characters)
+
 $if tx.user.role == 'player' and tx.user.name == name:
     <p>Your characters:</p>
 $else:
     <p>$:{name}'s characters:</p>
 <ul>
 $for character in characters:
-    <li><a href="/players/$:pid/characters/$:character['name']">$character['name']</a></li>
+    $ cname = character['details']['name']
+    <li><a href="/players/$:username/characters/$cname">$cname</a></li>
 </ul>
 
 <form method=post action="/create/start"><button>Create a Character</button></form>

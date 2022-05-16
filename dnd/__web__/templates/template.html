@@ -5,6 +5,9 @@ $def with (inner)
 <meta charset=utf-8>
 <meta name=viewport content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width'>
 <link rel=stylesheet type='text/css' href='/static/style.css'>
+$ title = inner.get('title', None)
+$if title:
+    <title>$title</title>
 </head>
 
 <body>
@@ -13,9 +16,12 @@ $def with (inner)
 $if not tx.user.role:
     <a href=/login>Log In</a>
 $else:
-    $ link = "/dm" if tx.user.role == "dm" else f"/players/{tx.user.pid}"
-    You, $tx.user.name, are $tx.user.role_string. <a href=$link>Your Page</a><p><form method=post action='/logout'><button>Log Out</button></form></p>
+    $ link = "/dm" if tx.user.role == "dm" else f"/players/{tx.user.username}"
+    You, $tx.user.name, are $(tx.user.role_string). <a href=$link>Your Page</a><p><form method=post action='/logout'><button>Log Out</button></form></p>
 </nav>
+
+$if title:
+    <h1>$title</h1>
 
 $:inner
 </body>

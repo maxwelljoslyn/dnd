@@ -10,7 +10,6 @@ ability_regex = "|".join(dnd.characters.abilities.keys())
 class_regex = "|".join(dnd.characters.classes.keys())
 race_regex = "|".join(dnd.characters.races.keys())
 entity_id_regex = r"[\d]+"
-player_id_regex = entity_id_regex
 integer_regex = r"[\d]+"
 coin_regex = r"gp|sp|cp"
 rule_regex = r"[\w\d\-]+"
@@ -27,7 +26,7 @@ app = web.application(
         "pc": muh_regex,
         "ability": ability_regex,
         "eid": entity_id_regex,
-        "pid": player_id_regex,
+        "username": muh_regex,
         "integer": integer_regex,
         "coin": coin_regex,
         "klass": class_regex,
@@ -35,74 +34,33 @@ app = web.application(
         "rule": rule_regex,
     },
     model={
-        "players": {"name": "TEXT NOT NULL"},
-        "characters": {
-            "player_id": "INTEGER NOT NULL",
+        "players": {
+            "username": "TEXT UNIQUE NOT NULL",
             "name": "TEXT NOT NULL",
         },
-        "inventory": {
-            "owner_id": "INTEGER",
-            "item_id": "INTEGER",
-        },
-        "items": {
-            "name": "TEXT",
-        },
-        "money": {
-            "owner_id": "INTEGER",
-            "coin": "TEXT",
-            "amount": "INTEGER",
-            # PRIMARY KEY (OWNER_ID, COIN)
+        "characters": {
+            "username": "TEXT NOT NULL",  # not unique - players can have multiple characters
+            "details": "JSON",
         },
         "creation": {
-            "player_id": "INTEGER UNIQUE NOT NULL",
+            "username": "TEXT UNIQUE NOT NULL",
             "step": "INTEGER",
             "state": "JSON",
         },
     },
 )
 
-all_characters = {
-    "Fritz": {
-        "player": "Angelo",
-        "class": "fighter",
-        "abilities": {
-            "strength": 16,
-            "dexterity": 12,
-            "constitution": 15,
-            "intelligence": 11,
-            "wisdom": 9,
-            "charisma": 18,
-        },
-        "location": "Pearl Island",
-        "money": {"gp": 300 * dnd.u.gp, "sp": 7 * dnd.u.sp, "cp": 18 * dnd.u.cp},
-    },
-    "Grunkus": {
-        "player": "Dave",
-        "class": "mage",
-        "abilities": {
-            "strength": 7,
-            "dexterity": 10,
-            "constitution": 14,
-            "intelligence": 16,
-            "wisdom": 13,
-            "charisma": 10,
-        },
-        "location": "Allrivers",
-        "money": {
-            "sp": 19 * dnd.u.sp,
-            "cp": 1 * dnd.u.cp,
-        },
-    },
-}
-
 
 def setup_db():
-    for c, info in all_characters.items():
-        player = info["player"]
-        pid = tx.db.insert("players", name=player)
-        eid = tx.db.insert("characters", player_id=pid, name=c)
-        for coin, quantity in info["money"].items():
-            tx.db.insert("money", owner_id=eid, coin=coin, amount=quantity.magnitude)
+    for player, username in {
+        "Ross": "rossm",
+        "Chandler": "chandlerf",
+        "Rachel": "rachell",
+    }.items():
+        tx.db.insert("players", name=player, username=username)
+    with open("newcharacters/apollo.json", "r") as fp:
+        apollo = json.loads(fp.read())
+        tx.db.insert("characters", username="chandlerf", details=apollo)
 
 
 @app.control("setupdb")
@@ -110,7 +68,7 @@ class SetupDB:
     def get(self):
         try:
             setup_db()
-            raise web.OK("OK")
+            return app.view.oksetup()
         except Exception as e:
             raise e
 
@@ -123,40 +81,30 @@ def can_afford(price, wealth):
     return dnd.to_copper_pieces(price) <= dnd.to_copper_pieces(wealth)
 
 
-def pull_money(eid):
-    # return tx.db.execute(
-    #    "select c.rowid, c.name, m.coin, m.amount from characters as c join money as m on c.rowid=m.owner_id"
-    # )
-    return tx.db.select("money", where="owner_id = ?", vals=[eid])
-
-
 def add_money(eid, cointype, to_add):
-    #    for each in pull_money(eid):
-    #        coin = each["coin"]
-    #        amount = each["amount"]
-    #        if coin not in existing_money:
-    #            existing_money[coin] = amount
-    #        else:
-    #            existing_money[coin] += amount
-    existing = tx.db.select(
-        "money", where=f"owner_id={eid} AND coin = ?", vals=[cointype]
-    )[0]
-    if not existing:
-        tx.db.insert("money", owner_id=eid, coin=cointype, amount=to_add)
+    query = tx.db.select(
+        "characters",
+        what="rowid, details",
+        where="rowid = ?",
+        vals=[eid],
+    )
+    character = json.loads(query[0][0])
+    if cointype in character["details"]["money"]:
+        character["details"]["money"][cointype] += to_add
     else:
-        new_amount = int(existing["amount"]) + int(to_add)
-        tx.db.update(
-            "money",
-            where=f"owner_id={eid} AND coin = ?",
-            amount=new_amount,
-            vals=[cointype],
-        )
+        character["details"]["money"][cointype] = to_add
+    tx.db.update(
+        "creation",
+        details=character["details"],
+        where="rowid = ?",
+        vals=[eid],
+    )
 
 
-def pull_characters(pid=None):
-    if pid:
+def pull_characters(username=None):
+    if username:
         return tx.db.select(
-            "characters", what="rowid, *", where="player_id = ?", vals=[pid]
+            "characters", what="rowid, *", where="username = ?", vals=[username]
         )
     else:
         return tx.db.select("characters", what="rowid, *")
@@ -166,12 +114,12 @@ def pull_character(eid):
     return tx.db.select("characters", what="rowid, *", where="rowid = ?", vals=[eid])[0]
 
 
-def pull_character_byname(pid, name):
+def pull_character_byname(username, charname):
     return tx.db.select(
         "characters",
-        what="rowid, *",
-        where="player_id = ? AND name = ?",
-        vals=[pid, name],
+        what="rowid, username, details",
+        where="username = ? AND json_extract(details, '$.name') = ?",
+        vals=[username, charname],
     )[0]
 
 
@@ -179,18 +127,18 @@ def pull_players():
     return tx.db.select("players", what="rowid, *")
 
 
-def pull_player(pid):
-    return tx.db.select("players", what="rowid, *", where=f"rowid = ?", vals=[pid])[0]
+def pull_player(username):
+    return tx.db.select("players", what="*", where=f"username = ?", vals=[username])[0]
 
 
 def pull_inprogress_chargens():
-    return tx.db.select("creation", what="player_id, step, state")
+    return tx.db.select("creation", what="username, step, state")
 
 
-def chargen_step(pid):
+def chargen_step(username):
     inprogress_chargens = pull_inprogress_chargens()
     for row in pull_inprogress_chargens():
-        if row["player_id"] == pid:
+        if row["username"] == username:
             return row["step"]
     return 0
 
@@ -210,7 +158,7 @@ class GiveMoney:
 
 @app.wrap
 def every_request(handler, main_app):
-    tx.user.pid = tx.user.session.get("pid")
+    tx.user.username = tx.user.session.get("username")
     tx.user.role = tx.user.session.get("role")
     tx.user.name = tx.user.session.get("name")
     tx.user.role_string = render_role(tx.user.role)
@@ -265,19 +213,11 @@ class Map:
         return app.view.map("foo")
 
 
-# TODO update this to use DB
 @app.control("rules/{ability}")
 class Ability:
     def get(self, ability):
-        abilitymap = {
-            s: [
-                c
-                for c, info in all_characters.items()
-                if info["abilities"][ability] == s
-            ]
-            for s in range(1, 21)
-        }
-        return app.view.ability(ability, dnd.characters.abilities[ability], abilitymap)
+        chars = pull_characters()  # TODO pull_pcs instead
+        return app.view.ability(ability, dnd.characters.abilities[ability], chars)
 
 
 @app.control("rules/{klass}")
@@ -309,13 +249,12 @@ class LogIn:
             raise web.BadRequest("Must provide role: DM or Player")
         elif role == "dm":
             tx.user.session.update(role="dm")
-            # ignore any name that might be in the form: those are player names
             tx.user.session.update(name="Maxwell")
         else:
-            pid = web.form("pid").pid
-            name = pull_player(pid)["name"]
+            username = web.form("username").username
+            name = pull_player(username)["name"]
             tx.user.session.update(role="player")
-            tx.user.session.update(pid=int(pid))
+            tx.user.session.update(username=username)
             tx.user.session.update(name=name)
         raise web.SeeOther("/")
 
@@ -330,32 +269,28 @@ class LogOut:
 @app.control("dm")
 class DM:
     def get(self):
-        # TODO update this
-        return app.view.dm([(c, info["player"]) for c, info in all_characters.items()])
+        return app.view.dm(pull_characters())
 
 
-@app.control("players/{pid}")
+@app.control("players/{username}")
 class Player:
-    def get(self, pid):
-        name = pull_player(pid)["name"]
-        return app.view.player(pid, name, pull_characters(pid))
+    def get(self, username):
+        name = pull_player(username)["name"]
+        return app.view.player(username, name, pull_characters(username))
 
 
-# TODO should this use a get query parameter to pass player (and character) meanig all I need is players, players/player, characters, character?player=foo
-# TODO handle non unique player names; enforce unique character names PER PLAYER only (eg Ange and DAve can both play a Grunkus, but Ange cannot have TWO PCs named Grunkus)
-@app.control("players/{pid}/characters/{eid}")
+@app.control("players/{username}/characters/{eid}")
 class PC:
-    def get(self, pid, eid):
-        # TODO get from database instead
-        pc = pull_character(eid)["name"]
-        return app.view.pc(pc, pull_money(eid))
+    def get(self, username, eid):
+        data = pull_character(eid)
+        return app.view.pc(data)
 
 
-@app.control("players/{pid}/characters/{pc}")
+@app.control("players/{username}/characters/{pc}")
 class PCByName:
-    def get(self, pid, pc):
-        eid = pull_character_byname(pid, pc)["rowid"]
-        return app.view.pc(pc, pull_money(eid))
+    def get(self, username, pc):
+        data = pull_character_byname(username, pc)
+        return app.view.pc(data)
 
 
 character_creation_steps = {
@@ -367,33 +302,33 @@ character_creation_steps = {
 @app.control("create/start")
 class StartCharacterCreation:
     def get(self):
-        if not tx.user.pid:
+        if not tx.user.username:
             raise web.SeeOther("/login")
         else:
-            raise web.SeeOther(f"/players/{tx.user.pid}")
+            raise web.SeeOther(f"/players/{tx.user.username}")
 
     def post(self):
-        if not tx.user.pid:
+        if not tx.user.username:
             raise web.BadRequest("not logged in as player")
         else:
-            step = chargen_step(tx.user.pid)
+            step = chargen_step(tx.user.username)
             if step:
                 # TODO put this under unified /characters/create/step/X
                 raise web.SeeOther(
                     character_creation_steps.get(step, "/notimplemented")
                 )
             else:
-                tx.db.insert("creation", player_id=tx.user.pid, step=1, state={})
+                tx.db.insert("creation", username=tx.user.username, step=1, state={})
                 raise web.SeeOther("/create/rolls")
 
 
 @app.control("create/rolls")
 class CharacterCreationRolls:
     def get(self):
-        if not tx.user.pid:
+        if not tx.user.username:
             raise web.SeeOther("/login")
         # TODO check if they are already on step 2; if so, redirect to '/create/assign'
-        # step = tx.db.select('creation', what='step', where='player_id = ?', vals=[tx.user.pid])
+        # step = tx.db.select('creation', what='step', where='username = ?', vals=[tx.user.username])
         return app.view.rolls()
 
     def post(self):
@@ -405,48 +340,48 @@ class CharacterCreationRolls:
             "creation",
             step=2,
             state={"rolls": rolls, "abilities": {}, "class": None, "race": None},
-            where="player_id = ?",
-            vals=[tx.user.pid],
+            where="username = ?",
+            vals=[tx.user.username],
         )
         raise web.SeeOther("/create/assign")
 
 
-def chargen_state(pid):
+def chargen_state(username):
     q = tx.db.select(
         "creation",
         what="json_extract(state, '$')",
-        where="player_id = ?",
-        vals=[pid],
+        where="username = ?",
+        vals=[username],
     )
     return json.loads(q[0][0])
 
 
-def chargen_abilities(pid):
+def chargen_abilities(username):
     abilities = tx.db.select(
         "creation",
         what="json_extract(state, '$.abilities')",
-        where="player_id = ?",
-        vals=[pid],
+        where="username = ?",
+        vals=[username],
     )
     return json.loads(abilities[0][0])
 
 
-def chargen_rolls(pid):
+def chargen_rolls(username):
     rolls = tx.db.select(
         "creation",
         what="json_extract(state, '$.rolls')",
-        where="player_id = ?",
-        vals=[pid],
+        where="username = ?",
+        vals=[username],
     )
     return json.loads(rolls[0][0])
 
 
-def chargen_class(pid):
+def chargen_class(username):
     klass = tx.db.select(
         "creation",
         what="json_extract(state, '$.class')",
-        where="player_id = ?",
-        vals=[pid],
+        where="username = ?",
+        vals=[username],
     )[0][0]
     if not klass:
         return None
@@ -454,12 +389,12 @@ def chargen_class(pid):
         return json.loads(klass)
 
 
-def chargen_race(pid):
+def chargen_race(username):
     race = tx.db.select(
         "creation",
         what="json_extract(state, '$.race')",
-        where="player_id = ?",
-        vals=[pid],
+        where="username = ?",
+        vals=[username],
     )[0][0]
     if not race:
         return None
@@ -470,7 +405,7 @@ def chargen_race(pid):
 @app.control("create/assign")
 class CharacterCreationAssignment:
     def get(self):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         rolls = state["rolls"]
         abilities = state["abilities"]
         race = state.get("race", None)
@@ -478,7 +413,7 @@ class CharacterCreationAssignment:
         return app.view.assign(rolls, abilities, race, klass)
 
     def post(self):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         rolls = state["rolls"]
         abilities = state["abilities"]
         race = state.get("race", None)
@@ -495,7 +430,7 @@ class CharacterCreationAssignment:
 @app.control("create/assign/{ability}")
 class AssignAbility:
     def post(self, ability):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         rolls = state["rolls"]
         abilities = state["abilities"]
         try:
@@ -509,8 +444,8 @@ class AssignAbility:
         tx.db.update(
             "creation",
             state=state,
-            where="player_id = ?",
-            vals=[tx.user.pid],
+            where="username = ?",
+            vals=[tx.user.username],
         )
         raise web.SeeOther("/create/assign")
 
@@ -518,7 +453,7 @@ class AssignAbility:
 @app.control("create/clear/{ability}")
 class ClearAbility:
     def post(self, ability):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         rolls = state["rolls"]
         abilities = state["abilities"]
         score = abilities[ability]
@@ -529,8 +464,8 @@ class ClearAbility:
         tx.db.update(
             "creation",
             state=state,
-            where="player_id = ?",
-            vals=[tx.user.pid],
+            where="username = ?",
+            vals=[tx.user.username],
         )
         raise web.SeeOther("/create/assign")
 
@@ -538,7 +473,7 @@ class ClearAbility:
 @app.control("create/assign/race")
 class AssignRace:
     def post(self):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         r = web.form()["race"]
         state["race"] = r if r else None
         if r:
@@ -549,8 +484,8 @@ class AssignRace:
         tx.db.update(
             "creation",
             state=state,
-            where="player_id = ?",
-            vals=[tx.user.pid],
+            where="username = ?",
+            vals=[tx.user.username],
         )
         raise web.SeeOther("/create/assign")
 
@@ -558,14 +493,14 @@ class AssignRace:
 @app.control("create/assign/class")
 class AssignClass:
     def post(self):
-        state = chargen_state(tx.user.pid)
+        state = chargen_state(tx.user.username)
         c = web.form()["class"]
         state["class"] = c if c else None
         tx.db.update(
             "creation",
             state=state,
-            where="player_id = ?",
-            vals=[tx.user.pid],
+            where="username = ?",
+            vals=[tx.user.username],
         )
         raise web.SeeOther("/create/assign")
 

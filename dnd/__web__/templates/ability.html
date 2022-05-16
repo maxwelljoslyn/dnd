@@ -1,8 +1,10 @@
-$def with (ability, abi_info, score_to_characters)
+$def with (ability, abi_info, chars)
 
 <h1>$:titlecase(ability)</h1>
 
 $ funcs = list(abi_info.keys())
+
+TODO: use mod_to_text on appropriate numeric values, e.g. bonus hp, save bonuses
 
 <table>
 <tr>
@@ -14,7 +16,7 @@ $for score in range(1, 21):
     <tr>
     <td>$:score</td>
     $for f in funcs:
-        $if f != 'bonus HP/level':
+        $if 'bonus HP' not in f:
             <td>${abi_info[f](score)}</td>
         $else:
             $ normal = abi_info[f](score)
@@ -23,8 +25,9 @@ $for score in range(1, 21):
                 <td>$normal</td>
             $else:
                 <td>$normal ($martial)</td>
-    $if score_to_characters.get(score):
-        <td>$:score_to_characters[score]</td>
+    $for c in chars:
+        $if c['details'][ability] == score:
+            <td>$c['details']['name']</td>
     </tr>
 </table>
 

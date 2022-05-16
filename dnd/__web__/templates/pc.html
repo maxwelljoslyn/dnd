@@ -1,9 +1,61 @@
-$def with (pc, money)
+$def with (pc)
 
-I am $:pc.
+$ details = pc['details']
 
-$ coins = ", ".join([f"{each['amount']} {each['coin']}" for each in money])
+$ name = details['name']
+$ klass = details['class']
+$ level = details['level']
+$ race = details['race']
+$ background = details['background']
 
-I have ${coins}.
+<h1>$:name</h1>
 
-$# tx.user.role == 'player' and tx.user.name == player
+Level $level $race $klass
+
+<h2>Ability Scores</h2>
+
+$for abi in characters.abilities:
+    <p>
+    $ score = details[abi]
+    <div><a href="/rules/$abi">${abi.capitalize()}</a>: $score </div>
+    $ derived_stats = characters.abilities[abi]
+    $for dname, func in derived_stats.items():
+        <div>$titlecase(dname):
+        $if dname != 'bonus HP/level':
+            $func(score)
+        $else:
+            $func(score, klass)
+        </div>
+    </p>
+
+
+
+<h2>Key Stats</h2>
+
+<div>
+  HP: $details['current HP'] / $details['maximum HP']
+</div>
+$ chart = characters.classes[klass]['levels']
+<div>
+  XP: $details['XP'] (next level at $chart[level + 1]['min XP'])
+</div>
+
+<h2>Background</h2>
+
+What happened before you entered the campaign...
+
+<p>You were born on $details['birthday'].</p>
+
+<p>
+<div>Father's profession: $background['father profession'].</div>
+<div>Gained from your father: $background['father legacy'].</div>
+</p>
+
+$for name, info in background.items():
+    $if 'father' not in name:
+        <p>$titlecase(name): $info</p>
+
+
+<h2>TODO</h2>
+
+$details
