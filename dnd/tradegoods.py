@@ -1853,6 +1853,7 @@ for w, description in wines.items():
         description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
     )
 
+
 ale_per_serving = (D(1) * u.cup).to(u.floz)
 Recipe(
     "ale, by the glass",
@@ -4515,6 +4516,91 @@ Recipe(
     unit=tilled_land_sale_unit,
     description="previously tilled and now lying fallow; 10% chance to be in same hex as market town, 30% chance in 1st ring of 6-mile hexes, and 60% chance in 2nd ring of surrounding 6-mile hexes",
 )
+
+
+def no_vendor():
+    return {k: v for k, v in registry.items() if not v.vendor}
+
+
+def list_all(town="Pearl Island"):
+    t = towns[town]
+    for name, recipe in registry.items():
+        print(name)
+        print(f"{recipe.display_price(t)}")
+        if recipe.description:
+            print(recipe.description)
+        print()
+
+
+def by_vendor(town="Pearl Island"):
+    t = towns[town]
+    for v in sorted(list(vendors)):
+        l = len(v)
+        print("-" * l)
+        print(v.upper())
+        print("-" * l)
+        print()
+        rs = {name: recipe for name, recipe in registry.items() if recipe.vendor == v}
+        for name, recipe in rs.items():
+            print(name)
+            print(f"{recipe.display_price(t)}")
+            if recipe.description:
+                print(recipe.description)
+            print()
+        print()
+    for name, recipe in no_vendor().items():
+        print(name)
+        print(f"{recipe.display_price(t)}")
+        if recipe.description:
+            print(recipe.description)
+        print()
+if __name__ == "__main__":
+    main()
+
+# TODO things which are raw materials - how to put them on pricing table w/o overcharging  for them by making them go through a recipe?
+# for instance, 'grapes' are used as a raw material in wine production...
+# ...  but for sale OF GRAPES THEMSELVES AS FOOD, what warrants making them more expensive by requiring a recipe?
+# why not use the raw material price directly?
+# this also applies to pig iron, iron (ore), gold, all the types of building stone, and more!
+# it could also take down the price of cattle, sheep, etc no?
+# currently, if I don't have a recipe I can't put them on the price table AS THEIR OWN ITEM
+# TODO do I need a subclass of recipe, Raw, which doesn't require a governor and is sold as-is?
+# TODO what is the dividing line between grapes (sold as a new Raw) and, say, cattle (which currently have to go through at least one recipe to be sold?)
+
+# TODO one issue with Raw proposal is that it doesn't account for fact taht some 'Raws' are derived from others and prices will be wrong if we go straight to using Raw price
+# for instance, 'dried fish' is a raw material, and very cheap; fresh fish is much more expensive
+# so 'dried fish' shouldn't be a Raw, lest dried fish somehow cost much less per unit than fresh even though it's been processed, etc.
+
+
+# https://en.wikipedia.org/wiki/Bone_char
+# used in sugar production as a filtering agent
+
+
+# def d(x): return Decimal(x)
+# gallons olive oil produced per acre
+# Decimal('105.6691999999999964643393469')
+# 200 olive trees/acre * 4 lbs of oil annually/tree * 1 L oil/2 lbs * 0.264173... gal/L
+# d(200) * d(4) / d(2) * d(0.264173)
+
+# area of 2.2222222222 mile diameter hexagon, in sq mi
+# Decimal('4.276583127718347711819777428')
+# >>> import math as m
+# >>> d(m.sqrt(d(3))) * d(2.2222) * d(2.2222) / d(2)
+
+# earthenware ceramic goods
+# glazed and unglazed
+
+# candles: The wicks need to be mordanted with salts to make the wick bend into the flame, slowing down the burn time so that the wax is consumed as the candle burns and the flame is not extinguished in the melted wax.   A solution of 1 litre of water, 1/4 cup. coarse salt or other nonadditive salts, 1/2 cup of borax is used to prepare the wicks.  You can mordant your wicks in a skein or you can cut them to size and then mordant them individually.  Simmer the wicks for one hour in the solution.  Cool in the solution and then remove and allow to dry completely.
+
+# TODO oil the hafts of weapons, or the whole bodies of wooden ones, so they stay durable
+# TODO differentiate woods used for buildings, weapons, barrels, etc. (like the oak club)
+# TODO turn attar of roses into a 'rose oil' recipe for use in e.g. snuff, perfume, rose soap
+# fuller's teasel / card https://en.wikipedia.org/wiki/Dipsacus#Cultivation_and_uses
+# TODO clothing: buttons, stitching
+# boots: laces, stitching
+
+# awl, needle, punch, short hammer, mallet, saw, vice or clamp, ruler, anvil, bellows, nails, (leather) apron, loupe, calipers, punty / blowpipe, tongs, fuller's earth, putty knife, adze / scraper, stirring rod, flask, vial, shears, loom, crystal ball, bowl, plate, cooking / work knife, cutting board, ladle, spoon fork eating knife, spinning wheel, mortar and pestle, alembic, trowel, shovel, towel, bathrobe, wine glass, pint glass, shot glass, last (foot, hand, head), oar, rowboat, coracle, remaining weapons, chair, cushion, embroidered cushion, bench, tattoo, quill, paper, parchment, ink, colored class, pamphlet, metal type, belt, backpack, coin pouch, scabbard, bit, bridle, saddlebags,
+
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
@@ -4633,86 +4719,8 @@ Recipe(
 # )
 
 
-def no_vendor():
-    return {k: v for k, v in registry.items() if not v.vendor}
-
-
-def list_all(town="Pearl Island"):
-    t = towns[town]
-    for name, recipe in registry.items():
-        print(name)
-        print(f"{recipe.display_price(t)}")
-        if recipe.description:
-            print(recipe.description)
-        print()
-
-
-def by_vendor(town="Pearl Island"):
-    t = towns[town]
-    for v in sorted(list(vendors)):
-        l = len(v)
-        print("-" * l)
-        print(v.upper())
-        print("-" * l)
-        print()
-        rs = {name: recipe for name, recipe in registry.items() if recipe.vendor == v}
-        for name, recipe in rs.items():
-            print(name)
-            print(f"{recipe.display_price(t)}")
-            if recipe.description:
-                print(recipe.description)
-            print()
-        print()
-    for name, recipe in no_vendor().items():
-        print(name)
-        print(f"{recipe.display_price(t)}")
-        if recipe.description:
-            print(recipe.description)
-        print()
-
-
 def main():
     by_vendor()
     print(f"Recipes: {len(registry)}")
 
 
-if __name__ == "__main__":
-    main()
-
-# TODO things which are raw materials - how to put them on pricing table w/o overcharging  for them by making them go through a recipe?
-# for instance, 'grapes' are used as a raw material in wine production...
-# ...  but for sale OF GRAPES THEMSELVES AS FOOD, what warrants making them more expensive by requiring a recipe?
-# why not use the raw material price directly?
-# this also applies to pig iron, iron (ore), gold, all the types of building stone, and more!
-# it could also take down the price of cattle, sheep, etc no?
-# currently, if I don't have a recipe I can't put them on the price table AS THEIR OWN ITEM
-# TODO do I need a subclass of recipe, Raw, which doesn't require a governor and is sold as-is?
-# TODO what is the dividing line between grapes (sold as a new Raw) and, say, cattle (which currently have to go through at least one recipe to be sold?)
-
-# TODO one issue with Raw proposal is that it doesn't account for fact taht some 'Raws' are derived from others and prices will be wrong if we go straight to using Raw price
-# for instance, 'dried fish' is a raw material, and very cheap; fresh fish is much more expensive
-# so 'dried fish' shouldn't be a Raw, lest dried fish somehow cost much less per unit than fresh even though it's been processed, etc.
-
-
-# https://en.wikipedia.org/wiki/Bone_char
-# used in sugar production as a filtering agent
-
-
-# def d(x): return Decimal(x)
-# gallons olive oil produced per acre
-# Decimal('105.6691999999999964643393469')
-# 200 olive trees/acre * 4 lbs of oil annually/tree * 1 L oil/2 lbs * 0.264173... gal/L
-# d(200) * d(4) / d(2) * d(0.264173)
-
-# area of 2.2222222222 mile diameter hexagon, in sq mi
-# Decimal('4.276583127718347711819777428')
-# >>> import math as m
-# >>> d(m.sqrt(d(3))) * d(2.2222) * d(2.2222) / d(2)
-
-# earthenware ceramic goods
-# glazed and unglazed
-
-# candles: The wicks need to be mordanted with salts to make the wick bend into the flame, slowing down the burn time so that the wax is consumed as the candle burns and the flame is not extinguished in the melted wax.   A solution of 1 litre of water, 1/4 cup. coarse salt or other nonadditive salts, 1/2 cup of borax is used to prepare the wicks.  You can mordant your wicks in a skein or you can cut them to size and then mordant them individually.  Simmer the wicks for one hour in the solution.  Cool in the solution and then remove and allow to dry completely.
-
-# TODO oil the hafts of weapons, or the whole bodies of wooden ones, so they stay durable
-# TODO differetiate woods used for buildings, weapons, barrels, etc. (like the oak club)
