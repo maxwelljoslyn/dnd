@@ -1432,6 +1432,7 @@ Recipe(
         "tallow": tallow_per_soap * soap_weight,
     },
     vendor="chandler",
+    unit=60 * u.use,
     description="will wash 1 person 60 times; 2x3x6 in.",
 )
 
