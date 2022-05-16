@@ -4118,6 +4118,29 @@ Recipe(
     vendor="dyer",
     description="dusty pink dye",
 )
+
+# TODO how accurate is ratio of indigo plant to paste?
+Recipe(
+    "indigo paste",
+    # https://thekindcraft.com/the-process-indigo-from-plant-to-paste/
+    "dyestuff",
+    1 * u.lb,
+    {"indigo": 20 * u.lb},
+    {"lye": 0.1 * u.lb},
+    unit=1 * u.lb,
+    description="potent dyestuff producing rich variations of blue and purple",
+)
+
+Recipe(
+    "dye, indigo",
+    "dyestuff",
+    dye_sale_weight,
+    {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
+    {"indigo paste": 1 * u.gram},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="deep purple dye",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
