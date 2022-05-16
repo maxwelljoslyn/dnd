@@ -1238,6 +1238,17 @@ Recipe(
     vendor="butcher",
 )
 
+horn_per_cow = D(30) * u.lb
+Recipe(
+    "cattle horn",
+    "meat",  # TODO horn reference makes it super expensive
+    1 * u.lb,
+    {},
+    {"cow, beef": (Decimal(1) * u.lb / horn_per_cow) * u.head},
+    unit=1 * u.lb,
+    vendor="butcher",
+)
+
 abomasum_weight = Decimal(5) * u.lb  # this is a guess
 Recipe(
     "abomasum",
