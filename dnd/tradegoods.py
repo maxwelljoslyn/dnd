@@ -4198,6 +4198,23 @@ Recipe(
     vendor="hatter",
     description=registry["chaperon, cotton"].description,
 )
+
+knitcap_layers = D(2)
+knitcap_area = (
+    D(0.5) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
+) * knitcap_layers
+knitcap_weight = (
+    knitcap_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
+).to(u.lb)
+Recipe(
+    "knit cap",
+    "hats",
+    knitcap_weight,
+    {},
+    {"woolen cloth": knitcap_area},
+    vendor="hatter",
+    description="thick woolen beanie-like hat",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
