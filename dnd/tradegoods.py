@@ -1621,6 +1621,7 @@ sugar_per_brewable = {
     "malt": D(0.8) * u.lb / u.lb,
     "roasted malt": D(0.8) * u.lb / u.lb,
     "grapes": D(0.25) * u.lb / u.lb,
+    "mare milk": D(0.1) * u.lb / u.gallon,
 }
 
 
