@@ -2366,6 +2366,21 @@ Recipe(
     unit=uses_per_snuff_sale_unit,
     description=f"powdered snorting tobacco",
 )
+
+Recipe(
+    "snuff, rose scent",
+    "snuff",
+    snuff_sale_weight,
+    {
+        "attar of roses": D(0.25) * snuff_sale_weight,
+    },
+    {
+        "cured tobacco": snuff_sale_weight,
+    },
+    vendor="tobacconist",
+    unit=uses_per_snuff_sale_unit,
+    description=f"snuff scented with attar of roses",
+)
 )
 
 
