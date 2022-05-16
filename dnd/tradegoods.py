@@ -4502,6 +4502,19 @@ Recipe(
     vendor="innkeeper",
     description="",
 )
+
+tilled_land_sale_unit = D(1) * u.acre
+cereal_crop_per_acre = D(1) * u.ton / u.acre
+Recipe(
+    "tilled land",
+    "cereals",
+    0 * u.lb,
+    {"cereals": cereal_crop_per_acre * tilled_land_sale_unit},
+    {},
+    vendor="surveyor",
+    unit=tilled_land_sale_unit,
+    description="previously tilled and now lying fallow; 10% chance to be in same hex as market town, 30% chance in 1st ring of 6-mile hexes, and 60% chance in 2nd ring of surrounding 6-mile hexes",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
