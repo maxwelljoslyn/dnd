@@ -90,6 +90,8 @@ clay_slab_volume = Decimal(1) / Decimal(12) * u.cuft
 clay_slab_weight = Decimal(108) * u.oz
 density["clay"] = (clay_slab_weight / clay_slab_volume).to(u.lb / u.cuft)
 
+silvering_percentage = D(0.02)
+
 
 def cylinder_volume(height, radius):
     # explicit to(u.cuft) call required to reduce representation from explicit pi to value thereof;
@@ -3086,7 +3088,6 @@ Recipe(
     description=f"{arrow_length}",
 )
 
-silvering_percentage = D(0.02)
 silver_arrow_silver_weight = arrowhead_weight * silvering_percentage
 Recipe(
     "arrow, silver",
