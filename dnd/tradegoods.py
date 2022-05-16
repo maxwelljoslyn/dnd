@@ -4389,6 +4389,38 @@ Recipe(
     vendor="cobbler",
     description="sold singly; unisex knee-high boot",
 )
+
+lowboot_hard_weight = (
+    lowboot_area / registry["boiled leather"].unit * registry["boiled leather"].weight
+).to(u.oz) + leather_sole_weight
+Recipe(
+    "boot, hard",
+    "boots and shoes",
+    lowboot_hard_weight,
+    {},
+    {
+        "boiled leather": lowboot_area + foot_sole_area,
+    },
+    vendor="cobbler",
+    description=registry["boot, soft"].description + ", toughened for hard wearing",
+)
+
+
+highboot_hard_weight = (
+    highboot_area / registry["boiled leather"].unit * registry["boiled leather"].weight
+).to(u.oz) + leather_sole_weight
+Recipe(
+    "high boot, hard",
+    "boots and shoes",
+    highboot_hard_weight,
+    {},
+    {
+        "boiled leather": highboot_area + foot_sole_area,
+    },
+    vendor="cobbler",
+    description=registry["high boot, soft"].description
+    + ", toughened for hard wearing",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
