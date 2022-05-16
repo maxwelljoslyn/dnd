@@ -2690,7 +2690,33 @@ Recipe(
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
+# TODO add cork
+wine_bottle_weight = D(1.4) * u.lb
+wine_bottle_capacity = D(6) * wine_per_serving
+Recipe(
+    "bottle, wine",
+    "glassware",
+    wine_bottle_weight,
+    {},
+    {"flat glass": wine_bottle_weight},
+    vendor="glassblower",
+    capacity=wine_bottle_capacity,
+)
 
+for w in wines:
+    Recipe(
+        f"{w}, in bottle",
+        "wine",  # generic because tapping and pouring into bottle doesn't depend on which type it is; same as how all "by the glass" recipes have "foodstuffs" governor
+        (density["water"] * wine_bottle_capacity).to(u.lb),
+        {},
+        {
+            f"{w}, in barrel": wine_bottle_capacity,
+        },
+        unit=wine_bottle_capacity,
+        container="bottle, wine",
+        vendor="vintner",
+        description=registry[f"{w}, in barrel"].description,
+    )
 dog_sale_weight = D(40) * u.lb
 puppy_sale_weight = dog_sale_weight / D(4)
 puppy_sale_age = D(3) * u.month
