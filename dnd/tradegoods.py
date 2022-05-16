@@ -973,6 +973,16 @@ Recipe(
     vendor="mason",
 )
 
+
+# TODO baling string/wire/twine
+Recipe(
+    "straw",
+    "straw goods",
+    1 * u.lb,
+    {"cereals": 2 * u.lb},
+    {},
+    unit=1 * u.lb,
+)
 Recipe(
     "animal feed",
     "cereals",
