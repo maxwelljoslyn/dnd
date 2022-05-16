@@ -400,7 +400,7 @@ abilities = {
         "ranged attack & initiative modifier": dex_initiative_ranged_attacks_mod,
     },
     "constitution": {
-        "bonus HP/level": con_max_hp_increase_adjustment,
+        "bonus HP per level": con_max_hp_increase_adjustment,
         "system shock survival chance": con_system_shock_survival_chance,
         # con_resurrection_survival_chance,
     },
@@ -409,7 +409,7 @@ abilities = {
         # int_side_effects,
     },
     "wisdom": {
-        "Charm/Illusion save modifier": wis_charm_illusion_save_mod,
+        "Charm & Illusion save modifier": wis_charm_illusion_save_mod,
         "bonus cleric spells": wis_bonus_cleric_druid_spells,
         "max cleric spell level": wis_max_cleric_spell_level,
         "cleric spell success % chance": wis_cleric_spell_success_percent,
@@ -519,7 +519,7 @@ def default_literate(klass):
 #    ...:         for each in (normal, single, double):
 #    ...:             score = each[abi]
 #    ...:             output = f"{e}@{score}: "
-#    ...:             if e == 'bonus HP/level':
+#    ...:             if e == 'bonus HP per level':
 #    ...:                 print(output + str(f(score, 'illusionist')))
 #    ...:             else:
 #    ...:                 print(output + str(f(score)))
