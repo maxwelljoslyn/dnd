@@ -3424,11 +3424,14 @@ def armor_size(race):
 
 body_proportions = {
     # these measurements are for a male human; scale up or down for other races
+    "head": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
     "torso": {"length": D(2) * u.ft, "girth": D(3) * u.ft},
     "forearm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
     "upper arm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
     "thigh": {"length": D(1.5) * u.ft, "girth": D(1.5) * u.ft},
     "calf": {"length": D(1.5) * u.ft, "girth": D(1) * u.ft},
+    "foot": {"length": D(1) * u.ft, "girth": D(6) * u.inch},
+    "hand": {"length": D(6) * u.inch, "girth": D(4) * u.inch},
 }
 
 halfsleeve_area = (
@@ -3457,6 +3460,7 @@ calf_area_around_both = (
     * body_proportions["torso"]["girth"]
 )
 torso_area = body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
+hand_area = body_proportions["hand"]["length"] * body_proportions["hand"]["girth"]
 
 gambeson_layers = D(6)
 gambeson_area = torso_area + (fullsleeve_area * 2)
