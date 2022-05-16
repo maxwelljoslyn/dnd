@@ -3476,7 +3476,7 @@ gambeson_string_weight = (
 gambeson_weight = gambeson_cloth_weight + gambeson_string_weight
 
 
-def make_armor(name, base_weight, raws, recipes, description, forsale=True):
+def make_armor(name, base_weight, raws, recipes, description, vendor=None):
     for race in ("human", "gnome"):
         if race == "human":
             size = None
@@ -3489,7 +3489,7 @@ def make_armor(name, base_weight, raws, recipes, description, forsale=True):
             base_weight * ratio,
             {k: v * ratio for k, v in raws.items()},
             {k: v * ratio for k, v in recipes.items()},
-            vendor="armorer" if forsale else None,
+            vendor=vendor if vendor else None,
             description=description,
         )
 
@@ -3503,6 +3503,7 @@ make_armor(
         "cotton yarn": gambeson_string,
     },
     "AC +1; thickly-layered cloth armor with full sleeves, covering wearer to the waist",
+    "armorer",
 )
 
 leatherarmor_layers = D(2)
@@ -3529,6 +3530,7 @@ make_armor(
         "woolen yarn": leatherarmor_string,
     },
     "AC +2; stiffened cowhide armor with full sleeves, covering wearer to the waist",
+    "armorer",
 )
 
 
@@ -3549,6 +3551,7 @@ make_armor(
         "steel": coatofplates_plate_weight,
     },
     "AC +3; as leather armor, but reinforced with metal plates between the leather layers",
+    "armorer",
 )
 
 
@@ -3592,6 +3595,7 @@ make_armor(
         # "mail": hauberk_area,
     },
     "AC +5; chainmail with half sleeves, covering wearer to the knees",
+    "armorer",
 )
 
 haubergeon_area = torso_area + (halfsleeve_area * 2)
@@ -3605,6 +3609,7 @@ make_armor(
         # "mail": haubergeon_area,
     },
     "AC +4; chainmail with half sleeves, covering wearer to the waist",
+    "armorer",
 )
 
 
@@ -3636,7 +3641,6 @@ make_armor(
             plate_armor_description_tag,
         ]
     ),
-    forsale=False,
 )
 
 plate_armor_pieces = {
@@ -3671,7 +3675,6 @@ for name, info in plate_armor_pieces.items():
         dict(),
         ingredients,
         "; ".join([description, plate_armor_description_tag]),
-        forsale=False,
     )
 
 # TODO OMGWTF fuck python! why is this variable still bound outside the plate_armor_pieces for loop?!?!?! WHY ON EARTH IS THAT NOT A BUG?!?!?!?!? lexical scoping, people, PLEASE! jesus christ
