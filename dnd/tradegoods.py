@@ -3338,7 +3338,8 @@ Recipe(
     {"timber": spear_haft_weight},
     {"spearhead": 1 * u.item},
     vendor="weaponsmith",
-    description=f"1d6 damage, haft {spear_haft_length:~} long; melee or thrown 4/7/10",
+    description=f"1d6 damage, haft {spear_haft_length:~} long; 2-handed melee or 1-handed thrown 4/7/10",
+)
 )
 
 mace_flange_length = D(4) * u.inch
