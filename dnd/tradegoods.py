@@ -3984,6 +3984,43 @@ Recipe(
     description=f"2d4 damage, 2-handed; oaken bludgeon, {goedendag_haft_length:~} long, topped with large spearhead",
 )
 
+whip_handle_length = D(1) * u.feet
+whip_handle_volume = cylinder_volume(whip_handle_length, D(0.75) * u.inch)
+whip_handle_weight = (density["wood, oak"] * whip_handle_volume).to(u.lb)
+whiplash_layers = D(2)
+whiplash_length = D(4) * u.feet
+whiplash_width = D(0.5) * u.inch
+whiplash_area = whiplash_length * whiplash_width * whiplash_layers
+whiplash_weight = (
+    (whiplash_area / registry["rawhide"].unit) * registry["rawhide"].weight
+).to(u.lb)
+whip_weight = whip_handle_weight + whiplash_weight
+Recipe(
+    "whip",
+    "weapons",
+    whip_weight,
+    {"wood, oak": whip_handle_weight},
+    {"rawhide": whiplash_area},
+    vendor="weaponsmith",
+    description=f"1d4 damage; oak handle with {whiplash_length:} rawhide lash",
+)
+
+spikedwhip_barbs = (D(3) / u.foot) * whiplash_length
+spikedwhip_barb_weight = D(0.125) * u.lb
+spikedwhip_weight = whip_weight + (spikedwhip_barbs * spikedwhip_barb_weight).to(u.lb)
+Recipe(
+    "spiked whip",
+    "weapons",
+    spikedwhip_weight,
+    {"wood, oak": whip_handle_weight},
+    {
+        "rawhide": whiplash_area,
+        "steel": (spikedwhip_barbs * spikedwhip_barb_weight).to(u.lb),
+    },
+    vendor="weaponsmith",
+    description=f"1d4+1 damage; whip with {spikedwhip_barbs.magnitude} steel barbs; exotic weapon; deals bleed on multiples of 9 damage instead of 11",
+)
+
 # TODO add pie tin
 piecrust_flour = (density["flour"] * D(2) * u.cup).to(u.lb)
 piecrust_salt = D(1) * u.teaspoon
