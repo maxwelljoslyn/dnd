@@ -2551,7 +2551,7 @@ Recipe(
     {"animal feed": donkey_raising_fodder},
     vendor="stockyard",
     unit=1 * u.head,
-    description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}",
+    description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}; can carry 125 lbs",
 )
 
 # part eagle part lion - relatively light for its height
