@@ -4053,6 +4053,49 @@ Recipe(
     vendor="baker",
 )
 
+# insect's body is roughly 25% pigment by weight
+cochineal_percent_dyestuff = D(0.25)
+Recipe(
+    "cochineal powder",
+    "dyestuff",
+    cochineal_percent_dyestuff * u.lb,
+    {"cochineal": 1 * u.lb},
+    {},
+    unit=cochineal_percent_dyestuff * u.lb,
+    description="ground cochineal insects harvested for dyeing",
+)
+
+# TODO needs container, like many other recipes
+# TODO I made up all the numbers for these cochineal dyes - find a historical recipe
+dye_sale_weight = 4 * u.oz
+dye_sale_unit = 4 * u.floz
+Recipe(
+    "dye, crimson",
+    "dyestuff",
+    dye_sale_weight,
+    {
+        "alum": 1 * u.oz,
+    },
+    {
+        "cochineal powder": 1 * u.gram,
+    },
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="cochineal-derived dye; usable on wool but not cotton",
+)
+
+Recipe(
+    "dye, magenta",
+    "dyestuff",
+    dye_sale_weight,
+    {},
+    {
+        "cochineal powder": 1 * u.gram,
+    },
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="cochineal-derived dye; usable on wool but not cotton",
+)
 
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
