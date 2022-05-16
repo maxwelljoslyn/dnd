@@ -1,12 +1,78 @@
 $def with (characters)
 
-$#    I DONT WORK RIGHT NOW FIX ME TO USE PIDS AND EIDS
+<ul>
+$for c in characters:
+    $ details = c['details']
+    <li><a href="/players/$c['username']/characters/$details['name']">$details['name']</a></li>
+</ul>
 
-$#<ul>
-$#$for character in characters:
-$#<li><a href="/players/$:player/characters/$:character">$:character</a> (played by <a href="/players/$:player">$:player</a>)</li>
-$#</ul>
+<h2>DM Commands</h2>
 
+<h3>World</h3>
+$# TODO use the current date in value and min
+<form method=post action=/world/set-date>
+<label>Current In-Game Date
+<input type="date" name="current-date" value="1650-01-01" min="1650-01-01" required>
+</label>
+<button>Set the Date</button>
+</form>
+
+<h3>Player Characters</h3>
+
+
+<p>Give Items</p>
+
+<form method=post action=/world/give-item>
+
+<label for="pc-select">Choose PC</label>
+
+<div>
+<select name="pcs" id="pc-select">
+<option value="">--Select One--</option>
+<option value="goldfish">Alkobell</option>
+<option value="goldfish">Apollo Marcus</option>
+</select>
+</div>
+
+<label for="item-select">Choose Item</label>
+
+<div>
+<select name="items" id="item-select">
+<option value="">--Select One--</option>
+<option value="arrow">arrow</option>
+<option value="arrow, silver">arrow, silver</option>
+</select>
+
+</div><button>Give character item(s) </button>
+</form>
+
+<p>Give Money</p>
+
+<form method=post action=/world/give-money>
+
+
+<div>
+<input type="radio" id="yes-xp" name="counts-for-xp" value="True" required checked>
+<label for="yes-xp">Yes XP</label>
+</div>
+
+<div>
+<input type="radio" id="no-xp" name="counts-for-xp" value="False" required>
+<label for="no-xp">No XP</label>
+</div>
+
+
+
+<button>Give money to character</button>
+</form>
+
+
+
+
+$# TODO update this to, and the "givemoney" route, to match changes in player/character ID addressing
+$#$ cid = row['rowid']
+$#$ cname = row['name']
+$#<form method=post action=/dm/givemoney/character/$cid/cp/1><button>Give $cname 1 copper piece</button></form>
 
 Apollo
 
@@ -62,7 +128,7 @@ Encumbrance Information:
   <li>Above that, no movement is possible.</li>
 </ul>
 
-RACHEL
+Alkobell
 <ul>
   <li>
     Strength........16 (melee attack +1; melee damage +2)
