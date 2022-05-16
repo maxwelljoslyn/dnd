@@ -43,6 +43,7 @@ template = {
     "class": "",
     "level": 0,
     "birthday": "",
+    "player username": "",
     "strength": 0,
     "dexterity": 0,
     "constitution": 0,
@@ -61,6 +62,7 @@ template = {
     "mass HP": 0,
     "class HP": 0,
     "maximum HP": 0,
+    "current HP": 0,
     "spells known": dict(),
     "choosable spells": {},
     "chosen sage studies": [],
@@ -77,7 +79,7 @@ template = {
     "literate": False,
     "has family": True,
     "background": dict(),
-    "conditions": dict(),
+    "conditions": [],
 }
 
 
@@ -380,6 +382,7 @@ def create_character(testing, charclass, race):
     c["mass hit dice"] = dice_to_text(mass_hd)
     bodymass_hp = roll_dice(mass_hd)
     c["maximum HP"] = c["class HP"] + con_hp + bodymass_hp
+    c["current HP"] = c["maximum HP"]
 
     age = starting_age(c["class"]) + sum(c["added age"].values())
     c["birthday"] = details.birthday(age)
