@@ -1,10 +1,21 @@
 from decimal import Decimal, getcontext, localcontext, ROUND_UP
 from math import ceil, floor
 from collections import Counter
+import logging
+import json
+
+# from functools import lru_cache
+
+# logging.basicConfig(level=logging.DEBUG, force=True)
 
 from references import Q, u, world_references, categories
 from towns import towns
 from characters import races
+from jsonize import MyEncoder
+import sqlyte
+from models import tradegood_model
+from rich.progress import Progress
+
 
 # set up the Decimal environment
 getcontext().prec = 4
@@ -238,6 +249,23 @@ class Recipe:
         registry[self.name] = self
         if self.vendor:
             vendors.add(self.vendor)
+
+    def to_json(self):
+        val = {
+            "name": self.name,
+            "governor": self.governor,
+            "weight": str(self.weight),
+            "raws": [(name, str(amount)) for name, amount in self.raws.items()],
+            "recipes": [(name, str(amount)) for name, amount in self.recipes.items()],
+            "description": self.description,
+            "difficulty": self.difficulty,
+            "unit": str(self.unit),
+            # can't just str() these attributes unconditionally: don't want to stringify a None
+            "capacity": str(self.capacity) if self.capacity else None,
+            "container": str(self.container) if self.container else None,
+            "vendor": str(self.vendor) if self.vendor else None,
+        }
+        return json.dumps(val, cls=MyEncoder)
 
     def ingredient_costs(self, towninfo):
         price_raws = {}
@@ -4554,6 +4582,39 @@ def by_vendor(town="Pearl Island"):
         if recipe.description:
             print(recipe.description)
         print()
+
+
+def dbify_tradegoods(db, registry):
+    with Progress() as progress:
+        with db.transaction as cur:
+            numtowns = len(towns)
+            numgoods = len(registry)
+
+            recipes = []
+            for good, recipe in registry.items():
+                jr = recipe.to_json()
+                recipes.append(dict(name=good, recipe=jr))
+            cur.insert("tradegoods", *recipes)
+
+            town_task = progress.add_task("[red]Generating prices...", total=numtowns)
+            for t in towns:
+                tradegood_task = progress.add_task(f"[blue]at {t}", total=numgoods)
+                prices = []
+                logging.debug(f"generating prices at {t}")
+                for good, recipe in registry.items():
+                    price = to_copper_pieces(recipe.chunked_price(towns[t]).values())
+                    prices.append(dict(name=good, town=t, price=(str(price))))
+                    progress.update(tradegood_task, advance=1)
+                cur.insert("prices", *prices)
+                logging.debug(f"inserted prices at {t}")
+                progress.update(town_task, advance=1)
+
+
+def main():
+    db = sqlyte.db("foo.db", sqlyte.Model("tradegood_model", **tradegood_model))
+    dbify_tradegoods(db, registry)
+
+
 if __name__ == "__main__":
     main()
 
@@ -4717,10 +4778,3 @@ if __name__ == "__main__":
 #    # TODO add container
 #    description="orange mixture of acids which dissolves noble metals; used in alchemy, glassmaking, and lithography",
 # )
-
-
-def main():
-    by_vendor()
-    print(f"Recipes: {len(registry)}")
-
-
