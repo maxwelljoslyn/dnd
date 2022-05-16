@@ -2330,6 +2330,7 @@ Recipe(
     unit=1 * u.lb,
 )
 
+tobacco_sale_unit = D(14) * u.lb
 Recipe(
     "cured tobacco",
     "tobacco",
