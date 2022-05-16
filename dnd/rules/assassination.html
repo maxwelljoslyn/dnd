@@ -1,0 +1,36 @@
+$var title: Assassination
+
+<p>
+To assassinate, a target must be surprised; this is most frequently accomplished through stealth. On a successful attack roll, instead of normal damage, the assassin rolls <strong>assassination dice</strong>: 2d4-5+X. X is the assassin's level if he is Amateur or higher in the study of Murder; X is 1/2 the assassin's level, rounded down, if he is not.
+</p>
+
+<p>
+If the result of the assassination dice is equal to or greater than the target's total HD from race and levels, the target is <strong>instantly killed</strong>. Otherwise, normal weapon damage is dealt.
+</p>
+
+<p>
+If the attack roll to assassinate is a <a href="/rules/critical-hit">critical hit</a>, the assassin adds 1 less than the damage multiplier to the assassination dice. Thus, a normal (2x) critical adds 1, a 3x critical adds 2, and so on. This is separate from the normal damage increase of a critical hit, which still applies if the assassination dice fail.
+</p>
+
+<div class=example>
+  Example: Finbolg is an 8th-level assassin with 28 points in Murder, making him an Amateur. He attempts to assassinate and makes his attack roll. His assassination dice are 2d4-5+8 = 2d4+3. A creature with 5 or fewer HD (for instance, a 4th-level character of any playable race) will die no matter the roll, since the minimum on 2d4+3 is 5.
+</div>
+
+
+<h2>Highest Possible Asssassination Target</h2>
+
+$ target = characters.highest_assassination_target
+<table>
+<tr>
+<th>Level</th>
+<th>Target's Power (HD + Levels)</th>
+<th>(if 10+ points in Murder sage study)</th>
+</tr>
+$for level in range(1, 21):
+    <tr>
+    <td>$:level</td>
+    <td>$:target(level)</td>
+    <td>$:target(level, True)</td>
+
+    </tr>
+</table>
