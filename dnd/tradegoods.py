@@ -4476,6 +4476,32 @@ Recipe(
     vendor="glover",
     description="sold singly; extends to the elbow",
 )
+# one industry website says it costs $75,000 to build a motel; my local motel costs $75/night
+# let's use the same ratio to determine the price of one night at an inn
+inn_construction_service_ratio = D(0.001)
+Recipe(
+    "private room",
+    "foodstuffs",  # TODO this is terrible but nothing better...
+    0 * u.lb,
+    {},
+    {"half-timbered house, one story": inn_construction_service_ratio * u.item},
+    vendor="innkeeper",
+    description="",
+)
+
+Recipe(
+    "spot in common room",
+    "foodstuffs",  # TODO this is terrible but nothing better...
+    0 * u.lb,
+    {},
+    {
+        "half-timbered house, one story": inn_construction_service_ratio
+        / D(1.9)
+        * u.item
+    },
+    vendor="innkeeper",
+    description="",
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
