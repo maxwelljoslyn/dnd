@@ -6,7 +6,6 @@
 @alias cubic_inch = cuin
 @alias cubic_foot = cuft
 @alias cubic_centimeter = cucm
-@alias fluid_oz = floz
 
 # money
 copper_piece = [money] = cp
