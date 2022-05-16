@@ -2333,10 +2333,10 @@ Recipe(
 Recipe(
     "cured tobacco",
     "tobacco",
-    1 * u.lb,
+    tobacco_sale_unit,
     {},
-    {"raw tobacco": 5 * u.lb},
-    unit=1 * u.lb,
+    {"raw tobacco": 5 * tobacco_sale_unit},
+    unit=tobacco_sale_unit,
     vendor="tobacconist",
 )
 
