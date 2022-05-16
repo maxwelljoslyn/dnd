@@ -2351,15 +2351,21 @@ Recipe(
     difficulty=2,  # aging, drying, and wrapping
     vendor="tobacconist",
 )
+
+
+snuff_sale_weight = D(1) * u.oz
+snuff_per_use = D(0.2) * u.gram
+uses_per_snuff_sale_unit = floor(snuff_sale_weight / snuff_per_use) * u.use
 Recipe(
     "snuff",
     "snuff",
-    1 * u.lb,
+    snuff_sale_weight,
     {},
-    {"cured tobacco": 1 * u.lb},
+    {"cured tobacco": snuff_sale_weight},
     vendor="tobacconist",
-    unit=1 * u.lb,
-    description="powdered tobacco for insufflation",
+    unit=uses_per_snuff_sale_unit,
+    description=f"powdered snorting tobacco",
+)
 )
 
 
