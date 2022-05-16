@@ -1286,7 +1286,6 @@ Recipe(
     abomasum_weight,
     {"salt": 0.25 * u.lb},
     {"abomasum": 1 * u.item, "vinegar, in barrel": D(0.5) * u.pint},
-    vendor="butcher",
     description=registry["abomasum"].description,
 )
 
