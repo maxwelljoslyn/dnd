@@ -996,12 +996,12 @@ Recipe(
 
 Recipe(
     "animal feed",
-    "cereals",
+    "fodder",
     1 * u.lb,
-    {"cereals": 1 * u.lb},
     {},
-    description="coarsely ground from cereals",
+    {"dried hay": 1 * u.lb},
     unit=1 * u.lb,
+    description="composed primarily of hay",
     vendor="stockyard",
 )
 
