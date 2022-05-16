@@ -2381,6 +2381,28 @@ Recipe(
     unit=uses_per_snuff_sale_unit,
     description=f"snuff scented with attar of roses",
 )
+
+
+smoking_pipe_length = D(6) * u.inch
+horn_for_smoking_pipe = (
+    D(2) * u.inch * D(2) * u.inch * smoking_pipe_length * density["horn"]
+)
+smoking_pipe_fraction_after_carving = D(0.75)  # 25% carved away
+smoking_pipe_weight = (horn_for_smoking_pipe * smoking_pipe_fraction_after_carving).to(
+    u.oz
+)
+
+
+Recipe(
+    "smoking pipe, horn",
+    "horncarving",
+    smoking_pipe_weight,
+    {},
+    {
+        "cattle horn": horn_for_smoking_pipe,
+    },
+    vendor="tobacconist",
+    description=f"{smoking_pipe_length:~} long",
 )
 
 
