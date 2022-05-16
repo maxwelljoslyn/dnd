@@ -1335,7 +1335,7 @@ Recipe(
     {},
     {"cow milk": milk_per_serving},
     unit=milk_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
 )
 
 Recipe(
@@ -1345,7 +1345,7 @@ Recipe(
     {},
     {"ewes' milk": milk_per_serving},
     unit=milk_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
 )
 
 Recipe(
@@ -1846,7 +1846,7 @@ Recipe(
     {},
     {"ale, in barrel": ale_per_serving},
     unit=ale_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["ale, in barrel"].description,
 )
 
@@ -1859,7 +1859,7 @@ Recipe(
     {},
     {"beer, in barrel": beer_per_serving},
     unit=beer_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["beer, in barrel"].description,
 )
 
@@ -1870,7 +1870,7 @@ Recipe(
     {},
     {"gnomish beer, in barrel": beer_per_serving},
     unit=beer_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["gnomish beer, in barrel"].description,
 )
 
@@ -1882,7 +1882,7 @@ Recipe(
     {},
     {"rum, in barrel": rum_per_serving},
     unit=rum_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["rum, in barrel"].description,
 )
 
@@ -1895,7 +1895,7 @@ Recipe(
     {},
     {"wine, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["wine, in barrel"].description,
 )
 
@@ -1906,7 +1906,7 @@ Recipe(
     {},
     {"wine, Baccia, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["wine, Baccia, in barrel"].description,
 )
 
@@ -1918,7 +1918,7 @@ Recipe(
     {},
     {"champagne, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["champagne, in barrel"].description,
 )
 
@@ -1929,7 +1929,7 @@ Recipe(
     {},
     {"wine, asti spumante, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["wine, asti spumante, in barrel"].description,
 )
 
@@ -1940,7 +1940,7 @@ Recipe(
     {},
     {"wine, Sacramaran, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["wine, Sacramaran, in barrel"].description,
 )
 
@@ -1951,7 +1951,7 @@ Recipe(
     {},
     {"wine, Lutewood, in barrel": wine_per_serving},
     unit=wine_per_serving,
-    vendor="innkeeper",
+    vendor="tavern",
     description=registry["wine, Lutewood, in barrel"].description,
 )
 
