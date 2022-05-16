@@ -4169,6 +4169,35 @@ Recipe(
     vendor="dyer",
     description="gorgeous reddish-purple dye, fit for a king",
 )
+
+
+# a cylinder of cloth for the bourrelet, plus a percentage for the rest of the cloth including cornette
+chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.5)
+cotton_chaperon_weight = (
+    chaperon_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "chaperon, cotton",
+    "hats",
+    cotton_chaperon_weight,
+    {},
+    {"cotton cloth": chaperon_area},
+    vendor="hatter",
+    description="looped and draped bundle of cloth, wearable in many fashions",
+)
+
+wool_chaperon_weight = (
+    chaperon_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
+).to(u.lb)
+Recipe(
+    "chaperon, wool",
+    "hats",
+    wool_chaperon_weight,
+    {},
+    {"woolen cloth": chaperon_area},
+    vendor="hatter",
+    description=registry["chaperon, cotton"].description,
+)
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
 ## 2 KNO_3 + CuS + H_2O ⟶  CuO + 2 HNO_3 + S + 2 K
