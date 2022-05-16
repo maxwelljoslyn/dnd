@@ -3294,7 +3294,7 @@ Recipe(
         "feather, goose": D(3) * u.item,
         "arrowhead": D(1) * u.item,
     },
-    vendor="fletcher",
+    vendor="bowyer",
     description=f"{arrow_length}",
 )
 
@@ -3309,7 +3309,7 @@ Recipe(
         "arrowhead": D(1) * u.item,
         "raw silver": silver_arrow_silver_weight,
     },
-    vendor="fletcher",
+    vendor="bowyer",
     description=f"{arrow_length}",
 )
 
