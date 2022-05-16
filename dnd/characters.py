@@ -404,15 +404,15 @@ abilities = {
         "system shock survival chance": con_system_shock_survival_chance,
         # con_resurrection_survival_chance,
     },
+    "intelligence": {
+        "max mage spell level": int_max_mage_illusionist_spell_level,
+        # int_side_effects,
+    },
     "wisdom": {
         "Charm/Illusion save modifier": wis_charm_illusion_save_mod,
         "bonus cleric spells": wis_bonus_cleric_druid_spells,
         "max cleric spell level": wis_max_cleric_spell_level,
         "cleric spell success % chance": wis_cleric_spell_success_percent,
-    },
-    "intelligence": {
-        "max mage spell level": int_max_mage_illusionist_spell_level,
-        # int_side_effects,
     },
     "charisma": {"max henchmen": cha_max_henchmen},
 }
