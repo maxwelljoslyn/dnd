@@ -1849,7 +1849,7 @@ for w, description in wines.items():
         {},
         unit=barrel_capacity,
         container="cask, barrel",
-        vendor="brewer",
+        vendor="vintner",
         description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
     )
 
