@@ -1629,8 +1629,8 @@ def calculate_abv(sugar_sources, water_volume, desired_volume):
     # assumption: all the available sugar content of the sugar_sources is consumed by the yeast
     total_sugar = sum(
         [
-            sugar_per_brewable[name] * weight.to(u.lb)
-            for name, weight in sugar_sources.items()
+            (sugar_per_brewable[name] * unit).to(u.lb)
+            for name, unit in sugar_sources.items()
         ]
     )
     water_weight = water_volume.to(u.gallon) * density["water"]
