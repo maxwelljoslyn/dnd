@@ -31,6 +31,7 @@ limited_vendors = {
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
     for k, v in {
+        "snuff": 30 * u.lb / u.cuft,
         "cast iron": 454.8 * u.lb / u.cuft,
         "wrought iron": 483 * u.lb / u.cuft,
         "steel": 489 * u.lb / u.cuft,
