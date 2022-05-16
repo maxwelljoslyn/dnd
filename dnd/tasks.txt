@@ -1,0 +1,16 @@
+Make the price calculating program dump into database which the website reads from.
+Dump towns into database.
+Put the finishing touches on “player is able to buy things from the equipment screens “which means handling inventory management on the backend.
+Give DM ability to assign weapon proficiencies as player desires. Ditto skills.
+Finish porting the current background generator to the web.
+Write Entity class which uses __getitem__ to override normal bracket access by first looking into the "conditions" list.
+Write a first draft dice class which supports adding, subbing, WITHOUT evaluating them until/unless roll() is called
+Dice(1d4) + Dice(2d8) + 3 == Dice(1d4+2d8+3)
+How to incorporate character/entity properties into a Dice? Answer: don't. That's the province of another, higher-level type/class: Calculation() or similar
+
+Experiment with what I’m going to tentatively call POI. Especially the creation of them from the DM interface. These are more arbitrary than towns, or other map locations… The idea is that a player would see their current location, and any poi linked to there would be an option for the “move“ action. So, POI are just a simple directed graph. Representable in database table with two columns.
+--> the DM will be able to create new POI on the fly just by typing something in. This is the “minimalism“ that I talked about in a previous email in action: you should only need a place name to create a place. Don’t even need to link it to anywhere (although it won’t show up for players then). Eventually it may become necessary to say whether a POI is “enclosed in” another POI so that for instance, you can create a POI and have it be within a region or state or town or other bigger environment.
+
+DONE Fix character creation route names.
+DONE Make a rules/fighter page using characters.classes['fighter'].
+DONE Changing the character generator to dump a JSON or similar. A bit more involved than the previous as I am angling for this to be the (version 1) representation of a character that will be used in game, that is to say, fed  into the overall game database for use in state management.  If not, well, what’s the point?
