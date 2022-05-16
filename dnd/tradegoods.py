@@ -3715,6 +3715,67 @@ for size in ("medium", "small"):
             description=desc,
         )
 
+
+glue_sale_weight = D(1) * u.lb
+hide_collagen_yield = D(0.5) * u.dimensionless
+bone_collagen_yield = D(0.3)
+glue_bone_ratio = D(1) / D(2)
+glue_hide_ratio = D(1) - glue_bone_ratio
+quicklime_per_glue = D(0.1) * u.lb
+hides_per_glue = (
+    (glue_sale_weight / registry["rawhide"].weight)
+    / hide_collagen_yield
+    * registry["rawhide"].unit
+) * glue_hide_ratio
+bone_per_glue = (
+    (glue_sale_weight / registry["cattle bone"].weight)
+    / bone_collagen_yield
+    * registry["cattle bone"].unit
+) * glue_bone_ratio
+glue_coverage = D(36) * u.sqft
+Recipe(
+    "hide glue",
+    "glue",
+    glue_sale_weight,
+    {},
+    {
+        "quicklime": quicklime_per_glue,
+        "rawhide": hides_per_glue,
+        "cattle bone": bone_per_glue,
+    },
+    unit=glue_sale_weight,
+    description=f"hard blob; heat 1:2 glue:water mixture to apply; covers {glue_coverage:~}",
+    vendor="tanner",
+)
+
+gelatin_sale_weight = glue_sale_weight
+gelatin_bone_ratio = D(4) / D(5)
+gelatin_hide_ratio = D(1) - gelatin_bone_ratio
+quicklime_per_gelatin = quicklime_per_glue
+hides_per_gelatin = (
+    (gelatin_sale_weight / registry["rawhide"].weight)
+    / hide_collagen_yield
+    * registry["rawhide"].unit
+) * gelatin_hide_ratio
+bone_per_gelatin = (
+    (gelatin_sale_weight / registry["cattle bone"].weight)
+    / bone_collagen_yield
+    * registry["cattle bone"].unit
+) * gelatin_bone_ratio
+Recipe(
+    "gelatin",
+    "glue",
+    gelatin_sale_weight,
+    {},
+    {
+        "quicklime": quicklime_per_gelatin,
+        "rawhide": hides_per_gelatin,
+        "cattle bone": bone_per_gelatin,
+    },
+    unit=gelatin_sale_weight,
+    description="hard blob; heat 1:3 gelatin:water mixture to use as binder",
+    vendor="tanner",
+)
 # approximate as a metal cylinder plus four triangular spikes
 shuriken_thickness = D(0.25) * u.inch
 shuriken_body_radius = D(1) * u.inch
