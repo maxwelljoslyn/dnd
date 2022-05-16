@@ -18,7 +18,7 @@ $ minimums = [f"<a href='/rules/{abi}'>{abi}</a> ({threshold})" for abi, thresho
 $:titlecase(ana(klass)) $:klass must have these minimum ability scores: $:andlist(minimums, ", "). Note: $ana(klass) ${klass} whose scores fall below these minimums will temporarily lose all class abilities.
 </p>
 
-$ bonus_minimums = [f"<a href='/rules/{abi}'>{abi}</a> ({threshold})" for abi, threshold in info['bonus xp minimums'].items()]
+$ bonus_minimums = [f"<a href='/rules/{abi}'>{abi}</a> ({threshold})" for abi, threshold in info['bonus XP minimums'].items()]
 <p>
 $:titlecase(ana(klass)) $:klass earns 10% bonus XP if these additional ability thresholds are met: $:andlist(bonus_minimums, ", ").
 </p>
@@ -60,7 +60,7 @@ $for level in range(1, 21):
         $if val is None:
             <td></td>
         $else:
-            $if key == 'min xp':
+            $if key == 'min XP':
                 <td>$f'{val:,d}'</td>
             $else:
                 <td>${val}</td>

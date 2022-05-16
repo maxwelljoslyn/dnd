@@ -627,7 +627,7 @@ def satisfied_ability_minimums(klass, scores):
 
 def satisfied_bonus_xp_minimums(klass, scores):
     result = {}
-    for ability, minimum in classes[klass]["bonus xp minimums"].items():
+    for ability, minimum in classes[klass]["bonus XP minimums"].items():
         result[ability] = scores.get(ability, 0) >= minimum
     return result
 

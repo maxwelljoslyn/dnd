@@ -408,7 +408,7 @@ def tendencies(magnitude, c):
         result = "Character is overly cautious about combat. Must succeed at a Wisdom check before being able to make attacks in a given combat (including discharging offensive spells, but not including backstabbing or assassination before combat proper.) Check can be attempted on character's turn each round."
     elif magnitude <= -3:
         percent = choice([10, 15])
-        negative_xp = int(classes[c["class"]]["levels"][2]["min xp"] * percent * 0.01)
+        negative_xp = int(classes[c["class"]]["levels"][2]["min XP"] * percent * 0.01)
         c["XP"] -= negative_xp
         result = (
             "Character has not quite completed "
