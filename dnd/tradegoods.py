@@ -4599,7 +4599,7 @@ Recipe(
     {},
     {"cotton cloth": chemise_area},
     vendor="tailor",
-    description="thigh-length, long-sleeved, slightly baggy shirt worn next to skin",
+    description="unisex; thigh-length, long-sleeved, slightly baggy shirt worn as first or only layer",
 )
 
 foot_sole_area = (
