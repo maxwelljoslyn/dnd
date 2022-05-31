@@ -41,13 +41,16 @@ tradegood_model = {
 
 global_model = {
     "date": {"date": "TEXT NOT NULL"},
-    "purchases": {
-        # this table not in tradegood_model because tradegoods will be regenerated during gameplay, but purchase records shouldn't be touched when that happens
-        "date": "TEXT NOT NULL",
-        "character": "INTEGER NOT NULL",  # references characters.rowid
-        "town": "INTEGER NOT NULL",  # references towns.rowid
-        "tradegood_name": "TEXT NOT NULL",  # references tradegoods.name; if I want to give an item not yet programmed, it won't show up in this table
-        "quantity": "INTEGER NOT NULL",
-        "unit_price": "REAL NOT NULL",
-    },
 }
+
+
+# TODO instead of purchases table, a table of actions/events, with "purchase" as just one of many, many types
+# "purchases": {
+#    # DO NOT put this table in tradegood_model: that stores current tradegood prices, which will be change during gameplay. these purchase records must not be touched when that happens
+#    "date": "TEXT NOT NULL",
+#    "character": "INTEGER NOT NULL",  # references characters.rowid
+#    "town": "INTEGER NOT NULL",  # references towns.rowid
+#    "tradegood_name": "TEXT NOT NULL",  # references tradegoods.name; if I want to give an item not yet programmed, it won't show up in this table
+#    "quantity": "INTEGER NOT NULL",
+#    "unit_price": "REAL NOT NULL",
+# },
