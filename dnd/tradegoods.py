@@ -1977,11 +1977,11 @@ wine_abv = calculate_abv(
 
 wines = {
     "wine": "local variety of red or white",
-    "champagne": "sparkling, bubbly white, produced by northern elves",
+    "champagne": "sparkling, bubbly white with biscuity flavor",
     "wine, Baccia": "the queen of Marasan viticulture; dry white wine made of late harvest grapes",
-    "wine, asti spumante": "sweet, sparkling dessert wine with creamy texture and aromas of pear, honeysuckle, and peaches",
+    "wine, asti spumante": "sweet, sparkling dessert wine from northwest Marasa; creamy texture and aromas of pear, honeysuckle, and peaches",
     "wine, Sacramaran": "central Marasan wine; light red with notes of apricot and currants",
-    "wine, Lutewood": "aromatic 'orange' wine with tart aftertaste, made from skin-on white grapes",
+    "wine, Lutewood": "southern Marasan 'orange' wine, aromatic and tart, made from skin-on white grapes",
     # "wine, Chablis": "dry white with 'flinty' notes",
     # "wine, Chianti": "very dry red",
     # "wine, Chabrieres": "dry, musty, delicate red",
