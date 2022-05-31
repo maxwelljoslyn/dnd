@@ -2400,6 +2400,7 @@ Recipe(
     description="plainweave",
 )
 
+
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
@@ -5101,7 +5102,7 @@ if __name__ == "__main__":
 # TODO clothing: buttons, stitching
 # boots: laces, stitching
 
-# awl, needle, punch, short hammer, mallet, saw, vice or clamp, ruler, anvil, bellows, nails, (leather) apron, loupe, calipers, punty / blowpipe, tongs, fuller's earth, putty knife, adze / scraper, stirring rod, flask, vial, shears, loom, crystal ball, bowl, plate, cooking / work knife, cutting board, ladle, spoon fork eating knife, spinning wheel, mortar and pestle, alembic, trowel, shovel, towel, bathrobe, wine glass, pint glass, shot glass, last (foot, hand, head), oar, rowboat, coracle, remaining weapons, chair, cushion, embroidered cushion, bench, tattoo, quill, paper, parchment, ink, colored class, pamphlet, metal type, belt, backpack, coin pouch, scabbard, bit, bridle, saddlebags,
+# short hammer, saw, vice or clamp, ruler, bellows, nails, (leather) apron, loupe, calipers, blowpipe, tongs, fuller's earth, putty knife, adze / scraper, flask, vial, shears, loom, bowl, plate, cooking / work knife, cutting board, ladle, spinning wheel, mortar and pestle, alembic, trowel, shovel, towel, bathrobe, wine glass, pint glass, shot glass, last (foot, hand, head), oar, rowboat, coracle, remaining weapons, chair, cushion, embroidered cushion, bench, tattoo, quill, paper, parchment, ink, colored class, pamphlet, metal type, belt, backpack, coin pouch, scabbard, bit, bridle, saddlebags,
 
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
