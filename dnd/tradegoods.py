@@ -2852,6 +2852,25 @@ Recipe(
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
+
+lead_per_glass = D(0.25) * u.lb / u.lb
+Recipe(
+    "lead glass",
+    "glassware",
+    1 * u.lb,
+    {
+        "soda ash": soda_per_glass * u.lb,
+        "dolomite": dolomite_per_glass * u.lb,
+        "salt": salt_per_glass * u.lb,
+    },
+    {
+        "fired clay": clay_per_glass * u.lb,
+        "raw lead": lead_per_glass * u.lb,
+    },
+    vendor="glazier",
+    unit=1 * u.lb,  # TODO use panes as unit
+    description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
+)
 # TODO add cork
 wine_bottle_weight = D(1.4) * u.lb
 wine_bottle_capacity = D(6) * wine_per_serving
