@@ -797,7 +797,7 @@ for name, info in holysymbols.items():
         (bw + lw).to(u.lb),
         {},
         {"bronze": (bw + lw).to(u.lb)},
-        vendor="blacksmith",
+        vendor="redsmith",
         description=f"bronze, with loop for hanging; approx. {m['height']:~} tall and {m['width']:~} wide",
     )
 
