@@ -4755,6 +4755,36 @@ Recipe(
     description="sold singly; extends to the elbow",
 )
 
+stud_weight = D(2) * u.oz
+Recipe(
+    "steel stud",
+    "ironmongery",
+    stud_weight,
+    {},
+    {"steel": stud_weight},
+)
+
+
+cestus_area = long_glove_area
+cestus_leather_weight = (
+    cestus_area / registry["boiled leather"].unit * registry["boiled leather"].weight
+).to(u.oz)
+studs_for_cestus = 12
+cestus_weight = (cestus_leather_weight + (studs_for_cestus * stud_weight)).to(u.lb)
+Recipe(
+    "cestus",
+    "weapons",
+    cestus_weight,
+    {},
+    {
+        "boiled leather": cestus_area,
+        "steel stud": studs_for_cestus * u.item,
+    },
+    vendor="weaponsmith",
+    description="elbow-length stiffened leather glove with metal studs; adds +1 pummeling damage",
+)
+
+
 woolglove_weight = (
     glove_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
 ).to(u.oz)
