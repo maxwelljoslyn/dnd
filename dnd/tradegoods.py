@@ -4711,6 +4711,22 @@ Recipe(
     + ", toughened for hard wearing",
 )
 
+blanket_length = 5 * u.ft
+blanket_width = 3 * u.ft
+blanket_area = blanket_length * blanket_width
+blanket_weight = (
+    blanket_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
+).to(u.lb)
+Recipe(
+    "blanket",
+    "blankets",
+    blanket_weight,
+    {},
+    {"woolen cloth": blanket_area},
+    vendor="weaver",
+    description=f"made of cozy wool; {blanket_length} x {blanket_width}",
+)
+
 glove_area = hand_area
 long_glove_area = hand_area + forearm_area
 leatherglove_weight = (
