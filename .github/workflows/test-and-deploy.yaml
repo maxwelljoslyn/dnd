@@ -44,7 +44,7 @@ jobs:
         with:
           host: maxwelljoslyn.com
           username: maxwell
-          key: ${{ secrets.SSH_KEY }}
+          # key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: ls -la
