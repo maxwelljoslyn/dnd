@@ -3377,6 +3377,27 @@ Recipe(
     description=registry["half-timbered house, one story"].description,
 )
 
+elucia_cabin_components = {
+    "timber framing, first story": 2 * u.item,
+    "timber framing, roof": 2 * u.item,
+    "roofing, slate": 2 * u.item,
+}
+
+Recipe(
+    "Elucia's wooden cabin",
+    "carpentry",
+    sum(
+        [
+            registry[x].weight * amount.magnitude
+            for x, amount in elucia_cabin_components.items()
+        ]
+    ),
+    {},
+    elucia_cabin_components,
+    vendor="builder",
+    description="one-story half-timbered cabin, with slate roof",
+)
+
 
 goose_sale_weight = D(9.5) * u.lb
 goose_sale_age = D(4) * u.month
