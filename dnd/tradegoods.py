@@ -4933,6 +4933,17 @@ Recipe(
     vendor="blacksmith",
 )
 
+
+Recipe(
+    "stirring rod, glass",
+    "tools",
+    D(4) * u.oz,
+    {},
+    {"lead glass": D(4) * u.oz},
+    vendor="glassblower",
+    description="made of lead glass; used for medicine, alchemy, and more",
+)
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
