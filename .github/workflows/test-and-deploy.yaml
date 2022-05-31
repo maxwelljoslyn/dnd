@@ -32,6 +32,13 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+      - name: Add SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa
+          config: ${{ secrets.CONFIG }}
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - name: Copy Code to Server
         uses: appleboy/ssh-action@master
         with:
