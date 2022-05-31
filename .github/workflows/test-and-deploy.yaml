@@ -37,8 +37,8 @@ jobs:
         with:
           key: ${{ secrets.SSH_KEY }}
           name: id_rsa
-          config: ${{ secrets.CONFIG }}
-          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          if_key_exists: replace
       - name: Copy Code to Server
         uses: appleboy/ssh-action@master
         with:
