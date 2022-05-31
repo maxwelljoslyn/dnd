@@ -1402,6 +1402,7 @@ Recipe(
     {"abomasum, cured": rennet_sale_unit / rennet_per_abomasum},
     unit=rennet_sale_unit,
     vendor="dairy",
+    description="cow stomach enzyme for cheesemaking; not for human consumption",
 )
 
 Recipe(
