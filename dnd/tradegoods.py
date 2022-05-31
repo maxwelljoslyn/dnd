@@ -4617,10 +4617,29 @@ Recipe(
     vendor="tailor",
     description="female upper torso garment; not restrictive like a corset",
 )
+
+# given neck radius N, and desired height H, ruff uses a piece of cloth N+2 inches * 1.2H
+# let's assume neck radius is 15 inches and ruff height is 3 inches
+ruff_area = D(17) * u.inch * D(3.6) * u.inch
+# TODO total guess
+starch_per_ruff = D(0.1) * u.lb
+ruff_weight = (
+    ruff_area / registry["linen cloth"].unit * registry["linen cloth"].weight
+).to(u.lb)
+Recipe(
+    "ruff",
+    "clothing",
+    ruff_weight,
+    {},
+    {"linen cloth": ruff_area, "starch, potato": starch_per_ruff},
+    vendor="tailor",
+    description="starched collar of folded linen",
+)
+
+
 leather_sole_weight = (
     foot_sole_area / registry["boiled leather"].unit * registry["boiled leather"].weight
 ).to(u.oz)
-
 # 0.5 factor is for mid-calf height
 lowboot_area = (
     body_proportions["foot"]["length"] * body_proportions["foot"]["girth"]
