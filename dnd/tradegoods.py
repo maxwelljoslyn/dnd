@@ -4944,6 +4944,20 @@ Recipe(
     description="made of lead glass; used for medicine, alchemy, and more",
 )
 
+
+crystal_ball_weight = D(2) * u.lb
+Recipe(
+    "crystal ball",
+    "tools",
+    crystal_ball_weight,
+    {},
+    {
+        "lead glass": crystal_ball_weight,
+    },
+    difficulty=3,
+    vendor="glassblower",
+    description="made of lead glass; used in alchemy and fortune-telling",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
