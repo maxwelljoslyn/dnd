@@ -2835,7 +2835,7 @@ glass_pane_length = D(7) * u.inch
 glass_pane_width = D(6) * u.inch
 glass_pane_thickness = D(0.25) * u.inch
 Recipe(
-    "flat glass",
+    "soda glass",
     "glassware",
     1 * u.lb,
     {
@@ -2860,7 +2860,7 @@ Recipe(
     "glassware",
     wine_bottle_weight,
     {},
-    {"flat glass": wine_bottle_weight},
+    {"soda glass": wine_bottle_weight},
     vendor="glassblower",
     capacity=wine_bottle_capacity,
 )
