@@ -43,6 +43,12 @@ $for vendor in sorted(list(vendors)):
         Hats are the same size for all races.
     $if vendor == 'tailor':
         Non-armor clothing is the same size for all races.
+    $if vendor == 'bowyer':
+        See <a href="/rules/weapons">the Weapons page</a> for more about bows and crossbows.
+    $if vendor == 'weaponsmith':
+        Bows are purchased from the bowyer. See <a href="/rules/weapons">the Weapons page</a> for more about weapons.
+    $if vendor in ('dairy', 'costermonger', 'grocer', 'greengrocer'):
+        See <a href="/rules/food">the Food page</a> for more about food and drink.
     $ recipes = [(name, recipe) for name, recipe in registry.items() if recipe.vendor == vendor]
     $if vendor != 'cooper':
         $# don't sort for the cooper because barrels are already sorted by size
