@@ -46,4 +46,6 @@ jobs:
           username: maxwell
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          script: git clone git@github-repo-dnd:maxwelljoslyn/dnd.git dnd-copy
+          run: |
+            rm -r /user/maxwell/dnd-copy
+            git clone git@github-repo-dnd:maxwelljoslyn/dnd.git dnd-copy
