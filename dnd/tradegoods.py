@@ -4430,7 +4430,7 @@ Recipe(
 )
 
 # a cylinder of cloth for the bourrelet, plus a percentage for the rest of the cloth including cornette
-chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.5)
+chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.8)
 cotton_chaperon_weight = (
     chaperon_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
 ).to(u.lb)
