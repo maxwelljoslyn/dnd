@@ -4382,6 +4382,21 @@ Recipe(
     description="gorgeous reddish-purple dye, fit for a king",
 )
 
+helmet_area = (
+    D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
+)
+helmet_weight = (
+    helmet_area / registry["boiled leather"].unit * registry["boiled leather"].weight
+).to(u.lb)
+Recipe(
+    "helmet, leather",
+    "armor",
+    helmet_weight,
+    {},
+    {"boiled leather": helmet_area},
+    vendor="armorer",
+    description="covers most of head; lessens chance of super criticals",
+)
 
 # a cylinder of cloth for the bourrelet, plus a percentage for the rest of the cloth including cornette
 chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.5)
