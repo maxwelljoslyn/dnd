@@ -31,4 +31,5 @@ $for score in range(1, 21):
     </tr>
 </table>
 
-Parenthesized bonus HP applies only to the $andlist(list(characters.martial_classes), ', ').
+$if ability == 'constitution':
+    Parenthesized bonus HP applies only to the $andlist(list(characters.martial_classes), ', ').
