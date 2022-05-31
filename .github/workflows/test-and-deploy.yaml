@@ -44,8 +44,6 @@ jobs:
         with:
           host: maxwelljoslyn.com
           username: maxwell
-          # key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          script: ls -la
-          # script: git clone git@github.com:maxwelljoslyn/dnd.git /home/maxwell/dnd-copy
+          script: git clone git@github.com:maxwelljoslyn/dnd.git /home/maxwell/dnd-copy
