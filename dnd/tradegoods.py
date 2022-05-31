@@ -2871,6 +2871,28 @@ Recipe(
     unit=1 * u.lb,  # TODO use panes as unit
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
+
+wine_glass_weight = D(5) * u.oz
+Recipe(
+    "glass, wine",
+    "glassware",
+    wine_glass_weight,
+    {},
+    {"soda glass": wine_glass_weight},
+    vendor="glassblower",
+)
+
+pint_glass_weight = D(6) * u.oz
+Recipe(
+    "glass, pint",
+    "glassware",
+    pint_glass_weight,
+    {},
+    {"soda glass": pint_glass_weight},
+    vendor="glassblower",
+)
+
+
 # TODO add cork
 wine_bottle_weight = D(1.4) * u.lb
 wine_bottle_capacity = D(6) * wine_per_serving
