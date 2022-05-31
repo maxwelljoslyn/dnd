@@ -59,9 +59,10 @@ def setup_db():
         "Rachel": "rachell",
     }.items():
         tx.db.insert("players", name=player, username=username)
-    with open("newcharacters/apollo.json", "r") as fp:
-        apollo = json.loads(fp.read())
-        tx.db.insert("characters", username="chandlerf", details=apollo)
+    for each in ("apollo", "alkobell"):
+        with open(f"newcharacters/{each}.json", "r") as fp:
+            char = json.loads(fp.read())
+            tx.db.insert("characters", username=char["player username"], details=char)
 
 
 @app.control("setupdb")
