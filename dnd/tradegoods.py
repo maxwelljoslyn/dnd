@@ -4910,6 +4910,18 @@ Recipe(
     vendor="carver",
     description="oaken hammer for gently pounding nails, chisels, and more",
 )
+
+
+Recipe(
+    "needle, bone",
+    "bonecarving",
+    D(0.1) * u.oz,
+    {},
+    {"cattle bone": D(0.1) * u.oz},
+    difficulty=2,
+    vendor="carver",
+    description="used for sewing cloth and leather; surgery requires a metal needle instead",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
