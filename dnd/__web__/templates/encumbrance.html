@@ -1,0 +1,82 @@
+$var title: Encumbrance
+
+<form id=encumbrance action=encumbrance method=post>
+
+  <h2>Character Information</h2>
+
+  <div>
+    <label for=race>Race</label>
+    <select name=race id=race required>
+      <option value="">--</option>
+      $for each in characters.races:
+      <option value="$each">$each</option>
+    </select>
+  </div>
+
+  <div>
+    <label for=sex>Sex</label>
+    <select name=sex id=sex required>
+      <option value="">--</option>
+      $for each in ("male", "female"):
+      <option value="$each">$each</option>
+    </select>
+  </div>
+
+  <div>
+    <label for=strength>Strength</label>
+    <input name=strength id=strength type=number min=0 max=25 required></input>
+  </div>
+
+  <div>
+    <label for=weight>Weight</label>
+    <input name=weight id=weight type=number min=0 required></input>
+  </div>
+
+  <div>
+    <label for=encumbrance-multiplier>Encumbrance Multiplier?</label>
+    <input name=encumbrance-multiplier id=encumbrance-multiplier type=number value=1 min=0 step=0.1></input>
+  </div>
+
+  <button type=button onclick=do_encumbrance()>Submit</button>
+
+
+</form>
+
+<h2>AP Penalty Cutoffs</h2>
+
+<output id=encumbrance-output></output>
+
+<script>
+  function do_encumbrance() {
+    formdata = new FormData(document.getElementById('encumbrance'))
+      fetch('/rules/encumbrance', {
+        'method': 'POST',
+        'body': formdata
+      }).then(response => response.json())
+        .then(data => {
+          console.log(data)
+          output = document.getElementById('encumbrance-output')
+          output.replaceChildren()
+          a = document.createElement('div')
+          a.innerText = "No penalty <= " + data.cutoffs[0] + " lbs"
+          output.appendChild(a)
+          b = document.createElement('div')
+          b.innerText = "-1 AP <= " + data.cutoffs["-1"] + " lbs"
+          output.appendChild(b)
+          c = document.createElement('div')
+          c.innerText = "-2 AP <= " + data.cutoffs["-2"] + " lbs"
+          output.appendChild(c)
+          d = document.createElement('div')
+          d.innerText = "-3 AP <= " + data.cutoffs["-3"] + " lbs"
+          output.appendChild(d)
+          e = document.createElement('div')
+          e.innerText = "-4 AP <= " + data['maximum encumbrance'] + " lbs (maximum encumbrance)"
+          output.appendChild(e)
+      }).catch((error) => {
+          console.error('Error:', error)
+      })
+    }
+    </script>
+
+
+</script>

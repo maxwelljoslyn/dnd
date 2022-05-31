@@ -2,6 +2,7 @@ import web
 from web import tx
 from web.templating import TemplatePackage
 import json
+from decimal import Decimal, localcontext
 
 import dnd
 
@@ -537,6 +538,27 @@ class Maps:
         # TODO
         mapfiles = ("ardane-20mile", "allrivers-2mile", "pearl-island-2mile")
         return app.view.maps(mapfiles, dnd.towns)
+
+
+@app.control("rules/encumbrance")
+class Encumbrance:
+    def get(self):
+        return app.view.encumbrance()
+
+    def post(self):
+        with localcontext() as ctx:
+            ctx.prec = 5
+            race = web.form("race").race
+            sex = web.form("sex").sex
+            strength = int(web.form("strength").strength)
+            weight = Decimal(web.form("weight").weight)
+            encumbrance_multiplier = Decimal(web.form()["encumbrance-multiplier"])
+            maxenc = dnd.characters.maximum_encumbrance(
+                race, sex, strength, weight, encumbrance_multiplier
+            )
+            cutoffs = dnd.characters.encumbrance_penalty_cutoffs(maxenc)
+            val = {"maximum encumbrance": maxenc, "cutoffs": cutoffs}
+            return json.dumps(val, cls=dnd.MyEncoder, sort_keys=True, indent=2)
 
 
 @app.control("rules/{rule}")
