@@ -4889,6 +4889,16 @@ Recipe(
     description="pair of six-sided dice",
 )
 
+awl_timber_weight = awl_steel_weight = D(4) * u.oz
+Recipe(
+    "awl",
+    "tools",
+    awl_timber_weight + awl_steel_weight,
+    {"timber": awl_timber_weight},
+    {"steel": awl_steel_weight},
+    vendor="blacksmith",
+    description="wooden-handled metal tool for marking and piercing wood or leather",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
