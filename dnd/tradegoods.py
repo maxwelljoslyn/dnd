@@ -4922,6 +4922,17 @@ Recipe(
     vendor="carver",
     description="used for sewing cloth and leather; surgery requires a metal needle instead",
 )
+
+
+Recipe(
+    "anvil",
+    "tools",
+    D(200) * u.lb,
+    {},
+    {"wrought iron": D(200) * u.lb},
+    vendor="blacksmith",
+)
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
