@@ -2921,29 +2921,29 @@ for w in wines:
         description=registry[f"{w}, in barrel"].description,
     )
 
-beer_bottle_weight = D(8) * u.oz
-beer_bottle_capacity = beer_per_serving
+pint_bottle_weight = D(8) * u.oz
+pint_bottle_capacity = beer_per_serving
 Recipe(
-    "bottle, beer",
+    "bottle, pint",
     "glassware",
-    beer_bottle_weight,
+    pint_bottle_weight,
     {},
-    {"flat glass": beer_bottle_weight},
+    {"soda glass": pint_bottle_weight},
     vendor="glassblower",
-    capacity=beer_bottle_capacity,
+    capacity=pint_bottle_capacity,
 )
 
 for each in ("beer", "ale", "gnomish beer", "kumiss"):
     Recipe(
         f"{each}, in bottle",
         "brewing",  # generic because tapping and pouring into bottle doesn't depend on which type it is
-        (density["water"] * beer_bottle_capacity).to(u.lb),
+        (density["water"] * pint_bottle_capacity).to(u.lb),
         {},
         {
-            f"{each}, in barrel": beer_bottle_capacity,
+            f"{each}, in barrel": pint_bottle_capacity,
         },
-        unit=beer_bottle_capacity,
-        container="bottle, beer",
+        unit=pint_bottle_capacity,
+        container="bottle, pint",
         vendor="brewer",
         description=registry[f"{each}, in barrel"].description,
     )
