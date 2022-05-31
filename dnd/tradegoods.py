@@ -3,6 +3,9 @@ from math import ceil, floor
 from collections import Counter
 import logging
 import json
+import random
+from mjtime import week_of_year
+from pendulum import Date
 
 # from functools import lru_cache
 
@@ -38,6 +41,75 @@ limited_vendors = {
     "tavern",
     "vintner",
 }
+
+chance_available_map = {
+    1 * u.cp: 100,
+    5 * u.cp: 99,
+    10 * u.cp: 97,
+    15 * u.cp: 95,
+    20 * u.cp: 93,
+    1 * u.sp: 90,
+    2 * u.sp: 88,
+    3 * u.sp: 86,
+    4 * u.sp: 84,
+    6 * u.sp: 82,
+    1 * u.gp: 80,
+    2 * u.gp: 77,
+    3 * u.gp: 74,
+    5 * u.gp: 71,
+    8 * u.gp: 68,
+    13 * u.gp: 65,
+    21 * u.gp: 62,
+    34 * u.gp: 59,
+    55 * u.gp: 56,
+    89 * u.gp: 53,
+    144 * u.gp: 50,
+    233 * u.gp: 47,
+    377 * u.gp: 44,
+    610 * u.gp: 41,
+    987 * u.gp: 38,
+    1597 * u.gp: 35,
+    2584 * u.gp: 32,
+    4181 * u.gp: 29,
+    6765 * u.gp: 26,
+    10946 * u.gp: 23,
+    17711 * u.gp: 20,
+    28657 * u.gp: 17,
+    46368 * u.gp: 14,
+}
+
+
+def availability_chance(price):
+    """How likely is it that a trade good which currently costs `price` will be available?"""
+    price = to_copper_pieces(price)
+    avail = [(k, v) for k, v in chance_available_map if k <= price]
+    if avail:
+        return min(avail, key=lambda each: each[1])[1]
+    else:
+        # so expensive it's not in chance_available_map? 5% chance
+        return 5
+
+
+def availability_seed(year, month, day):
+    """Return a randomization seed string. Used when determining whether each good is available at its price for that week."""
+    week = str(week_of_year(Date(year, month, day)))
+    return str(year) + str(week)
+
+
+def _maximum_available(chance):
+    return max(1, floor(chance / 10))
+
+
+def number_available(tradegood, year, month, day):
+    seed = tradegood + availability_seed(year, month, day)
+    random.seed(seed)
+    # TODO implement price
+    current_price = price(tradegood, year, month, day)
+    if random.randint(1, 100) > availability_chance(current_price):
+        return 0
+    else:
+        return random.randint(1, _maximum_available(availability_chance))
+
 
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
