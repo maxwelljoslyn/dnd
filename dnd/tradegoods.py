@@ -3637,6 +3637,11 @@ body_proportions = {
     "hand": {"length": D(6) * u.inch, "girth": D(4) * u.inch},
 }
 
+quartersleeve_area = (
+    D(0.5)
+    * body_proportions["upper arm"]["length"]
+    * body_proportions["upper arm"]["girth"]
+)
 halfsleeve_area = (
     body_proportions["upper arm"]["length"] * body_proportions["upper arm"]["girth"]
 )
@@ -3664,6 +3669,9 @@ calf_area_around_both = (
 )
 torso_area = body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
 hand_area = body_proportions["hand"]["length"] * body_proportions["hand"]["girth"]
+foot_sole_area = (
+    body_proportions["foot"]["length"] * D(0.5) * body_proportions["foot"]["girth"]
+)
 
 gambeson_layers = D(6)
 gambeson_area = torso_area + (fullsleeve_area * 2)
