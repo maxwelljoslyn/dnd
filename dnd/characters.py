@@ -722,6 +722,35 @@ def height_weight_roll():
     return sum([random.randint(*die) for die in height_weight_dice])
 
 
+def maximum_encumbrance(race, sex, strength, weight, enc_mult):
+    # character's relative heaviness or lightness compared with average member of species
+    personal_proportion = weight / races[race]["base weight"][sex]
+    # character race's relative heaviness or lightness compared with humans
+    # the heavier your species, the less 1 lb of stuff encumbers you, whether from the weight or the awkwardness of carrying a load
+    racial_proportion = (
+        races[race]["base weight"][sex] / races["human"]["base weight"][sex]
+    )
+    # the stronger, the more you can carry
+    strength_factor = racial_proportion * (5 * strength)
+    base_encumbrance = races[race]["base weight"][sex] / Decimal(3)
+    ideal_max_encumbrance = (personal_proportion * base_encumbrance) + strength_factor
+    # miscellaneous factors, such as those from background details
+    actual_max = ideal_max_encumbrance * enc_mult
+    return actual_max
+
+
+# TODO redefine as function mapping weights to penalties
+def encumbrance_penalty_cutoffs(max_enc):
+    """Calculate the encumbrance levels at which character suffers reduced Action Points."""
+    max_enc = Decimal(max_enc)
+    return {
+        0: Decimal(0.4) * max_enc,
+        -1: Decimal(0.55) * max_enc,
+        -2: Decimal(0.7) * max_enc,
+        -3: Decimal(0.85) * max_enc,
+    }
+
+
 def main():
     for level in range(1, 21):
         print(

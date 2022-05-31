@@ -215,36 +215,6 @@ def random_height_weight(race, sex):
     return height, weight
 
 
-def calc_max_encumbrance(race, sex, strength, weight, enc_mult):
-    # character's relative heaviness or lightness compared with average member of species
-    personal_proportion = weight / races[race]["base weight"][sex]
-    # character race's relative heaviness or lightness compared with humans
-    # the heavier your species, the less 1 lb of stuff encumbers you, whether from the weight or the awkwardness of carrying a load
-    racial_proportion = (
-        races[race]["base weight"][sex] / races["human"]["base weight"][sex]
-    )
-    # the stronger, the more you can carry
-    strength_factor = racial_proportion * (5 * strength)
-    base_encumbrance = races[race]["base weight"][sex] / Decimal(3)
-    ideal_max_encumbrance = (personal_proportion * base_encumbrance) + strength_factor
-    # miscellaneous factors, such as those from background details
-    actual_max = ideal_max_encumbrance * enc_mult
-    return actual_max
-
-
-# 2021-08-15
-# todo redefine as function mapping weights to penalties
-def encumbrance_penalty_cutoffs(max_enc):
-    """Calculate the encumbrance levels at which character suffers reduced Action Points."""
-    max_enc = Decimal(max_enc)
-    nopenalty = Decimal(0.4) * max_enc
-    minus1penalty = Decimal(0.55) * max_enc
-    minus2penalty = Decimal(0.7) * max_enc
-    minus3penalty = Decimal(0.85) * max_enc
-    # between the -3 penalty cutoff and max_enc, the penalty is -4
-    return nopenalty, minus1penalty, minus2penalty, minus3penalty
-
-
 def inches_to_feet_and_inches(arg):
     feet = arg // 12
     inches = arg % 12
