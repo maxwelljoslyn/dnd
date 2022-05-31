@@ -13,3 +13,5 @@ from references import world_references
 from weapons import weapons, armors
 import models
 import wilderness
+import details
+from jsonize import MyEncoder
