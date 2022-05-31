@@ -4899,6 +4899,17 @@ Recipe(
     vendor="blacksmith",
     description="wooden-handled metal tool for marking and piercing wood or leather",
 )
+
+mallet_weight = D(2) * u.lb
+Recipe(
+    "mallet",
+    "wooden tools",
+    mallet_weight,
+    {"wood, oak": mallet_weight},
+    {},
+    vendor="carver",
+    description="oaken hammer for gently pounding nails, chisels, and more",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
