@@ -4398,6 +4398,16 @@ Recipe(
     description="covers most of head; lessens chance of super criticals",
 )
 
+Recipe(
+    "helmet, ogre jaw",
+    "bonecarving",
+    helmet_weight + D(2) * u.lb,
+    {},
+    {"helmet, leather": 1 * u.item},
+    vendor="armorer",
+    description="as leather helmet, with ogre jaw and tusks extending around lower half of face",
+)
+
 # a cylinder of cloth for the bourrelet, plus a percentage for the rest of the cloth including cornette
 chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.5)
 cotton_chaperon_weight = (
