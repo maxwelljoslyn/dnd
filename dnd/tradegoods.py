@@ -414,6 +414,9 @@ class Recipe:
                 result["gp"] = 1 * u.gp
         if "cp" in result and result["cp"] == 0 * u.cp:
             del result["cp"]
+        if not result.get("cp") and not result.get("sp") and not result.get("gp"):
+            # set minimum price of 1 cp to avoid price of 0
+            result["cp"] = 1 * u.cp
         return result
 
     def display_price(self, towninfo):
