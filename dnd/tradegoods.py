@@ -4853,6 +4853,41 @@ Recipe(
     description="previously tilled and now lying fallow; 10% chance to be in same hex as market town, 30% chance in 1st ring of 6-mile hexes, and 60% chance in 2nd ring of surrounding 6-mile hexes",
 )
 
+Recipe(
+    "dice, wood",
+    "woodcarving",
+    D(0.25) * u.oz,
+    {"timber": D(0.25) * u.oz},
+    {},
+    unit=2 * u.item,
+    difficulty=2,
+    vendor="carver",
+    description="pair of six-sided dice",
+)
+
+Recipe(
+    "dice, bone",
+    "bonecarving",
+    D(0.25) * u.oz,
+    {},
+    {"cattle bone": D(0.25) * u.oz},
+    unit=2 * u.item,
+    difficulty=2,
+    vendor="carver",
+    description="pair of six-sided dice",
+)
+
+Recipe(
+    "dice, ivory",
+    "ivorycarving",
+    D(0.25) * u.oz,
+    {"ivory": D(0.25) * u.oz},
+    {},
+    unit=2 * u.item,
+    difficulty=2,
+    vendor="carver",
+    description="pair of six-sided dice",
+)
 
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
