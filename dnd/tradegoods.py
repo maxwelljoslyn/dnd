@@ -1926,6 +1926,47 @@ for tuber in ("potatoes", "groundnuts", "sweet potatoes", "yams"):
         vendor="greengrocer",
     )
 
+Recipe(
+    "potato pulp",
+    "potatoes",
+    1 * u.lb,
+    {"potatoes": 1 * u.lb},
+    {},
+    unit=1 * u.lb,
+    description="intermediate stage of starch production",
+)
+
+potato_starch_fraction = D(0.25)
+Recipe(
+    "starch, potato",
+    "starch",
+    1 * u.lb,
+    {},
+    {"potato pulp": (1 / potato_starch_fraction) * u.lb},
+    unit=1 * u.lb,
+    vendor="grocer",
+)
+
+Recipe(
+    "arrowroot pulp",
+    "arrowroot",
+    1 * u.lb,
+    {"arrowroot": 1 * u.lb},
+    {},
+    unit=1 * u.lb,
+    description="intermediate stage of starch production",
+)
+
+arrowroot_starch_fraction = D(0.2)
+Recipe(
+    "starch, arrowroot",
+    "starch",
+    1 * u.lb,
+    {},
+    {"arrowroot pulp": (1 / arrowroot_starch_fraction) * u.lb},
+    unit=1 * u.lb,
+    vendor="grocer",
+)
 
 grapes_for_wine = D(3.5) * u.lb / (D(750) * u.ml).to(u.gallon)
 wine_abv = calculate_abv(
