@@ -1352,6 +1352,22 @@ Recipe(
     vendor="butcher",
 )
 
+salt_for_beefjerky = (density["salt"] * (D(2) * u.teaspoon)).to(u.oz)
+pepper_for_beefjerky = 2 * salt_for_beefjerky
+Recipe(
+    "beef jerky",
+    "beef",
+    1 * u.lb,
+    {
+        "salt": salt_for_beefjerky,
+        "pepper, black": pepper_for_beefjerky,
+    },
+    {"beef": 1 * u.lb},
+    vendor="grocer",
+    description="salted and dry cured, with black pepper for flavor",
+)
+
+
 Recipe(
     "cattle bone",
     "meat",
