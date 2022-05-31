@@ -4958,6 +4958,35 @@ Recipe(
     vendor="glassblower",
     description="made of lead glass; used in alchemy and fortune-telling",
 )
+
+spoon_weight = fork_weight = D(1) * u.oz
+knife_weight = D(2) * u.oz
+Recipe(
+    "fork, copper",
+    "coppersmithing",
+    fork_weight,
+    {},
+    {"raw copper": fork_weight},
+    vendor="redsmith",
+)
+Recipe(
+    "spoon, copper",
+    "coppersmithing",
+    spoon_weight,
+    {},
+    {"raw copper": spoon_weight},
+    vendor="redsmith",
+)
+Recipe(
+    "knife, copper",
+    "coppersmithing",
+    knife_weight,
+    {},
+    {"raw copper": knife_weight},
+    vendor="redsmith",
+)
+
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
