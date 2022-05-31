@@ -8,40 +8,45 @@ $#TODO: use this https://pypi.org/project/inflect/
 <h2>Player Characters</h2>
 
 <ul>
-<li>Classes (\
+<li>Classes:
 $ links = [f"<a href='/rules/{c}'>{titlecase(c)}</a>"  for c in characters.classes]
-$:andlist(links, ', '))</li>
+$:andlist(links, ', ')</li>
 </li>
 
-<li>Races (\
+<li>Races:
 $ links = [f"<a href='/rules/{r}'>{titlecase(r)}</a>"  for r in characters.races]
-$:andlist(links, ', '))</li>
+$:andlist(links, ', ')</li>
 </li>
-</ul>
+<li>Ability Scores:
+$ links = [f"<a href='/rules/{abi}'>{titlecase(abi)}</a>"  for abi in characters.abilities]
+$:andlist(links, ', ')</li>
+<li><a href="/rules/saving-throws">Saving Throws</a></li>
 
-<h3>Sage Knowledge</h3>
+<li>Sage Knowledge:
 
 <ul>
 <li><a href="/rules/falconry">Falconry</a></li>
 <li><a href="/rules/unarmed-combat">Unarmed Combat</a></li>
-<li>Heightened Balance</li>
+<li>Physical Balance</li>
+</ul>
+
+</li>
+
 </ul>
 
 <h2>Adventuring</h2>
 
 <ul>
-<li>Ability Scores:
-$ links = [f"<a href='/rules/{abi}'>{titlecase(abi)}</a>"  for abi in characters.abilities]
-$:andlist(links, ', ')</li>
-<li><a href="/rules/weapons">Weapons</a></li>
-<li><a href="/rules/saving-throws">Saving Throws</a></li>
 <li><a href="/maps">Maps</a></li>
 <li>Wilderness Damage</li>
-<li>HP, Death, and Dying</li>
+<li><a href="/rules/weapons">Weapons</a></li>
 <li>Combat</li>
+<li><a href="/rules/action-points">Action Points</a></li>
 <li><a href="/rules/critical-hit">Critical Hits</a></li>
+<li>HP, Death, and Dying</li>
 <li><a href="/rules/assassination">Assassination</a></li>
-<li>Action Points</li>
+<li><a href="/rules/food">Food and Drink</a></li>
+<li><a href="/rules/degradation">Item Degradation</a></li>
 </ul>
 
 $#<h2>Towns</h2>
