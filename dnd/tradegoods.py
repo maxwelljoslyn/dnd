@@ -4602,8 +4602,6 @@ Recipe(
     description="unisex; thigh-length, long-sleeved, slightly baggy shirt worn as first or only layer",
 )
 
-foot_sole_area = (
-    body_proportions["foot"]["length"] * D(0.5) * body_proportions["foot"]["girth"]
 )
 leather_sole_weight = (
     foot_sole_area / registry["boiled leather"].unit * registry["boiled leather"].weight
