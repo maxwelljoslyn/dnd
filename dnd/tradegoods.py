@@ -3758,7 +3758,8 @@ make_armor(
 )
 
 
-mailring_radius = Decimal(0.25) * u.inch
+# this is a HUGE mail ring, way too big for realism, but if it's any smaller the damn mail armors come out heavier and more expensive than plate armor - so realism be damned
+mailring_radius = Decimal(0.4) * u.inch
 # this circumference == feet of wire per ring
 mailring_circumference = (pi * mailring_radius * Decimal(2)).to(u.inch)
 mailring_weight = (
