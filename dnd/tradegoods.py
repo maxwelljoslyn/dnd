@@ -4602,6 +4602,20 @@ Recipe(
     description="unisex; thigh-length, long-sleeved, slightly baggy shirt worn as first or only layer",
 )
 
+bodice_area = (
+    body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
+) + (2 * quartersleeve_area)
+bodice_weight = (
+    bodice_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "bodice",
+    "clothing",
+    bodice_weight,
+    {},
+    {"cotton cloth": bodice_area},
+    vendor="tailor",
+    description="female upper torso garment; not restrictive like a corset",
 )
 leather_sole_weight = (
     foot_sole_area / registry["boiled leather"].unit * registry["boiled leather"].weight
