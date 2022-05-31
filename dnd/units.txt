@@ -18,4 +18,8 @@ item = [objects]
 leaf = [goldleaves]
 ell = 18 * inch
 cubic_meter = 1000000 cubic_centimeter = cumt
+# e.g. 1 bar of soap can be used 60 times
 use = [applications]
+# e.g. you can pay to stay 1 night in a hotel
+# "night" not defined as a unit of time b/c not convertible with normal hours: shouldn't show up in equipment list as "12 hours"
+night = [folk_time]
