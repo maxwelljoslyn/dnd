@@ -4821,6 +4821,7 @@ Recipe(
     {},
     {"half-timbered house, one story": inn_construction_service_ratio * u.item},
     vendor="innkeeper",
+    unit=1 * u.night,
     description="",
 )
 
@@ -4835,6 +4836,7 @@ Recipe(
         * u.item
     },
     vendor="innkeeper",
+    unit=1 * u.night,
     description="",
 )
 
