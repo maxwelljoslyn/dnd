@@ -165,18 +165,29 @@ def random_number_available(tradegood, price, year, week):
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
     for k, v in {
+        "linseed oil": 0.93 * u.gram / u.cucm,
+        "cottonseed oil": 0.92 * u.gram / u.cucm,
+        "safflower oil": 0.92 * u.gram / u.cucm,
+        "olive oil": 2 * u.lb / u.liter,
         "snuff": 30 * u.lb / u.cuft,
         "cast iron": 454.8 * u.lb / u.cuft,
         "wrought iron": 483 * u.lb / u.cuft,
         "steel": 489 * u.lb / u.cuft,
         "molasses": 88.1233091 * u.lb / u.cuft,
         "timber": 40 * u.lb / u.cuft,
-        "wood, oak": 704 * u.kg / u.cumt,
-        "milk": 64.488 * u.lb / u.cuft,
+        "wood, oak": 40 * u.lb / u.cuft,
+        "wood, cedar": 30 * u.lb / u.cuft,
+        "wood, pine": 25 * u.lb / u.cuft,
+        "wood, fir": 38 * u.lb / u.cuft,
+        "wood, rosewood": 50 * u.lb / u.cuft,
+        "wood, mahogany": 40 * u.lb / u.cuft,
+        "wood, spruce": 32 * u.lb / u.cuft,
+        "milk": 64 * u.lb / u.cuft,
+        "cream": 67 * u.lb / u.cuft,
         "tallow": 54.09 * u.lb / u.cuft,
         "tin": 456.3484 * u.lb / u.cuft,
         "copper": 559 * u.lb / u.cuft,
-        "clay": 100 * u.lb / u.cuft,
+        "wet clay": 100 * u.lb / u.cuft,
         "silver": 655.4934 * u.lb / u.cuft,
         "lead": 709 * u.lb / u.cuft,
         "mercury": 844.900018 * u.lb / u.cuft,
@@ -218,6 +229,9 @@ density = {
         "flour": 4.75 * u.oz / u.cup,
         "butter": 0.95 * u.lb / u.pint,
         "salt": 2.17 * u.gram / u.cucm,
+        "borax": 1.73 * u.gram / u.cucm,
+        "cheese, parmesan": 0.63 * u.gram / u.cucm,
+        "honey": 1.4 * u.gram / u.cucm,
     }.items()
 }
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
