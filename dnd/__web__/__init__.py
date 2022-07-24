@@ -212,7 +212,7 @@ class TradeGood:
 @app.control("x/map")
 class Map:
     def get(self):
-        return app.view.map("foo")
+        return app.view.map()
 
 
 @app.control("rules/{ability}")
