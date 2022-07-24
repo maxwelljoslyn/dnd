@@ -22,16 +22,21 @@ categories = {
             "mistletoe",
             "myrrh",
             "wood, sandalwood",
+            "wood, eucalyptus",
+            "cinnamon leaf oil",
+            "lavender",
+            "copal",  # copal could go in aromatics or mastics, but so could several other aromatics; I prioritize the category which that reference is primarily used for.
         },
     },
     "paper": {
+        "references": 255,
         "production": 42_824_320 * u.oz,
         "members": {
-            "paper",
             "papyrus",
         },
     },
     "paper goods": {
+        "references": 6,
         "production": 13_792_768 * u.oz,
         "members": {
             "bookbinding",
@@ -53,6 +58,7 @@ categories = {
             "gum mastic",
             "gum tragacanth",
             "gum",
+            "lac",
         },
     },
     "oilseed": {
@@ -75,7 +81,6 @@ categories = {
         "members": {
             "chocolate",
             "edible birds' nests",
-            "treacle",
             "treacle",
             "maraschino cherries",
         },
@@ -134,7 +139,6 @@ categories = {
         },
     },
     "wax": {
-        "references": 0,
         "production": 12_837_888 * u.oz,
         "members": {
             "ozocerite",
@@ -307,6 +311,7 @@ categories = {
         },
     },
     "building stones": {
+        "references": 74,
         "members": {
             "alabaster",
             "basalt",
@@ -348,7 +353,6 @@ categories = {
             "wood, chestnut",
             "wood, cork",
             "wood, cypress",
-            "wood, eucalyptus",
             "wood, fir",
             "wood, hornbeam",
             "wood, iroko",
@@ -383,6 +387,18 @@ categories = {
             "cochineal",
         },
     },
+    "rough fibers": {
+        "references": 5,
+        "production": 2_754_662_400 * u.lb,
+        "members": {
+            "hemp",
+            "jute",
+            "kapok",
+            "kenaf",
+            "kendyr",
+            "ramie",
+        },
+    },
 }
 
 # https://tao-dnd.blogspot.com/2008/07/commodities-list-part-i.html
@@ -402,6 +418,8 @@ categories = {
 # rhodonite vs rhodolite
 # opal vs common opal vs fire opal vs precious opal vs water opal
 # salon (hair dressing?) vs salmon
+# henna vs senna
+# arrack vs arak
 
 
 world_references = {
@@ -484,7 +502,11 @@ world_references = {
     "bonito": {"references": 4},
     "bookbinding": {"references": 101},
     "boots and shoes": {"references": 105},
-    "borax": {"references": 8},
+    "borax": {
+        # I manually gave this (8/124)% of soap production; could be a category but too few others
+        "references": 8,
+        "production": 17_616_529 * u.oz,
+    },
     "bottles": {"references": 3},
     "boxes": {"references": 2},
     "bracelets": {"references": 1},
@@ -511,7 +533,6 @@ world_references = {
     "buckets": {"references": 1},
     "buckles": {"references": 1},
     "buffalo": {"references": 16},
-    "building stone": {"references": 74},
     "butter": {"references": 84, "production": 435_499_008 * u.oz},
     "butter, Dorset": {"references": 1},
     "buttons": {"references": 6},
@@ -705,6 +726,7 @@ world_references = {
     "flannel": {"references": 4},
     "flatfish": {"references": 1},
     "flatware": {"references": 1},
+    # assumption: "flax" reference is flax used for textiles, while "linseed" is flaxseed used for oil
     "flax": {"references": 101, "production": 498_175_000 * u.oz},
     "flint": {"references": 12, "production": 567_417_633 * u.oz},
     "flounder": {"references": 1},
@@ -771,6 +793,8 @@ world_references = {
     "haddock": {"references": 4},
     "hake": {"references": 1},
     "halibut": {"references": 1},
+    # these refs were 1 each to Barum ware and Lowestoft ware
+    "halflingware": {"references": 2},
     "handkerchiefs": {"references": 1},
     "harari": {"references": 1},
     "harpsichords": {"references": 3},
@@ -989,8 +1013,6 @@ world_references = {
     "pans": {"references": 2},
     "papayas": {"references": 3},
     "paper lanterns": {"references": 1},
-    "paper products": {"references": 6, "production": 13_792_768 * u.oz},
-    "paper": {"references": 255},
     "papier-mache": {"references": 1},
     "paprika": {"references": 2, "production": 25_017_969 * u.oz},
     "papyrus": {"references": 4},
@@ -1097,8 +1119,7 @@ world_references = {
     "rosaries": {"references": 4},
     "roses": {"references": 9},
     "rosin": {"references": 1},
-    "rough fiber cloth": {"references": 26, "production": 2_754_662_400 * u.lb},
-    "rough fibers": {"references": 5, "production": 22_111_332 * u.sqyd},
+    "rough fiber cloth": {"references": 26, "production": 22_111_332 * u.sqyd},
     "ruby": {"references": 32},
     "rum": {"references": 5},
     "rye": {"references": 108},
@@ -1151,7 +1172,7 @@ world_references = {
     "sheep skins": {"references": 8},
     "sheep": {"references": 353, "production": 12_288_600 * u.head},
     "sheepskin coats": {"references": 1},
-    "shellac": {"references": 1},
+    "shellac": {"references": 1},  # ignore as a raw material; I made a recipe
     "shellfish": {"references": 3},
     "sherry": {"references": 6},
     "sherry, Amontillado": {"references": 1},
@@ -1280,9 +1301,7 @@ world_references = {
     "vogla": {"references": 1},
     "wagons": {"references": 190},
     "walnuts": {"references": 16},
-    "ware, Barum": {"references": 1},
     "ware, Esparto": {"references": 1},
-    "ware, Lowestoft": {"references": 1},
     "ware, Tunbridge": {"references": 1},
     "water opal": {"references": 1},
     "watermelons": {"references": 5},
@@ -1317,6 +1336,7 @@ world_references = {
     "wine, black": {"references": 1},
     "wine, canary sack": {"references": 1},
     "wire": {"references": 9},
+    # witherite = barium carbonate
     "witherite": {"references": 2, "production": 2_751_078 * u.oz},
     "wolf furs": {"references": 2},
     "wood alcohol": {"references": 6, "production": 287_275 * u.pint},
