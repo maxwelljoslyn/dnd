@@ -1,0 +1,21 @@
+$var title: Travel
+
+<h2>Movement Speed</h2>
+
+<table>
+  <tr>
+    <th>Road Type</th>
+    <th>Miles per 10 Hours</th>
+  </tr>
+  $for road, info in wilderness.road_types.items():
+      <tr>
+      <td>$road.capitalize()</td>
+      <td>$info['miles per 10 hours']</td>
+      </tr>
+</table>
+
+<h2>Road Descriptions</h2>
+
+$for road, info in wilderness.road_types.items():
+    <h3>$road.capitalize()</h3>
+    <p>$info['description']</p>
