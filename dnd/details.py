@@ -168,7 +168,7 @@ def relationships(magnitude, c):
         else:  # 19 and 20
             result = result_start + crimes[5]
     elif magnitude == -13:
-        result = "Character's strange proclivities and morals prevent the character from retaining hirelings for more than a month. Henchmen and followers received from leveling up are not affected."
+        result = "Character's strange proclivities and morals prevent the character from retaining hirelings or followers for more than a month. Henchmen and retainers (received from leveling up) are not affected."
     elif magnitude <= -11:
         result = (
             "Character is exiled from "
@@ -252,7 +252,7 @@ def relationships(magnitude, c):
         if c["has family"]:
             result = "Family members treat the character as hopeless and without prospects, but will provide lodging. Any brothers and sisters will work as hirelings, but will start with a morale of only 7."
         else:
-            result = "Hirelings are made uneasy by character's small-mindedness. Base morale will be 1 point below normal, even if they are gained through this generator."
+            result = "Hireling and followers are made uneasy by character's small-mindedness. Base morale will be 1 point below normal, even if they are gained through this generator."
     elif magnitude == 1:
         sex = choice(["he", "she"])
         result = (
