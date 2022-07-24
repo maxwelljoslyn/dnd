@@ -48,11 +48,13 @@ app = web.application(
             "step": "INTEGER",
             "state": "JSON",
         },
+        **dnd.models.global_model,
     },
 )
 
 
 def setup_db():
+    tx.db.insert("date", date="1650-01-01")
     for player, username in {
         "Ross": "rossm",
         "Chandler": "chandlerf",
