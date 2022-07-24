@@ -319,6 +319,16 @@ def to_fewest_coins(money):
     return result
 
 
+def stringify_coins(coins):
+    template = f"{coins.magnitude:,}"
+    if coins.units == u.gp:
+        return template + " gold"
+    elif coins.units == u.sp:
+        return template + " silver"
+    else:
+        return template + " copper"
+
+
 # molassesGallonWeight = densityMolasses * cuFtPerGallonLiquid
 
 # TODO: Recipe subclasses for categories of goods, such as Weapon and Armor, which have special details (armor class, damage dice, break chance, etc)
