@@ -1,6 +1,11 @@
+import logging
 from decimal import getcontext, Decimal
 from collections import namedtuple
 from pint import UnitRegistry
+
+logging.basicConfig(
+    filename="logging.log", filemode="w", level=logging.DEBUG, force=True
+)
 
 # "If you use Pint in multiple modules ... avoid creating multiple instances of the unit registry ... by instantiating the registry in a single place."
 u = UnitRegistry(system="US")
@@ -1483,17 +1488,19 @@ def main():
     # print(d, len(d))
     # print(d - q, len(d - q))
     # print(q - d, len(q - d))
-    for w, info in world_references.items():
-        refs = info["references"]
-        ppr = info.get("production per reference")
-        prod = info["production"]
-        name = w.title()
-        if ppr:
-            print(f"{name}: {refs} refs at {ppr}")
-        elif refs and not prod:
-            print(f"{name}: {refs} refs")
-        else:
-            print(f"{name}: world production {prod}")
+    print("nada")
+
+    # for w, info in world_references.items():
+    #    refs = info["references"]
+    #    ppr = info.get("production per reference")
+    #    prod = info["production"]
+    #    name = w.title()
+    #    if ppr:
+    #        print(f"{name}: {refs} refs at {ppr}")
+    #    elif refs and not prod:
+    #        print(f"{name}: {refs} refs")
+    #    else:
+    #        print(f"{name}: world production {prod}")
 
 
 if __name__ == "__main__":
