@@ -4,10 +4,9 @@ from collections import Counter
 import logging
 import json
 import random
-from mjtime import week_of_year
 from pendulum import Date
+from utility import week_of_year
 
-# from functools import lru_cache
 
 # logging.basicConfig(level=logging.DEBUG, force=True)
 
@@ -17,7 +16,6 @@ from characters import races
 from jsonize import MyEncoder
 import sqlyte
 from models import tradegood_model
-from rich.progress import Progress
 
 
 # set up the Decimal environment
@@ -79,36 +77,33 @@ chance_available_map = {
 }
 
 
-def availability_chance(price):
+def _base_availability_chance(price):
     """How likely is it that a trade good which currently costs `price` will be available?"""
     price = to_copper_pieces(price)
     avail = [(k, v) for k, v in chance_available_map if k <= price]
     if avail:
         return min(avail, key=lambda each: each[1])[1]
     else:
-        # so expensive it's not in chance_available_map? 5% chance
+        # so expensive it's not in chance_available_map? 5% chance available
         return 5
 
 
-def availability_seed(year, month, day):
-    """Return a randomization seed string. Used when determining whether each good is available at its price for that week."""
-    week = str(week_of_year(Date(year, month, day)))
-    return str(year) + str(week)
+def tradegood_seed(tradegood, year, week):
+    return tradegood + str(year) + str(week)
 
 
-def _maximum_available(chance):
-    return max(1, floor(chance / 10))
-
-
-def number_available(tradegood, year, month, day):
-    seed = tradegood + availability_seed(year, month, day)
-    random.seed(seed)
-    # TODO implement price
-    current_price = price(tradegood, year, month, day)
-    if random.randint(1, 100) > availability_chance(current_price):
+def random_number_available(tradegood, price, year, week):
+    """Note that `price` should be the randomly-adjusted price for `year` and `week` at a given market."""
+    random.seed(tradegood_seed(tradegood, year, week))
+    chance = _base_availability_chance(price)
+    if random.randint(1, 100) > chance:
         return 0
     else:
-        return random.randint(1, _maximum_available(availability_chance))
+        # Nd4 - N where N = availability_chance
+        # TODO is this too many?
+        num_avail = sum([random.randint(1, 4) for i in range(0, chance)]) - chance
+        # max with 1 protects against <= 0
+        return max(1, num_avail)
 
 
 density = {
@@ -226,16 +221,6 @@ def truncated_cone_volume(big_radius, small_radius, height):
     ).to(u.cuft)
 
 
-class Cheapest:
-    def __init__(self, *choices):
-        self.choices = choices
-
-    def choose(self, towninfo):
-        prices = [(c, registry[c].price(towninfo)) for c in self.choices]
-        name, price = min(prices, key=lambda x: x[1])
-        return name
-
-
 def to_copper_pieces(quantities):
     return sum([q.to(u.cp) for q in quantities])
 
@@ -339,11 +324,9 @@ class Recipe:
         }
         return json.dumps(val, cls=MyEncoder)
 
-    def ingredient_costs(self, towninfo):
+    def ingredient_costs(self, towninfo, registry=registry):
         price_raws = {}
         for raw, q in self.raws.items():
-            if isinstance(raw, Cheapest):
-                raw = raw.choose(towninfo)
             # unit employed in a recipe not always the base unit used in references.py
             # e.g. stone produced in oz, but usually recipes call for lbs
             newunit = u.cp / q.units
@@ -351,8 +334,6 @@ class Recipe:
             price_raws[raw] = final
         price_recipes = {}
         for recipe, q in self.recipes.items():
-            if isinstance(recipe, Cheapest):
-                recipe = recipe.choose(towninfo)
             newunit = u.cp / q.units
             # TODO avoid costs of recursion
             # can I memoize while keeping while keeping this a method, or need to pull out into a function?
@@ -373,15 +354,11 @@ class Recipe:
 
     def service_cost(self, baseprice, towninfo):
         if self.governor:
-            # ordinary case, for all non-"raw" recipes
             refs = towninfo["references"][self.governor]
             return baseprice / refs
-        # else:
-        #    return 0
 
-    def price(self, towninfo):
-        global registry
-        ra, re, pc = self.ingredient_costs(towninfo)
+    def price(self, towninfo, registry=registry):
+        ra, re, pc = self.ingredient_costs(towninfo, registry)
         # necessary quantities of ingredients now priced in units of copper pieces per X
         # dividing by those units makes prices dimensionless and summable
         # otherwise we may try adding up, for instance, cp / head and cp / pound
@@ -393,8 +370,8 @@ class Recipe:
         # convert dimensionless final back to cp / X
         return (final.magnitude * u.cp) / self.unit
 
-    def chunked_price(self, towninfo):
-        p = self.price(towninfo)
+    def chunked_price(self, towninfo, registry=registry):
+        p = self.price(towninfo, registry)
         coppers = p * self.unit
         result = to_fewest_coins(coppers)
         result["cp"] = round(result["cp"])
@@ -5026,30 +5003,6 @@ def by_vendor(town="Pearl Island"):
         print()
 
 
-def dbify_tradegoods(db, registry):
-    with Progress() as progress:
-        with db.transaction as cur:
-            numtowns = len(towns)
-            numgoods = len(registry)
-
-            recipes = []
-            for good, recipe in registry.items():
-                jr = recipe.to_json()
-                recipes.append(dict(name=good, recipe=jr))
-            cur.insert("tradegoods", *recipes)
-
-            town_task = progress.add_task("[red]Generating prices...", total=numtowns)
-            for t in towns:
-                tradegood_task = progress.add_task(f"[blue]at {t}", total=numgoods)
-                prices = []
-                logging.debug(f"generating prices at {t}")
-                for good, recipe in registry.items():
-                    price = to_copper_pieces(recipe.chunked_price(towns[t]).values())
-                    prices.append(dict(name=good, town=t, price=(str(price))))
-                    progress.update(tradegood_task, advance=1)
-                cur.insert("prices", *prices)
-                logging.debug(f"inserted prices at {t}")
-                progress.update(town_task, advance=1)
 
 
 def main():
