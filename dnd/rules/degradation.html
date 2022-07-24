@@ -14,66 +14,51 @@ $var title: Degradation of Items
 
 <p>A <strong>degradation interval</strong> is the frequency at which an item carried by a character must roll a degradation check. Ideally, this frequency would be calculated from the game date that the item was first made anew, bought in new condition, or repaired to newness 5. Until such is computationally feasible, this frequency is instead calculated by the day of year, no matter when the item was purchased.</p>
 
-<p>The typical degradation intervals are 1 day, 1 week, 1 fortnight, 1 month, and 1 season (3 months.)</p>
+<table>
+  <tr>
+    <th>Degradation Interval</th>
+    <th># of Days</th>
+  </tr>
+  <tr>
+    <td>1 day</td>
+    <td>1 day</td>
+  </tr>
+  <tr>
+    <td>1 week</td>
+    <td>7 days</td>
+  </tr>
+  <tr>
+    <td>1 fortnight</td>
+    <td>14 days</td>
+  </tr>
+  <tr>
+    <td>1 month</td>
+    <td>30 days</td>
+  </tr>
+  <tr>
+    <td>1 season</td>
+    <td>90 days</td>
+  </tr>
+</table>
+
 
 <p>Except for foodstuffs, items that are not carried along with the character, and which are properly stored, change their degradation interval to 1 month.</p>
 
 <table>
-  <tr>
-    <th>Category</th>
-    <th>Degradation Interval</th>
-    <th>Notes</th>
-  </tr>
-  <tr>
-    <td>fresh food</td>
-    <td>1 day</td>
-    <td>milk, meat, and any comestible bought from the costermonger or greengrocer</td>
-  </tr>
-  <tr>
-    <td>delicate goods and art objects</td>
-    <td>TBD</td>
-    <td>details TBD; damaged easily if moved without proper care, but usually durable when correctly stored; includes paintings, sculptures, and any clothing fancy enough to give a bonus on Charisma checks</td>
-  </tr>
-  <tr>
-    <td>cloth goods</td>
-    <td>1 week</td>
-    <td>includes clothing, but not armor</td>
-  </tr>
-  <tr>
-    <td>paper goods</td>
-    <td>1 week</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>durable food</td>
-    <td>1 fortnight</td>
-    <td>dry grains and pulses, cheese, beef jerky, hardtack</td>
-  </tr>
-  <tr>
-    <td>leather and wooden goods</td>
-    <td>1 fortnight</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>glass goods</td>
-    <td>1 fortnight</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>preserved food</td>
-    <td>1 month</td>
-    <td>any foodstuff created and stored in a sealable container, including alcoholic beverages (degradation of the container itself is ignored)</td>
-  </tr>
-  <tr>
-    <td>armor and weapons</td>
-    <td>1 month</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>metal and stone goods</td>
-    <td>1 month</td>
-    <td></td>
-  </tr>
+<tr>
+<th>Category</th>
+<th>Interval (Days)</th>
+<th>Notes</th>
+</tr>
+$for cat, info in degradation.categories.items():
+    $ interval = str(info['interval'])
+    $ desc = info.get('description')
+    <tr>
+    <td>$cat</td>
+    <td>$interval</td>
+    $if desc:
+        <td>$desc</td>
+    </tr>
 </table>
 
 <h2>Degradation of Magic Items</h2>
@@ -93,3 +78,11 @@ $var title: Degradation of Items
 <h2>Broken Items</h2>
 
 <h2>Repairing Items</h2>
+
+<h2>Degradation Schedule</h2>
+
+$ anus = {1: 'foo', 7: 'balls'}
+
+$for day in range(1, 366):
+    $ foo = [anus[g] for g in anus if day % g == 0]
+    $day : $foo
