@@ -32,28 +32,39 @@ $else:
     <p>$titlecase(town) has no official market; only <strong>common goods</strong> can be purchased.</p>
     <p>Goods available: $len({r:info for r, info in registry.items() if info.vendor in vendors})</p>
 
-$for vendor in sorted(list(vendors)):
-    <h3>$vendor.title()</h3>
+$ vendors = sorted(list(vendors))
+<details>
+<summary>Vendor List</summary>
+<table>
+$for vendor in vendors:
+    <tr>
+    <td><a href="#$idify(vendor)">$titlecase(vendor)</a></td>
+    </tr>
+</table>
+</details>
+
+
+$for vendor in vendors:
+    <h3 id=$idify(vendor) class=vendor-name>$vendor.upper()</h3>
+    $ filename = vendor.replace(" ", "-") + ".jpg"
+    $if (static_dir() / filename).exists():
+        <img class=vendor-image height=450 src="/static/$filename">
     $if vendor == 'armorer':
-        <strong>Gnomes and halflings</strong> wear small-size armors.
+        <p><strong>Gnomes and halflings</strong> wear small-size armors.</p>
     $if vendor == 'hatter':
-        Hats are the same size for all races.
+        <p>Hats are the same size for all races.</p>
     $if vendor == 'tailor':
-        Non-armor clothing is the same size for all races.
+        <p>Non-armor clothing is the same size for all races.</p>
     $if vendor == 'bowyer':
-        See <a href="/rules/weapons">the Weapons page</a> for more about bows and crossbows.
+        <p>See <a href="/rules/weapons">the Weapons page</a> for more about bows and crossbows. To purchase other weapons, visit the <a href="#weaponsmith">weaponsmith</a>.</p>
     $if vendor == 'weaponsmith':
-        Bows are purchased from the bowyer. See <a href="/rules/weapons">the Weapons page</a> for more about weapons.
+        <p>Bows are purchased from the <a href="#bowyer">bowyer</a>. See <a href="/rules/weapons">the Weapons page</a> for more about weapons.</p>
     $if vendor in ('dairy', 'costermonger', 'grocer', 'greengrocer'):
-        See <a href="/rules/food">the Food page</a> for more about food and drink.
+        <p>See <a href="/rules/food">the Food page</a> for more about food and drink.</p>
     $ recipes = [(name, recipe) for name, recipe in registry.items() if recipe.vendor == vendor]
     $if vendor != 'cooper':
         $# don't sort for the cooper because barrels are already sorted by size
         $ recipes.sort()
-    $ filename = vendor.replace(" ", "_") + ".jpg"
-    $if (static_dir() / filename).exists():
-        $# TODO how do I make this path resolve relative to the app root?
-        <img class=vendor height=300 src="/static/$filename">
     <ul class=bare>
     $for name, recipe in recipes:
         <li>
