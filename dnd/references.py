@@ -1370,41 +1370,74 @@ world_references = {
 
 
 def distribute_category(world_references, category, info):
-    """Distribute production totals for a category of reference into the specific references within that category.
-
-    For instance, we have a production total for generic fruit, but nothing for whortleberries, apples, etc., so we assign a portion of the fruit production total to those more-specific fruit references.
-
+    """Distribute reference counts and production totals for a category of reference into the members of that category.
+    For instance, we have a production total for generic fruit, but not for many specific fruits such as whortleberries or apples. We assign a portion of the fruit production total to those more-specific fruit references.
     If fruits['production'] == 1000 oz, total_refs == 100, m == 'apples', and world_references['apples']['references'] == 1, assign 1 / 100 * 1000 oz = 10 oz to world_references['apples']['production']"""
-    total_refs = sum([world_references[m]["references"] for m in info["members"]])
-    generic_refs = info.get("references", 0)
-    # TODO better way to use generic_refs?
-    # TODO once Cheapest or similar is better established, maybe _don't_ put category into world_references... although it IS useful as a generic. sort of an alternate way to represent 'cheapest'/whatever works
-    if generic_refs:
-        world_references[category] = {
-            "references": generic_refs,
-            "production": info["production"],
-        }
-    for m in info["members"]:
-        if world_references[m].get("production"):
-            # that member already has production specified, e.g. grapes in the fruit category
-            continue
-        else:
-            r = world_references[m]["references"]
-            fraction = r / total_refs
-            world_references[m]["production"] = fraction * info["production"]
-
-
-for category, info in categories.items():
-    if info is None or "members" not in info or "production" not in info:
-        # defensive programming for unfinished categories
-        continue
+    members = info.get("members")
+    if not members:
+        return
     else:
+        # save pre-distribution refs and prod, for fractions later
+        members = {m: world_references[m] for m in members}
+    total_member_refs = sum([world_references[m].get("references", 0) for m in members])
+    generic_refs = info.get("references", total_member_refs)
+    if not generic_refs:
+        # no category refs, therefore no member refs either -- no numbers to compare anywhere
+        return
+    generic_prod = info.get("production")
+    world_references[category] = {}
+    if generic_refs:
+        world_references[category]["references"] = generic_refs
+    if generic_prod:
+        world_references[category]["production"] = generic_prod
+    logging.debug(f"distributing {category}")
+
+    for m, original_info in members.items():
+        logging.debug(f"{m}")
+        refs_before_distribution = original_info.get("references", 0)
+        # if there are more refs to a member than its category, cap its reference increase at +100%
+        fraction = min(1, refs_before_distribution / total_member_refs)
+        logging.debug(
+            f"fraction = {refs_before_distribution} / {total_member_refs} = {fraction}"
+        )
+
+        if generic_refs:
+            # TODO where generic_refs == total_member_refs, adding (fraction * generic_refs) is equivalent to doubling the member refs
+            refs_to_add = fraction * generic_refs
+            logging.debug(
+                f"{fraction} * {generic_refs} {category} refs = {refs_to_add} added"
+            )
+            if refs_before_distribution:
+                world_references[m]["references"] += fraction * generic_refs
+            else:
+                world_references[m]["references"] = fraction * generic_refs
+            logging.debug(f"refs before: {refs_before_distribution}")
+            logging.debug(f"refs after: {world_references[m]['references']}")
+
+        prod_before_distribution = original_info.get("production")
+        if generic_prod:
+            prod_to_add = fraction * generic_prod
+            logging.debug(
+                f"{fraction} * {generic_prod} {category} prod = {prod_to_add} added"
+            )
+            if prod_before_distribution:
+                world_references[m]["production"] += fraction * generic_prod
+            else:
+                world_references[m]["production"] = fraction * generic_prod
+            logging.debug(f"prod before: {prod_before_distribution}")
+            logging.debug(f"prod after: {world_references[m]['production']}\n")
+    logging.debug(f"done distributing {category}\n")
+
+
+for category in categories:
+    info = categories.get(category)
+    if info:
         distribute_category(world_references, category, info)
 
 
 for r, info in world_references.items():
     # decimalize reference counts and production totals
-    info["references"] = Decimal(info["references"])
+    info["references"] = Decimal(info.get("references", 0))
     if "production" in info:
         info["production"] = (
             Decimal(info["production"].magnitude) * info["production"].units
