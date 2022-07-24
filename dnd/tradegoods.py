@@ -5003,11 +5003,60 @@ def by_vendor(town="Pearl Island"):
         print()
 
 
+def dbify_tradegood_recipes(db, tradegoods=registry):
+    with db.transaction as cur:
+        recipes = []
+        for good, recipe in tradegoods.items():
+            jr = recipe.to_json()
+            recipes.append(dict(name=good, recipe=jr))
+        cur.insert("tradegoods", *recipes)
+
+
+def dbify_tradegood_prices(db, year, week, tradegoods=registry, towns=towns):
+    with db.transaction as cur:
+        for t in towns:
+            # TODO NOOOOO. towns can have THE SAME NAME. so towns param to dbify_tradegood_prices needs to be a list of TOWN IDs?! FFS
+            town_id = cur.select("towns", what="rowid", where="name=?", vals=[t])[
+                "rowid"
+            ]
+            towninfo = cur.select(
+                "material_costs",
+                what="*",
+                where="town=? and year=? and week=?",
+                vals=[town_id, year, week],
+            )
+            # TODO make this towninfo into a dict to match elements of towns.towns
+            # TODO And don't forget to parse the price into a pint unit
+            prices = []
+            # need to replace this tradegoods variable with equivalent, built from DB
+            # these in turn are built from raw material costs stored in DB
+            # TODO TRICKY: registry is used in chunked_price -> price -> ingredient_costs
+            # TODO so, as above where building up "" (good, recipe) from DB instead of passing it in
+            # TODO must also pass that db-pulled "tradegoods" into chunked_price?! gahhhh, and pass it down into Recipe.price() and Recipe.ingredient_costs()
+            for good, recipe in tradegoods.items():
+                price = to_copper_pieces(
+                    recipe.chunked_price(towns[t], tradegoods).values()
+                )
+                num_avail = random_number_available(good, price, year, week)
+                prices.append(
+                    dict(
+                        name=good,
+                        town=town_id,
+                        price=str(price),
+                        year=year,
+                        week=week,
+                        base_number_available=num_avail,
+                    )
+                )
+            cur.insert("prices", *prices)
 
 
 def main():
     db = sqlyte.db("foo.db", sqlyte.Model("tradegood_model", **tradegood_model))
-    dbify_tradegoods(db, registry)
+    dbify_tradegood_recipes(db, registry)
+    year, month, day = (1650, 1, 1)
+    week = week_of_year(Date(year, month, day))
+    dbify_tradegood_prices(db, year, week, registry)
 
 
 if __name__ == "__main__":
