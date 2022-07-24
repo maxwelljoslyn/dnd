@@ -453,7 +453,7 @@ races = {
     "halforc": {
         "ability modifiers": dict(strength=1, charisma=-1),
         "size": Size.MEDIUM,
-        "permitted classes": {"thief", "assassin", "fighter", "cleric", "ranger"},
+        "permitted classes": {"fighter", "thief", "assassin", "cleric", "ranger"},
         "base height": {"male": Decimal(65), "female": Decimal(60)},  # inches
         "base weight": {"male": Decimal(150), "female": Decimal(120)},  # pounds
         "special characteristics": None,
@@ -471,13 +471,7 @@ races = {
     "gnome": {
         "ability modifiers": dict(wisdom=1, strength=-1),
         "size": Size.SMALL,
-        "permitted classes": {
-            "fighter",
-            "thief",
-            "assassin",
-            "illusionist",
-            "cleric",
-        },
+        "permitted classes": {"fighter", "thief", "assassin", "cleric", "illusionist"},
         "base height": {"male": Decimal(42), "female": Decimal(38)},  # inches
         "base weight": {"male": Decimal(95), "female": Decimal(75)},  # pounds
         "special characteristics": [
@@ -487,7 +481,7 @@ races = {
     "dwarf": {
         "ability modifiers": dict(constitution=1, dexterity=-1),
         "size": Size.MEDIUM,
-        "permitted classes": {"fighter", "thief", "assassin", "monk", "cleric"},
+        "permitted classes": {"fighter", "thief", "assassin", "cleric", "monk"},
         "base height": {"male": Decimal(48), "female": Decimal(42)},  # inches
         "base weight": {"male": Decimal(140), "female": Decimal(120)},  # pounds
         "special characteristics": [
