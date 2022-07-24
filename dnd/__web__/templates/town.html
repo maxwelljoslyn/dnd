@@ -65,15 +65,42 @@ $for vendor in vendors:
     $if vendor != 'cooper':
         $# don't sort for the cooper because barrels are already sorted by size
         $ recipes.sort()
-    <ul class=bare>
+
+
+    <table class="vendor-table">
+    <tr>
+    <th>Good</th><th>Price</th><th>Sale Unit</th><th>Weight</th><th>Description</th>
+    </tr>
     $for name, recipe in recipes:
-        <li>
-        <a href="/tradegoods/$name">$name</a><br>
-        $recipe.display_price(info)<br>
-        $if recipe.description:
-            $recipe.description<br>
-        </li>
-    </ul>
+        <tr>
+        <td><a href="/tradegoods/$name">$name</a></td>
+        $ price, unit, weight = recipe.web_display_price(info)
+        $ description = recipe.description if recipe.description else ""
+        $ capacity = f"capacity {recipe.capacity:~}" if recipe.capacity else ""
+        <td>$price</td>
+        <td>$unit</td>
+        <td>$weight</td>
+        $if capacity and description:
+            <td>${f"{capacity}; {description}"}</td>
+        $elif capacity:
+            <td>$capacity</td>
+        $elif description:
+            <td>$description</td>
+        $else:
+            <td></td>
+        </tr>
+    </table>
+
+
+    $#<ul class=bare>
+    $#$for name, recipe in recipes:
+    $#    <li>
+    $#    <a href="/tradegoods/$name">$name</a><br>
+    $#    $recipe.display_price(info)<br>
+    $#    $if recipe.description:
+    $#        $recipe.description<br>
+    $#    </li>
+    $#</ul>
 $#        $if tx.user.role == 'player':
 $#            $ chars = my_characters(tx.user.name)
 $#        $else:

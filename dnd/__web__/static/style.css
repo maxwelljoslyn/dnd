@@ -13,15 +13,63 @@ tr:nth-child(even) { background-color: white; }
 tr:nth-child(odd) { background-color: lightgrey; }
 
 /* don't apply white/grey coloring to the <tr> which contains <th> */
-tr:nth-child(1) { background-color: inherit; }
+tr th { background-color: inherit; }
 
 /* map */
 polygon:hover {
-  stroke: blue;
+  /* stroke: blue; */
   fill: red;
 }
 
-img.vendor {
-    display: block;
-    margin-left: auto;
-    margin-right: auto }
+/* .vendor-table { */
+/*     display: block; */
+/*     margin-left: auto; */
+/*     margin-right: auto */
+/* } */
+
+/* .vendor-image { */
+/*     display: block; */
+/*     margin-left: auto; */
+/*     margin-right: auto */
+/* } */
+
+/* h1, h2, h3, h4, h5, h6 { */
+/*     margin: 0.1rem; */
+/* } */
+
+/* ul { */
+/*     margin-top: 0.1rem; */
+/* } */
+
+details > summary {
+    cursor: pointer;
+}
+
+details > summary::after {
+    content: " (click to open)";
+    /* same as .muted */
+    font-size: var(--s-1);
+    font-style: italic;
+}
+
+details[open] > summary::after {
+    content: " (click to close)";
+    /* same as .muted */
+    font-size: var(--s-1);
+    font-style: italic;
+}
+
+td {
+    border: solid black 1px;
+    padding: 0.2rem;
+}
+
+.new::after {
+    content: "new";
+    font-size: calc(var(--s-3));
+    background: #AA0044;
+    color: white;
+    box-shadow: 0 0 1px black;
+    margin: .33em;
+    padding: .1em;
+}
