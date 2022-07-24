@@ -11,8 +11,10 @@ from references import u, world_references
 import web
 import sqlyte
 from models import town_model
+import random
 
-# logging.basicConfig(level=logging.DEBUG, force=True)
+
+logging.basicConfig(level=logging.WARNING, force=True)
 
 # set up the Decimal environment
 getcontext().prec = 6
@@ -197,6 +199,33 @@ def determine_unit_prices(towns):
                     price_per_ref / winfo["production per reference"]
                 )
     return towns
+
+
+# RANDOM MATERIAL PRICING
+
+
+def rawmaterial_price_variance():
+    """Return list of percentage changes to RAW MATERIAL PRICES, weighted by magnitude of change, for use in price randomization."""
+    result = []
+    maximum_change = 10  # percent
+    for x in range(0, maximum_change + 1):
+        chances = (maximum_change + 1) - x
+        # positive results = rises in price
+        # negative results = drops in price
+        # one chance each for +/-maximum_change %, two chances each for +/- (maximum_change - 1) %, etc.
+        result.extend([x] * chances)
+        result.extend([x * -1] * chances)
+    return [1 + (0.01 * x) for x in result]
+
+
+def rawmaterial_seed(material, year, week):
+    return material + str(year) + str(week)
+
+
+def random_rawmaterial_price(material, base_price, year, week_number):
+    random.seed(rawmaterial_seed(material, year, week_number))
+    variance = random.choice(rawmaterial_price_variance())
+    return baseprice * variance
 
 
 def infra_pop(towns):
@@ -671,14 +700,30 @@ def dbify_towns(db, towns):
                     dict(source=rowid, destination=destination, distance=distance)
                 )
             cur.insert("travel_times", *travels)
+
+
+def dbify_raw_materials(db, towns, year, week):
+    with db.transaction as cur:
+        for town, info in towns.items():
             materials = []
             for thing, unit_price in info["price"].items():
-                materials.append(dict(town=rowid, name=thing, price=str(unit_price)))
+                adjusted_price = random_rawmaterial_price(unit_price, year, week)
+                materials.append(
+                    dict(
+                        town=rowid,
+                        name=thing,
+                        year=year,
+                        week=week,
+                        price=str(adjusted_price),
+                    )
+                )
             cur.insert("material_costs", *materials)
 
 
 def main():
+    # TODO move **town_model to web app's model arg
     db = sqlyte.db("foo.db", sqlyte.Model("town_model", **town_model))
+    # TODO move this to web app's setup_db
     dbify_towns(db, towns)
 
 
