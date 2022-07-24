@@ -1,5 +1,8 @@
 $var title: Actions and Action Points
 
+$ action_names = list(actions.keys())
+$ action_names.sort()
+
 <p>An <strong>action</strong> is any interaction a character takes in the game world. Declaring a character's next action is one of the two "operations" of playing the game (the other operation, gathering information, covers all preparation prior to declaring an action; this includes consulting the rules, asking questions of the referee, reviewing a character sheet, and so on.)</p>
 
 <p>Actions which take hours or days to perform, from hunting to shopping to building a cartwheel, cannot reasonably accomplished in combat. Actions which take seconds or minutes to perform <em>can</em> be accomplished in combat, and have a specified cost in <strong>action points</strong> (AP).</p>
@@ -15,6 +18,35 @@ Extending an Action Over Multiple Rounds
 <p>If an action requires more AP than a combatant's <strong>total AP per round</strong>, such that the only way it could be done is by "spilling over" into following rounds, then this spillover is acceptable, and the spilled-over AP is subtracted from the combatant's normal total for the following round.</p>
 
 <p>However, if the action does not in itself take up more AP than one round's worth, the combatant cannot split the action up. He <strong>must</strong> take the action all in one turn, or else <strong>wait for his next turn</strong> to perform it.</p>
+
+<h2>Actions and AP Costs</h2>
+
+Each action links to more detailed rules governing it.
+
+<table>
+<tr>
+<th>Action</th>
+<th>AP Cost</th>
+</tr>
+$for action in action_names:
+    $ info = actions[action]
+    $ cost = str(info['cost'])
+    <tr>
+      <td><a href=#$idify(action)>$action</a></td>
+    <td>$cost</td>
+    </tr>
+</table>
+
+<h2>Action Descriptions</h2>
+
+$for action in action_names:
+		$ info = actions[action]
+    <h3 id=$idify(action)>$action</h3>
+    $ cost = str(info['cost'])
+    <p>Cost: $cost</p>
+    $ desc = info.get('description')
+    $if desc:
+        <p>$desc</p>
 
 <h2>Example Action Sequences</h2>
 

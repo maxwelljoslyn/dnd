@@ -1,3 +1,5 @@
+import textwrap
+
 actions = {
     "Cancel Spell": {
         "cost": 0,
@@ -37,7 +39,11 @@ Examples: rotating a shield and gripping its handle; positioning a compass; focu
     },
     "Attack with Weapon": {
         "cost": 2,
-        "description": "TODO",
+        "description": """This is the amount of time which one must spend focusing on the enemy's defense in order to take advantage of an opening and attempt an attack.
+
+    Normally a combatant only gets one attack per round. They cannot attack twice even if they have 4 AP; even though the time is available, they are not skilled enough to perceive a second suitable opening in enemy defenses.
+
+    More skilled or dangerous combatant, such as high-level fighters and creatures with special anatomies, make more attacks within the 2 AP time frame. If such a combatant has an odd number of attacks, e.g. 3 per round, then the first AP allows the minority of the attacks (e.g. 1) and the second AP allows the remaining attacks (e.g. 2).""",
     },
     "Awaken Other Quietly": {
         "cost": 3,
@@ -89,7 +95,7 @@ If changing into a larger shape, any armor or helmet worn must save vs. crushing
     },
     "Draw Weapon, Two-Handed": {
         "cost": 3,
-        "description": "Begin wielding any weapon which *you* must use with two hands, even if that is not the case for others. Includes spears (even if they are to be thrown) and all bows and crossbows.",
+        "description": "Begin wielding any weapon which character must use with two hands, even if that is not the case for others. Includes spears (even if they are to be thrown) and all bows and crossbows.",
     },
     "Draw Weapon, Heavy One-Handed": {
         "cost": 2,
@@ -127,115 +133,92 @@ If changing into a larger shape, any armor or helmet worn must save vs. crushing
         "cost": 3,
         "description": "Ignite a prepared torch. The torch must already be soaked in fuel (see Apply Fluid), and the means to light it (open flame, match, etc.) must already be at hand. If the torch is waterlogged, only an open flame will light it, and this action will take double the normal AP.",
     },
-    #'Load and Aim': {
-    #'cost': 4
-    # From this cost, we can see that an ordinary combatant will have to load and aim one round, and fire the next.
-    #
-    # The combatant can also decide to load and aim quickly, expending only 2 AP instead of 4, but the attack roll will have a -4 penalty. If the combatant has two attacks this round, they can forgo the second attack and instead load and fire in one round with no penalty.
-    #
-    # Once you have taken this action, you must fire at some point on your next turn (it doesn't have to be your first 2 AP.) Otherwise, you have missed your moment, and will have to load and aim again.
-    #
-    # },
-    #'Load Crossbow, Heavy': {
-    #'cost': 11
-    # This is done by pointing the crossbow down, sinking its point into the ground to stabilize it, and then cranking until the drawstring catches on the nut, at which point it is tight enough to fire; the crossbow is then lifted and the bolt is inserted (the last 1 AP of the cost.) The weapon can be fired as soon as loading is completed, if sufficient AP remain.
-    #
-    # },
-    #'Load Crossbow, Light': {
-    #'cost': 7
-    # This is done by bracing the crossbow against the body and cranking the cranequin until the drawstring catches on the nut, at which point it is tight enough to fire; the bolt can then be inserted (the last 1 AP of the cost.) Note that owing to its loading method, the light crossbow can be reloaded while on horseback, unlike its heavier counterpart. The weapon can be fired as soon as loading is completed, if sufficient AP remain.
-    #
-    # },
-    #'Mount Animal': {
-    #'cost': 4
-    # Includes dismounting from horses and similarly-sized animals, as listed under "Dismount."
-    #
-    # },
-    #'Open or unlock': {
-    #'cost': 2
-    # Includes opening or unlocking a chest, box, or door, as well as unbuckling straps or untying knots that hold some item closed.
-    #
-    # An unlocked door can be shouldered open for only 1 AP as part of moving through the hex it is in, but this means the combatant has committed to moving through the door without getting a chance to look through it.
-    #
-    # },
-    #'Pick up Object': {
-    #'cost': 1 or more
-    # This refers to a Small or Medium humanoid picking up an object which is lying on the ground. 1 AP is required for an item up to 5 lbs; 2 AP for up to 8 pounds; 3 AP for up to 13 lbs; 4 AP for up to 21 lbs, and so on, up to the maximum weight which the combatant can carry.
-    #
-    # },
-    #'Putting on Armor': {
-    #'cost': 25 AP per point of Armor Class
-    # This reflects the amount of time needed to put on and secure all the bits and pieces that go into a suit of armor. Enough of the armor can be put on with 25 AP that the character's Armor Class is lowered by 1; thus, if time is critical, partial armor can be worn (the exact body parts covered are not important.) Remember that as the character achieves enough armoring for an AC of 7, 5, or 3, his or her AP will decrease. Thus, the requisite 25 AP will take more rounds to achieve as heavier armors approach full readiness.
-    #
-    # An assistant can help in this process, reducing the cost per point from 25 to 15 AP. The assistant needs no special skills: they are just adding an extra pair of hands.
-    #
-    # },
-    #'Pull In Rope': {
-    #'cost': 1 AP per 5 feet
-    # This refers to a character pulling a rope which is attached to some weight. This can be done as long as the rope's weight plus the character's carried equimnt does not exceed the character's maximum load; if it does, then additional pullers must be employed. Each puller must be spaced ten feet apart, i.e. with one hex separating him from the pullers before and behind him.
-    #
-    # },
-    #'Search Backpack': {
-    #'cost': 3-4 or 5-7 AP
-    # This refers to opening a backpack and rummaging through its contents. Even a thing which might be obvious is made more difficult to retrieve by the problem of getting it without spilling other items. The combatant makes an Intelligence check: if successful, the time is in the shorter range; if unsuccessful, use the longer range.
-    #
-    # Searching does not include getting the backpack off the back and onto the ground ("Unsling Backpack"), opening it ("Open or unlock"), closing it once done ("Close or lock"), or putting it back on ("Sling Backpack".) This is why it's a good idea to carry the most important items on one's person ... which makes the question of what items go in your belt pouch an important one indeed.
-    #
-    # },
-    #'Search Saddlebag': {
-    #'cost': 1-2 or 3-4 AP
-    # Unlike backpacks, saddlebags do not need to be removed from their carrier to be searched: they are designed to be accessed either from the mount or while standing next to it. Otherwise the rules are the same as for searching a backpack.
-    #
-    # },
-    #'Stow Item at Waist': {
-    #'cost': 2
-    #
-    # },
-    #'Stow Item at Shoulder': {
-    #'cost': 3
-    #
-    # },
-    #'Stow or Retrieve Pocketed or Tied Item': {
-    #'cost': 1 to 3 AP
-    # Refers to taking an item out of, or replacing it into, its storage place in one's pockets or convenient (non-hidden) folds of one's clothing, as well as breaking off items tied to one's person by a string or strip of leather. This action obviously requires a free hand.
-    #
-    # Getting access to these items requires digging around in clothing, adjusting oneself, and shifting held or carried objects; the more things to dig through, the slower retrieval gets, and so the AP cost depends on how encumbered a character is.
-    #
-    # If the character's encumbrance penalty is 0, this action requires 1 AP; encumbrance penalty -1 or -2, and this action requires 2 AP; -3 or higher, and this action requires 3 AP.
-    #
-    # },
-    #'Speak': {
-    #'cost': variable AP
-    # This refers to shouted communication while taking the time to ensure the words are heard accurately over the noise of battle. The cost depends on how far the recipient is from the speaker.
-    #
-    # Within 1 hex: 1 AP per 8 words
-    # Within 2 hexes: 1 AP per 6 words
-    # Within 5 hexes: 1 AP per 4 words
-    # Within 9 hexes: 1 AP per 2 words
-    # Within 12 hexes: 1 AP per word
-    #
-    # Beyond 12 hexes (60 feet), one cannot make oneself heard over the din of combat.
-    #
-    # },
-    #'Stand from Laying Position': {
-    #'cost': 2
-    # Time needed to get up and into a fighting stance.
-    #
-    # },
-    #'Stand from Sitting Position': {
-    #'cost': 1
-    # Time needed to get up and into a fighting stance.
-    #
-    # If seated in a chair, the combatant can spend an additional 1 AP to take the chair in hand as an improvised weapon (may require both hands, if chair is heavy.)
-    #
-    # },
-    #'Strap Shield to Arm': {
-    #'cost': 10
-    # With an attendant, time is reduced to 7 AP. As with putting on armor, the attendant needs no special skill, only both hands.
-    #
-    # The difference between strapping a shield and merely grasping it is that if a combatant holding a shield takes a hit which causes a bleeding wound, they will drop the shield.
-    #
-    # },
+    "Load and Aim": {
+        "cost": 4,
+        "description": """From this cost, we can see that an ordinary combatant will have to load and aim one round, and fire the next.
+    
+     The combatant can also decide to load and aim quickly, expending only 2 AP instead of 4, but the attack roll will have a -4 penalty. If the combatant has two attacks this round, they can forgo the second attack and instead load and fire in one round with no penalty.
+    
+     Once you have taken this action, you must fire at some point on your next turn (it doesn't have to be your first 2 AP.) Otherwise, you have missed your moment, and will have to load and aim again.""",
+    },
+    "Load Crossbow, Heavy": {
+        "cost": 11,
+        "description": "This is done by pointing the crossbow down, sinking its point into the ground to stabilize it, and then cranking until the drawstring catches on the nut, at which point it is tight enough to fire; the crossbow is then lifted and the bolt is inserted (the last 1 AP of the cost.) The weapon can be fired as soon as loading is completed, if sufficient AP remain.",
+    },
+    "Load Crossbow, Light": {
+        "cost": 7,
+        "description": "This is done by bracing the crossbow against the body and cranking the cranequin until the drawstring catches on the nut, at which point it is tight enough to fire; the bolt can then be inserted (the last 1 AP of the cost.) Note that owing to its loading method, the light crossbow can be reloaded while on horseback, unlike its heavier counterpart. The weapon can be fired as soon as loading is completed, if sufficient AP remain.",
+    },
+    "Mount Animal": {
+        "cost": 4,
+        "description": "Includes dismounting from horses and similarly-sized animals, as listed under 'Dismount.'",
+    },
+    "Open or Unlock": {
+        "cost": 2,
+        "description": "Includes opening or unlocking a chest, box, or door, as well as unbuckling straps or untying knots that hold some item closed. An unlocked door can be shouldered open for only 1 AP as part of moving through the hex it is in, but this means the combatant has committed to moving through the door without getting a chance to look through it.",
+    },
+    "Pick Up Object": {
+        "cost": "variable",
+        "description": "This refers to a Small or Medium humanoid picking up an object which is lying on the ground. 1 AP is required for an item up to 5 lbs; 2 AP for up to 8 pounds; 3 AP for up to 13 lbs; 4 AP for up to 21 lbs, and so on, up to the maximum weight which the combatant can carry.",
+    },
+    "Putting on Armor": {
+        "cost": "25 AP per point of Armor Class",
+        "description": """This reflects the amount of time needed to put on and secure all the bits and pieces that go into a suit of armor. Enough of the armor can be put on with 25 AP that the character's Armor Class is lowered by 1; thus, if time is critical, partial armor can be worn (the exact body parts covered are not important.) Remember that as the character achieves enough armoring for an AC of 7, 5, or 3, his or her AP will decrease. Thus, the requisite 25 AP will take more rounds to achieve as heavier armors approach full readiness.
+
+         An assistant can help in this process, reducing the cost per point from 25 to 15 AP. The assistant needs no special skills: they are just adding an extra pair of hands.""",
+    },
+    "Pull In Rope": {
+        "cost": "1 AP per 5 feet",
+        "description": "This refers to a character pulling a rope which is attached to some weight. This can be done as long as the rope's weight plus the character's carried equipment does not exceed the character's maximum load; if it does, then additional pullers must be employed. Each puller must be spaced ten feet apart, i.e. with one hex separating him from the pullers before and behind him.",
+    },
+    "Search Backpack": {
+        "cost": "3-4 or 5-7 AP",
+        "description": """This refers to opening a backpack and rummaging through its contents. Even a thing which might be obvious is made more difficult to retrieve by the problem of getting it without spilling other items. The combatant makes an Intelligence check: if successful, the cost is 3-4 AP (1d2+2); if unsuccessful, 5-7 AP (1d3+4).
+    
+     Searching does not include getting the backpack off the back and onto the ground ("Unsling Backpack"), opening it ("Open or Unlock"), closing it once done ("Close or Lock"), or putting it back on ("Sling Backpack".) This is why it's a good idea to carry the most important items on one's person ... which makes the question of what items go in your belt pouch an important one indeed.""",
+    },
+    "Search Saddlebag": {
+        "cost": "1-2 or 3-4 AP",
+        "description": "Unlike backpacks, saddlebags do not need to be removed from their carrier to be searched: they are designed to be accessed either from the mount or while standing next to it. Otherwise the rules are the same as for searching a backpack.",
+    },
+    "Stow Item at Waist": {
+        "cost": 2,
+    },
+    "Stow Item at Shoulder": {
+        "cost": 3,
+    },
+    "Stow or Retrieve Pocketed or Tied Item": {
+        "cost": "1 to 3 AP",
+        "description": """Refers to taking an item out of, or replacing it into, its storage place in one's pockets or convenient (non-hidden) folds of one's clothing, as well as breaking off items tied to one's person by a string or strip of leather. This action obviously requires a free hand.
+    
+     Getting access to these items requires digging around in clothing, adjusting oneself, and shifting held or carried objects; the more things to dig through, the slower retrieval gets, and so the AP cost depends on how encumbered a character is.
+    
+     If the character's encumbrance penalty is 0, this action requires 1 AP; encumbrance penalty -1 or -2, and this action requires 2 AP; -3 or higher, and this action requires 3 AP.""",
+    },
+    "Speak": {
+        "cost": "variable",
+        "description": """This refers to shouted communication while taking the time to ensure the words are heard accurately over the noise of battle. The cost depends on how far the recipient is from the speaker.
+    
+     Within 1 hex: 1 AP per 8 words
+     Within 2 hexes: 1 AP per 6 words
+     Within 5 hexes: 1 AP per 4 words
+     Within 9 hexes: 1 AP per 2 words
+     Within 12 hexes: 1 AP per word
+    
+     Beyond 12 hexes (60 feet), one cannot make oneself heard over the din of combat.""",
+    },
+    "Stand from Laying Position": {
+        "cost": 2,
+        "description": "Time needed to get up and into a fighting stance.",
+    },
+    "Stand from Sitting Position": {
+        "cost": 1,
+        "description": "Time needed to get up and into a fighting stance. If seated in a chair, the combatant can spend an additional 1 AP to take the chair in hand as an improvised weapon (may require both hands, if chair is heavy.)",
+    },
+    "Strap Shield to Arm": {
+        "cost": 10,
+        "description": "With an attendant, time is reduced to 7 AP. As with putting on armor, the attendant needs no special skill, only both hands. The difference between strapping a shield and merely grasping it is that if a combatant holding a shield takes a hit which causes a bleeding wound, they will drop the shield.",
+    },
     "Tie Rope": {
         "cost": 5,
         "description": "Fasten a rope around a person or long rigid object (tree, column, post) such that it will bear weight. Certain sage abilities speed up this action.",
@@ -248,11 +231,10 @@ If changing into a larger shape, any armor or helmet worn must save vs. crushing
         "cost": 2,
         "description": "Discharge a touch spell on an unwilling creature. As a type of attack, this action requires the same AP as attacking with a weapon.",
     },
-    #'Unsling Backpack': {
-    #'cost': 4 or 5 AP
-    # Time necessary to shrug out of the backpack and get it down in front of the combatant while remaining aware of the combat situation. If the combatant's hands are not free, unslinging a backpack requires 5 AP. If at least one hand is free, it is only 4 AP.
-    #
-    # },
+    "Unsling Backpack": {
+        "cost": "4-5 AP",
+        "description": "Time necessary to shrug out of the backpack and get it down in front of the combatant while remaining aware of the combat situation. If the combatant's hands are not free, unslinging a backpack requires 5 AP. If at least one hand is free, it is only 4 AP.",
+    },
     "Unstrap Shield from Arm": {
         "cost": 3,
         "description": "Unstrap a shield from your arm, leaving it held in that arm's hand.",
@@ -266,11 +248,8 @@ If changing into a larger shape, any armor or helmet worn must save vs. crushing
         "description": "The opposite of Tie Rope. The character finishes this action with the rope in one hand.",
     },
 }
-#
-#'Attack': {
-#'cost': 2
-# This is the amount of time which one must spend focusing on the enemy's defense in order to take advantage of an opening and attempt an attack.
-#
-# Normally a combatant only gets one attack per round. They cannot attack twice even if they have 4 AP; even though the time is available, they are not skilled enough to perceive a second suitable opening in enemy defenses.
-#
-# More skilled or dangerous combatant, such as high-level fighters and creatures with special anatomies, make more attacks within the 2 AP time frame. If such a combatant has an odd number of attacks, e.g. 3 per round, then the first AP allows the minority of the attacks (e.g. 1) and the second AP allows the remaining attacks (e.g. 2).
+
+for action, info in actions.items():
+    d = info.get("description")
+    if d:
+        actions[action]["description"] = textwrap.dedent(d)
