@@ -1,5 +1,6 @@
 from decimal import Decimal, getcontext
-from characters import races, mod_to_text
+from characters import races
+from utility import mod_to_text
 from math import floor
 import click
 

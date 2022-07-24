@@ -640,13 +640,6 @@ def meets_bonus_xp_minimums(klass, scores):
     return all(list(satisfied_bonus_xp_minimums(klass, scores).values()))
 
 
-def mod_to_text(num):
-    if num is None:
-        return None
-    else:
-        return f"+{num}" if num >= 0 else f"{num}"
-
-
 def d(x):
     """Basic die-roll function."""
     return random.randint(1, x)

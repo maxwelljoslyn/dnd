@@ -28,7 +28,6 @@ from characters import (
     calc_height_weight,
     height_weight_roll,
     dice_to_text,
-    mod_to_text,
 )
 import details
 from jsonize import MyEncoder
