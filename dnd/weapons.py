@@ -15,7 +15,7 @@ weapons = {
         "hands": 1,
         "damage": "1d3",
         "form": ["melee", "thrown"],
-        "range": (3, 4, 5),
+        "range": (3, 5, 7),
         "includes": ["quoit", "plumbata"],
     },
     "chakram": {
@@ -71,7 +71,7 @@ weapons = {
     "dagger": {
         "hands": 1,
         "damage": "1d4",
-        "includes": ["dirk"],
+        "includes": ["dirk", "kirpan", "tanto"],
         "form": ["melee", "thrown"],
         "range": (2, 3, 4),
     },
@@ -126,9 +126,10 @@ weapons = {
     },
     "handaxe": {
         "hands": 1,
-        "damage": "1d6+1",
-        "form": ["melee"],
+        "damage": "1d6",
+        "form": ["melee", "thrown"],
         "includes": ["tomahawk"],
+        "range": (3, 4, 5),
     },
     "javelin": {
         "hands": 1,
@@ -144,11 +145,13 @@ weapons = {
     },
     "longsword": {
         "damage": "1d8",
+        "hands": 1,
         "form": ["melee"],
         "includes": ["falchion", "bastard sword", "kriegsmesser"],
     },
     "mace": {
         "damage": "1d6+1",
+        "hands": 1,
         "includes": ["morning star", "holy water sprinkler"],
         "form": ["melee"],
     },
@@ -199,9 +202,8 @@ weapons = {
     },
     "warhammer": {
         "hands": 1,
-        "form": ["melee", "thrown"],
+        "form": ["melee"],
         "damage": "1d6",
-        "range": (2, 3, 4),
     },
     "scimitar": {
         "form": ["melee"],
