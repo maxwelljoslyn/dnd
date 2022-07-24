@@ -13,6 +13,7 @@ beverages = {
     "wine": {"abv": Decimal(13.2), "floz per drink": 4},
     "ale": {"abv": Decimal(10.6), "floz per drink": 8},
     "beer": {"abv": Decimal(4.07), "floz per drink": 16},
+    "kumiss": {"abv": Decimal(1.127), "floz per drink": 16},
 }
 
 intoxication_thresholds = {
