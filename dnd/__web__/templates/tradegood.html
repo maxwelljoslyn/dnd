@@ -3,31 +3,27 @@ $def with (name, recipe, registry, vendors, limited_vendors)
 <h1>$name</h1>
 
 $if recipe.description:
-    <p>
-    Description: $recipe.description.
-    </p>
+    <p><strong>Description</strong>: $recipe.description</p>
 
-<p>
-The <em>$recipe.vendor</em> sells $name in units of ${recipe.unit}.
-</p>
+$if recipe.vendor:
+    <p><strong>Sold by</strong>: $recipe.vendor</p>
 
-<p>
-Price varies with the rarity of this reference: <em>$recipe.governor.</em>
-</p>
-
-
+<strong>Sale unit</strong>: $recipe.unit
 
 $if not recipe.container:
-    <p>Weight: $recipe.weight</p>
+    <p><strong>Weight</strong>: $recipe.weight</p>
 $else:
-    <p>Gross weight, including container: $recipe.total_weight()</p>
-    <p>Net weight: $recipe.weight</p>
+    <p><strong>Gross weight</strong>: $recipe.total_weight() (including <strong>container</strong>: <a href="/tradegoods/$recipe.container">$recipe.container</a>)</p>
+    <p><strong>Net weight</strong>: $recipe.weight</p>
+
+$if recipe.capacity:
+    <p><strong>Capacity</strong>: $recipe.capacity</p>
 
 $if recipe.raws:
-    <p>Producing $name requires these raw materials:<br> $recipe.raws</p>
+    <p>Component <strong>raw materials</strong>:<br> $list_ingredients(recipe.raws)</p>
 
 $if recipe.recipes:
-    <p>Producing $name requires these sub-recipes:<br> $recipe.recipes</p>
+    <p>Component <strong>trade goods</strong>:<br> $:list_ingredients(recipe.recipes, True)</p>
 
 $#<h2>Prices</h2>
 $#
