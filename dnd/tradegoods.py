@@ -92,6 +92,10 @@ hand_area = (body_proportions["hand"]["length"] * body_proportions["hand"]["girt
 foot_sole_area = (
     body_proportions["foot"]["length"] * D(0.5) * body_proportions["foot"]["girth"]
 ).to(u.sqin)
+
+# RANDOM TRADEGOOD AVAILABILITY
+
+
 chance_available_map = {
     1 * u.cp: 100,
     5 * u.cp: 99,
