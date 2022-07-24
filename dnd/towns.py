@@ -40,29 +40,89 @@ def export_quantity(amount, distance):
     return Decimal(amount / (distance + 1))
 
 
-def far_away(towns):
-    """Add dummy town representing all the economy activity not yet represented in `towns`, at a far enough distance that exporting will not have a significant effect on existing towns' references."""
+def add_dummies(towns):
+    """Add dummy towns representing all the economy activity not yet represented in `towns`, at a far enough distance that exporting will not have a significant effect on existing towns' references."""
+    dummies = {
+        # values are approximate distances from Allrivers unless otherwise stated
+        "Far Away 1,1": 25,
+        "Far Away 1,6": 14.125,
+        "Far Away 2,1": 20,
+        "Far Away 2,9": ('Sugar Bay', 20),
+        "Far Away 3,1": 25,
+        "Far Away 3,8": ('Sugar Bay', 4),
+        "Far Away 4,7": 13.75,
+        "Far Away 5,1": 33.5,
+        "Far Away 5,6": 8.75,
+        "Far Away 6,1": 37.5,
+        "Far Away 6,6": 12.75,
+        "Far Away 6,7": 17.75,
+        "Also Far Away A": 250,
+        "Also Far Away B": 250,
+        "Also Far Away C": 250,
+        "Also Far Away D": 250,
+        "Also Far Away E": 250,
+        "Very Far Away A": 500,
+        "Very Far Away B": 500,
+        "Very Far Away C": 500,
+        "Very Far Away D": 500,
+        "Very Far Away E": 500,
+        "Extremely Far Away A": 750,
+        "Extremely Far Away B": 750,
+        "Extremely Far Away C": 750,
+        "Extremely Far Away D": 750,
+        "Extremely Far Away E": 750,
+        "Ludicrously Far Away A": 1000,
+        "Ludicrously Far Away B": 1000,
+        "Ludicrously Far Away C": 1000,
+        "Ludicrously Far Away D": 1000,
+        "Ludicrously Far Away E": 1000,
+        "Catastrophically Far Away A": 2000,
+        "Catastrophically Far Away B": 2000,
+        "Catastrophically Far Away C": 2000,
+        "Catastrophically Far Away D": 2000,
+        "Catastrophically Far Away E": 2000,
+        "Jaw-Droppingly Far Away A": 3000,
+        "Jaw-Droppingly Far Away B": 3000,
+        "Jaw-Droppingly Far Away C": 3000,
+        "Jaw-Droppingly Far Away D": 3000,
+        "Jaw-Droppingly Far Away E": 3000,
+        "Mind-Numbingly Far Away A": 1000,
+        "Mind-Numbingly Far Away B": 1000,
+        "Mind-Numbingly Far Away C": 1000,
+        "Mind-Numbingly Far Away D": 1000,
+        "Mind-Numbingly Far Away E": 1000,
+    }
 
-    towns["Far Away"] = {"population": 5_000_000, "references": {}, "hexes to": {}}
     # initialize distances
-    for t in towns:
-        if t != "Far Away":
-            towns[t]["hexes to"]["Far Away"] = Decimal(100)
-            towns["Far Away"]["hexes to"][t] = Decimal(100)
+    for dummy, value in dummies.items():
+        towns[dummy] = {"population": 0, "references": {}, "hexes to": {}}
+        if isinstance(value, int) or isinstance(value, float):
+            destination = "Allrivers"
+            distance = value
+        else:
+            destination = value[0]
+            distance = value[1]
+        towns[destination]["hexes to"][dummy] = Decimal(distance)
+        towns[dummy]["hexes to"][destination] = Decimal(distance)
+
     # given G global total refs to commodity X,
     # and M total refs to X already assigned in `towns`,
-    # assign all G - M remaining refs to the "Far Away"
+    # and D dummies,
+    # assign (G - M) / D refs to each dummy
     totals = total_assigned_refs(towns)
+    num_dummies = len(dummies)
 
     for k, info in world_references.items():
         refs = info["references"]
         remaining_global_refs = refs - totals[k]
         if remaining_global_refs < 0:
+            # TODO why is this warning not firing even when it should? e.g. set frankincense refs to 8
             warnings.warn(
                 f"You have assigned {abs(remaining_global_refs)} more refs to {k} than listed in world_references!"
             )
-        refs_for_faraway = max(0, remaining_global_refs)
-        towns["Far Away"]["references"][k] = refs_for_faraway
+        if remaining_global_refs > 0:
+            for dummy in dummies:
+                towns[dummy]["references"][k] = remaining_global_refs / num_dummies
 
 
 def initialize_towns(towns):
@@ -70,6 +130,8 @@ def initialize_towns(towns):
     for town, info in towns.items():
         info["population"] = Decimal(info["population"])
         info["hexes to"] = {k: Decimal(v) for k, v in info["hexes to"].items()}
+
+    add_dummies(towns)
 
     # fill out all-pairs shortest paths
     for source in towns:
@@ -84,7 +146,6 @@ def initialize_towns(towns):
                 distance, path = a_star_search(towns, source, target)
                 towns[source]["hexes to"][target] = distance
 
-    far_away(towns)
     # export step changes `towns` reference counts in-place, but export calculations require access to original counts
     originals = copy.deepcopy(towns)
     return towns, originals
