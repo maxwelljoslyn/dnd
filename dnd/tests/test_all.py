@@ -16,6 +16,11 @@ def test_leapyear():
 
 def test_wilderness_damage_chance():
     abis = {"constitution": 12, "dexterity": 10, "wisdom": 10}
-    assert (15, 0) == wilderness_damage_chance(1, "none", abis)
-    assert (3, 0) == wilderness_damage_chance(1, "hard boots", abis)
-    assert (0, 7) == wilderness_damage_chance(1, "hard boots", abis, 10)
+    assert (15, 0) == wilderness_damage_chance(1, abis, footwear="barefoot")
+    assert (3, 0) == wilderness_damage_chance(1, abis, footwear="hard boots")
+    assert (0, 7) == wilderness_damage_chance(
+        1, abis, footwear="hard boots", resistance=10
+    )
+    assert (28, 0) == wilderness_damage_chance(
+        3, abis, footwear="hard boots", resistance=0
+    )
