@@ -476,14 +476,31 @@ class Recipe:
             result["cp"] = 1 * u.cp
         return result
 
-    def display_price(self, towninfo):
-        p = self.chunked_price(towninfo)
+    def chunked_price_2(self, towninfo, registry=registry):
+        with localcontext() as ctx:
+            ctx.rounding = ROUND_UP
+            p = self.price(towninfo, registry)
+            coppers = p * self.unit
+            coppers = round(coppers)
+            if coppers < 50 * u.cp:
+                return {"cp": coppers}
+            else:
+                silvers = coppers.to(u.sp)
+                if silvers < 30 * u.sp:
+                    return {"sp": round(silvers)}
+                else:
+                    gold = silvers.to(u.gp)
+                    return {"gp": round(gold)}
+
+    def display_price(self, towninfo, registry=registry):
+        p = self.chunked_price_2(towninfo, registry)
         result = []
         for thing in ("gp", "sp", "cp"):
             if thing not in p:
                 continue
             else:
-                result.append(f"{p[thing]:~,}")
+                # result.append(f"{p[thing]:~,}")
+                result.append(f"{stringify_coins(p[thing])}")
         # TODO format 'cup' unit as 'cup' instead of pint default abbrev 'cp'
         text = [", ".join(result)]
         if self.unit != D(1) * u.item:
@@ -491,6 +508,21 @@ class Recipe:
         if self.unit != self.total_weight():
             text.append(f"({self.total_weight():,f})")
         return " ".join(text)
+
+    def web_display_price(self, towninfo, registry=registry):
+        p = self.chunked_price_2(towninfo, registry)
+        price_string = "".join(
+            [
+                f"{stringify_coins(p[thing])}"
+                for thing in ("gp", "sp", "cp")
+                if thing in p
+            ]
+        )
+        unit_string = f"{self.unit:~,f}" if (self.unit != D(1) * u.item) else ""
+        weight_string = (
+            f"{self.total_weight():,f}" if self.unit != self.total_weight() else ""
+        )
+        return price_string, unit_string, weight_string
 
 
 smeltingfuel_sale_unit = D(0.75) * u.lb
