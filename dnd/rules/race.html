@@ -1,0 +1,85 @@
+$def with (race, info)
+
+<h1>$:titlecase(race)</h1>
+
+$#$ if info['flavor-quotes']:
+$#  $ for q in quotes:
+$#    <blockquote class=p-flavor-quote>
+$#      $q.text
+$#      $if q.source:
+$#      <cite>$q.source</cite>
+$#    </blockquote>
+$#
+$#$ info.introduction
+
+<h2>Ability Modifiers</h2>
+
+<p>
+$ mods = {k: mod_to_text(v) for k, v in info['ability modifiers'].items()}
+$if not mods:
+    None
+$else:
+    $mods
+</p>
+
+$if info['special characteristics']:
+    <h2>Special Characteristics</h2>
+
+    <ul>
+    $for each in info['special characteristics']:
+        <li>$each</li>
+    </ul>
+
+<h2>Class Choices</h2>
+
+<p>
+$ klasses = info['permitted classes']
+$if klasses == set(characters.classes):
+    Any
+$else:
+    $klasses
+</p>
+
+
+<h2>Average Height and Weight</h2>
+
+$ hw_min = sum([x[0] for x in characters.height_weight_dice])
+$ hw_max = sum([x[1] for x in characters.height_weight_dice])
+$ hw_avg = int((hw_min + hw_max) / 2)
+$for sex in ("male", "female"):
+    $ lowest_height, lowest_weight = characters.calc_height_weight(race, sex, hw_min, hw_avg)
+    $ highest_height, highest_weight = characters.calc_height_weight(race, sex, hw_max, hw_avg)
+    $ lowest_weight = round(lowest_weight)
+    $ highest_weight = round(highest_weight)
+    A $sex $race typically stands between $lowest_height and $highest_height inches tall, and weigh between $lowest_weight and $highest_weight lbs.<br>
+
+
+
+<p>
+For the purpose of combat, as well as purchasing armor, $ana(race) $race is size "$:{info['size'].value}."
+</p>
+
+$if race == 'gnome':
+    <h2>Gnomish Culture</h2>
+
+    <p>Gnomish philosophy and religion argue that our experience of existence is an illusion, one engendered by humanoids' limited ability to perceive or even understand their own consciousness. The lack of awareness during sleep, the existence of both natural and magical phenomena which alter and enhance consciousness, the changes in our bodies as we age, the discovery of the Outer Planes -- all these facts are used to support the claim that existence is less constant, and less material, than it appears to mere sentient beings. Gnomes believe that living things are ultimately only reflections of, or patterns in, the dream of a God who will sleep forever.</p>
+
+    <p>It is little wonder that gnomes discovered and perfected <a href="/rules/illusionist">illusionism</a>, the "curious school" of magic which expands -- or misdirects -- the limits of perception.</p>
+
+    <p>Gnomes have achieved some recognition for their works in literature, as well as adjacent arts like calligraphy and bookbinding, but they are by far the most famous for their achievements in theater. While they cannot become bards, per se, gnomes are yet skilled actors, playwrights, and directors, and, above all, they are the masters of special effects. Just as musical thater requires musical accompaniment, with a four-piece band or even an orchestra in the "pit," all but the poorest gnomish productions will have a "pit" with one or more illusionists. These spellcasters create stunning displays of light, sound, terrain, monsters, historical figures, and anything else that is required to enhance the actors' performance or the design of the set.</p>
+
+$if race == 'halfling':
+    <h2>Halfling Culture</h2>
+
+    <p>All halflings are innately attuned, however faintly, to plant and animal life. Halflings refer to this attunement as the Calling, and they believe this attunement is a divine spark: a remnant of some deific action which created the halfling race on Ardane. This is why halfing society is agricultural and pastoral, and why they are well-known for skill at animal husbandry, the tending of crops, and the production of all goods derived from animals.</p>
+
+    <p>A small but notable proportion of halflings feel the Calling more strongly than others of their race; this is the Great Calling. Such halfings become <a href="/rules/druid">druids</a> and <a href="/rules/ranger">rangers</a>. In halfling settlements, yearly ceremonies mark the occasion on which young halflings exit their home communities and seek to strengthen their sensitivity to the Great Calling through direct living in nature, without the roles and trappings of civilized society.</p>
+
+    <p>The small but regular outflow of halfings following the Great Calling is the primary reason why halfling civilization is smaller in range and extent than that of other races. That said, most halflings who leave to pursue the Great Calling do eventually return to halfling civilization, thereafter serving as the most respected of civil, military, and religious leaders.</p>
+
+$if race == 'dwarf':
+    <h2>Dwarvish Culture</h2>
+
+    <p>Dwarves naturally possess a very slight aura of anti-magic. This is why they receive a saving throw bonus against all types of magic, and why they are incapable of becoming any of the spellcasting classes -- save for the cleric, the spells of which are derived from faith rather than the manipulation of arcane forces. On these grounds, dwarvish scholars have cogently argued for a metaphysical distinction between clerical magic and other forms of spellcasting.
+
+    <p>Dwarvish peasant culture frequently features eating and drinking contests, thanks to dwarves' natural resistance to poison, and their generally high <a href="/rules/constitution">constitutions</a>; high culture supplements these contests with gorging on delicacies. Dwarvish athletes are similarly focused on endurance; they enjoy high-altitude distance running, and relay races with long, lonely stretches separating each handoff. They also perform well in feats of strength. Acrobatics and gymnastics are rare, but dance is common; dwarvish dances focus on shuffling, stamping, or nodding while maintaining physically-taxing poses or "holds," which are kept up for an entire sequence of music to express constancy, strength, and vigor.</p>

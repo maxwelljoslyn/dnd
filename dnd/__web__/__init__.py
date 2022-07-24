@@ -228,12 +228,6 @@ class CharacterClass:
         return app.view.klass(klass, dnd.characters.classes[klass])
 
 
-@app.control("rules/{race}")
-class CharacterRace:
-    def get(self, race):
-        return app.view.race(race, dnd.characters.races[race])
-
-
 @app.control("login-player")
 class LogInPlayer:
     def get(self):
@@ -560,6 +554,12 @@ class Encumbrance:
             cutoffs = dnd.characters.encumbrance_penalty_cutoffs(maxenc)
             val = {"maximum encumbrance": maxenc, "cutoffs": cutoffs}
             return json.dumps(val, cls=dnd.MyEncoder, sort_keys=True, indent=2)
+
+
+@app.control("rules/{race}")
+class CharacterRace:
+    def get(self, race):
+        return getattr(rules, "race")(race, dnd.characters.races[race])
 
 
 @app.control("rules/{rule}")
