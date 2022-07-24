@@ -351,6 +351,7 @@ def create_character(testing, charclass, race):
     mass_hd = bodymass_hitdice(c["weight"])
     c["mass hit dice"] = dice_to_text(mass_hd)
     bodymass_hp = roll_dice(mass_hd)
+    c["mass HP"] = bodymass_hp
     c["maximum HP"] = c["class HP"] + con_hp + bodymass_hp
     c["current HP"] = c["maximum HP"]
 
