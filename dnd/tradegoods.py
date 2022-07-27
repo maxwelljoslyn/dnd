@@ -2394,20 +2394,27 @@ Recipe(
     description=f"{str(beer_abv.magnitude)}% alcohol; light, refreshing lager that goes down easy",
 )
 
+gnomish_beer_abv = calculate_abv(
+    {
+        "cereals": cereal_for_beer * 1 * u.gallon,
+        "roasted malt": malt_for_beer * 1 * u.gallon,
+    },
+    1 * u.gallon,
+    1 * u.gallon,
+)
 Recipe(
     "gnomish beer, in barrel",
     "gnomish beer",
     (density["water"] * barrel_capacity).to(u.lb),
     {
         "cereals": cereal_for_beer * barrel_capacity,
-        "malt": malt_for_beer * barrel_capacity,
         "hops": hops_for_beer * barrel_capacity,
     },
-    {},
+    {"roasted malt": malt_for_beer * barrel_capacity},
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description=f"{str(beer_abv.magnitude)}% alcohol; finest Amberite refreshment",
+    description=f"{str(gnomish_beer_abv.magnitude)}% alcohol; dark, woody lager courtesy of Amber's finest brewmasters",
 )
 
 
