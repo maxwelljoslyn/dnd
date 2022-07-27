@@ -5840,7 +5840,7 @@ hose_weight = (
 ).to(u.lb)
 Recipe(
     "hose",
-    "hosiery",  # TODO hosiery
+    "hosiery",
     hose_weight,
     {},
     {"cotton cloth": hose_area},
