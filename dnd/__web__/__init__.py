@@ -562,6 +562,18 @@ class Encumbrance:
             return json.dumps(val, cls=dnd.MyEncoder, sort_keys=True, indent=2)
 
 
+@app.control("world/set-date")
+class SetDate:
+    def post(self):
+        date = web.form()["current-date"]
+        current = dnd.game_date()
+        if not current:
+            tx.db.insert("date", date=date)
+        else:
+            tx.db.update("date", date=date)
+        raise web.SeeOther("/dm")
+
+
 @app.control("rules/{race}")
 class CharacterRace:
     def get(self, race):

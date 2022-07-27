@@ -44,7 +44,10 @@ $ chart = characters.classes[klass]['levels']
 
 What happened before you entered the campaign...
 
-<p>You were born on $details['birthday'].</p>
+$ from pendulum import from_format
+$ bday = from_format(details['birthday'], 'MMMM DD, YYYY')
+$ pc_age = bday.diff(game_date()).in_years()
+<p>You were born on $details['birthday'], making you $pc_age years old.</p>
 
 <p>
 <div>Father's profession: $background['father profession'].</div>
