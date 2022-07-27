@@ -6438,6 +6438,24 @@ Recipe(
     vendor="miller",
 )
 
+safflower_oil_content = D(0.30)
+safflower_oil_sale_unit = D(1) * u.pint
+safflower_oil_sale_weight = (density["safflower oil"] * safflower_oil_sale_unit).to(
+    u.lb
+)
+safflower_per_sale_unit_oil = safflower_oil_sale_weight / (
+    safflower_oil_content * oilseed_extraction_efficiency
+)
+Recipe(
+    "safflower oil",
+    "seed oil",
+    safflower_oil_sale_weight,
+    {"safflower seed": safflower_per_sale_unit_oil},
+    {},
+    unit=safflower_oil_sale_unit,
+    container="bottle, pint",
+    vendor="miller",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
