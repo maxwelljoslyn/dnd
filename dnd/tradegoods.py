@@ -6456,6 +6456,27 @@ Recipe(
     container="bottle, pint",
     vendor="miller",
 )
+
+
+cottonseed_oil_content = D(0.15)
+cottonseed_oil_sale_unit = D(1) * u.pint
+cottonseed_oil_sale_weight = (density["cottonseed oil"] * cottonseed_oil_sale_unit).to(
+    u.lb
+)
+cottonseed_per_sale_unit_oil = cottonseed_oil_sale_weight / (
+    cottonseed_oil_content * oilseed_extraction_efficiency
+)
+Recipe(
+    "cottonseed oil",
+    "seed oil",
+    cottonseed_oil_sale_weight,
+    {"cottonseed": cottonseed_per_sale_unit_oil},
+    {},
+    unit=cottonseed_oil_sale_unit,
+    container="bottle, pint",
+    vendor="miller",
+    description="toxic; used as an insecticide",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
