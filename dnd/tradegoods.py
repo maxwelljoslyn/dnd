@@ -988,7 +988,7 @@ Recipe(
         "sword hilt": 1 * u.item,
     },
     vendor="weaponsmith",
-    description=f"1d4 damage, melee or thrown 2/3/4; {dagger_length:~} blade",
+    description=f"1d4 damage, melee or thrown; {dagger_length:~} blade",
 )
 
 silver_per_silver_dagger = (
@@ -1006,7 +1006,8 @@ Recipe(
         "raw silver": silver_per_silver_dagger,
     },
     vendor="weaponsmith",
-    description=registry["dagger"].description,
+    description="silvering makes weapon effective against certain supernatural creatures; "
+    + registry["dagger"].description,
 )
 
 shortsword_length = Decimal(2) * u.ft
