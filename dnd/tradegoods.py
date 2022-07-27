@@ -5541,6 +5541,21 @@ Recipe(
     description="gorgeous reddish-purple dye, fit for a king",
 )
 
+# http://www.webexhibits.org/pigments/indiv/recipe/verdigris.html
+Recipe(
+    "pigment, verdigris",
+    "dyestuff",
+    D(1) * u.lb,
+    {},
+    {
+        "raw copper": D(1) * u.lb,
+        # TODO how much vinegar actually needed? goal is to have exactly enough to react with all the copper
+        "vinegar, in barrel": D(2) * u.pint,
+    },
+    unit=D(1) * u.lb,
+    description="brilliant green pigment scraped from copper which has soaked in vinegar",
+)
+
 helmet_area = (
     D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
 )
