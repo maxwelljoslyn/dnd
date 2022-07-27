@@ -810,7 +810,7 @@ Recipe(
     },
     vendor="puddler",
     unit=1 * u.lb,
-    description="ingot, 1.2x1.35x2 in.",
+    description="ingot, 1.2x1.35x2 in.; type of brass formulated specifically for bellmaking",
 )
 
 
