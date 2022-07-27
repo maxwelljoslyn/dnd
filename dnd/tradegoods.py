@@ -5567,6 +5567,81 @@ Recipe(
     vendor="dyer",
     description="brilliant green dye derived from verdigris",
 )
+
+Recipe(
+    "pigment, ocher",
+    "dyestuff",
+    D(1) * u.lb,
+    {"ocher": D(1) * u.lb},
+    {},
+    unit=D(1) * u.lb,
+    description="earth pigment producing multiple colors of dye or paint",
+)
+
+
+Recipe(
+    "pigment, sienna",
+    "dyestuff",
+    D(1) * u.lb,
+    {
+        "ocher": D(0.95) * u.lb,
+        "manganese": D(0.05) * u.lb,
+    },
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=D(1) * u.lb,
+)
+
+
+Recipe(
+    "pigment, umber",
+    "dyestuff",
+    D(1) * u.lb,
+    {
+        "ocher": D(0.8) * u.lb,
+        "manganese": D(0.2) * u.lb,
+    },
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=D(1) * u.lb,
+)
+
+
+Recipe(
+    "dye, yellow",
+    "dyestuff",
+    dye_sale_weight,
+    # TODO need mordants?
+    {},
+    {"pigment, ocher": pigment_per_dye},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="mustardy color, derived from ocher",
+)
+
+Recipe(
+    "dye, light brown",
+    "dyestuff",
+    dye_sale_weight,
+    # TODO need mordants?
+    {},
+    {"pigment, sienna": pigment_per_dye},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="derived from ocher and manganese",
+)
+
+
+Recipe(
+    "dye, dark brown",
+    "dyestuff",
+    dye_sale_weight,
+    # TODO need mordants?
+    {},
+    {"pigment, umber": pigment_per_dye},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="rich umber, derived from ocher and manganese",
+)
+
 helmet_area = (
     D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
 )
