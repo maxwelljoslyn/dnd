@@ -6797,25 +6797,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-# TODO things which are raw materials - how to put them on pricing table w/o overcharging  for them by making them go through a recipe?
-# for instance, 'grapes' are used as a raw material in wine production...
-# ...  but for sale OF GRAPES THEMSELVES AS FOOD, what warrants making them more expensive by requiring a recipe?
-# why not use the raw material price directly?
-# this also applies to pig iron, iron (ore), gold, all the types of building stone, and more!
-# it could also take down the price of cattle, sheep, etc no?
-# currently, if I don't have a recipe I can't put them on the price table AS THEIR OWN ITEM
-# TODO do I need a subclass of recipe, Raw, which doesn't require a governor and is sold as-is?
-# TODO what is the dividing line between grapes (sold as a new Raw) and, say, cattle (which currently have to go through at least one recipe to be sold?)
-
-# TODO one issue with Raw proposal is that it doesn't account for fact taht some 'Raws' are derived from others and prices will be wrong if we go straight to using Raw price
-# for instance, 'dried fish' is a raw material, and very cheap; fresh fish is much more expensive
-# so 'dried fish' shouldn't be a Raw, lest dried fish somehow cost much less per unit than fresh even though it's been processed, etc.
-
-
-# https://en.wikipedia.org/wiki/Bone_char
-# used in sugar production as a filtering agent
-
-
 # def d(x): return Decimal(x)
 # gallons olive oil produced per acre
 # Decimal('105.6691999999999964643393469')
@@ -6827,11 +6808,6 @@ if __name__ == "__main__":
 # >>> import math as m
 # >>> d(m.sqrt(d(3))) * d(2.2222) * d(2.2222) / d(2)
 
-# earthenware ceramic goods
-# glazed and unglazed
-
-# candles: The wicks need to be mordanted with salts to make the wick bend into the flame, slowing down the burn time so that the wax is consumed as the candle burns and the flame is not extinguished in the melted wax.   A solution of 1 litre of water, 1/4 cup. coarse salt or other nonadditive salts, 1/2 cup of borax is used to prepare the wicks.  You can mordant your wicks in a skein or you can cut them to size and then mordant them individually.  Simmer the wicks for one hour in the solution.  Cool in the solution and then remove and allow to dry completely.
-
 # TODO oil the hafts of weapons, or the whole bodies of wooden ones, so they stay durable
 # TODO differentiate woods used for buildings, weapons, barrels, etc. (like the oak club)
 # TODO turn attar of roses into a 'rose oil' recipe for use in e.g. snuff, perfume, rose soap
@@ -6839,7 +6815,13 @@ if __name__ == "__main__":
 # TODO clothing: buttons, stitching
 # boots: laces, stitching
 
-# short hammer, saw, vice or clamp, ruler, bellows, nails, (leather) apron, loupe, calipers, blowpipe, tongs, fuller's earth, putty knife, adze / scraper, flask, vial, shears, loom, bowl, plate, cooking / work knife, cutting board, ladle, spinning wheel, mortar and pestle, alembic, trowel, shovel, towel, bathrobe, wine glass, pint glass, shot glass, last (foot, hand, head), oar, rowboat, coracle, remaining weapons, chair, cushion, embroidered cushion, bench, tattoo, quill, paper, parchment, ink, colored class, pamphlet, metal type, belt, backpack, coin pouch, scabbard, bit, bridle, saddlebags,
+# candles: The wicks need to be mordanted with salts to make the wick bend into the flame, slowing down the burn time so that the wax is consumed as the candle burns and the flame is not extinguished in the melted wax.   A solution of 1 litre of water, 1/4 cup. coarse salt or other nonadditive salts, 1/2 cup of borax is used to prepare the wicks.  You can mordant your wicks in a skein or you can cut them to size and then mordant them individually.  Simmer the wicks for one hour in the solution.  Cool in the solution and then remove and allow to dry completely.
+
+# short hammer, saw, vice or clamp, ruler, bellows, nails, (leather) apron, loupe, calipers, blowpipe, tongs, fuller's earth, putty knife, adze / scraper, flask, vial, shears, loom, bowl, plate, cooking / work knife, cutting board, ladle, spinning wheel, mortar and pestle, alembic, trowel, shovel, towel, bathrobe, cobbler and hatter lasts (foot, hand, head), oar, rowboat, coracle, remaining weapons, chair, cushion, embroidered cushion, bench, tattoo, quill, paper, parchment, ink, colored glass, pamphlet, metal type, belt, coin pouch, scabbard, bit, bridle, saddlebags, abacus, brass slide rule
+
+# wicker chair, basket
+
+# mantlet (portable battlefield wall)
 
 ## a nitrate (niter is KNO3) + copper sulfate -> copper nitrate
 ## decomposition: copper nitrate Cu(NO3)2 + H2O -> copper oxide + 2 HNO3 (nitric acid)
@@ -6957,3 +6939,7 @@ if __name__ == "__main__":
 #    # TODO add container
 #    description="orange mixture of acids which dissolves noble metals; used in alchemy, glassmaking, and lithography",
 # )
+
+# consult to get inspiration from what Alexis has done...
+# https://docs.google.com/spreadsheets/d/14hmRLOAYk5iCyUoYd0_B2LhyTE2akwnu/edit#gid=157701611
+# https://en.wikipedia.org/wiki/Cross_of_Lothair
