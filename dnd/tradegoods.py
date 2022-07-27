@@ -6541,6 +6541,31 @@ Recipe(
     vendor="innkeeper",
     description="hearty peasant dish of boiled and fried beef mixed with cabbage, potatoes, and onions, all salted and peppered",
 )
+
+aglio_olio_pasta = D(4) * u.oz
+aglio_olio_oil = D(0.25) * u.cup
+aglio_olio_garlic = D(0.25) * u.oz
+aglio_olio_parmesan = D(0.1) * u.oz
+aglio_olio_pepper = D(0.1) * u.oz
+# aglio_olio_weight = aglio_olio_pasta + (density["olive oil"] * aglio_olio_oil).to(u.oz) + aglio_olio_pepper + aglio_olio_garlic + aglio_olio_parmesan
+aglio_olio_weight = aglio_olio_pasta
+Recipe(
+    "pasta aglio e olio",
+    "foodstuffs",
+    aglio_olio_weight,
+    {
+        "pepper, black": aglio_olio_pepper,
+    },
+    {
+        "dried pasta": aglio_olio_pasta,
+        "olive oil": aglio_olio_oil,
+        "garlic": aglio_olio_garlic,
+        "cheese, parmesan": aglio_olio_parmesan,
+    },
+    vendor="innkeeper",
+    description="4 oz. freshly-made pasta tossed with olive oil, garlic, parmesan, and black pepper",
+)
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
