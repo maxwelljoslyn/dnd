@@ -5211,7 +5211,7 @@ Recipe(
     {"timber": handaxe_haft_weight},
     {"handaxe head": 1 * u.item},
     vendor="weaponsmith",
-    description=f"1d6+1 damage, haft {handaxe_haft_length:~} long",
+    description=f"1d6 damage, haft {handaxe_haft_length:~} long, melee or thrown",
 )
 
 
