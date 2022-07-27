@@ -3103,6 +3103,29 @@ Recipe(
 )
 
 
+Recipe(
+    "retted hemp",
+    "hemp",
+    1 * u.lb,
+    {"hemp": rawfiber_per_retted},
+    {},
+    unit=1 * u.lb,
+)
+
+
+hemp_yarn_linear_density = D(1) * u.lb / (Decimal(2000) * u.ft)
+hemp_yarn_sale_weight = Decimal(0.5) * u.lb
+hemp_yarn_sale_unit = hemp_yarn_sale_weight / hemp_yarn_linear_density
+Recipe(
+    "hemp yarn",
+    "hemp",
+    hemp_yarn_sale_weight,
+    {},
+    {"retted hemp": hemp_yarn_sale_weight},
+    unit=hemp_yarn_sale_unit,
+    vendor="spinner",
+    description="useable as string, or in ropemaking and weaving",
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
