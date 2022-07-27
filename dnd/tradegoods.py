@@ -5419,9 +5419,11 @@ Recipe(
 )
 
 # TODO needs container, like many other recipes
-# TODO I made up all the numbers for these cochineal dyes - find a historical recipe
-dye_sale_weight = 4 * u.oz
-dye_sale_unit = 4 * u.floz
+dye_sale_unit = 8 * u.floz
+water_per_dye = dye_sale_unit
+pigment_per_dye = (((D(1) * u.oz) / (D(4) * u.floz)) * water_per_dye).to(u.oz)
+dye_sale_weight = ((density["water"] * water_per_dye) + pigment_per_dye).to(u.oz)
+
 Recipe(
     "dye, crimson",
     "dyestuff",
@@ -5430,7 +5432,7 @@ Recipe(
         "alum": 1 * u.oz,
     },
     {
-        "cochineal powder": 1 * u.gram,
+        "cochineal powder": pigment_per_dye,
     },
     unit=dye_sale_unit,
     vendor="dyer",
@@ -5443,7 +5445,7 @@ Recipe(
     dye_sale_weight,
     {},
     {
-        "cochineal powder": 1 * u.gram,
+        "cochineal powder": pigment_per_dye,
     },
     unit=dye_sale_unit,
     vendor="dyer",
@@ -5489,7 +5491,7 @@ Recipe(
     "dyestuff",
     dye_sale_weight,
     {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
-    {"indigo paste": 1 * u.gram},
+    {"indigo paste": pigment_per_dye},
     unit=dye_sale_unit,
     vendor="dyer",
     description="deep purple dye",
@@ -5517,7 +5519,7 @@ Recipe(
     dye_sale_weight,
     {},
     # no mordants because royal purple is colorfast
-    {"murex powder": 1 * u.gram},
+    {"murex powder": pigment_per_dye},
     unit=dye_sale_unit,
     vendor="dyer",
     description="gorgeous reddish-purple dye, fit for a king",
