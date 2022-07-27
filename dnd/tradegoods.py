@@ -6477,6 +6477,22 @@ Recipe(
     vendor="miller",
     description="toxic; used as an insecticide",
 )
+
+olive_oil_content = D(0.2)
+olive_oil_sale_unit = D(1) * u.pint
+olive_oil_sale_weight = (density["olive oil"] * olive_oil_sale_unit).to(u.lb)
+olives_per_sale_unit_oil = olive_oil_sale_weight / olive_oil_content
+Recipe(
+    "olive oil",
+    "olive oil",
+    olive_oil_sale_weight,
+    # RAW MATERIAL olives, not recipe olives; recipe olives represent table olives
+    {"olives": olives_per_sale_unit_oil},
+    {},
+    unit=olive_oil_sale_unit,
+    container="bottle, pint",
+    vendor="miller",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
