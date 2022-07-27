@@ -6361,9 +6361,9 @@ Recipe(
 Recipe(
     "anvil",
     "tools",
-    D(200) * u.lb,
+    D(50) * u.lb,
     {},
-    {"wrought iron": D(200) * u.lb},
+    {"wrought iron": D(50) * u.lb},
     vendor="blacksmith",
 )
 
