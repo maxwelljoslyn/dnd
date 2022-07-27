@@ -1109,6 +1109,26 @@ Recipe(
     description="ground from wheat",
 )
 
+
+Recipe(
+    "rye flour",
+    "flour",
+    1 * u.lb,
+    {"rye": 1 * u.lb},
+    {},
+    vendor="miller",
+    unit=1 * u.lb,
+    description="ground from rye",
+)
+
+Recipe(
+    "rye bread",
+    "bread",
+    1 * u.lb,
+    {"salt": 0.05 * u.lb},
+    {"rye flour": 0.7 * u.lb},
+    unit=1 * u.lb,
+    vendor="baker",
 )
 
 Recipe(
