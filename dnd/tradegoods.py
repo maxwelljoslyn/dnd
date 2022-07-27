@@ -6604,6 +6604,27 @@ Recipe(
     description=f"{cacciatore_chicken:~} of chicken breast and thigh meat in a delectable tomato sauce, incorporating olive oil, peppers, white wine, capers, and spices",
     vendor="innkeeper",
 )
+
+
+incense_sale_weight = D(1) * u.oz
+# gum = binder, niter = oxidizer, charcoal = fuel
+incense_raws = {
+    "gum arabic": D(0.4) * incense_sale_weight,
+    "niter": D(0.15) * incense_sale_weight,
+}
+incense_recipes = {"charcoal": D(0.25) * incense_sale_weight}
+# remaining fraction of incense_sale_weight is composed of the fragrant compound
+# frankincense, sandalwood, and some other aromatics can be powdered and used in incense directly, without prior distillation into an essential oil
+Recipe(
+    "frankincense",
+    "incense",
+    incense_sale_weight,
+    {"frankincense": D(0.15) * incense_sale_weight, **incense_raws},
+    incense_recipes,
+    vendor="apothecary",
+    unit=D(4) * u.hour,
+    description="lemony, piney scent",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
