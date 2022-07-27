@@ -234,12 +234,13 @@ density = {
         "honey": 1.4 * u.gram / u.cucm,
     }.items()
 }
+
 # ordinary clay items calculated with 1-sq-ft, 1-inch-thick slabs -- 1/12 of a cubic ft
 clay_slab_volume = Decimal(1) / Decimal(12) * u.cuft
 clay_slab_weight = Decimal(108) * u.oz
-density["clay"] = (clay_slab_weight / clay_slab_volume).to(u.lb / u.cuft)
+density["fired clay"] = (clay_slab_weight / clay_slab_volume).to(u.lb / u.cuft)
 
-silvering_percentage = D(0.02)
+silvering_percentage = D(0.025)
 
 
 def cylinder_volume(height, radius):
