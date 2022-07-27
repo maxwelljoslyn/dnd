@@ -3646,14 +3646,31 @@ Recipe(
     unit=registry["wine, in barrel"].unit,
 )
 
+wetclay_per_dryclay = density["wet clay"] / density["fired clay"]
+
 Recipe(
     "fired clay",
+    # use the ceramics reference for all "fired X" recipes; use more specific "porcelain," "china", etc. for goods made from the fired clays
     "ceramics",
     clay_slab_weight,
-    {"ceramics": Decimal(1.15) * clay_slab_weight},
+    {"ceramics": wetclay_per_dryclay * clay_slab_weight},
     {},
     unit=clay_slab_weight,
-    description="accounts for firing wet clay, so it does not have to be done separately for all clay goods",
+    description="accounts for firing wet earthenware clay, so it does not have to be done separately for all goods",
+)
+
+Recipe(
+    "fired porcelain",
+    "ceramics",
+    clay_slab_weight,
+    {
+        "porcelain": wetclay_per_dryclay * clay_slab_weight,
+    },
+    {},
+    unit=clay_slab_weight,
+    difficulty=2,  # higher firing temperature and multiple firings
+    description="accounts for firing wet (hard-paste) porcelain, so it does not have to be done separately for all goods",
+)
 )
 
 # this is a huge fudge since it varies from stone to stone, but accurate enough for my purposes
