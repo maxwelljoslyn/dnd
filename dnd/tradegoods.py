@@ -1169,7 +1169,7 @@ Recipe(
     {"coal": 10 * u.lb},
     {},
     unit=1 * u.lb,
-    vendor="potter",  # potter b/c made in a kiln
+    vendor="collier",
 )
 
 masonry_unit = D(1) * u.cuft
@@ -1636,7 +1636,9 @@ Recipe(
     {"timber": timber_per_ash * u.lb},
     {},
     unit=1 * u.lb,
-    vendor="chandler",
+    vendor="collier",
+)
+
 )
 
 Recipe(
