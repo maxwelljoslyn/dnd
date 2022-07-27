@@ -5389,6 +5389,23 @@ Recipe(
     vendor="baker",
 )
 
+pasta_flour = (density["flour"] * D(2) * u.cup).to(u.lb)
+pasta_eggs = D(2) * u.item
+pasta_salt = (density["salt"] * (D(2) * u.teaspoon)).to(u.oz)
+Recipe(
+    "dried pasta",
+    "bread",  # TODO find something better
+    1 * u.lb,
+    {"salt": pasta_salt},
+    {
+        "flour": pasta_flour,
+        "egg, chicken": pasta_eggs,
+    },
+    unit=1 * u.lb,
+    vendor="grocer",
+)
+
+
 # insect's body is roughly 25% pigment by weight
 cochineal_percent_dyestuff = D(0.25)
 Recipe(
