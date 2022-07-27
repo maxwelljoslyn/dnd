@@ -3907,6 +3907,8 @@ Recipe(
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane; tinted with gold and tin",
 )
 
+
+# TODO make these weights more precise in the manner of the pottery containers, since their relationship between capacity and volume surprised me
 wine_glass_weight = D(5) * u.oz
 Recipe(
     "glass, wine",
@@ -3914,6 +3916,7 @@ Recipe(
     wine_glass_weight,
     {},
     {"soda glass": wine_glass_weight},
+    capacity=D(6) * u.floz,
     vendor="glassblower",
 )
 
@@ -3924,6 +3927,9 @@ Recipe(
     pint_glass_weight,
     {},
     {"soda glass": pint_glass_weight},
+    capacity=D(16) * u.floz,
+    vendor="glassblower",
+)
     vendor="glassblower",
 )
 
