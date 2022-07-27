@@ -1101,13 +1101,14 @@ Recipe(
 Recipe(
     "flour",
     "flour",
-    # TODO shouldn't this be made from husked cereals, which are derived from base recipe cereals? well no, it should be derived from wheat ... to which i have yet to give a prduction number based on cereals
     1 * u.lb,
     {"wheat": 1 * u.lb},
     {},
     vendor="miller",
     unit=1 * u.lb,
-    description="ground from cereals",
+    description="ground from wheat",
+)
+
 )
 
 Recipe(
