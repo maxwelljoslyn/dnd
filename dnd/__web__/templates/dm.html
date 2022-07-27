@@ -2,20 +2,28 @@ $def with (characters)
 
 <details>
 <summary>To Set a Scene</summary>
-Motion: who is doing what?
-Reason: why are they doing it?
-Want: what do they wish they were doing (if not this?)
+<ul>
+<li>Motion: who is doing what?</li>
+<li>Reason: why are they doing it?</li>
+<li>Want: what do they wish they were doing (if not this?)</li>
+</ul>
 </details>
 
 <ul>
-$for c in characters:
-    $ details = c['details']
-    <li><a href="/players/$c['username']/characters/$details['name']">$details['name']</a></li>
+<li>If Alkobell wears or shows her helmet to the ogres, they will unexpectedly <strong>RESPECT</strong> her, for being strong enough to best an ogre! Not at all the viciousness the gnolls told her to expect...</li>
+<li>Balls</li>
 </ul>
+
+$#<ul>
+$#$for c in characters:
+$#    $ details = c['details']
+$#    <li><a href="/players/$c['username']/characters/$details['name']">$details['name']</a></li>
+$#</ul>
 
 <h2>DM Commands</h2>
 
 <h3>World</h3>
+
 $# TODO use the current date in value and min
 <form method=post action=/world/set-date>
 <label>Current In-Game Date
