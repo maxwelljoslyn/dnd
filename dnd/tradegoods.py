@@ -4086,7 +4086,7 @@ slaves = {
     "courtesan": {
         "weight": D(110) * u.lb,
         "minimum age": D(14) * u.year,
-        "description": "attractive  female; Cha 11+, other abilities usually 8",
+        "description": "attractive  female; Cha 11+, other abilities usually 8; can play a musical instrument",
         "difficulty": 1.2,
     },
     "entertainer": {
