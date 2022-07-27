@@ -6662,6 +6662,44 @@ Recipe(
     description="smokey, sweet scent",
 )
 
+shellac_sale_unit = D(16) * u.oz
+grainalcohol_per_shellac = D(1) * u.gallon / (D(1) * u.lb)
+Recipe(
+    "shellac, dried",
+    "shellac",
+    shellac_sale_unit,
+    {"lac": shellac_sale_unit * D(15)},
+    {},
+    vendor="apothecary",
+    unit=shellac_sale_unit,
+    description=f"waxy flakes; mix with {(grainalcohol_per_shellac * shellac_sale_unit).to(u.gal):~} grain alcohol to liquify",
+)
+
+sealingwax_sale_weight = D(4) * u.oz
+sealingwax_sale_unit = D(16) * u.use
+shellac_per_sealingwax = sealingwax_sale_weight * D(0.05)
+grainalcohol_per_sealingwax_shellac = (
+    grainalcohol_per_shellac * shellac_per_sealingwax
+).to(u.gal)
+Recipe(
+    "sealing wax",
+    "candles and wax",
+    sealingwax_sale_weight,
+    {
+        "resin": sealingwax_sale_weight * D(0.15),
+        # generic wax
+        "candles and wax": sealingwax_sale_weight * D(0.8),
+    },
+    {
+        "shellac, dried": shellac_per_sealingwax,
+        "grain alcohol, in barrel": grainalcohol_per_sealingwax_shellac,
+    },
+    vendor="scribner",
+    unit=sealingwax_sale_unit,
+    description="sold in stick form; melt tip with candle, let drip, and impress signet on drippings",
+)
+
+
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
