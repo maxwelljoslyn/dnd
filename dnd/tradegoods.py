@@ -6566,6 +6566,44 @@ Recipe(
     description="4 oz. freshly-made pasta tossed with olive oil, garlic, parmesan, and black pepper",
 )
 
+
+cacciatore_chicken = D(6) * u.oz
+cacciatore_oil = D(1) * u.tbsp
+cacciatore_black_pepper = D(0.1) * u.oz
+cacciatore_salt = (density["salt"] * (D(2) * u.teaspoon)).to(u.oz)
+cacciatore_peppers = D(3) * u.oz
+cacciatore_onion = D(3) * u.oz
+cacciatore_wine = D(0.25) * u.cup
+cacciatore_garlic = D(0.25) * u.oz
+cacciatore_flour = (density["flour"] * D(0.25) * u.cup).to(u.lb)
+cacciatore_tomato = D(7) * u.oz
+cacciatore_spices = D(0.3) * u.oz
+# "spices" for oregano and basil
+# nothing I can use for capers - that's OK
+# cacciatore_weight = cacciatore_chicken + (density["olive oil"] * cacciatore_oil).to(u.oz) + cacciatore_black_pepper + cacciatore_salt + cacciatore_peppers + cacciatore_onion + (density["water"] * cacciatore_wine).to(u.oz) + cacciatore_garlic + cacciatore_flour + cacciatore_tomato + cacciatore_spices
+cacciatore_weight = cacciatore_chicken + cacciatore_peppers + cacciatore_onion
+Recipe(
+    "chicken cacciatore",
+    "foodstuffs",
+    10 * u.oz,
+    {
+        "pepper, black": cacciatore_black_pepper,
+        "salt": cacciatore_salt,
+        "spices": cacciatore_spices,
+    },
+    {
+        "chicken meat": cacciatore_chicken,
+        "olive oil": cacciatore_oil,
+        "peppers": cacciatore_peppers,
+        "onions": cacciatore_onion,
+        "wine, in barrel": cacciatore_wine,
+        "garlic": cacciatore_garlic,
+        "flour": cacciatore_flour,
+        "tomatoes": cacciatore_tomato,
+    },
+    description=f"{cacciatore_chicken:~} of chicken breast and thigh meat in a delectable tomato sauce, incorporating olive oil, peppers, white wine, capers, and spices",
+    vendor="innkeeper",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
