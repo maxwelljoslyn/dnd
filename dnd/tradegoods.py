@@ -2356,7 +2356,7 @@ Recipe(
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description=f"{str(ale_abv.magnitude)}% alcohol",
+    description=f"{str(ale_abv.magnitude)}% alcohol; smoky-sweet dark ale with a slight molasses aftertaste",
 )
 
 # beer is following a recipe taken from http://brewery.org/library/PeriodRen.html
