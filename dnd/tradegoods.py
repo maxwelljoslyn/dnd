@@ -4384,7 +4384,7 @@ onestory_house_components = {
     "timber framing, roof": 1 * u.item,
     "roofing, slate": 1 * u.item,
 }
-
+# NOTE don't forget the infill components if designing a new house!!!
 onestory_house_components.update(infill_ingredients(total_infill_volume(1)))
 
 Recipe(
