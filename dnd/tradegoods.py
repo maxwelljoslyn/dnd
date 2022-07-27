@@ -6284,7 +6284,7 @@ Recipe(
     {"timber": D(0.25) * u.oz},
     {},
     unit=2 * u.item,
-    difficulty=2,
+    difficulty=3,
     vendor="carver",
     description="pair of six-sided dice",
 )
@@ -6296,7 +6296,7 @@ Recipe(
     {},
     {"cattle bone": D(0.25) * u.oz},
     unit=2 * u.item,
-    difficulty=2,
+    difficulty=3,
     vendor="carver",
     description="pair of six-sided dice",
 )
@@ -6308,7 +6308,7 @@ Recipe(
     {"ivory": D(0.25) * u.oz},
     {},
     unit=2 * u.item,
-    difficulty=2,
+    difficulty=3,
     vendor="carver",
     description="pair of six-sided dice",
 )
