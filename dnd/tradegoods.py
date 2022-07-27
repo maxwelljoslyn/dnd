@@ -6516,6 +6516,31 @@ Recipe(
     vendor="innkeeper",
     description=f"{breakfast_eggs} eggs and {breakfast_bacon_strips} strips of bacon, fried in butter and served piping-hot",
 )
+
+bubble_squeak_potatoes = D(0.25) * u.lb
+bubble_squeak_cabbages = D(0.25) * u.lb
+bubble_squeak_beef = D(0.5) * u.lb
+bubble_squeak_salt = (density["salt"] * (D(2) * u.teaspoon)).to(u.oz)
+bubble_squeak_black_pepper = D(0.1) * u.oz
+bubble_squeak_weight = (
+    bubble_squeak_potatoes + bubble_squeak_cabbages + bubble_squeak_beef
+)
+Recipe(
+    "bubble and squeak",
+    "foodstuffs",
+    bubble_squeak_weight,
+    {
+        "pepper, black": bubble_squeak_black_pepper,
+        "salt": bubble_squeak_salt,
+    },
+    {
+        "beef": bubble_squeak_beef,
+        "potatoes": bubble_squeak_potatoes,
+        "cabbages": bubble_squeak_cabbages,
+    },
+    vendor="innkeeper",
+    description="hearty peasant dish of boiled and fried beef mixed with cabbage, potatoes, and onions, all salted and peppered",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
