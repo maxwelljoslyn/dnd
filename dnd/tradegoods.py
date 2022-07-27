@@ -4823,11 +4823,25 @@ make_armor(
     "armorer",
 )
 
+armor_plating_thickness = D(1.5) * u.mm
+armor_plating_sale_unit = D(1) * u.sqft
+armor_plating_sale_weight = (
+    density["steel"] * (armor_plating_sale_unit * armor_plating_thickness)
+).to(u.lb)
+Recipe(
+    "armor plating",
+    "armor",
+    armor_plating_sale_weight,
+    {},
+    {"steel": armor_plating_sale_weight},
+    unit=armor_plating_sale_unit,
+)
 
-bodyarmor_plating_thickness = D(1.5) * u.mm
 coatofplates_reinforced_area = D(0.8) * torso_area
 coatofplates_plate_weight = (
-    density["steel"] * coatofplates_reinforced_area * bodyarmor_plating_thickness
+    coatofplates_reinforced_area
+    / registry["armor plating"].unit
+    * registry["armor plating"].weight
 ).to(u.lb)
 coatofplates_weight = leatherarmor_weight + coatofplates_plate_weight
 
@@ -4838,7 +4852,7 @@ make_armor(
     {
         "boiled leather": leatherarmor_leather,
         "woolen yarn": leatherarmor_string,
-        "steel": coatofplates_plate_weight,
+        "armor plating": coatofplates_reinforced_area,
     },
     "AC +3; as leather armor, but reinforced with metal plates between the leather layers",
     "armorer",
@@ -4914,7 +4928,7 @@ cuirass_strap_weight = (
     cuirass_strap_area / registry["leather"].unit * registry["leather"].weight
 )
 cuirass_plating_weight = (
-    density["steel"] * cuirass_area * bodyarmor_plating_thickness
+    cuirass_area / registry["armor plating"].unit * registry["armor plating"].weight
 ).to(u.lb)
 cuirass_weight = cuirass_plating_weight + cuirass_strap_weight
 
@@ -4923,7 +4937,7 @@ make_armor(
     cuirass_weight,
     {},
     {
-        "steel": cuirass_plating_weight,
+        "armor plating": cuirass_area,
         "leather": cuirass_strap_area,
     },
     description="; ".join(
@@ -4950,8 +4964,10 @@ plate_armor_pieces = {
 
 for name, info in plate_armor_pieces.items():
     area, description = info["area"], info["description"]
-    weight = (density["steel"] * area * bodyarmor_plating_thickness).to(u.lb)
-    ingredients = {"steel": weight}
+    weight = (
+        area / registry["armor plating"].unit * registry["armor plating"].weight
+    ).to(u.lb)
+    ingredients = {"armor plating": area}
     if name == "fauld":
         # TODO use belts; adjust number/size of belts away from same as cuirass
         # TODO pauldron needs rivets
