@@ -4323,7 +4323,7 @@ Recipe(
     description=f"{shingle_length:~} x {shingle_width:~} x {shingle_thickness:~}",
 )
 
-earthenware_shingle_weight = density["clay"] * shingle_volume
+earthenware_shingle_weight = density["fired clay"] * shingle_volume
 Recipe(
     "shingle, earthenware",
     "pottery",
