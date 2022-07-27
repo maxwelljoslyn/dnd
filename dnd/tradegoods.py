@@ -2119,6 +2119,22 @@ Recipe(
     description="cleaned and dried cowskin",
 )
 
+thong_width = D(0.5) * u.inch
+thong_length = D(1) * u.foot
+thong_area = (thong_width * thong_length).to(u.sqin)
+thong_weight = (thong_area / registry["rawhide"].unit * registry["rawhide"].weight).to(
+    u.oz
+)
+Recipe(
+    "rawhide thong",
+    "leathercraft",
+    thong_weight,
+    {},
+    {"rawhide": thong_area},
+    vendor="tanner",
+    description=f"used for attaching equipment to belts, or otherwise tying things together; {thong_width} by {thong_length}",
+)
+
 # http://boar.org.uk/aaiwxw3MusprattL6Preparation.htm
 # this says three to four cubic feet of "freshly burned fat lime" (aka quicklime) used for 100 average hides
 # let's split the difference between 3 and 4 cuft of quicklime
