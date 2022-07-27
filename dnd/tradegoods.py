@@ -5363,12 +5363,14 @@ piecrust_vinegar = D(2) * u.teaspoon
 piecrust_vinegar_weight = (density["vinegar"] * piecrust_vinegar).to(u.lb)
 piecrust_butter = D(1.25) * u.cup
 piecrust_butter_weight = (density["butter"] * piecrust_butter).to(u.lb)
+piecrust_suet = D(3) * u.oz
 piecrust_weight = (
     piecrust_flour
     + piecrust_salt_weight
     + (piecrust_eggs * registry["egg, chicken"].weight)
     + piecrust_vinegar_weight
     + piecrust_butter_weight
+    + piecrust_suet
 )
 Recipe(
     "piecrust",
@@ -5382,6 +5384,7 @@ Recipe(
         "egg, chicken": piecrust_eggs * u.item,
         "vinegar, in barrel": piecrust_vinegar,
         "butter": piecrust_butter_weight,
+        "suet": piecrust_suet,
     },
     vendor="baker",
 )
