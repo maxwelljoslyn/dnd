@@ -3930,7 +3930,17 @@ Recipe(
     capacity=D(16) * u.floz,
     vendor="glassblower",
 )
+
+tumbler_glass_weight = D(9) * u.oz
+Recipe(
+    "glass, tumbler",
+    "glassware",
+    tumbler_glass_weight,
+    {},
+    {"soda glass": tumbler_glass_weight},
     vendor="glassblower",
+    capacity=D(4) * u.floz,
+    description="heavy-bottomed glass for spirits",
 )
 
 
