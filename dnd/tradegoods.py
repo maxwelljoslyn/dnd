@@ -2458,6 +2458,30 @@ Recipe(
     description=f"{str(grainalcohol_abv.magnitude)}% alcohol; undrinkably pure, but used in many industrial processes",
 )
 
+
+honey_for_mead = D(2) * u.lb / u.gallon
+apricots_for_mead = D(0.2) * u.lb / u.gallon
+cinnamon_for_mead = D(0.2) * u.lb / u.gallon
+mead_abv = calculate_abv(
+    {"honey": honey_for_mead * 1 * u.gallon},
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+Recipe(
+    "mead, in barrel",
+    "brewing",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {
+        "apricots": apricots_for_mead * barrel_capacity,
+        "cinnamon": cinnamon_for_mead * barrel_capacity,
+    },
+    {"honey": honey_for_mead * barrel_capacity},
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description=f"{str(mead_abv.magnitude)}% alcohol; farmhouse honey wine enhanced with apricots and cinnamon, perfect for a winter's night",
+)
 for member in categories["dried fruit"]["members"]:
     Recipe(
         member,
