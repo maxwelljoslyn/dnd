@@ -2439,6 +2439,24 @@ Recipe(
     description=f"{str(rum_abv.magnitude)}% alcohol; Sugar Bay light rum with notes of cinnamon, oak, and dark cherries",
 )
 
+cereals_for_grainalcohol = D(40) * u.lb / u.gallon
+grainalcohol_abv = calculate_abv(
+    {"cereals": cereals_for_grainalcohol * 1 * u.gallon},
+    1 * u.gallon,
+    1 * u.gallon,
+)
+
+Recipe(
+    "grain alcohol, in barrel",
+    "distilling",
+    (density["water"] * barrel_capacity).to(u.lb),
+    {"cereals": cereals_for_grainalcohol * barrel_capacity},
+    {},
+    unit=barrel_capacity,
+    container="cask, barrel",
+    vendor="brewer",
+    description=f"{str(grainalcohol_abv.magnitude)}% alcohol; undrinkably pure, but used in many industrial processes",
+)
 
 for member in categories["dried fruit"]["members"]:
     Recipe(
