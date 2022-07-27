@@ -2629,6 +2629,19 @@ Recipe(
     unit=1 * u.lb,
     vendor="grocer",
 )
+honey_sale_unit = D(8) * u.floz
+honey_sale_weight = (density["honey"] * honey_sale_unit).to(u.oz)
+# account for removal of wax and other particles
+raw_honey_per_finished = D(1.15)  # TODO guess
+Recipe(
+    "honey",
+    "honey",
+    honey_sale_weight,
+    {"honey": honey_sale_weight * raw_honey_per_finished},
+    {},
+    unit=honey_sale_weight,
+    vendor="grocer",
+)
 
 grapes_for_wine = D(3.5) * u.lb / (D(750) * u.ml).to(u.gallon)
 wine_abv = calculate_abv(
