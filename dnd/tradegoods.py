@@ -6119,6 +6119,29 @@ Recipe(
     description="sold singly; extends to the elbow",
 )
 
+work_glove_softleather = D(0.75) * glove_area
+work_glove_hardleather = D(0.25) * glove_area
+work_glove_weight = (
+    work_glove_softleather / registry["leather"].unit * registry["leather"].weight
+).to(u.oz) + (
+    work_glove_hardleather
+    / registry["boiled leather"].unit
+    * registry["boiled leather"].weight
+).to(
+    u.oz
+)
+Recipe(
+    "glove, work",
+    "gloves",
+    work_glove_weight,
+    {},
+    {
+        "leather": work_glove_softleather,
+        "boiled leather": work_glove_hardleather,
+    },
+    vendor="glover",
+    description="glove with toughened palm for hard labor",
+)
 stud_weight = D(2) * u.oz
 Recipe(
     "steel stud",
