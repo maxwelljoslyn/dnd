@@ -3208,6 +3208,25 @@ Recipe(
     vendor="leatherworker",
     capacity=backpack_capacity,
 )
+
+belt_length = body_proportions["torso"]["girth"]
+belt_width = D(2) * u.inch
+belt_area = (belt_length * belt_width).to(u.sqin)
+belt_leather_weight = belt_area / registry["leather"].unit * registry["leather"].weight
+belt_buckle_weight = D(4) * u.oz
+belt_weight = (belt_leather_weight + belt_buckle_weight).to(u.oz)
+Recipe(
+    "belt",
+    "leathercraft",
+    belt_weight,
+    {},
+    {
+        "leather": belt_area,
+        "wrought iron": belt_buckle_weight,
+    },
+    vendor="leatherworker",
+    description="wrought iron buckle; characters can wear one waist belt and one shoulder belt; each belt can hold 3 items",
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
