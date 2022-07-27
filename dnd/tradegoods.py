@@ -3800,6 +3800,20 @@ Recipe(
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
+Recipe(
+    "soda glass, blue",
+    "glassware",
+    glass_sale_weight,
+    {},
+    {
+        # 1/10th of a percent is correct, yes
+        "raw cobalt": D(0.001) * glass_sale_weight,
+        "soda glass": glass_sale_weight,
+    },
+    vendor="glazier",
+    unit=glass_sale_weight,
+    description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane; tinted with cobalt",
+)
 
 lead_per_glass = D(0.25) * u.lb / u.lb
 Recipe(
