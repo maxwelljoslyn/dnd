@@ -5454,7 +5454,7 @@ Recipe(
 
 # TODO how accurate is 20 lbs madder for 1 pound pigment
 Recipe(
-    "madder pigment",
+    "pigment, madder",
     "dyestuff",
     1 * u.lb,
     {"madder": 20 * u.lb},
@@ -5468,7 +5468,7 @@ Recipe(
     "dyestuff",
     dye_sale_weight,
     {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
-    {"madder pigment": 1 * u.gram},
+    {"pigment, madder": pigment_per_dye},
     unit=dye_sale_unit,
     vendor="dyer",
     description="dusty pink dye",
