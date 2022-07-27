@@ -5556,6 +5556,17 @@ Recipe(
     description="brilliant green pigment scraped from copper which has soaked in vinegar",
 )
 
+Recipe(
+    "dye, green",
+    "dyestuff",
+    dye_sale_weight,
+    # TODO need mordants, or is verdigris colorfast?
+    {},
+    {"pigment, verdigris": pigment_per_dye},
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="brilliant green dye derived from verdigris",
+)
 helmet_area = (
     D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
 )
