@@ -1355,6 +1355,7 @@ Recipe(
     "cattle",
     calf_sale_weight,
     {"cattle": 1 * u.head},
+    # no animal feed because it merely forages; this makes cattle cheap despite their high weight
     {},
     vendor="stockyard",
     unit=1 * u.head,
