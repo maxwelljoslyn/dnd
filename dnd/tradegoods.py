@@ -2689,6 +2689,20 @@ for w, description in wines.items():
         description=f"{str(wine_abv.magnitude)}% alcohol; {description}",
     )
 
+tun_capacity = registry["cask, tun"].capacity
+Recipe(
+    f"wine, in tun",
+    "wine",
+    (density["water"] * tun_capacity).to(u.lb),
+    {
+        "grapes": grapes_for_wine * tun_capacity,
+    },
+    {},
+    unit=tun_capacity,
+    container="cask, tun",
+    vendor="vintner",
+    description=registry["wine, in barrel"].description,
+)
 
 ale_per_serving = (D(1) * u.cup).to(u.floz)
 Recipe(
