@@ -4428,11 +4428,18 @@ Recipe(
     description=registry["half-timbered house, one story"].description,
 )
 
+elucia_cabin_size_factor = 2
 elucia_cabin_components = {
-    "timber framing, first story": 2 * u.item,
-    "timber framing, roof": 2 * u.item,
-    "roofing, slate": 2 * u.item,
+    "timber framing, first story": elucia_cabin_size_factor * u.item,
+    "timber framing, roof": elucia_cabin_size_factor * u.item,
+    "roofing, slate": elucia_cabin_size_factor * u.item,
 }
+elucia_cabin_components.update(
+    {
+        x: elucia_cabin_size_factor * y
+        for x, y in infill_ingredients(total_infill_volume(1)).items()
+    }
+)
 
 Recipe(
     "Elucia's wooden cabin",
