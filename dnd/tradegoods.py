@@ -3227,6 +3227,32 @@ Recipe(
     vendor="leatherworker",
     description="wrought iron buckle; characters can wear one waist belt and one shoulder belt; each belt can hold 3 items",
 )
+
+
+for weapon, length in {
+    # "dagger": dagger_length,
+    "shortsword": shortsword_length,
+    "longsword": longsword_length,
+    "greatsword": greatsword_length,
+}.items():
+    # 2 pieces of leather, each length and width of the appropriate blade plus a little extra in both dimensions
+    scabbard_width = unit_blade_width * D(1.1)
+    scabbard_length = length * D(1.05)
+    scabbard_total_area = 2 * scabbard_length * scabbard_width
+    scabbard_weight = (
+        scabbard_total_area
+        / registry["boiled leather"].unit
+        * registry["boiled leather"].weight
+    ).to(u.oz)
+    Recipe(
+        f"scabbard, {weapon}",
+        "leathercraft",  # TODO tools?
+        scabbard_weight,
+        {},
+        {"boiled leather": scabbard_total_area},
+        vendor="leatherworker",
+    )
+
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
