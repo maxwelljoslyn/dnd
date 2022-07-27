@@ -3858,6 +3858,21 @@ Recipe(
     unit=glass_sale_weight,
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane; tinted with sulfur and quicklime",
 )
+
+Recipe(
+    "soda glass, opaque white",
+    "glassware",
+    glass_sale_weight,
+    {},
+    {
+        "bone ash": D(0.02) * glass_sale_weight,
+        "soda glass": glass_sale_weight,
+    },
+    vendor="glazier",
+    unit=glass_sale_weight,
+    description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane; decorative glass tinted with bone ash",
+)
+
 lead_per_glass = D(0.25) * u.lb / u.lb
 Recipe(
     "lead glass",
