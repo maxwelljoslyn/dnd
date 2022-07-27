@@ -3010,12 +3010,13 @@ Recipe(
     description="diagonally-patterned twill weave",
 )
 
+rawfiber_per_carded = D(2.5) * u.lb
 Recipe(
     "carded cotton",
     "cotton",
     1 * u.lb,
     # roughly 60% of the weight of raw cotton is the boll, which is thrown away
-    {"cotton": D(2.5) * u.lb},
+    {"cotton": rawfiber_per_carded},
     {},
     unit=1 * u.lb,
 )
