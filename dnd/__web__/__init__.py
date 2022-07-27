@@ -571,4 +571,6 @@ class CharacterRace:
 @app.control("rules/{rule}")
 class Rule:
     def get(self, rule):
+        if rule == "foo":
+            return web.mkdn(getattr(rules, rule)())
         return getattr(rules, rule)()
