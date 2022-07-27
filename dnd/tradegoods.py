@@ -4414,7 +4414,7 @@ twostory_house_components = {
 twostory_house_components.update(infill_ingredients(total_infill_volume(2)))
 
 Recipe(
-    "half-timbered house, two stories",
+    "half-timbered house, two story",
     "carpentry",  # TODO anything better?
     sum(
         [
@@ -6229,29 +6229,39 @@ Recipe(
 # let's use the same ratio to determine the price of one night at an inn
 inn_construction_service_ratio = D(0.001)
 Recipe(
+    "spot in second-floor room",
+    "foodstuffs",  # TODO this is terrible but nothing better...
+    0 * u.lb,
+    {},
+    {"half-timbered house, two story": inn_construction_service_ratio * u.item},
+    vendor="innkeeper",
+    unit=1 * u.night,
+    description="one cot in shared four-person room with locking door and small footlocker. Chance available: 5/6 before 10 AM; 4/6 before noon; 2/6 before 2; 10% thereafter",
+)
+
+Recipe(
     "private room",
     "foodstuffs",  # TODO this is terrible but nothing better...
     0 * u.lb,
     {},
-    {"half-timbered house, one story": inn_construction_service_ratio * u.item},
+    {"half-timbered house, two story": inn_construction_service_ratio * u.item},
     vendor="innkeeper",
     unit=1 * u.night,
-    description="",
+    difficulty=1.5,
+    description="private room for one or two people, with beds, wash basin, and large storage chest. Available before noon only.",
 )
+
 
 Recipe(
     "spot in common room",
     "foodstuffs",  # TODO this is terrible but nothing better...
     0 * u.lb,
     {},
-    {
-        "half-timbered house, one story": inn_construction_service_ratio
-        / D(1.9)
-        * u.item
-    },
+    {"half-timbered house, one story": inn_construction_service_ratio * u.item},
     vendor="innkeeper",
     unit=1 * u.night,
-    description="",
+    difficulty=0.8,
+    description="cost per person. Chance available per person: 5/6 before 2 PM; 4/6 before 4; 2/6 before 6; 20% thereafter",
 )
 
 tilled_land_sale_unit = D(1) * u.acre
