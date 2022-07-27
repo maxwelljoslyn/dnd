@@ -1863,6 +1863,22 @@ Recipe(
     capacity=cup_inner_volume.to(u.floz),
     description="no handle; unglazed 'biscuit', so cannot contain liquids",
 )
+
+glaze_per_ceramics = D(1) / D(4) * u.floz / u.oz
+cup_glaze = (glaze_per_ceramics * cup_weight).to(u.floz)
+Recipe(
+    "earthenware cup, brown",
+    "ceramics",
+    cup_weight,
+    {},
+    {
+        "terracotta cup": 1 * u.item,
+        "glaze, brown": cup_glaze,
+    },
+    vendor="potter",
+    capacity=registry["terracotta cup"].capacity,
+    description="no handle",
+)
 )
 
 Recipe(
