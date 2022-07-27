@@ -1904,6 +1904,31 @@ Recipe(
     capacity=registry["terracotta cup"].capacity,
     description="no handle",
 )
+
+
+jar_height = D(20) * u.inch
+jar_width = D(8) * u.inch
+jar_thickness = D(1) / D(4) * u.inch
+jar_inner_volume = cylinder_volume(jar_height, (jar_width - jar_thickness) / 2)
+jar_wall_volume = cylinder_volume(jar_height, jar_width / 2) - jar_inner_volume
+
+# bottom of jar
+jar_base_volume = cylinder_volume(jar_thickness, jar_width / 2)
+
+jar_handles = D(2)
+jar_handle_volume = cylinder_volume(D(2) * u.inch, jar_thickness / 2)
+jar_clay_volume = jar_wall_volume + jar_base_volume + (jar_handle_volume * 2)
+jar_weight = (density["fired clay"] * jar_clay_volume).to(u.lb)
+Recipe(
+    "terracotta jar",
+    "ceramics",
+    jar_weight,
+    {},
+    {"fired clay": jar_weight},
+    vendor="potter",
+    capacity=jar_inner_volume.to(u.gallon),
+    description=f"unglazed 'biscuitware' CANNOT contain liquids; {jar_handles}-handled",
+)
 )
 
 Recipe(
