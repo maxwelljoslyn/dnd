@@ -3311,6 +3311,16 @@ Recipe(
     vendor="butcher",
 )
 
+Recipe(
+    "bacon",
+    "bacon",
+    1 * u.lb,
+    {},
+    {"pig": (Decimal(1) * u.lb / pork_per_pig) * u.head},
+    unit=1 * u.lb,
+    vendor="butcher",
+)
+
 # cane can yield 50% of its mass in juice; approximately 20% of that juice is sugar
 # brown (or "raw") sugar still contains some molasses
 juice_from_sugarcane = Decimal(0.5) * u.lb / u.lb
