@@ -3152,6 +3152,34 @@ Recipe(
     vendor="ropewalker",
     unit=rope_sale_unit,
 )
+
+hemp_plainweave_sale_weight = (
+    (cloth_sale_unit * yarn_per_ordinary_cloth)
+    / hemp_yarn_sale_unit
+    * hemp_yarn_sale_weight
+).to(u.lb)
+Recipe(
+    "hemp cloth",
+    "rough fiber cloth",
+    hemp_plainweave_sale_weight,
+    {},
+    {"hemp yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave; durable cloth for goods including bags, sacks, upholstery, and curtains",
+)
+
+# TODO both hemp and canvas cloth are rather more heavyweight than even the heaviest duck canvas (30 oz / sq yd)
+Recipe(
+    "canvas",
+    "canvas",
+    hemp_plainweave_sale_weight,
+    {},
+    {"hemp yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    unit=cloth_sale_unit,
+    vendor="weaver",
+    description="plainweave; heavy-duty textile used for goods including sails, tents, bale covers, and paintings",
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
