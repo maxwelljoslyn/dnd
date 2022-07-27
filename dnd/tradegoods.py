@@ -2220,14 +2220,26 @@ def cask_measurements(height, radius):
 
 
 casks = {
-    "firkin": {"height": 2 * u.ft, "radius": 5 * u.inch},
-    "rundlet": {"height": 3 * u.ft, "radius": 6 * u.inch},
-    "barrel": {"height": 3 * u.ft, "radius": 8 * u.inch},
-    "tierce": {"height": 4 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
-    "hogshead": {"height": 6 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
-    "puncheon": {"height": 8 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
-    "butt": {"height": 12 * u.ft + 1 * u.inch, "radius": 8 * u.inch},
-    "tun": {"height": 15 * u.ft + 6 * u.inch, "radius": 10 * u.inch},
+    "firkin": {"height": 2 * u.ft, "radius": 5 * u.inch, "difficulty": 1},
+    "rundlet": {"height": 3 * u.ft, "radius": 6 * u.inch, "difficulty": 1.2},
+    "barrel": {"height": 3 * u.ft, "radius": 8 * u.inch, "difficulty": 1.4},
+    "tierce": {
+        "height": 4 * u.ft + 1 * u.inch,
+        "radius": 8 * u.inch,
+        "difficulty": 1.8,
+    },
+    "hogshead": {
+        "height": 6 * u.ft + 1 * u.inch,
+        "radius": 8 * u.inch,
+        "difficulty": 2.2,
+    },
+    "puncheon": {
+        "height": 8 * u.ft + 1 * u.inch,
+        "radius": 8 * u.inch,
+        "difficulty": 2.8,
+    },
+    "butt": {"height": 12 * u.ft + 1 * u.inch, "radius": 8 * u.inch, "difficulty": 3.4},
+    "tun": {"height": 15 * u.ft + 6 * u.inch, "radius": 10 * u.inch, "difficulty": 4},
 }
 
 for name, info in casks.items():
