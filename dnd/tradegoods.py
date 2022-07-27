@@ -1631,6 +1631,21 @@ Recipe(
 )
 
 Recipe(
+    "cheese, parmesan",
+    "cheese, Parmagiano",
+    cheese_sale_unit,
+    {"salt": salt_in_cheese * cheese_sale_unit},
+    {
+        "cow milk": milk_in_cheese * cheese_sale_unit,
+        "rennet": rennet_in_cheese * cheese_sale_unit,
+    },
+    unit=cheese_sale_unit,
+    description="aged hard cheese with a nutty flavor",
+    vendor="dairy",
+)
+
+
+Recipe(
     "suet",
     "meat",  # what's a better one? chandler? butchery?
     1 * u.lb,
