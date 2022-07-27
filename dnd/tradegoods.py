@@ -1666,6 +1666,27 @@ Recipe(
     vendor="chandler",
 )
 
+rabbit_sale_age = Decimal(12) * u.week
+rabbit_sale_weight = D(4) * u.lb
+rabbit_raising_fodder = fodder_while_growing(
+    0 * u.week,
+    rabbit_sale_age,
+    0 * u.lb,
+    rabbit_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
+Recipe(
+    "rabbit",
+    "rabbits",
+    rabbit_sale_weight,
+    {"rabbits": 1 * u.head},
+    {"animal feed": rabbit_raising_fodder},
+    unit=1 * u.head,
+    vendor="stockyard",
+    description=f"{rabbit_sale_age:~} old; needs 1 cup vegetables per day if unable to forage",
+)
+
 timber_per_ash = Decimal(25) * u.lb / u.lb
 Recipe(
     "wood ash",
