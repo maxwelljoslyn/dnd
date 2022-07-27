@@ -6335,6 +6335,16 @@ Recipe(
     description="oaken hammer for gently pounding nails, chisels, and more",
 )
 
+Recipe(
+    "needle, brass",
+    "precision tools",
+    D(0.1) * u.oz,
+    {},
+    {"brass": D(0.1) * u.oz},
+    difficulty=2,
+    vendor="redsmith",
+    description="used for surgery and tattooing",
+)
 
 Recipe(
     "needle, bone",
