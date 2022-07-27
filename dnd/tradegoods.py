@@ -2965,7 +2965,11 @@ Recipe(
     "woolen cloth",
     wool_ordinary_cloth_sale_weight * D(2),
     {},
-    {"woolen cloth": cloth_sale_unit * broadcloth_shrinking_factor},
+    {
+        "woolen yarn": yarn_per_ordinary_cloth
+        * cloth_sale_unit
+        * broadcloth_shrinking_factor
+    },
     unit=cloth_sale_unit * D(2),
     vendor="weaver",
     description="stiff and tough plainweave woolen cloth, sold in double-wide bolts",
