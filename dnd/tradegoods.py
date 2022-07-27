@@ -2574,6 +2574,20 @@ for tuber in ("potatoes", "groundnuts", "sweet potatoes", "yams"):
         vendor="greengrocer",
     )
 
+for member in categories["fish"]["members"]:
+    if member == "freshwater fish":
+        continue
+    else:
+        Recipe(
+            member,
+            member,
+            1 * u.lb,
+            {member: 1 * u.lb},
+            {},
+            vendor="fishmonger",
+            unit=1 * u.lb,
+        )
+
 Recipe(
     "potato pulp",
     "potatoes",
