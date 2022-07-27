@@ -2027,7 +2027,7 @@ Recipe(
 
 Recipe(
     "lye",
-    "lye",  # TODO I used soap and wax at first ... "lye" ref makes it ~100x more exensive
+    "lye",  # TODO I used soap and wax at first ... "lye" ref makes it ~100x more expensive
     1 * u.lb,
     {},
     {"wood ash": 1 * u.lb},
