@@ -3736,6 +3736,18 @@ for stone in applicable_stones:
         unit=masonry_unit,
     )
 
+Recipe(
+    "heating fuel",
+    "coal",
+    6 * u.lb,
+    {"coal": 6 * u.lb},
+    {},
+    unit=1 * u.day,
+    vendor="collier",
+    description="quantity of coal sufficient to warm a standard-size house (225 sq ft) to a comfortable temperature (~60 degrees F) for 1 full day",
+)
+
+
 pan_thickness = D(1) / D(8) * u.inch
 pan_handle_length = D(4) * u.inch
 pan_handle_width = D(1) * u.inch
