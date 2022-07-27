@@ -5966,7 +5966,7 @@ Recipe(
     {},
     {"cotton cloth": bodice_area},
     vendor="tailor",
-    description="female upper torso garment; not restrictive like a corset",
+    description="female upper torso garment, with sleeves halfway down upper arm; not restrictive like a corset",
 )
 
 # given neck radius N, and desired height H, ruff uses a piece of cloth N+2 inches * 1.2H
