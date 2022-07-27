@@ -2482,6 +2482,41 @@ Recipe(
     vendor="brewer",
     description=f"{str(mead_abv.magnitude)}% alcohol; farmhouse honey wine enhanced with apricots and cinnamon, perfect for a winter's night",
 )
+
+# maize_for_gin = Decimal(6) * u.lb / u.gallon
+# malt_for_gin = Decimal(1) * u.lb / u.gallon
+# roasted_malt_for_gin = Decimal(1) * u.lb / u.gallon
+# juniper_for_gin = Decimal(0.1) * u.lb / u.gallon
+# cardamom_for_gin = Decimal(0.1) * u.lb / u.gallon
+# gin_abv = calculate_abv(
+#     {
+#         "maize": maize_for_gin * 1 * u.gallon,
+#         "malt": malt_for_gin * 1 * u.gallon,
+#         "roasted malt": roasted_malt_for_gin * 1 * u.gallon,
+#     },
+#     1 * u.gallon,
+#     1 * u.gallon,
+# )
+#
+# Recipe(
+#     "gin, in barrel",
+#     "gin",
+#     (density["water"] * barrel_capacity).to(u.lb),
+#     {
+#         "maize": maize_for_gin * barrel_capacity,
+#         "malt": malt_for_gin * barrel_capacity,
+#         "cardamom": cardamom_for_gin * barrel_capacity,
+#         "juniper berries": juniper_for_gin * barrel_capacity,
+#     },
+#     {
+#         "roasted malt": roasted_malt_for_gin * barrel_capacity,
+#     },
+#     unit=barrel_capacity,
+#     container="cask, barrel",
+#     vendor="brewer",
+#     description=f"{str(gin_abv.magnitude)}% alcohol; refreshing spirit flavored with juniper and cardamom",
+# )
+
 for member in categories["dried fruit"]["members"]:
     Recipe(
         member,
