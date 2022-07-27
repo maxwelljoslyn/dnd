@@ -3984,7 +3984,7 @@ Recipe(
     capacity=pint_bottle_capacity,
 )
 
-for each in ("beer", "ale", "gnomish beer", "kumiss"):
+for each in ("beer", "ale", "gnomish beer", "kumiss", "mead"):
     Recipe(
         f"{each}, in bottle",
         "brewing",  # generic because tapping and pouring into bottle doesn't depend on which type it is
