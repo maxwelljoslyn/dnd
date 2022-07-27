@@ -1737,6 +1737,25 @@ Recipe(
     vendor="potter",
     description="delicate olive-green; customer supplies container",
 )
+
+Recipe(
+    "glaze, white",
+    "pottery",
+    D(1) * u.lb,
+    {},
+    {
+        # flux
+        "raw lead": D(0.6)
+        * (glaze_solids_final_weight - sum(basic_glaze_ingredients.values())),
+        # colorant
+        "raw tin": D(0.4)
+        * (glaze_solids_final_weight - sum(basic_glaze_ingredients.values())),
+        **basic_glaze_ingredients,
+    },
+    unit=14 * u.floz,
+    vendor="potter",
+    description="tin-white of striking brightness; customer supplies container",
+)
 )
 
 Recipe(
