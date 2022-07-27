@@ -1802,6 +1802,22 @@ Recipe(
     vendor="potter",
     description="iron-red; customer supplies container",
 )
+
+Recipe(
+    "glaze, yellow",
+    "pottery",
+    D(1) * u.lb,
+    {},
+    {
+        # colorant
+        "pigment, ocher": glaze_solids_final_weight
+        - sum(basic_glaze_ingredients.values()),
+        **basic_glaze_ingredients,
+    },
+    unit=14 * u.floz,
+    vendor="potter",
+    description="mustardy ocher color; customer supplies container",
+)
 )
 
 Recipe(
