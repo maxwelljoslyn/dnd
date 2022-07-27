@@ -1666,7 +1666,7 @@ Recipe(
     vendor="chandler",
 )
 
-timber_per_ash = Decimal(10) * u.lb / u.lb
+timber_per_ash = Decimal(25) * u.lb / u.lb
 Recipe(
     "wood ash",
     "timber",
