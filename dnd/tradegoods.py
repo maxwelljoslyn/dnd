@@ -5440,6 +5440,23 @@ Recipe(
 )
 
 Recipe(
+    "dye, black",
+    "dyestuff",
+    dye_sale_weight,
+    {
+        "alum": 1 * u.oz,
+        # 50/50 carbon black and bone char because I want to use the raw material if I have it, but bone char was an actual specific _type_ of carbon black
+        "carbon black": pigment_per_dye / 2,
+    },
+    {
+        "bone char": pigment_per_dye / 2,
+    },
+    unit=dye_sale_unit,
+    vendor="dyer",
+    description="made from bone char",
+)
+
+Recipe(
     "dye, magenta",
     "dyestuff",
     dye_sale_weight,
