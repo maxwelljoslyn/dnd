@@ -1698,6 +1698,30 @@ Recipe(
     vendor="collier",
 )
 
+basic_glaze_ingredients = {
+    # flux, replacing both specific mineral wollastonite, and feldspar, b/c neither in world_references
+    "quicklime": 75 * u.gram,
+    # includes both common clay and industrial-grade quartz; ground up
+    "fired clay": 100 * u.gram,
+    # ground up into frit
+    "soda glass": 50 * u.gram,
+}
+glaze_solids_final_weight = D(300) * u.gram
+
+Recipe(
+    "glaze, brown",
+    "pottery",
+    D(1) * u.lb,
+    {},
+    {
+        # colorant and flux
+        "wood ash": glaze_solids_final_weight - sum(basic_glaze_ingredients.values()),
+        **basic_glaze_ingredients,
+    },
+    unit=14 * u.floz,
+    vendor="potter",
+    description="light brown, made from wood ash; customer supplies container",
+)
 )
 
 Recipe(
