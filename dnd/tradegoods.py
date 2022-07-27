@@ -4446,7 +4446,7 @@ Recipe(
     {},
     elucia_cabin_components,
     vendor="builder",
-    description="one-story half-timbered cabin, with slate roof",
+    description=f"one-story half-timbered cabin, with slate roof but no sill or foundation; {elucia_cabin_size_factor}x size of normal house, as befits one of noble birth",
 )
 
 
