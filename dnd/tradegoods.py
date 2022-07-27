@@ -3180,6 +3180,34 @@ Recipe(
     vendor="weaver",
     description="plainweave; heavy-duty textile used for goods including sails, tents, bale covers, and paintings",
 )
+
+backpack_body_height = D(2) * u.feet
+backpack_body_depth = D(1) * u.feet
+backpack_body_width = D(1) * u.feet
+backpack_capacity = (
+    backpack_body_height * backpack_body_depth * backpack_body_width
+).to(u.cuft)
+backpack_body_area = 4 * (backpack_body_height * backpack_body_width) + 2 * (
+    backpack_body_depth * backpack_body_width
+)
+
+backpack_strap_width = D(2) * u.inch
+backpack_strap_area = backpack_body_height * backpack_strap_width
+backpack_total_area = backpack_body_area + (2 * backpack_strap_area)
+
+leather_backpack_weight = (
+    backpack_total_area / registry["leather"].unit * registry["leather"].weight
+).to(u.lb)
+
+Recipe(
+    "backpack, leather",
+    "tools",  # TODO something better
+    leather_backpack_weight,
+    {},
+    {"leather": backpack_total_area},
+    vendor="leatherworker",
+    capacity=backpack_capacity,
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
