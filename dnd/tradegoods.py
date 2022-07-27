@@ -608,6 +608,17 @@ Recipe(
 )
 
 Recipe(
+    "raw cobalt",
+    "cobalt",
+    1 * u.lb,
+    dict(cobalt=1 * u.lb),
+    {"smelting fuel": smeltingfuel_sale_unit},
+    unit=1 * u.lb,
+    vendor="puddler",
+)
+
+
+Recipe(
     "raw copper",
     "copper",
     1 * u.lb,
