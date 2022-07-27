@@ -4752,54 +4752,6 @@ def armor_size(race):
         return sum([helper(r) for r in small_races]) / len(small_races)
 
 
-body_proportions = {
-    # these measurements are for a male human; scale up or down for other races
-    "head": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
-    "torso": {"length": D(2) * u.ft, "girth": D(3) * u.ft},
-    "forearm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
-    "upper arm": {"length": D(1) * u.ft, "girth": D(1) * u.ft},
-    "thigh": {"length": D(1.5) * u.ft, "girth": D(1.5) * u.ft},
-    "calf": {"length": D(1.5) * u.ft, "girth": D(1) * u.ft},
-    "foot": {"length": D(1) * u.ft, "girth": D(6) * u.inch},
-    "hand": {"length": D(6) * u.inch, "girth": D(4) * u.inch},
-}
-
-quartersleeve_area = (
-    D(0.5)
-    * body_proportions["upper arm"]["length"]
-    * body_proportions["upper arm"]["girth"]
-)
-halfsleeve_area = (
-    body_proportions["upper arm"]["length"] * body_proportions["upper arm"]["girth"]
-)
-fullsleeve_area = (
-    body_proportions["upper arm"]["length"] * body_proportions["upper arm"]["girth"]
-) + (body_proportions["forearm"]["length"] * body_proportions["forearm"]["girth"])
-forearm_area = (
-    body_proportions["forearm"]["length"] * body_proportions["forearm"]["girth"]
-)
-thigh_area_around_one = (
-    body_proportions["thigh"]["length"] * body_proportions["thigh"]["girth"]
-)
-thigh_area_around_both = (
-    # NOTE torso girth because this is a continuous loop encompassing both thighs, as with a skirt or a fauld
-    body_proportions["thigh"]["length"]
-    * body_proportions["torso"]["girth"]
-)
-calf_area_around_one = (
-    body_proportions["calf"]["length"] * body_proportions["calf"]["girth"]
-)
-calf_area_around_both = (
-    # NOTE torso girth because this is a continuous loop encompassing both calves
-    body_proportions["calf"]["length"]
-    * body_proportions["torso"]["girth"]
-)
-torso_area = body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
-hand_area = body_proportions["hand"]["length"] * body_proportions["hand"]["girth"]
-foot_sole_area = (
-    body_proportions["foot"]["length"] * D(0.5) * body_proportions["foot"]["girth"]
-)
-
 gambeson_layers = D(6)
 gambeson_area = torso_area + (fullsleeve_area * 2)
 gambeson_cloth = gambeson_area * gambeson_layers
