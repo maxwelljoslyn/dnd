@@ -2263,7 +2263,7 @@ for name, info in casks.items():
         vendor="cooper",
         difficulty=difficulty,
         capacity=m["volume"].to(u.gal),
-        description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
+        description=f"height {height:~}, radius {radius:~}",
     )
 
 timber_per_pitch = (D(18) * u.cumt * density["timber"]).to(u.lb) / (
