@@ -5247,6 +5247,32 @@ Recipe(
     description=f"1d8+1 damage, 2-handed; {battleaxe_haft_length:~} haft",
 )
 
+sling_rope_length = D(2) * u.feet
+sling_rope_weight = (
+    sling_rope_length / registry["rope"].unit * registry["rope"].weight
+).to(u.lb)
+
+sling_pouch_area = sling_handle_area = D(4) * u.sqin
+sling_leather_weight = (
+    (sling_pouch_area + sling_handle_area)
+    / registry["leather"].unit
+    * registry["leather"].weight
+).to(u.lb)
+sling_weight = (sling_leather_weight + sling_rope_weight).to(u.oz)
+
+Recipe(
+    "sling",
+    "weapons",
+    sling_weight,
+    {},
+    {
+        "leather": sling_pouch_area + sling_handle_area,
+        "rope": sling_rope_length,
+    },
+    vendor="weaponsmith",
+    description="1d4 damage",
+)
+
 club_length = D(2) * u.feet
 # multiplier accounts for carving away from a chunk of wood
 club_volume = D(0.9) * cylinder_volume(club_length, D(1) * u.inch)
