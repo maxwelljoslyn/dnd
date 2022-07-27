@@ -1941,6 +1941,21 @@ Recipe(
     capacity=registry["terracotta jar"].capacity,
     description=f"{jar_handles}-handled; unglazed (biscuit) porcelain",
 )
+
+jar_glaze = (glaze_per_ceramics * jar_weight).to(u.floz)
+Recipe(
+    "earthenware jar, brown",
+    "ceramics",
+    jar_weight,
+    {},
+    {
+        "terracotta jar": 1 * u.item,
+        "glaze, brown": jar_glaze,
+    },
+    vendor="potter",
+    capacity=registry["terracotta jar"].capacity,
+    description=f"{jar_handles}-handled",
+)
 )
 
 Recipe(
