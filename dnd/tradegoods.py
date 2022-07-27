@@ -3126,6 +3126,32 @@ Recipe(
     vendor="spinner",
     description="useable as string, or in ropemaking and weaving",
 )
+
+yarns_per_strand = 25
+rope_sale_unit = D(50) * u.feet
+strand_weight = (
+    yarns_per_strand * rope_sale_unit / registry["hemp yarn"].unit
+) * registry["hemp yarn"].weight
+
+Recipe(
+    "rope strand",
+    "rope",
+    strand_weight,
+    {},
+    {"hemp yarn": yarns_per_strand * rope_sale_unit},
+)
+
+strands_per_rope = 3
+# TODO break weight formula for hemp rope is 900 lbs. * circumference^2
+Recipe(
+    "rope",
+    "rope",
+    strand_weight * strands_per_rope,
+    {},
+    {"rope strand": strands_per_rope * u.item},
+    vendor="ropewalker",
+    unit=rope_sale_unit,
+)
 pig_sale_weight = D(120) * u.lb
 Recipe(
     "piglet",
