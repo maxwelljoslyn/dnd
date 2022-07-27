@@ -3051,12 +3051,13 @@ Recipe(
     description="plainweave",
 )
 
+# this ratio is guesswork based on yield from 'scutching', which technically comes between retting and combing
+rawfiber_per_retted = D(15) * u.lb
 Recipe(
     "retted flax",
     "flax",
     1 * u.lb,
-    # this ratio is guesswork based on yield from 'scutching', which technically comes between retting and combing
-    {"flax": 15 * u.lb},
+    {"flax": rawfiber_per_retted},
     {},
     unit=1 * u.lb,
 )
