@@ -5708,6 +5708,29 @@ for color in wool_dyes:
             vendor="weaver",
             description="plainweave",
         )
+
+paint_sale_unit = 8 * u.floz
+oil_per_paint = paint_sale_unit
+pigment_per_paint = (((D(1) * u.oz) / (D(2) * u.floz)) * oil_per_paint).to(u.oz)
+paint_sale_weight = ((density["linseed oil"] * oil_per_paint) + pigment_per_paint).to(
+    u.oz
+)
+paint_coverage_ratio = D(350) * u.sqft / u.gallon
+
+Recipe(
+    "paint, yellow",
+    "paint",
+    paint_sale_weight,
+    {},
+    {
+        "pigment, ocher": pigment_per_paint,
+        "linseed oil": oil_per_paint,
+    },
+    unit=paint_sale_unit,
+    vendor="painter",
+    description=f"mustardy color, derived from ocher; will cover {(paint_coverage_ratio * paint_sale_unit).to(u.sqft):~}",
+)
+
 helmet_area = (
     D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
 )
