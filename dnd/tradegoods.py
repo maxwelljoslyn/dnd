@@ -854,7 +854,7 @@ def holy_symbol_measurements(height, body_material, loop_material=None, thicknes
     trunk_width = height / D(6)  # e.g. 1/4 inch for a 1.5-inch-high crucifix
     crossbar_length = D(2) / D(3) * height
     # area equals combined area of two pieces minus their overlap
-    area = (height * trunk_width) + (crossbar_length * trunk_width) - (trunk_width ** 2)
+    area = (height * trunk_width) + (crossbar_length * trunk_width) - (trunk_width**2)
     thickness = thickness if thickness else trunk_width / D(2)
     body_volume = area * thickness
     body_weight = density[body_material] * body_volume
