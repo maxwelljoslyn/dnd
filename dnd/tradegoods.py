@@ -1956,6 +1956,73 @@ Recipe(
     capacity=registry["terracotta jar"].capacity,
     description=f"{jar_handles}-handled",
 )
+
+Recipe(
+    "halflingcraft terracotta jar",
+    "halflingware",
+    jar_weight,
+    {},
+    {"fired clay": jar_weight},
+    capacity=registry["terracotta jar"].capacity,
+    description=f"unglazed 'biscuitware' CANNOT contain liquids; {jar_handles}-handled",
+)
+
+Recipe(
+    "halflingcraft china jar",
+    "halflingware",
+    jar_weight,
+    {},
+    {"fired porcelain": jar_weight},
+    vendor="potter",
+    capacity=registry["terracotta jar"].capacity,
+    description=f"{jar_handles}-handled; cunningly made biscuit porcelain",
+)
+
+Recipe(
+    "halflingcraft china jar, celadon",
+    "halflingware",
+    jar_weight,
+    {},
+    {
+        "halflingcraft china jar": 1 * u.item,
+        "glaze, celadon": jar_glaze,
+    },
+    vendor="potter",
+    capacity=registry["terracotta jar"].capacity,
+    description=f"{jar_handles}-handled; flawlessly glazed",
+)
+
+Recipe(
+    "halflingcraft earthenware jar, white",
+    "halflingware",
+    jar_weight,
+    {},
+    {
+        "halflingcraft terracotta jar": 1 * u.item,
+        "glaze, white": jar_glaze,
+    },
+    capacity=registry["terracotta jar"].capacity,
+    vendor="potter",
+    description=f"dexterously thrown and flawlessly glazed",
+)
+
+jar_enameling_proportion = D(1) / D(4)
+Recipe(
+    "halflingcraft earthenware jar, decorated",
+    "enamelware",
+    jar_weight,
+    {},
+    {
+        "halflingcraft earthenware jar, white": 1 * u.item,
+        "glaze, brown": jar_glaze * jar_enameling_proportion / 4,
+        "glaze, red": jar_glaze * jar_enameling_proportion / 4,
+        "glaze, blue": jar_glaze * jar_enameling_proportion / 4,
+        "glaze, celadon": jar_glaze * jar_enameling_proportion / 4,
+    },
+    capacity=registry["terracotta jar"].capacity,
+    vendor="potter",
+    description=f"enameled with four-color pastoral scenes",
+)
 )
 
 Recipe(
