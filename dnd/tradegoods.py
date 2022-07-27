@@ -3254,24 +3254,47 @@ for weapon, length in {
     )
 
 pig_sale_weight = D(120) * u.lb
+piglet_sale_weight = pig_sale_weight / 4
+piglet_sale_age = D(1) * u.year
+piglet_raising_fodder = fodder_while_growing(
+    0 * u.year,
+    piglet_sale_age,
+    0 * u.lb,
+    piglet_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
+
 Recipe(
     "piglet",
     "swine",
     pig_sale_weight / 4,
     {"swine": 1 * u.head},
+    {"animal feed": piglet_raising_fodder},
     vendor="stockyard",
     unit=1 * u.head,
+    description=f"{piglet_sale_age} old",
 )
 
-
+pig_sale_age = D(2) * u.year
+pig_raising_fodder = fodder_while_growing(
+    piglet_sale_age,
+    pig_sale_age,
+    piglet_sale_weight,
+    pig_sale_weight,
+    D(0.01) * u.lb / u.lb,
+)
 Recipe(
     "pig",
     "swine",
     pig_sale_weight,
     {},
-    {"piglet": 1 * u.head},
+    {
+        "piglet": 1 * u.head,
+        "animal feed": pig_raising_fodder,
+    },
     vendor="stockyard",
     unit=1 * u.head,
+    description=f"{pig_sale_age} old",
 )
 
 # TODO refactor into two sides of pork, which are then divided into different cuts
