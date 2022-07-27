@@ -4636,7 +4636,7 @@ Recipe(
     {"timber": spear_haft_weight},
     {"spearhead": 1 * u.item},
     vendor="weaponsmith",
-    description=f"1d6 damage, haft {spear_haft_length:~} long; 2-handed melee or 1-handed thrown 4/7/10",
+    description=f"1d6 damage, haft {spear_haft_length:~} long; 2-handed melee or 1-handed thrown",
 )
 
 dart_haft_length = D(6) * u.inch
@@ -4651,7 +4651,7 @@ Recipe(
     {"timber": dart_haft_weight},
     {"spearhead": 1 * u.item},
     vendor="weaponsmith",
-    description=f"1d3 damage; {dart_haft_length} haft; roughly a miniature spear; melee or thrown 3/4/5",
+    description=f"1d3 damage; {dart_haft_length} haft; roughly a miniature spear; melee or thrown",
 )
 
 mace_flange_length = D(4) * u.inch
