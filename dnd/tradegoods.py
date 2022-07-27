@@ -5169,7 +5169,7 @@ shuriken_spike_volume = triangular_prism_volume(
     D(1) * u.inch, D(1) * u.inch, shuriken_thickness
 )
 shuriken_total_volume = shuriken_body_volume + (4 * shuriken_spike_volume)
-shuriken_weight = density["steel"] * shuriken_total_volume
+shuriken_weight = (density["steel"] * shuriken_total_volume).to(u.oz)
 Recipe(
     "shuriken",
     "weapons",
