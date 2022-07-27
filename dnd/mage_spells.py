@@ -30,7 +30,7 @@ def camel_case_to_spaced(name):
 
 # switch to spell directory
 first_level_spell_directory = dnd_dir / Path(
-    "rules/spells/MageSpellDescriptions/Level1/"
+    "dnd/rules/todo/spells/MageSpellDescriptions/Level1/"
 )
 
 # retrieve and format spell names
