@@ -6420,6 +6420,23 @@ Recipe(
     vendor="redsmith",
 )
 
+oilseed_extraction_efficiency = D(0.5)
+linseed_oil_content = D(0.7)
+linseed_oil_sale_unit = D(1) * u.pint
+linseed_oil_sale_weight = (density["linseed oil"] * linseed_oil_sale_unit).to(u.lb)
+linseed_per_sale_unit_oil = linseed_oil_sale_weight / (
+    linseed_oil_content * oilseed_extraction_efficiency
+)
+Recipe(
+    "linseed oil",
+    "linseed oil",
+    linseed_oil_sale_weight,
+    {"linseed": linseed_per_sale_unit_oil},
+    {},
+    unit=linseed_oil_sale_unit,
+    container="bottle, pint",
+    vendor="miller",
+)
 
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
