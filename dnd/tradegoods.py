@@ -6354,7 +6354,7 @@ Recipe(
     {"cattle bone": D(0.1) * u.oz},
     difficulty=2,
     vendor="carver",
-    description="used for sewing cloth and leather; surgery requires a metal needle instead",
+    description="used for sewing cloth and leather; more delicate operations require a brass needle",
 )
 
 
