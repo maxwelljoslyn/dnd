@@ -3877,18 +3877,18 @@ lead_per_glass = D(0.25) * u.lb / u.lb
 Recipe(
     "lead glass",
     "glassware",
-    1 * u.lb,
+    glass_sale_weight,
     {
-        "soda ash": soda_per_glass * u.lb,
-        "dolomite": dolomite_per_glass * u.lb,
-        "salt": salt_per_glass * u.lb,
+        "soda ash": soda_per_glass * glass_sale_weight,
+        "dolomite": dolomite_per_glass * glass_sale_weight,
+        "salt": salt_per_glass * glass_sale_weight,
     },
     {
-        "fired clay": clay_per_glass * u.lb,
-        "raw lead": lead_per_glass * u.lb,
+        "fired clay": clay_per_glass * glass_sale_weight,
+        "raw lead": lead_per_glass * glass_sale_weight,
     },
     vendor="glazier",
-    unit=1 * u.lb,  # TODO use panes as unit
+    unit=glass_sale_weight,
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
