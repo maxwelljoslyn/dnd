@@ -1818,6 +1818,28 @@ Recipe(
     vendor="potter",
     description="mustardy ocher color; customer supplies container",
 )
+
+
+Recipe(
+    "glaze, black",
+    "pottery",
+    D(1) * u.lb,
+    {
+        # 50/50 carbon black and bone char because I want to use the raw material if I have it, but bone char was an actual specific _type_ of carbon black
+        "carbon black": (
+            glaze_solids_final_weight - sum(basic_glaze_ingredients.values())
+        )
+        / D(2)
+    },
+    {
+        "bone char": (glaze_solids_final_weight - sum(basic_glaze_ingredients.values()))
+        / D(2),
+        **basic_glaze_ingredients,
+    },
+    unit=14 * u.floz,
+    vendor="potter",
+    description="made with bone char",
+)
 )
 
 Recipe(
