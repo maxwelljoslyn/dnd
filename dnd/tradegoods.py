@@ -5969,6 +5969,19 @@ Recipe(
     description="female upper torso garment, with sleeves halfway down upper arm; not restrictive like a corset",
 )
 
+dress_area = bodice_area + skirt_area
+dress_weight = bodice_weight + skirt_weight
+Recipe(
+    "dress",
+    "clothing",  # TODO 'dresses' reference makes this hella expensive
+    dress_weight,
+    {},
+    {"cotton cloth": dress_area},
+    vendor="tailor",
+    description="female full-body garment, with sleeves halfway down upper arm",
+)
+
+
 # given neck radius N, and desired height H, ruff uses a piece of cloth N+2 inches * 1.2H
 # let's assume neck radius is 15 inches and ruff height is 3 inches
 ruff_area = D(17) * u.inch * D(3.6) * u.inch
