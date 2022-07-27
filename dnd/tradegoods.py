@@ -2929,7 +2929,7 @@ ordinary_cloth_picks = D(32)
 yarn_per_ordinary_cloth = (
     ((ordinary_cloth_ends + ordinary_cloth_picks) * u.inch) / (D(1) * u.sqin)
 ).to(u.inch / u.sqft)
-cloth_sale_unit = (D(1) * u.ell) * (D(6) * u.ft)
+cloth_sale_unit = (D(1) * u.ell) * (D(18) * u.ft)
 wool_ordinary_cloth_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / wool_yarn_sale_unit
