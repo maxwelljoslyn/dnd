@@ -2986,11 +2986,6 @@ Recipe(
     description="plainweave",
 )
 
-# Recipe(
-#        'wool sweater',
-#        'woolen goods',
-#        )
-
 Recipe(
     "worsted cloth, twill",
     "worsted cloth",
