@@ -2245,6 +2245,7 @@ casks = {
 for name, info in casks.items():
     height = Decimal(info["height"].magnitude) * info["height"].units
     radius = Decimal(info["radius"].magnitude) * info["radius"].units
+    difficulty = Decimal(info["difficulty"])
     m = cask_measurements(height, radius)
     total_head_weight = m["head weight"] * m["num heads"]
     total_stave_weight = m["stave weight"] * m["num staves"]
@@ -2260,6 +2261,7 @@ for name, info in casks.items():
         {"timber": total_head_weight + total_stave_weight},
         {"wrought iron": total_fat_hoop_weight + total_thin_hoop_weight},
         vendor="cooper",
+        difficulty=difficulty,
         capacity=m["volume"].to(u.gal),
         description=f"capacity {m['volume'].to(u.gal):~}, height {height:~}, radius {radius:~}",
     )
