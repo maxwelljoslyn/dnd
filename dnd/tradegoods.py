@@ -1323,7 +1323,7 @@ rennet_in_cheese = Decimal(0.5) * u.teaspoon / u.gallon * milk_in_cheese
 cheese_sale_unit = 1 * u.lb
 
 Recipe(
-    "ewes' milk cheese",
+    "cheese, ewes' milk",
     "cheese, ewes' milk",
     cheese_sale_unit,
     {"salt": salt_in_cheese * cheese_sale_unit},
