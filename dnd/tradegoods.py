@@ -3892,6 +3892,21 @@ Recipe(
     description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane",
 )
 
+Recipe(
+    "lead glass, cranberry",
+    "glassware",
+    glass_sale_weight,
+    {},
+    {
+        "raw gold": D(0.00001) * glass_sale_weight,
+        "raw tin": D(0.0001) * glass_sale_weight,
+        "lead glass": glass_sale_weight,
+    },
+    vendor="glazier",
+    unit=glass_sale_weight,
+    description=f"{glass_pane_length} x {glass_pane_width} x {glass_pane_thickness} pane; tinted with gold and tin",
+)
+
 wine_glass_weight = D(5) * u.oz
 Recipe(
     "glass, wine",
