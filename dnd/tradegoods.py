@@ -1722,6 +1722,21 @@ Recipe(
     vendor="potter",
     description="light brown, made from wood ash; customer supplies container",
 )
+
+Recipe(
+    "glaze, celadon",
+    "pottery",
+    D(1) * u.lb,
+    {
+        # colorant
+        "witherite": glaze_solids_final_weight
+        - sum(basic_glaze_ingredients.values()),
+    },
+    basic_glaze_ingredients,
+    unit=14 * u.floz,
+    vendor="potter",
+    description="delicate olive-green; customer supplies container",
+)
 )
 
 Recipe(
