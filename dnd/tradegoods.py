@@ -4564,20 +4564,30 @@ Recipe(
 arrow_radius = D(0.125) * u.inch
 arrow_length = D(28) * u.inch
 arrow_volume = cylinder_volume(arrow_length, arrow_radius)
-arrow_timber_weight = (density["timber"] * arrow_volume).to(u.oz)
+arrow_timber_weight = (density["wood, cedar"] * arrow_volume).to(u.oz)
+Recipe(
+    "arrow shaft",
+    "woodcraft",
+    arrow_timber_weight,
+    {"wood, cedar": arrow_timber_weight},
+    {},
+    difficulty=2,
+)
+
 arrow_feather_weight = D(3) * registry["feather, goose"].weight
 total_arrow_weight = arrow_timber_weight + arrow_feather_weight + arrowhead_weight
 Recipe(
     "arrow",
     "woodcraft",
     total_arrow_weight,
-    {"timber": arrow_timber_weight},
+    {},
     {
+        "arrow shaft": D(1) * u.item,
         "feather, goose": D(3) * u.item,
         "arrowhead": D(1) * u.item,
     },
     vendor="bowyer",
-    description=f"{arrow_length}",
+    description=f"cedarwood shaft; {arrow_length}",
 )
 
 silver_arrow_silver_weight = arrowhead_weight * silvering_percentage
@@ -4585,14 +4595,20 @@ Recipe(
     "arrow, silver",
     "woodcraft",
     total_arrow_weight + silver_arrow_silver_weight,
-    {"timber": arrow_timber_weight},
+    {},
     {
+        "arrow shaft": D(1) * u.item,
         "feather, goose": D(3) * u.item,
         "arrowhead": D(1) * u.item,
         "raw silver": silver_arrow_silver_weight,
     },
     vendor="bowyer",
-    description=f"{arrow_length}",
+    description="; ".join(
+        [
+            "silvering makes arrow effective against certain supernatural creatures",
+            registry["arrow"].description,
+        ]
+    ),
 )
 
 
