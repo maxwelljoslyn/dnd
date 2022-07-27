@@ -6075,7 +6075,7 @@ Recipe(
     + ", toughened for hard wearing",
 )
 
-blanket_length = 5 * u.ft
+blanket_length = 3 * u.ft
 blanket_width = 3 * u.ft
 blanket_area = blanket_length * blanket_width
 blanket_weight = (
