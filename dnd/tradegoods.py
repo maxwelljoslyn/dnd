@@ -1840,6 +1840,29 @@ Recipe(
     vendor="potter",
     description="made with bone char",
 )
+
+glazes = ["brown", "celadon", "white", "purple", "blue", "red", "yellow", "black"]
+
+
+cup_height = D(4) * u.inch
+cup_width = D(2.5) * u.inch
+cup_thickness = D(1) / D(8) * u.inch
+cup_inner_volume = cylinder_volume(cup_height, (cup_width - cup_thickness) / 2)
+cup_wall_volume = cylinder_volume(cup_height, cup_width / 2) - cup_inner_volume
+
+# bottom of cup
+cup_base_volume = cylinder_volume(cup_thickness, cup_width / 2)
+cup_clay_volume = cup_wall_volume + cup_base_volume
+cup_weight = (density["fired clay"] * cup_clay_volume).to(u.oz)
+Recipe(
+    "terracotta cup",
+    "ceramics",
+    cup_weight,
+    {},
+    {"fired clay": cup_weight},
+    capacity=cup_inner_volume.to(u.floz),
+    description="no handle; unglazed 'biscuit', so cannot contain liquids",
+)
 )
 
 Recipe(
