@@ -5759,31 +5759,41 @@ Recipe(
 
 # a cylinder of cloth for the bourrelet, plus a percentage for the rest of the cloth including cornette
 chaperon_area = (D(6) * u.inch * D(2) * u.feet) * D(1.8)
-cotton_chaperon_weight = (
-    chaperon_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+chaperon_weight = (
+    (chaperon_area / D(2))
+    / registry["cotton cloth"].unit
+    * registry["cotton cloth"].weight
+    + (chaperon_area / D(2))
+    / registry["woolen cloth"].unit
+    * registry["woolen cloth"].weight
 ).to(u.lb)
 Recipe(
-    "chaperon, cotton",
+    "chaperon",
     "hats",
-    cotton_chaperon_weight,
+    chaperon_weight,
     {},
-    {"cotton cloth": chaperon_area},
+    {
+        "cotton cloth": chaperon_area / D(2),
+        "woolen cloth": chaperon_area / D(2),
+    },
     vendor="hatter",
-    description="looped and draped bundle of cloth, wearable in many fashions",
+    description="looped and draped bundle of cloth, wearable in many fashions; cotton/wool blend",
 )
 
-wool_chaperon_weight = (
-    chaperon_area / registry["woolen cloth"].unit * registry["woolen cloth"].weight
-).to(u.lb)
-Recipe(
-    "chaperon, wool",
-    "hats",
-    wool_chaperon_weight,
-    {},
-    {"woolen cloth": chaperon_area},
-    vendor="hatter",
-    description=registry["chaperon, cotton"].description,
-)
+for color in cotton_dyes:
+    Recipe(
+        f"chaperon, {color}",
+        "hats",
+        registry["chaperon"].weight,
+        {},
+        {
+            f"cotton cloth, {color}": chaperon_area / D(2),
+            f"woolen cloth, {color}": chaperon_area / D(2),
+        },
+        vendor="hatter",
+        description="looped and draped bundle of cloth, wearable in many fashions; cotton/wool blend",
+    )
+
 
 knitcap_layers = D(2)
 knitcap_area = (
