@@ -1504,6 +1504,28 @@ Recipe(
     vendor="butcher",
 )
 
+ash_per_bone = D(0.55) * u.lb / u.lb
+Recipe(
+    "bone ash",
+    "meat",
+    1 * u.lb,
+    {},
+    {"cattle bone": (Decimal(1) * u.lb / ash_per_bone)},
+    unit=1 * u.lb,
+    vendor="collier",
+)
+
+char_per_bone = D(0.4) * u.lb / u.lb
+Recipe(
+    "bone char",
+    "meat",
+    1 * u.lb,
+    {},
+    {"cattle bone": (Decimal(1) * u.lb / char_per_bone)},
+    unit=1 * u.lb,
+    vendor="collier",
+)
+
 horn_per_cow = D(30) * u.lb
 Recipe(
     "cattle horn",
