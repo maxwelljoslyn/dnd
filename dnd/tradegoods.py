@@ -5521,12 +5521,11 @@ Recipe(
 murex_weight = D(4) * u.oz
 Recipe(
     "murex powder",
-    # https://thekindcraft.com/the-process-indigo-from-plant-to-paste/
     "dyestuff",
-    1 * u.gram,
-    {"murex": 12_000 * murex_weight},
+    D(1.4) * u.gram,
+    {"murex": 10_000 * murex_weight},
     {},
-    unit=1 * u.gram,
+    unit=D(1.4) * u.gram,
     description="the only true royal purple dyestuff",
 )
 
