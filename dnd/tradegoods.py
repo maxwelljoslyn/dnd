@@ -5848,6 +5848,19 @@ Recipe(
     description="unisex leggings covering groin, both legs, and both feet",
 )
 
+skirt_area = thigh_area_around_both + calf_area_around_both
+skirt_weight = (
+    skirt_area / registry["cotton cloth"].unit * registry["cotton cloth"].weight
+).to(u.lb)
+Recipe(
+    "skirt",
+    "clothing",
+    skirt_weight,
+    {},
+    {"cotton cloth": skirt_area},
+    vendor="tailor",
+    description="floor-length female garment; paired with a bodice, or worn under a dress",
+)
 
 # TODO 4 leather or ceramic buttons
 # TODO stitching
