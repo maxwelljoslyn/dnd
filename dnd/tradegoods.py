@@ -2716,6 +2716,18 @@ Recipe(
     description=registry["ale, in barrel"].description,
 )
 
+mead_per_serving = (D(1) * u.cup).to(u.floz)
+Recipe(
+    "mead, by the glass",
+    "foodstuffs",  # TODO anything better?
+    (density["water"] * mead_per_serving).to(u.lb),
+    {},
+    {"mead, in barrel": mead_per_serving},
+    unit=mead_per_serving,
+    vendor="tavern",
+    description=registry["mead, in barrel"].description,
+)
+
 
 beer_per_serving = D(1) * u.pint
 Recipe(
