@@ -6493,6 +6493,29 @@ Recipe(
     container="bottle, pint",
     vendor="miller",
 )
+
+breakfast_eggs = D(4)
+breakfast_bacon_strips = D(2)
+breakfast_bacon_strip_size = D(1) * u.oz
+breakfast_butter_amount = D(1) * u.tbsp
+breakfast_butter = (density["butter"] * breakfast_butter_amount).to(u.lb)
+# assume bacon shrinks by 1/2 weight once cooked
+breakfast_weight = (breakfast_eggs * registry["egg, chicken"].weight) + (
+    breakfast_bacon_strips * breakfast_bacon_strip_size / D(2)
+)
+Recipe(
+    "eggs and bacon",
+    "foodstuffs",
+    breakfast_weight,
+    {},
+    {
+        "butter": breakfast_butter,
+        "bacon": breakfast_bacon_strip_size * breakfast_bacon_strips,
+        "egg, chicken": breakfast_eggs * u.item,
+    },
+    vendor="innkeeper",
+    description=f"{breakfast_eggs} eggs and {breakfast_bacon_strips} strips of bacon, fried in butter and served piping-hot",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
