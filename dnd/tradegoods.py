@@ -2528,6 +2528,17 @@ for member in categories["dried fruit"]["members"]:
         unit=1 * u.lb,
     )
 
+for member in categories["treenuts"]["members"]:
+    Recipe(
+        member,
+        member,
+        1 * u.lb,
+        {member: 1 * u.lb},
+        {},
+        vendor="grocer",
+        unit=1 * u.lb,
+    )
+
 for member in categories["fruits"]["members"]:
     description = "sour orange" if member == "hushhash" else None
     Recipe(
