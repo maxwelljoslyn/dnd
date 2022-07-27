@@ -1929,6 +1929,18 @@ Recipe(
     capacity=jar_inner_volume.to(u.gallon),
     description=f"unglazed 'biscuitware' CANNOT contain liquids; {jar_handles}-handled",
 )
+
+
+Recipe(
+    "china jar",
+    "porcelain",
+    jar_weight,
+    {},
+    {"fired porcelain": jar_weight},
+    vendor="potter",
+    capacity=registry["terracotta jar"].capacity,
+    description=f"{jar_handles}-handled; unglazed (biscuit) porcelain",
+)
 )
 
 Recipe(
