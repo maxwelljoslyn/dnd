@@ -3636,6 +3636,15 @@ Recipe(
     unit=registry["beer, in barrel"].unit,
 )
 
+Recipe(
+    "wine vinegar, in barrel",
+    "vinegar",
+    registry["wine, in barrel"].weight,
+    {},
+    {"wine, in barrel": registry["wine, in barrel"].unit},
+    vendor="brewer",
+    unit=registry["wine, in barrel"].unit,
+)
 
 Recipe(
     "fired clay",
