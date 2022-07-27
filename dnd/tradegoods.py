@@ -2436,7 +2436,7 @@ Recipe(
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description=f"{str(rum_abv.magnitude)}% alcohol",
+    description=f"{str(rum_abv.magnitude)}% alcohol; Sugar Bay light rum with notes of cinnamon, oak, and dark cherries",
 )
 
 
