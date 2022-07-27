@@ -2391,7 +2391,7 @@ Recipe(
     unit=barrel_capacity,
     container="cask, barrel",
     vendor="brewer",
-    description=f"{str(beer_abv.magnitude)}% alcohol",
+    description=f"{str(beer_abv.magnitude)}% alcohol; light, refreshing lager that goes down easy",
 )
 
 Recipe(
