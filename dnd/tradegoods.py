@@ -4319,7 +4319,7 @@ Recipe(
     slate_shingle_weight,
     {},
     {"masonry, slate": shingle_volume},
-    vendor="mason",
+    vendor="builder",
     description=f"{shingle_length:~} x {shingle_width:~} x {shingle_thickness:~}",
 )
 
@@ -4330,7 +4330,7 @@ Recipe(
     earthenware_shingle_weight,
     {},
     {"fired clay": earthenware_shingle_weight},
-    vendor="potter",
+    vendor="builder",
     description=registry["shingle, slate"].description,
 )
 
