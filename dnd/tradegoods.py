@@ -6142,6 +6142,33 @@ Recipe(
     vendor="glover",
     description="glove with toughened palm for hard labor",
 )
+
+falconer_gauntlet_softleather = D(0.25) * long_glove_area
+falconer_gauntlet_hardleather = D(0.75) * long_glove_area
+falconer_gauntlet_weight = (
+    falconer_gauntlet_softleather
+    / registry["leather"].unit
+    * registry["leather"].weight
+).to(u.oz) + (
+    falconer_gauntlet_hardleather
+    / registry["boiled leather"].unit
+    * registry["boiled leather"].weight
+).to(
+    u.oz
+)
+Recipe(
+    "gauntlet, falconer",
+    "gloves",
+    falconer_gauntlet_weight,
+    {},
+    {
+        "leather": falconer_gauntlet_softleather,
+        "boiled leather": falconer_gauntlet_hardleather,
+    },
+    vendor="glover",
+    description="elbow-length toughened gauntlet with spots for attaching jesses",
+)
+
 stud_weight = D(2) * u.oz
 Recipe(
     "steel stud",
