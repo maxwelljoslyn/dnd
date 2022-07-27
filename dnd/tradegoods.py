@@ -3671,6 +3671,28 @@ Recipe(
     difficulty=2,  # higher firing temperature and multiple firings
     description="accounts for firing wet (hard-paste) porcelain, so it does not have to be done separately for all goods",
 )
+
+sling_bullet_weight = D(2) * u.oz
+Recipe(
+    "sling bullet",
+    "weapons",
+    sling_bullet_weight,
+    {},
+    {"fired clay": sling_bullet_weight},
+    vendor="weaponsmith",
+    description="if ordinary rocks are used, sling damage is -1",
+)
+
+sling_bullet_weight = D(2) * u.oz
+Recipe(
+    "sling bullet, engraved",
+    "weapons",
+    sling_bullet_weight,
+    {},
+    {"fired clay": sling_bullet_weight},
+    vendor="weaponsmith",
+    difficulty=1.5,
+    description="engraved with simple symbol, or word up to 5 letters in length",
 )
 
 # this is a huge fudge since it varies from stone to stone, but accurate enough for my purposes
