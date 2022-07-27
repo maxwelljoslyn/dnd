@@ -1879,6 +1879,31 @@ Recipe(
     capacity=registry["terracotta cup"].capacity,
     description="no handle",
 )
+
+Recipe(
+    "china cup",
+    "porcelain",
+    cup_weight,
+    {},
+    {"fired porcelain": cup_weight},
+    vendor="potter",
+    capacity=registry["terracotta cup"].capacity,
+    description="no handle; unglazed (biscuit) porcelain",
+)
+
+Recipe(
+    "china cup, celadon",
+    "porcelain",
+    cup_weight,
+    {},
+    {
+        "china cup": 1 * u.item,
+        "glaze, celadon": cup_glaze,
+    },
+    vendor="potter",
+    capacity=registry["terracotta cup"].capacity,
+    description="no handle",
+)
 )
 
 Recipe(
