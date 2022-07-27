@@ -6639,6 +6639,17 @@ Recipe(
     unit=D(4) * u.hour,
     description="creamy, floral scent",
 )
+
+Recipe(
+    "incense, camphor",
+    "incense",
+    incense_sale_weight,
+    {"camphor": D(0.15) * incense_sale_weight, **incense_raws},
+    incense_recipes,
+    vendor="apothecary",
+    unit=D(4) * u.hour,
+    description="musty, minty scent",
+)
 def no_vendor():
     return {k: v for k, v in registry.items() if not v.vendor}
 
