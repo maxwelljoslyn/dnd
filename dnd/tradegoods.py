@@ -2023,6 +2023,16 @@ Recipe(
     vendor="potter",
     description=f"enameled with four-color pastoral scenes",
 )
+
+timber_per_charcoal = Decimal(5) * u.lb / u.lb
+Recipe(
+    "charcoal",
+    "timber",
+    1 * u.lb,
+    {"timber": timber_per_charcoal * u.lb},
+    {},
+    unit=1 * u.lb,
+    vendor="collier",
 )
 
 Recipe(
