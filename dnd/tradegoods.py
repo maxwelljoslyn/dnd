@@ -1772,6 +1772,21 @@ Recipe(
     vendor="potter",
     description="dusky purple; customer supplies container",
 )
+
+Recipe(
+    "glaze, blue",
+    "pottery",
+    D(1) * u.lb,
+    {},
+    {
+        # colorant
+        "raw cobalt": glaze_solids_final_weight - sum(basic_glaze_ingredients.values()),
+        **basic_glaze_ingredients,
+    },
+    unit=14 * u.floz,
+    vendor="potter",
+    description="brilliant cobalt blue, second only to ultramarine; customer supplies container",
+)
 )
 
 Recipe(
