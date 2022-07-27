@@ -4684,6 +4684,38 @@ Recipe(
     description=f"1d6+1 damage, one-handed; haft {mace_haft_length:~} long",
 )
 
+warhammer_head_length = D(4) * u.inch
+warhammer_head_width = D(2) * u.inch
+warhammer_head_depth = warhammer_head_width
+warhammer_head_volume = (
+    warhammer_head_length * warhammer_head_width * warhammer_head_depth
+)
+warhammer_head_weight = (density["steel"] * warhammer_head_volume).to(u.lb)
+
+Recipe(
+    "warhammer head",
+    "weapons",
+    warhammer_head_weight,
+    {},
+    {"steel": warhammer_head_weight},
+)
+
+warhammer_haft_length = D(4) * u.foot
+warhammer_haft_radius = spear_haft_radius
+warhammer_haft_volume = cylinder_volume(warhammer_haft_length, warhammer_haft_radius)
+warhammer_haft_weight = (density["timber"] * warhammer_haft_volume).to(u.lb)
+warhammer_weight = warhammer_haft_weight + warhammer_head_weight
+
+Recipe(
+    "warhammer",
+    "weapons",
+    warhammer_weight,
+    {"timber": warhammer_haft_weight},
+    {"warhammer head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d6 damage, haft {warhammer_haft_length:~} long; 1-handed melee",
+)
+
 
 wire_sale_unit = D(100) * u.foot
 wire_volume = cylinder_volume(wire_sale_unit, gauge16wire_thickness)
