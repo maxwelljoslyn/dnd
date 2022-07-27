@@ -5642,6 +5642,72 @@ Recipe(
     description="rich umber, derived from ocher and manganese",
 )
 
+
+# leaving off royal purple for now
+cotton_dyes = [
+    "black",
+    "indigo",
+    "pink",
+    "green",
+    "yellow",
+    "light brown",
+    "dark brown",
+]
+wool_dyes = cotton_dyes + ["magenta", "crimson"]
+
+dye_for_yarn = D(2) * u.floz / u.lb
+
+for color in wool_dyes:
+    Recipe(
+        f"woolen yarn, {color}",
+        "woolen goods",
+        wool_yarn_sale_weight,
+        {},
+        {
+            "woolen yarn": wool_yarn_sale_unit,
+            f"dye, {color}": (dye_for_yarn * wool_yarn_sale_weight).to(u.floz),
+        },
+        unit=wool_yarn_sale_unit,
+        vendor="spinner",
+        description="useable as string, or in ropemaking and weaving",
+    )
+
+    Recipe(
+        f"woolen cloth, {color}",
+        "woolen cloth",
+        wool_ordinary_cloth_sale_weight,
+        {},
+        {f"woolen yarn, {color}": yarn_per_ordinary_cloth * cloth_sale_unit},
+        unit=cloth_sale_unit,
+        vendor="weaver",
+        description="plainweave",
+    )
+
+    if color in cotton_dyes:
+        Recipe(
+            f"cotton yarn, {color}",
+            "cotton goods",
+            cotton_yarn_sale_weight,
+            {},
+            {
+                "cotton yarn": cotton_yarn_sale_unit,
+                f"dye, {color}": (dye_for_yarn * cotton_yarn_sale_weight).to(u.floz),
+            },
+            unit=cotton_yarn_sale_unit,
+            vendor="spinner",
+            description="useable as string, or in ropemaking and weaving",
+        )
+
+        Recipe(
+            f"cotton cloth, {color}",
+            "cotton cloth",
+            cotton_plainweave_sale_weight,
+            {},
+            {f"cotton yarn, {color}": yarn_per_ordinary_cloth * cloth_sale_unit},
+            unit=cloth_sale_unit,
+            vendor="weaver",
+            description="plainweave",
+        )
 helmet_area = (
     D(0.75) * body_proportions["head"]["length"] * body_proportions["head"]["girth"]
 )
