@@ -176,6 +176,7 @@ density = {
         "molasses": 88.1233091 * u.lb / u.cuft,
         "timber": 40 * u.lb / u.cuft,
         "wood, oak": 40 * u.lb / u.cuft,
+        "wood, mahogany": 40 * u.lb / u.cuft,
         "wood, cedar": 30 * u.lb / u.cuft,
         "wood, pine": 25 * u.lb / u.cuft,
         "wood, fir": 38 * u.lb / u.cuft,
