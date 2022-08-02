@@ -6178,6 +6178,28 @@ for color in cotton_dyes:
         description="plainweave",
     )
 
+coffee_beans_sale_unit = D(10) * u.lb
+Recipe(
+    "coffee beans, green",
+    "coffee",
+    coffee_beans_sale_unit,
+    # the raw good is assumed to be coffee CHERRIES
+    {"coffee": coffee_beans_sale_unit},
+    {},
+    unit=coffee_beans_sale_unit,
+    vendor="grocer",
+    description="unroasted",
+)
+
+Recipe(
+    "coffee beans, roasted",
+    "coffee",
+    coffee_beans_sale_unit,
+    {},
+    {"coffee beans, green": coffee_beans_sale_unit},
+    unit=coffee_beans_sale_unit,
+    vendor="grocer",
+)
 
 
 
