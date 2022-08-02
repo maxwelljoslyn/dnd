@@ -5533,6 +5533,19 @@ Recipe(
     description=f"1d6 damage, haft {handaxe_haft_length:~} long, melee or thrown",
 )
 
+Recipe(
+    "halberd",
+    "weapons",
+    spear_haft_weight + (2 * handaxe_head_weight),
+    {
+        "timber": spear_haft_weight,
+    },
+    {
+        "handaxe head": 2 * u.item,
+    },
+    vendor="weaponsmith",
+    description="1d10 damage; 2-handed, double-headed poleaxe",
+)
 
 battleaxe_head_length = D(1.25) * handaxe_head_length
 battleaxe_head_width = handaxe_head_width
