@@ -165,6 +165,7 @@ def random_number_available(tradegood, price, year, week):
 density = {
     k: (Decimal(v.magnitude) * v.units).to(u.lb / u.cuft)
     for k, v in {
+        "turpentine": 54 * u.lb / u.cuft,
         "linseed oil": 0.93 * u.gram / u.cucm,
         "cottonseed oil": 0.92 * u.gram / u.cucm,
         "safflower oil": 0.92 * u.gram / u.cucm,
