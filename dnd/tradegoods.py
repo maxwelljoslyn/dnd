@@ -6242,6 +6242,18 @@ Recipe(
     description="espresso drowned in steamed milk",
 )
 
+cacao_pods_per_seed = D(10) * u.lb / u.lb
+cacao_seeds_sale_unit = D(10) * u.lb
+Recipe(
+    "cacao seeds",
+    "cacao",
+    cacao_seeds_sale_unit,
+    {"cacao": cacao_pods_per_seed * cacao_seeds_sale_unit},
+    {},
+    unit=cacao_seeds_sale_unit,
+    description="harvested from cacao pods, fermented, and dried",
+)
+
 
 
 paint_sale_unit = D(8) * u.floz
