@@ -816,6 +816,31 @@ Recipe(
     description="2 ft long, 3-inch diameter bell; used to announce arrivals of important people",
 )
 
+mountain_horn_length = D(9) * u.ft
+mountain_horn_weight = D(13.5) * u.lb
+mountain_horn_raw_wood_weight = mountain_horn_weight * D(1.25)
+Recipe(
+    "mountain horn block",
+    "woodcraft",
+    mountain_horn_weight,
+    {"wood, pine": mountain_horn_raw_wood_weight},
+    {},
+    vendor="carver",
+    description=f"a single piece of specially-selected pine, no less than {mountain_horn_length:~} long",
+)
+
+Recipe(
+    "mountain horn",
+    "musical instruments",
+    mountain_horn_weight,
+    {},
+    {"mountain horn block": 1 * u.item},
+    vendor="luthier",
+    difficulty=4,
+    description=f"{mountain_horn_length:~} long, carved from a single piece of pine; used for music and communication in mountain regions",
+)
+
+
 copper_in_lb_bellmetal = Decimal(0.78) * u.lb
 tin_in_lb_bellmetal = Decimal(0.22) * u.lb
 volume_bellmetal_ingot = (tin_in_lb_bellmetal / density["tin"]) + (
