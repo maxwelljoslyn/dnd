@@ -3715,8 +3715,10 @@ Recipe(
     registry["wine, in barrel"].weight,
     {},
     {"wine, in barrel": registry["wine, in barrel"].unit},
-    vendor="brewer",
+    vendor="vintner",
     unit=registry["wine, in barrel"].unit,
+    container=registry["wine, in barrel"].container,
+)
 )
 
 wetclay_per_dryclay = density["wet clay"] / density["fired clay"]
