@@ -4805,7 +4805,6 @@ Recipe(
     ),
 )
 
-
 spearhead_length = D(5) * u.inch
 spear_haft_radius = D(0.75) * u.inch
 spearhead_volume = cone_volume(spearhead_length, spear_haft_radius)
@@ -6071,7 +6070,9 @@ for color in cotton_dyes:
     )
 
 
-paint_sale_unit = 8 * u.floz
+
+
+paint_sale_unit = D(8) * u.floz
 oil_per_paint = paint_sale_unit
 pigment_per_paint = (((D(1) * u.oz) / (D(2) * u.floz)) * oil_per_paint).to(u.oz)
 paint_sale_weight = ((density["linseed oil"] * oil_per_paint) + pigment_per_paint).to(
@@ -6741,6 +6742,7 @@ Recipe(
     vendor="carver",
     description="oaken hammer for gently pounding nails, chisels, and more",
 )
+
 
 Recipe(
     "needle, brass",
