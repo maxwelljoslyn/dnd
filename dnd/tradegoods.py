@@ -3226,6 +3226,32 @@ Recipe(
     unit=rope_sale_unit,
 )
 
+pitch_per_torch_fuel = D(2) * u.floz
+cloth_per_torch_fuel = D(3) * u.sqft
+torch_fuel_weight = (
+    (pitch_per_torch_fuel / pitch_sale_unit * pitch_sale_weight)
+    + (
+        cloth_per_torch_fuel
+        / registry["cotton cloth"].unit
+        * registry["cotton cloth"].weight
+    )
+).to(u.oz)
+torch_fuel_unit = D(20) * u.minute
+Recipe(
+    "torch fuel",
+    "tools",  # TODO something better
+    torch_fuel_weight,
+    {},
+    {
+        "pitch": pitch_per_torch_fuel,
+        "cotton cloth": cloth_per_torch_fuel,
+    },
+    vendor="grocer",
+    unit=torch_fuel_unit,
+    description=f"burns for {torch_fuel_unit:~}",
+)
+
+
 hemp_plainweave_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / hemp_yarn_sale_unit
