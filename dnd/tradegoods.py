@@ -6274,6 +6274,43 @@ Recipe(
     unit=cacao_solids_sale_unit,
 )
 
+cacao_solids_per_dark_chocolate = D(0.8)
+sugar_per_dark_chocolate = D(0.2)
+dark_chocolate_sale_unit = D(4) * u.oz
+Recipe(
+    "dark chocolate",
+    "chocolate",
+    dark_chocolate_sale_unit,
+    {},
+    {
+        "cacao solids": cacao_solids_per_dark_chocolate * dark_chocolate_sale_unit,
+        "refined sugar": sugar_per_dark_chocolate * dark_chocolate_sale_unit,
+    },
+    vendor="confectioner",
+    unit=dark_chocolate_sale_unit,
+    description="bittersweet treat, in bar form",
+)
+
+cacao_solids_per_milk_chocolate = D(0.5)
+sugar_per_milk_chocolate = D(0.3)
+milk_per_milk_chocolate = D(0.2)
+milk_chocolate_sale_unit = dark_chocolate_sale_unit
+Recipe(
+    "milk chocolate",
+    "chocolate",
+    milk_chocolate_sale_unit,
+    {},
+    {
+        "cacao solids": cacao_solids_per_milk_chocolate * milk_chocolate_sale_unit,
+        "refined sugar": sugar_per_milk_chocolate * milk_chocolate_sale_unit,
+        "cow milk": (
+            (milk_per_milk_chocolate * milk_chocolate_sale_unit) / density["milk"]
+        ).to(u.floz),
+    },
+    vendor="confectioner",
+    unit=milk_chocolate_sale_unit,
+    description="sweeter and milkier than dark chocolate",
+)
 
 
 paint_sale_unit = D(8) * u.floz
