@@ -5619,6 +5619,30 @@ Recipe(
     description=f"1d6 damage; stout oaken cudgel, {club_length:~} long",
 )
 
+quarterstaff_length = D(5) * u.feet
+quarterstaff_radius = club_radius
+# multiplier accounts for carving away from a chunk of wood
+quarterstaff_volume = D(0.9) * cylinder_volume(quarterstaff_length, quarterstaff_radius)
+quarterstaff_body_weight = (density["wood, oak"] * quarterstaff_volume).to(u.lb)
+quarterstaff_cladding_length = D(2) * u.inch * 2  # 2 inches on both sides
+quarterstaff_cladding_radius = quarterstaff_radius * D(1.1)
+quarterstaff_cladding_volume = cylinder_volume(
+    quarterstaff_cladding_length, quarterstaff_cladding_radius
+) - cylinder_volume(quarterstaff_cladding_length, quarterstaff_radius)
+quarterstaff_cladding_weight = (
+    density["wrought iron"] * quarterstaff_cladding_volume
+).to(u.lb)
+quarterstaff_weight = quarterstaff_body_weight + quarterstaff_cladding_weight
+Recipe(
+    "quarterstaff",
+    "weapons",
+    quarterstaff_weight,
+    {"wood, oak": quarterstaff_body_weight},
+    {"wrought iron": quarterstaff_cladding_weight},
+    vendor="weaponsmith",
+    description=f"1d6 damage; {quarterstaff_length:~}-long oaken staff with iron-clad tips",
+)
+
 goedendag_head_length = D(4) * u.inch
 goedendag_haft_radius = D(1) * u.inch
 goedendag_head_volume = cone_volume(goedendag_head_length, goedendag_haft_radius)
