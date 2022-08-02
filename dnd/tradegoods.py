@@ -3474,8 +3474,8 @@ Recipe(
 )
 
 
-snuff_sale_weight = D(1) * u.oz
-snuff_per_use = D(0.2) * u.gram
+snuff_sale_weight = D(0.5) * u.oz
+snuff_per_use = D(0.25) * u.gram
 uses_per_snuff_sale_unit = floor(snuff_sale_weight / snuff_per_use) * u.use
 Recipe(
     "snuff",
