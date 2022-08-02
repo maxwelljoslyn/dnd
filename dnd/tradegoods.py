@@ -3677,7 +3677,7 @@ Recipe(
 
 # part eagle part lion - relatively light for its height
 # compare with hippogriff, part eagle part horse - much heavier and nastier
-griff_sale_weight = D(600) * u.lb
+griff_sale_weight = D(750) * u.lb
 griff_sale_age = D(1) * u.year
 griff_raising_fodder = fodder_while_growing(
     0 * u.year,
