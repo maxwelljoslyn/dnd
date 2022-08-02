@@ -5785,9 +5785,7 @@ Recipe(
     "dye, crimson",
     "dyestuff",
     dye_sale_weight,
-    {
-        "alum": 1 * u.oz,
-    },
+    {},
     {
         "cochineal powder": pigment_per_dye,
     },
@@ -5801,9 +5799,9 @@ Recipe(
     "dyestuff",
     dye_sale_weight,
     {
-        "alum": 1 * u.oz,
         # 50/50 carbon black and bone char because I want to use the raw material if I have it, but bone char was an actual specific _type_ of carbon black
-        "carbon black": pigment_per_dye / 2,
+        "carbon black": pigment_per_dye
+        / 2,
     },
     {
         "bone char": pigment_per_dye / 2,
@@ -5841,7 +5839,7 @@ Recipe(
     "dye, pink",
     "dyestuff",
     dye_sale_weight,
-    {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
+    {},
     {"pigment, madder": pigment_per_dye},
     unit=dye_sale_unit,
     vendor="dyer",
@@ -5864,7 +5862,7 @@ Recipe(
     "dye, indigo",
     "dyestuff",
     dye_sale_weight,
-    {"soda ash": 1 * u.oz, "alum": 1 * u.oz},
+    {},
     {"indigo paste": pigment_per_dye},
     unit=dye_sale_unit,
     vendor="dyer",
@@ -5966,7 +5964,6 @@ Recipe(
     "dye, yellow",
     "dyestuff",
     dye_sale_weight,
-    # TODO need mordants?
     {},
     {"pigment, ocher": pigment_per_dye},
     unit=dye_sale_unit,
@@ -5978,7 +5975,6 @@ Recipe(
     "dye, light brown",
     "dyestuff",
     dye_sale_weight,
-    # TODO need mordants?
     {},
     {"pigment, sienna": pigment_per_dye},
     unit=dye_sale_unit,
@@ -5991,7 +5987,6 @@ Recipe(
     "dye, dark brown",
     "dyestuff",
     dye_sale_weight,
-    # TODO need mordants?
     {},
     {"pigment, umber": pigment_per_dye},
     unit=dye_sale_unit,
@@ -6014,16 +6009,25 @@ wool_dyes = cotton_dyes + ["magenta", "crimson"]
 
 dye_for_yarn = D(2) * u.floz / u.lb
 
+mordants = {
+    "soda ash": D(0.06) * wool_yarn_sale_weight,
+    "alum": D(0.06) * wool_yarn_sale_weight,
+}
+
 for color in wool_dyes:
+    recs = {
+        "woolen yarn": wool_yarn_sale_unit,
+        f"dye, {color}": (dye_for_yarn * wool_yarn_sale_weight).to(u.floz),
+    }
+    if color == "crimson":
+        # cream of tartar needed to adjust final color of crimson color in dye
+        recs = {"cream of tartar": D(0.03) * wool_yarn_sale_weight, **recs}
     Recipe(
         f"woolen yarn, {color}",
         "woolen goods",
         wool_yarn_sale_weight,
-        {},
-        {
-            "woolen yarn": wool_yarn_sale_unit,
-            f"dye, {color}": (dye_for_yarn * wool_yarn_sale_weight).to(u.floz),
-        },
+        mordants,
+        recs,
         unit=wool_yarn_sale_unit,
         vendor="spinner",
         description="useable as string, or in ropemaking and weaving",
@@ -6040,31 +6044,32 @@ for color in wool_dyes:
         description="plainweave",
     )
 
-    if color in cotton_dyes:
-        Recipe(
-            f"cotton yarn, {color}",
-            "cotton goods",
-            cotton_yarn_sale_weight,
-            {},
-            {
-                "cotton yarn": cotton_yarn_sale_unit,
-                f"dye, {color}": (dye_for_yarn * cotton_yarn_sale_weight).to(u.floz),
-            },
-            unit=cotton_yarn_sale_unit,
-            vendor="spinner",
-            description="useable as string, or in ropemaking and weaving",
-        )
+for color in cotton_dyes:
+    Recipe(
+        f"cotton yarn, {color}",
+        "cotton goods",
+        cotton_yarn_sale_weight,
+        mordants,
+        {
+            "cotton yarn": cotton_yarn_sale_unit,
+            f"dye, {color}": (dye_for_yarn * cotton_yarn_sale_weight).to(u.floz),
+        },
+        unit=cotton_yarn_sale_unit,
+        vendor="spinner",
+        description="useable as string, or in ropemaking and weaving",
+    )
 
-        Recipe(
-            f"cotton cloth, {color}",
-            "cotton cloth",
-            cotton_plainweave_sale_weight,
-            {},
-            {f"cotton yarn, {color}": yarn_per_ordinary_cloth * cloth_sale_unit},
-            unit=cloth_sale_unit,
-            vendor="weaver",
-            description="plainweave",
-        )
+    Recipe(
+        f"cotton cloth, {color}",
+        "cotton cloth",
+        cotton_plainweave_sale_weight,
+        {},
+        {f"cotton yarn, {color}": ordinary_cloth_total_yarn},
+        unit=cloth_sale_unit,
+        vendor="weaver",
+        description="plainweave",
+    )
+
 
 paint_sale_unit = 8 * u.floz
 oil_per_paint = paint_sale_unit
