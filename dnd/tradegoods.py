@@ -3780,6 +3780,17 @@ Recipe(
     unit=registry["wine, in barrel"].unit,
     container=registry["wine, in barrel"].container,
 )
+
+tartar_per_wine = D(1) * u.oz / u.gallon
+tartar_sale_weight = (tartar_per_wine * registry["wine, in barrel"].unit).to(u.lb)
+Recipe(
+    "cream of tartar",
+    "wine",
+    tartar_sale_weight,
+    {},
+    {"wine, in barrel": registry["wine, in barrel"].unit},
+    vendor="vintner",
+    unit=tartar_sale_weight,
 )
 
 wetclay_per_dryclay = density["wet clay"] / density["fired clay"]
