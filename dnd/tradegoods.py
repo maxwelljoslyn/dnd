@@ -3011,6 +3011,7 @@ wool_ordinary_cloth_sale_weight = (
     / wool_yarn_sale_unit
     * wool_yarn_sale_weight
 ).to(u.lb)
+ordinary_cloth_total_yarn = (yarn_per_ordinary_cloth * cloth_sale_unit).to(u.ft)
 # the WEAVE PATTERN influences neither weight nor ends/picks per inch, but does influence difficulty
 
 Recipe(
@@ -3018,7 +3019,7 @@ Recipe(
     "woolen cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"woolen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"woolen yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
@@ -3029,7 +3030,7 @@ Recipe(
     "woolen cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"brushed woolen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"brushed woolen yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="extra soft plainweave",
@@ -3041,11 +3042,7 @@ Recipe(
     "woolen cloth",
     wool_ordinary_cloth_sale_weight * D(2),
     {},
-    {
-        "woolen yarn": yarn_per_ordinary_cloth
-        * cloth_sale_unit
-        * broadcloth_shrinking_factor
-    },
+    {"woolen yarn": ordinary_cloth_total_yarn * broadcloth_shrinking_factor},
     unit=cloth_sale_unit * D(2),
     vendor="weaver",
     description="stiff and tough plainweave woolen cloth, sold in double-wide bolts",
@@ -3056,7 +3053,7 @@ Recipe(
     "worsted cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"worsted yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
@@ -3067,7 +3064,7 @@ Recipe(
     "worsted cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"worsted yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     difficulty=1.1,
@@ -3079,7 +3076,7 @@ Recipe(
     "worsted cloth",
     wool_ordinary_cloth_sale_weight,
     {},
-    {"worsted yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"worsted yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     difficulty=1.2,
@@ -3121,7 +3118,7 @@ Recipe(
     "cotton cloth",
     cotton_plainweave_sale_weight,
     {},
-    {"cotton yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"cotton yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
@@ -3172,7 +3169,7 @@ Recipe(
     "linen cloth",
     linen_plainweave_sale_weight,
     {},
-    {"linen yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"linen yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave",
@@ -3239,7 +3236,7 @@ Recipe(
     "rough fiber cloth",
     hemp_plainweave_sale_weight,
     {},
-    {"hemp yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"hemp yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave; durable cloth for goods including bags, sacks, upholstery, and curtains",
@@ -3251,7 +3248,7 @@ Recipe(
     "canvas",
     hemp_plainweave_sale_weight,
     {},
-    {"hemp yarn": yarn_per_ordinary_cloth * cloth_sale_unit},
+    {"hemp yarn": ordinary_cloth_total_yarn},
     unit=cloth_sale_unit,
     vendor="weaver",
     description="plainweave; heavy-duty textile used for goods including sails, tents, bale covers, and paintings",
@@ -5753,7 +5750,7 @@ for color in wool_dyes:
         "woolen cloth",
         wool_ordinary_cloth_sale_weight,
         {},
-        {f"woolen yarn, {color}": yarn_per_ordinary_cloth * cloth_sale_unit},
+        {f"woolen yarn, {color}": ordinary_cloth_total_yarn},
         unit=cloth_sale_unit,
         vendor="weaver",
         description="plainweave",
