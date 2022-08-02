@@ -4016,8 +4016,15 @@ Recipe(
     description="heavy-bottomed glass for spirits",
 )
 
+cork_weight = D(1) * u.oz
+Recipe(
+    "cork",
+    "tools",
+    cork_weight,
+    {"wood, cork": cork_weight},
+    {},
+)
 
-# TODO add cork
 wine_bottle_weight = D(1.4) * u.lb
 wine_bottle_capacity = D(6) * wine_per_serving
 Recipe(
@@ -4025,7 +4032,10 @@ Recipe(
     "glassware",
     wine_bottle_weight,
     {},
-    {"soda glass": wine_bottle_weight},
+    {
+        "soda glass": wine_bottle_weight,
+        "cork": 1 * u.item,
+    },
     vendor="glassblower",
     capacity=wine_bottle_capacity,
 )
@@ -4052,7 +4062,10 @@ Recipe(
     "glassware",
     pint_bottle_weight,
     {},
-    {"soda glass": pint_bottle_weight},
+    {
+        "soda glass": pint_bottle_weight,
+        "cork": 1 * u.item,
+    },
     vendor="glassblower",
     capacity=pint_bottle_capacity,
 )
