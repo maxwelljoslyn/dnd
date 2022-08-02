@@ -3640,6 +3640,20 @@ Recipe(
     description="mild acid; widely used in medicine and industry",
 )
 
+sulfur_per_vitriol = D(4) * u.oz
+vitriol_sale_unit = D(8) * u.floz
+Recipe(
+    "oil of vitriol",
+    "vitriol",
+    (density["water"] * vitriol_sale_unit).to(u.oz),
+    {"sulfur": sulfur_per_vitriol},
+    {"aqua fortis": vitriol_sale_unit},
+    vendor="apothecary",
+    unit=vitriol_sale_unit,
+    container="vial",
+    description="strong acid; widely used in medicine and industry",
+)
+
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
 drafthorse_foal_weight = drafthorse_sale_weight / D(3)
