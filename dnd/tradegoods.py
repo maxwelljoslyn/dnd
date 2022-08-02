@@ -4070,6 +4070,40 @@ Recipe(
     capacity=pint_bottle_capacity,
 )
 
+vial_weight = pint_bottle_weight / D(2)
+vial_capacity = pint_bottle_capacity / D(2)
+Recipe(
+    "vial",
+    "glassware",
+    vial_weight,
+    {},
+    {
+        "soda glass": vial_weight,
+        "cork": 1 * u.item,
+    },
+    vendor="glassblower",
+    capacity=vial_capacity,
+    description="medium glass container",
+)
+
+flacon_weight = pint_bottle_weight / D(4)
+flacon_capacity = pint_bottle_capacity / D(4)
+Recipe(
+    "flacon",
+    "glassware",
+    flacon_weight,
+    {},
+    {
+        "soda glass": flacon_weight,
+        "cork": 1 * u.item,
+    },
+    vendor="glassblower",
+    capacity=flacon_capacity,
+    description="small glass container",
+)
+
+
+
 for each in ("beer", "ale", "gnomish beer", "kumiss", "mead"):
     Recipe(
         f"{each}, in bottle",
