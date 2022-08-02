@@ -4925,34 +4925,38 @@ Recipe(
     description=f"1d3 damage; {dart_haft_length} haft; roughly a miniature spear; melee or thrown",
 )
 
-mace_flange_length = D(4) * u.inch
-mace_flange_height = D(1) * u.inch
-mace_flange_thickness = D(0.25) * u.inch
-mace_flange_volume = triangular_prism_volume(
-    mace_flange_length, mace_flange_height, mace_flange_thickness
+mace_spike_length = D(4) * u.inch
+mace_spike_height = D(1.5) * u.inch
+mace_spike_thickness = D(0.25) * u.inch
+mace_spike_volume = triangular_prism_volume(
+    mace_spike_length, mace_spike_height, mace_spike_thickness
 )
-mace_flange_weight = (density["steel"] * mace_flange_volume).to(u.lb)
+mace_spike_count = D(6)
+mace_spike_weight = (density["steel"] * mace_spike_volume).to(u.lb)
+mace_spike_total_weight = mace_spike_count * mace_spike_weight
+mace_head_additional_metal_percent = D(1.25)
+mace_head_weight = mace_spike_total_weight * mace_head_additional_metal_percent
 Recipe(
-    "mace flange",
+    "mace head",
     "weapons",
-    mace_flange_weight,
+    mace_head_weight,
     {},
-    {"steel": mace_flange_weight},
+    {"steel": mace_head_weight},
 )
 
 mace_haft_length = D(2.5) * u.foot
 mace_haft_radius = D(1) * u.inch
 mace_haft_volume = cylinder_volume(mace_haft_length, mace_haft_radius)
 mace_haft_weight = (density["timber"] * mace_haft_volume).to(u.lb)
-mace_weight = mace_haft_weight + (6 * mace_flange_weight)
+mace_weight = mace_haft_weight + mace_head_weight
 Recipe(
     "mace",
     "weapons",
     mace_weight,
     {"timber": mace_haft_weight},
-    {"mace flange": 6 * u.item},
+    {"mace head": 1 * u.item},
     vendor="weaponsmith",
-    description=f"1d6+1 damage, one-handed; haft {mace_haft_length:~} long",
+    description=f"1d6+1 damage, one-handed; {mace_spike_count}-spiked head with {mace_haft_length:~} haft",
 )
 
 warhammer_head_length = D(4) * u.inch
