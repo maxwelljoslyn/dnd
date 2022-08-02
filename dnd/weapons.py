@@ -96,6 +96,7 @@ weapons = {
             "bec de corbin",
             "ranseur",
             "corseque",
+            "espontoon",
             "other stabbing/hooking/forking polearms",
         ],
     },
@@ -173,8 +174,7 @@ weapons = {
         "includes": [
             "dueling rapier",
             "smallsword",
-            "cutlass",
-            "hanger",
+            "hanger sword",
             "gladius",
             "lange messer",
             "arming sword",
