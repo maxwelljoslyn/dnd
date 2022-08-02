@@ -6776,7 +6776,7 @@ Recipe(
 
 
 Recipe(
-    "stirring rod, glass",
+    "stirring rod",
     "tools",
     D(4) * u.oz,
     {},
