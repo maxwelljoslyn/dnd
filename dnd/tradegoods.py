@@ -7082,6 +7082,15 @@ Recipe(
     description="made of lead glass; used for medicine, alchemy, and more",
 )
 
+Recipe(
+    "pipette",
+    "precision tools",
+    D(3) * u.oz,
+    {},
+    {"lead glass": D(3) * u.oz},
+    vendor="glassblower",
+    description="glass dropper used in medicine and alchemy",
+)
 
 crystal_ball_weight = D(2) * u.lb
 Recipe(
