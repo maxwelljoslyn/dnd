@@ -3707,6 +3707,7 @@ Recipe(
     {"beer, in barrel": registry["beer, in barrel"].unit},
     vendor="brewer",
     unit=registry["beer, in barrel"].unit,
+    container=registry["beer, in barrel"].container,
 )
 
 Recipe(
