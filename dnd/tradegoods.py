@@ -4833,6 +4833,33 @@ Recipe(
     description=f"1d6 damage, haft {spear_haft_length:~} long; 2-handed melee or 1-handed thrown",
 )
 
+javelin_head_length = D(4) * u.inch
+javelin_haft_radius = D(0.6) * u.inch
+javelin_head_volume = cone_volume(javelin_head_length, javelin_haft_radius)
+javelin_head_weight = (density["steel"] * javelin_head_volume).to(u.lb)
+
+Recipe(
+    "javelin head",
+    "weapons",
+    javelin_head_weight,
+    {},
+    {"steel": javelin_head_weight},
+)
+
+javelin_haft_length = D(4) * u.foot
+javelin_haft_volume = cylinder_volume(javelin_haft_length, javelin_haft_radius)
+javelin_haft_weight = (density["timber"] * javelin_haft_volume).to(u.lb)
+javelin_weight = javelin_haft_weight + javelin_head_weight
+Recipe(
+    "javelin",
+    "weapons",
+    javelin_weight,
+    {"timber": javelin_haft_weight},
+    {"javelin head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d6 damage, haft {javelin_haft_length:~} long; light spear with excellent throwing range; not useful in melee",
+)
+
 dart_haft_length = D(6) * u.inch
 dart_haft_radius = spear_haft_radius
 dart_haft_volume = cylinder_volume(dart_haft_length, dart_haft_radius)
