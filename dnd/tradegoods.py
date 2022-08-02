@@ -6228,6 +6228,20 @@ Recipe(
     description="made from fresh-roasted beans",
 )
 
+Recipe(
+    "coffee latte",
+    "coffee",
+    (density["milk"] * liquid_coffee_sale_unit).to(u.oz),
+    {},
+    {
+        "espresso": espresso_sale_unit,
+        "cow milk": liquid_coffee_sale_unit - espresso_sale_unit,
+    },
+    vendor="coffeehouse",
+    unit=liquid_coffee_sale_unit,
+    description="espresso drowned in steamed milk",
+)
+
 
 
 paint_sale_unit = D(8) * u.floz
