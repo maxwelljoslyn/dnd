@@ -4940,6 +4940,35 @@ Recipe(
     description=f"1d3 damage; thrown to entangle creatures or foes",
 )
 
+# TODO less lazy calculations
+flail_ball_weight = D(2) * u.lb
+flail_chain_weight = D(0.5) * u.lb
+flail_head_weight = flail_ball_weight + flail_chain_weight
+Recipe(
+    "flail head",
+    "weapons",
+    flail_head_weight,
+    {},
+    {
+        "steel": flail_head_weight,
+    },
+)
+
+flail_haft_length = D(2.5) * u.foot
+flail_haft_radius = spear_haft_radius
+flail_haft_volume = cylinder_volume(flail_haft_length, flail_haft_radius)
+flail_haft_weight = (density["timber"] * flail_haft_volume).to(u.lb)
+flail_weight = flail_haft_weight + flail_head_weight
+Recipe(
+    "flail",
+    "weapons",
+    flail_weight,
+    {"timber": flail_haft_weight},
+    {"flail head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d6+1 damage, one-handed; haft {flail_haft_length:~} long",
+)
+
 mace_spike_length = D(4) * u.inch
 mace_spike_height = D(1.5) * u.inch
 mace_spike_thickness = D(0.25) * u.inch
