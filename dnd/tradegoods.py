@@ -2209,6 +2209,7 @@ Recipe(
     {},
     {"rawhide": thong_area},
     vendor="tanner",
+    unit=thong_length,
     description=f"used for attaching equipment to belts, or otherwise tying things together; {thong_width} by {thong_length}",
 )
 
