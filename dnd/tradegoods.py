@@ -1528,6 +1528,17 @@ Recipe(
     vendor="butcher",
 )
 
+gut_per_cow = D(100) * u.ft
+Recipe(
+    "cattle gut",
+    "meat",
+    innards_per_cow,
+    {},
+    {"cow, beef": 1 * u.head},
+    unit=gut_per_cow,
+    vendor="butcher",
+)
+
 salt_for_beefjerky = (density["salt"] * (D(2) * u.teaspoon)).to(u.oz)
 pepper_for_beefjerky = 2 * salt_for_beefjerky
 Recipe(
