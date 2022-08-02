@@ -6658,6 +6658,19 @@ Recipe(
     description="cost per person. Chance available per person: 5/6 before 2 PM; 4/6 before 4; 2/6 before 6; 20% thereafter",
 )
 
+Recipe(
+    "hot bath",
+    "foodstuffs",  # TODO what's better for general innkeeping services?,
+    0 * u.lb,
+    {},
+    {
+        "hard soap": 1 * u.use,
+        "charcoal": 2 * u.lb,
+    },
+    vendor="innkeeper",
+    description="in wooden tub, with soap",
+)
+
 tilled_land_sale_unit = D(1) * u.acre
 cereal_crop_per_acre = D(1) * u.ton / u.acre
 Recipe(
