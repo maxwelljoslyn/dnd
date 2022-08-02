@@ -6201,6 +6201,19 @@ Recipe(
     vendor="grocer",
 )
 
+grounds_per_coffee = ((D(1) * u.gram) / (D(18) * u.ml)).to(u.oz / u.floz)
+liquid_coffee_sale_unit = D(8) * u.floz
+Recipe(
+    "coffee",
+    "coffee",
+    (density["water"] * liquid_coffee_sale_unit).to(u.oz),
+    {},
+    {"coffee beans, roasted": (grounds_per_coffee * liquid_coffee_sale_unit).to(u.oz)},
+    vendor="coffeehouse",
+    unit=liquid_coffee_sale_unit,
+    description="made from fresh-roasted beans",
+)
+
 
 
 paint_sale_unit = D(8) * u.floz
