@@ -4893,6 +4893,23 @@ Recipe(
     description=f"1d4+1 damage,  1-handed melee or thrown; {trident_haft_length:~} haft topped with {trident_tines}x {trident_tine_length.magnitude}-{trident_tine_length.units} spikes",
 )
 
+chakram_outer_radius = D(6) * u.inch
+chakram_inner_radius = D(3) * u.inch
+chakram_thickness = D(0.125) * u.inch / 2
+chakram_volume = cylinder_volume(
+    chakram_thickness, chakram_outer_radius
+) - cylinder_volume(chakram_thickness, chakram_inner_radius)
+chakram_weight = (density["steel"] * chakram_volume).to(u.lb)
+Recipe(
+    "chakram",
+    "weapons",
+    chakram_weight,
+    {},
+    {"steel": chakram_weight},
+    vendor="weaponsmith",
+    description=f"razor-sharp metal disc with central gripping hole; 1d4 damage; melee or thrown 6/9/12",
+)
+
 dart_haft_length = D(6) * u.inch
 dart_haft_radius = spear_haft_radius
 dart_haft_volume = cylinder_volume(dart_haft_length, dart_haft_radius)
