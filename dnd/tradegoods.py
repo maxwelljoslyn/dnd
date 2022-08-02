@@ -792,6 +792,18 @@ Recipe(
     description="ingot, 1.77x2.05x0.95 in.",
 )
 
+bugle_weight = D(1) * u.lb
+Recipe(
+    "bugle",
+    "musical instruments",
+    bugle_weight,
+    {},
+    {"brass": bugle_weight},
+    vendor="luthier",
+    difficulty=2,
+    description="1 ft long, 3.5-inch diameter bell; used by cavalry and dragoon companies to communicate",
+)
+
 
 copper_in_lb_bellmetal = Decimal(0.78) * u.lb
 tin_in_lb_bellmetal = Decimal(0.22) * u.lb
