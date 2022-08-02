@@ -1515,9 +1515,9 @@ Recipe(
 # https://beef.unl.edu/beefwatch/2020/how-many-pounds-meat-can-we-expect-beef-animal
 cow_carcass_weight = cow_sale_weight * cattle_carcass_fraction
 beef_per_cow = cow_carcass_weight * cattle_meat_fraction
-bone_per_cow = (cow_carcass_weight * (D(1) - cattle_meat_fraction)) / D(2)
-# divide bone per cow in half b/c we assume half of nonmeat carcass weight is bone, and half is fat
-fat_per_cow = bone_per_cow
+nonbeef_per_cow = (cow_carcass_weight * (D(1) - cattle_meat_fraction)).to(u.lb)
+bone_per_cow = fat_per_cow = nonbeef_per_cow * D(0.4)
+innards_per_cow = nonbeef_per_cow * D(0.2)
 Recipe(
     "beef",
     "beef",
