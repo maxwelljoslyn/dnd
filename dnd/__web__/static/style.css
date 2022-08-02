@@ -73,3 +73,8 @@ td {
     margin: .33em;
     padding: .1em;
 }
+
+.vendor-name a {
+    color: inherit;
+    text-decoration: none;
+}
