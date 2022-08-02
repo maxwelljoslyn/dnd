@@ -4177,8 +4177,8 @@ for each in ("beer", "ale", "gnomish beer", "kumiss", "mead"):
             f"{each}, in barrel": pint_bottle_capacity,
         },
         unit=pint_bottle_capacity,
-        vendor="brewer",
         container="pint bottle",
+        vendor=registry[f"{each}, in barrel"].vendor,
         description=registry[f"{each}, in barrel"].description,
     )
 
