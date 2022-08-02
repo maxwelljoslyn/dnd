@@ -3321,6 +3321,20 @@ Recipe(
     description="with mahogany shell and gut strings for tensioning the drumheads",
 )
 
+drumstick_weight = D(8) * u.oz
+drumstick_block_weight = drumstick_weight * 2
+Recipe(
+    "drumsticks",
+    "woodcraft",
+    drumstick_weight * 2,
+    {"wood, pine": drumstick_block_weight * 2},
+    {},
+    unit=2 * u.item,
+    vendor="luthier",
+    description="matched pair, carved from pine",
+)
+
+
 hemp_plainweave_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / hemp_yarn_sale_unit
