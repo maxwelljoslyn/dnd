@@ -6312,6 +6312,43 @@ Recipe(
     description="sweeter and milkier than dark chocolate",
 )
 
+raw_licorice_per_licorice_extract = D(8) * u.oz
+grain_alcohol_per_licorice_extract = D(1) * u.pint
+licorice_extract_sale_unit = D(1) * u.pint
+licorice_extract_sale_weight = (density["water"] * licorice_extract_sale_unit).to(u.oz)
+Recipe(
+    "licorice extract",
+    "licorice",
+    licorice_extract_sale_weight,
+    {"licorice": raw_licorice_per_licorice_extract},
+    {"grain alcohol, in barrel": grain_alcohol_per_licorice_extract},
+    unit=licorice_extract_sale_unit,
+)
+
+licorice_candy_sale_unit = D(4) * u.oz
+extract_per_licorice_candy = (D(0.4) * licorice_candy_sale_unit).to(u.oz) / density[
+    "water"
+]
+sugar_per_licorice_candy = (D(0.3) * licorice_candy_sale_unit).to(u.oz)
+binder_per_licorice_candy = (D(0.1) * licorice_candy_sale_unit).to(u.oz)
+anise_per_licorice_candy = (D(0.2) * licorice_candy_sale_unit).to(u.oz)
+Recipe(
+    "licorice",
+    "licorice",
+    licorice_candy_sale_unit,
+    {
+        "anise": anise_per_licorice_candy,
+        "gum arabic": binder_per_licorice_candy,
+    },
+    {
+        "licorice extract": extract_per_licorice_candy,
+        "refined sugar": sugar_per_licorice_candy,
+    },
+    vendor="confectioner",
+    unit=licorice_candy_sale_unit,
+    description="black licorice flavored with anise and sugar",
+)
+
 
 paint_sale_unit = D(8) * u.floz
 oil_per_paint = paint_sale_unit
