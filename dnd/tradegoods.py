@@ -3462,7 +3462,7 @@ Recipe(
     vendor="tobacconist",
 )
 
-cigar_weight = D(0.75) * u.oz
+cigar_weight = D(2.5) * u.oz
 Recipe(
     "cigar",
     "tobacco",
