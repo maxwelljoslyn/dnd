@@ -6214,6 +6214,20 @@ Recipe(
     description="made from fresh-roasted beans",
 )
 
+grounds_per_espresso = ((D(7) * u.gram) / u.floz).to(u.oz / u.floz)
+espresso_sale_unit = D(1) * u.floz
+Recipe(
+    "espresso",
+    "coffee",
+    (density["water"] * espresso_sale_unit).to(u.oz),
+    {},
+    {"coffee beans, roasted": (grounds_per_espresso * espresso_sale_unit).to(u.oz)},
+    vendor="coffeehouse",
+    unit=espresso_sale_unit,
+    difficulty=1.5,
+    description="made from fresh-roasted beans",
+)
+
 
 
 paint_sale_unit = D(8) * u.floz
