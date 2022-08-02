@@ -3572,7 +3572,7 @@ Recipe(
     {"animal feed": ridinghorse_raising_fodder},
     unit=1 * u.head,
     vendor="stockyard",
-    description=f"{ridinghorse_sale_age} old, {ridinghorse_sale_weight:~}, {D(15) * u.hand:~} tall",
+    description=f"{ridinghorse_sale_age} old, {D(15) * u.hand:~} tall",
 )
 
 # assumes that a riding horse could instead be used for milking
@@ -3646,7 +3646,7 @@ Recipe(
     {"animal feed": drafthorse_raising_fodder},
     unit=1 * u.head,
     vendor="stockyard",
-    description=f"{drafthorse_sale_age} old, {drafthorse_sale_weight:~}, {D(18) * u.hand:~} tall",
+    description=f"{drafthorse_sale_age} old, {D(18) * u.hand:~} tall",
 )
 
 # TODO war horses avg weight 1400
@@ -3672,7 +3672,7 @@ Recipe(
     {"animal feed": donkey_raising_fodder},
     vendor="stockyard",
     unit=1 * u.head,
-    description=f"{donkey_sale_age} old jack (male), {donkey_sale_weight:~}; can carry 125 lbs",
+    description=f"{donkey_sale_age} old jack (male), can carry 125 lbs",
 )
 
 # part eagle part lion - relatively light for its height
@@ -3696,7 +3696,7 @@ Recipe(
     vendor="stockyard",
     unit=1 * u.head,
     difficulty=2.5,
-    description=f"{griff_sale_age} old, {griff_sale_weight:~}, {D(12) * u.hand} tall",
+    description=f"{griff_sale_age} old, {D(12) * u.hand} tall",
 )
 
 Recipe(
