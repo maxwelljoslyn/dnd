@@ -1016,7 +1016,7 @@ unit_blade_volume = (unit_blade_length * unit_blade_width * unit_blade_thickness
 unit_blade_weight = unit_blade_volume * density["steel"]
 Recipe(
     "blade",
-    "metalsmithing",  # TODO weapons
+    "weapons",
     unit_blade_weight,
     {},
     {"steel": unit_blade_weight},
@@ -1028,7 +1028,7 @@ dagger_blade_needed = dagger_length / u.ft
 dagger_weight = hilt_weight + pommel_weight + (dagger_blade_needed * unit_blade_weight)
 Recipe(
     "dagger",
-    "weapons",
+    "knives",
     dagger_weight,
     {},
     {
@@ -1045,7 +1045,7 @@ silver_per_silver_dagger = (
 ) * silvering_percentage
 Recipe(
     "dagger, silver",
-    "weapons",
+    "knives",
     dagger_weight,
     {},
     {
