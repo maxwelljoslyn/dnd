@@ -4860,6 +4860,39 @@ Recipe(
     description=f"1d6 damage, haft {javelin_haft_length:~} long; light spear with excellent throwing range; not useful in melee",
 )
 
+trident_tine_length = D(5) * u.inch
+trident_tine_radius = D(0.25) * u.inch
+trident_tines = D(3)
+trident_head_additonal_metal_percent = D(1.25)  # base of the head, including tang
+trident_tine_volume = (
+    cone_volume(trident_tine_length, trident_tine_radius)
+    * trident_head_additonal_metal_percent
+)
+trident_tine_weight = (density["steel"] * trident_tine_volume).to(u.lb)
+trident_head_weight = trident_tine_weight * trident_tines
+Recipe(
+    "trident head",
+    "weapons",
+    trident_head_weight,
+    {},
+    {"steel": trident_head_weight},
+)
+
+trident_haft_length = D(3) * u.foot
+trident_haft_radius = spear_haft_radius
+trident_haft_volume = cylinder_volume(trident_haft_length, trident_haft_radius)
+trident_haft_weight = (density["timber"] * trident_haft_volume).to(u.lb)
+trident_weight = trident_haft_weight + trident_head_weight
+Recipe(
+    "trident",
+    "weapons",
+    trident_weight,
+    {"timber": trident_haft_weight},
+    {"trident head": 1 * u.item},
+    vendor="weaponsmith",
+    description=f"1d4+1 damage,  1-handed melee or thrown; {trident_haft_length:~} haft topped with {trident_tines}x {trident_tine_length.magnitude}-{trident_tine_length.units} spikes",
+)
+
 dart_haft_length = D(6) * u.inch
 dart_haft_radius = spear_haft_radius
 dart_haft_volume = cylinder_volume(dart_haft_length, dart_haft_radius)
