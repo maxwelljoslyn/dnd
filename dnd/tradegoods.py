@@ -3625,6 +3625,20 @@ Recipe(
     vendor="tavern",
 )
 
+# TODO TOTAL GUESS
+niter_per_aquafortis = D(1) * u.lb
+aquafortis_sale_unit = D(8) * u.floz
+Recipe(
+    "aqua fortis",
+    "alchemy",
+    (density["water"] * aquafortis_sale_unit).to(u.oz),
+    {"niter": niter_per_aquafortis},
+    {},
+    vendor="apothecary",
+    unit=aquafortis_sale_unit,
+    container="vial",
+    description="mild acid; widely used in medicine and industry",
+)
 
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
