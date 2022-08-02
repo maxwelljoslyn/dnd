@@ -804,6 +804,17 @@ Recipe(
     description="1 ft long, 3.5-inch diameter bell; used by cavalry and dragoon companies to communicate",
 )
 
+fanfare_trumpet_weight = D(1.75) * u.lb
+Recipe(
+    "fanfare trumpet",
+    "musical instruments",
+    fanfare_trumpet_weight,
+    {},
+    {"brass": fanfare_trumpet_weight},
+    vendor="luthier",
+    difficulty=2,
+    description="2 ft long, 3-inch diameter bell; used to announce arrivals of important people",
+)
 
 copper_in_lb_bellmetal = Decimal(0.78) * u.lb
 tin_in_lb_bellmetal = Decimal(0.22) * u.lb
