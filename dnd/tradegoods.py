@@ -3252,6 +3252,75 @@ Recipe(
 )
 
 
+snare_drum_radius = D(0.75) * u.ft
+snare_drum_height = D(1.5) * u.ft
+snare_drum_circumference = pi * snare_drum_radius * D(2)
+snare_drum_shell_thickness = D(0.5) * u.inch
+# turned on a lathe from a block of mahogany
+snare_drum_shell_block_volume = cylinder_volume(snare_drum_height, snare_drum_radius)
+snare_drum_shell_block_weight = (
+    density["wood, mahogany"] * snare_drum_shell_block_volume
+).to(u.lb)
+# weight of the final hollowed-out drum shell
+snare_drum_shell_final_volume = (
+    snare_drum_circumference * snare_drum_height * snare_drum_shell_thickness
+)
+snare_drum_shell_final_weight = (
+    density["wood, mahogany"] * snare_drum_shell_final_volume
+).to(u.lb)
+
+Recipe(
+    "snare drum shell",
+    "woodcraft",
+    snare_drum_shell_final_weight,
+    {"wood, mahogany": snare_drum_shell_block_weight},
+    {},
+    description="lathe-turned from a mahogany block",
+)
+
+# TODO make this calfskin instead
+snare_drum_head_area = (snare_drum_radius * snare_drum_radius * pi).to(u.sqin)
+snare_drum_head_weight = (
+    (snare_drum_head_area / registry["leather"].unit) * registry["leather"].weight
+).to(u.lb)
+snare_drum_heads = D(2)
+
+# six snare, each stretching the diameter of the drum
+snare_drum_gut_length = snare_drum_radius * D(2) * D(6)
+# TODO use density specifically of innards
+snare_drum_gut_weight = (
+    (snare_drum_gut_length / registry["cattle gut"].unit)
+    * registry["cattle gut"].weight
+).to(u.lb)
+
+snare_drum_tension_rope_length = snare_drum_height * D(6)
+snare_drum_tension_rope_weight = (
+    (snare_drum_tension_rope_length / registry["rope"].unit) * registry["rope"].weight
+).to(u.lb)
+
+snare_drum_weight = (
+    snare_drum_shell_final_weight
+    + (snare_drum_head_weight * snare_drum_heads)
+    + snare_drum_gut_weight
+    + snare_drum_tension_rope_weight
+)
+
+Recipe(
+    "snare drum",
+    "musical instruments",
+    snare_drum_weight,
+    {},
+    {
+        "snare drum shell": 1 * u.item,
+        "leather": snare_drum_head_area * snare_drum_heads,
+        "cattle gut": snare_drum_gut_length,
+        "rope": snare_drum_tension_rope_length,
+    },
+    vendor="luthier",
+    difficulty=2,
+    description="with mahogany shell and gut strings for tensioning the drumheads",
+)
+
 hemp_plainweave_sale_weight = (
     (cloth_sale_unit * yarn_per_ordinary_cloth)
     / hemp_yarn_sale_unit
