@@ -15,7 +15,7 @@ $for key in keys:
 </tr>
 $for w in names:
     <tr>
-    $if w in registry:
+    $if w in registry and registry[w].vendor == 'weaponsmith':
         <td><a href="/tradegoods/$w">$w</a></td>
     $else:
         <td>$w</td>
