@@ -4925,6 +4925,21 @@ Recipe(
     description=f"1d3 damage; {dart_haft_length} haft; roughly a miniature spear; melee or thrown",
 )
 
+bolas_rawhide_length = D(4) * u.feet
+bolas_heaviness_weights = D(1.5) * u.lb
+Recipe(
+    "bolas",
+    "weapons",
+    dart_weight,
+    {},
+    {
+        "rawhide thong": bolas_rawhide_length,
+        "wrought iron": bolas_heaviness_weights,
+    },
+    vendor="weaponsmith",
+    description=f"1d3 damage; thrown to entangle creatures or foes",
+)
+
 mace_spike_length = D(4) * u.inch
 mace_spike_height = D(1.5) * u.inch
 mace_spike_thickness = D(0.25) * u.inch
