@@ -3654,6 +3654,38 @@ Recipe(
     description="strong acid; widely used in medicine and industry",
 )
 
+copper_per_blue_vitriol = iron_per_green_vitriol = D(0.5) * u.oz
+Recipe(
+    "blue vitriol",
+    "alchemy",
+    (density["water"] * vitriol_sale_unit).to(u.oz),
+    {},
+    {
+        "oil of vitriol": vitriol_sale_unit,
+        "raw copper": copper_per_blue_vitriol,
+    },
+    vendor="apothecary",
+    unit=vitriol_sale_unit,
+    container="vial",
+    description="copper-infused vitriol",
+)
+
+Recipe(
+    "green vitriol",
+    "alchemy",
+    (density["water"] * vitriol_sale_unit).to(u.oz),
+    {},
+    {
+        "oil of vitriol": vitriol_sale_unit,
+        "raw iron": iron_per_green_vitriol,
+    },
+    vendor="apothecary",
+    unit=vitriol_sale_unit,
+    container="vial",
+    description="iron-infused vitriol",
+)
+
+
 drafthorse_sale_weight = D(1800) * u.lb
 drafthorse_foal_age = D(1) * u.year
 drafthorse_foal_weight = drafthorse_sale_weight / D(3)
