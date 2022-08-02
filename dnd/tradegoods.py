@@ -2097,7 +2097,20 @@ Recipe(
     vendor="collier",
 )
 
+wood_per_turpentine = D(400) * u.lb / u.gal
+turpentine_sale_unit = D(1) * u.pint
 Recipe(
+    "turpentine",
+    "distilling",
+    (density["turpentine"] * turpentine_sale_unit).to(u.oz),
+    {"wood, pine": wood_per_turpentine * turpentine_sale_unit},
+    # TODO needs fuel for the burning!
+    {},
+    unit=turpentine_sale_unit,
+    vendor="apothecary",
+    container="pint bottle",
+    description="distilled essence of pinewood",
+)
     "lye",
     "lye",  # TODO I used soap and wax at first ... "lye" ref makes it ~100x more expensive
     1 * u.lb,
