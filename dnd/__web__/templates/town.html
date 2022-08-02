@@ -45,10 +45,10 @@ $for vendor in vendors:
 
 
 $for vendor in vendors:
-    <h3 id=$idify(vendor) class=vendor-name>$vendor.upper()</h3>
+    <h3 id=$idify(vendor) class=vendor-name><a href="#$idify(vendor)">$vendor.upper()</a></h3>
     $ filename = vendor.replace(" ", "-") + ".jpg"
     $if (static_dir() / filename).exists():
-        <img class=vendor-image height=450 src="/static/$filename">
+        <a href="/static/$filename"><img class=vendor-image height=450 src="/static/$filename"></a>
     $if vendor == 'armorer':
         <p><strong>Gnomes and halflings</strong> wear small-size armors.</p>
     $if vendor == 'hatter':
