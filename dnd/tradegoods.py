@@ -3984,7 +3984,7 @@ Recipe(
 # TODO make these weights more precise in the manner of the pottery containers, since their relationship between capacity and volume surprised me
 wine_glass_weight = D(5) * u.oz
 Recipe(
-    "glass, wine",
+    "wine glass",
     "glassware",
     wine_glass_weight,
     {},
@@ -3995,7 +3995,7 @@ Recipe(
 
 pint_glass_weight = D(6) * u.oz
 Recipe(
-    "glass, pint",
+    "pint glass",
     "glassware",
     pint_glass_weight,
     {},
@@ -4006,7 +4006,7 @@ Recipe(
 
 tumbler_glass_weight = D(9) * u.oz
 Recipe(
-    "glass, tumbler",
+    "tumbler glass",
     "glassware",
     tumbler_glass_weight,
     {},
@@ -4021,7 +4021,7 @@ Recipe(
 wine_bottle_weight = D(1.4) * u.lb
 wine_bottle_capacity = D(6) * wine_per_serving
 Recipe(
-    "bottle, wine",
+    "wine bottle",
     "glassware",
     wine_bottle_weight,
     {},
@@ -4040,7 +4040,7 @@ for w in wines:
             f"{w}, in barrel": wine_bottle_capacity,
         },
         unit=wine_bottle_capacity,
-        container="bottle, wine",
+        container="wine bottle",
         vendor="vintner",
         description=registry[f"{w}, in barrel"].description,
     )
@@ -4048,7 +4048,7 @@ for w in wines:
 pint_bottle_weight = D(8) * u.oz
 pint_bottle_capacity = beer_per_serving
 Recipe(
-    "bottle, pint",
+    "pint bottle",
     "glassware",
     pint_bottle_weight,
     {},
@@ -4067,8 +4067,8 @@ for each in ("beer", "ale", "gnomish beer", "kumiss", "mead"):
             f"{each}, in barrel": pint_bottle_capacity,
         },
         unit=pint_bottle_capacity,
-        container="bottle, pint",
         vendor="brewer",
+        container="pint bottle",
         description=registry[f"{each}, in barrel"].description,
     )
 
@@ -6507,7 +6507,7 @@ Recipe(
     {"linseed": linseed_per_sale_unit_oil},
     {},
     unit=linseed_oil_sale_unit,
-    container="bottle, pint",
+    container="pint bottle",
     vendor="miller",
 )
 
@@ -6526,7 +6526,7 @@ Recipe(
     {"safflower seed": safflower_per_sale_unit_oil},
     {},
     unit=safflower_oil_sale_unit,
-    container="bottle, pint",
+    container="pint bottle",
     vendor="miller",
 )
 
@@ -6546,7 +6546,7 @@ Recipe(
     {"cottonseed": cottonseed_per_sale_unit_oil},
     {},
     unit=cottonseed_oil_sale_unit,
-    container="bottle, pint",
+    container="pint bottle",
     vendor="miller",
     description="toxic; used as an insecticide",
 )
@@ -6563,7 +6563,7 @@ Recipe(
     {"olives": olives_per_sale_unit_oil},
     {},
     unit=olive_oil_sale_unit,
-    container="bottle, pint",
+    container="pint bottle",
     vendor="miller",
 )
 
