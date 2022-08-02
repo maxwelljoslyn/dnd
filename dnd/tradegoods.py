@@ -6349,6 +6349,23 @@ Recipe(
     description="black licorice flavored with anise and sugar",
 )
 
+nonpareils_sale_unit = D(1) * u.oz
+sugar_per_nonpareils = D(0.8) * nonpareils_sale_unit
+starch_per_nonpareils = D(0.2) * nonpareils_sale_unit
+Recipe(
+    "nonpareils",
+    "confectionery",
+    nonpareils_sale_unit,
+    {},
+    {
+        "refined sugar": sugar_per_nonpareils,
+        "starch, potato": starch_per_nonpareils,
+    },
+    vendor="confectioner",
+    unit=nonpareils_sale_unit,
+    description="opaque white sprinkles, used to decorate candies and pastries",
+)
+
 
 paint_sale_unit = D(8) * u.floz
 oil_per_paint = paint_sale_unit
