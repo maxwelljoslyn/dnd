@@ -5606,8 +5606,9 @@ Recipe(
 )
 
 club_length = D(2) * u.feet
+club_radius = D(1) * u.inch
 # multiplier accounts for carving away from a chunk of wood
-club_volume = D(0.9) * cylinder_volume(club_length, D(1.5) * u.inch)
+club_volume = D(0.9) * cylinder_volume(club_length, club_radius)
 club_weight = (density["wood, oak"] * club_volume).to(u.lb)
 Recipe(
     "club",
