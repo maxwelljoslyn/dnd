@@ -6142,20 +6142,6 @@ Recipe(
     description="looped and draped bundle of cloth, wearable in many fashions; cotton/wool blend",
 )
 
-for color in cotton_dyes:
-    Recipe(
-        f"chaperon, {color}",
-        "hats",
-        registry["chaperon"].weight,
-        {},
-        {
-            f"cotton cloth, {color}": chaperon_area / D(2),
-            f"woolen cloth, {color}": chaperon_area / D(2),
-        },
-        vendor="hatter",
-        description="looped and draped bundle of cloth, wearable in many fashions; cotton/wool blend",
-    )
-
 
 knitcap_layers = D(2)
 knitcap_area = (
@@ -6314,6 +6300,52 @@ Recipe(
     vendor="tailor",
     description="unisex; thigh-length, long-sleeved, slightly baggy shirt worn as first or only layer",
 )
+
+for color in cotton_dyes:
+    Recipe(
+        f"chaperon, {color}",
+        "hats",
+        registry["chaperon"].weight,
+        {},
+        {
+            f"cotton cloth, {color}": chaperon_area / D(2),
+            f"woolen cloth, {color}": chaperon_area / D(2),
+        },
+        vendor="hatter",
+        description="looped and draped bundle of cloth, wearable in many fashions; cotton/wool blend",
+    )
+
+    Recipe(
+        f"hose, {color}",
+        "hosiery",
+        hose_weight,
+        {},
+        {f"cotton cloth, {color}": hose_area},
+        vendor="tailor",
+        description=registry["hose"].description,
+    )
+
+    Recipe(
+        f"chemise, {color}",
+        "clothing",
+        registry["chemise"].weight,
+        {},
+        {
+            f"cotton cloth, {color}": chemise_area,
+        },
+        vendor="tailor",
+        description=registry["chemise"].description,
+    )
+
+    Recipe(
+        f"tunic, {color}",
+        "clothing",
+        tunic_weight,
+        {},
+        {f"cotton cloth, {color}": tunic_area},
+        vendor="tailor",
+        description=registry["tunic"].description,
+    )
 
 bodice_area = (
     body_proportions["torso"]["length"] * body_proportions["torso"]["girth"]
