@@ -2085,12 +2085,13 @@ Recipe(
     description=f"enameled with four-color pastoral scenes",
 )
 
-timber_per_charcoal = Decimal(5) * u.lb / u.lb
+timber_per_charcoal = Decimal(10) * u.lb / u.lb
 Recipe(
     "charcoal",
-    "timber",
+    "charcoal",
     1 * u.lb,
     {"timber": timber_per_charcoal * u.lb},
+    # TODO needs fuel for the burning!
     {},
     unit=1 * u.lb,
     vendor="collier",
