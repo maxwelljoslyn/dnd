@@ -6254,6 +6254,26 @@ Recipe(
     description="harvested from cacao pods, fermented, and dried",
 )
 
+cacao_seeds_per_butter = cacao_seeds_per_solids = D(2) * u.lb / u.lb
+cacao_butter_sale_unit = cacao_solids_sale_unit = D(1) * u.lb
+Recipe(
+    "cacao butter",
+    "cacao",
+    cacao_butter_sale_unit,
+    {},
+    {"cacao seeds": cacao_seeds_per_butter * cacao_butter_sale_unit},
+    unit=cacao_butter_sale_unit,
+)
+
+Recipe(
+    "cacao solids",
+    "cacao",
+    cacao_solids_sale_unit,
+    {},
+    {"cacao seeds": cacao_seeds_per_solids * cacao_solids_sale_unit},
+    unit=cacao_solids_sale_unit,
+)
+
 
 
 paint_sale_unit = D(8) * u.floz
